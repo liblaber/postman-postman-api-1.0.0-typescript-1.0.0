@@ -34,7 +34,7 @@ Gets information about the folders and their elements added to your [Private API
 | offset         | number                                                                    | ❌       | The zero-based offset of the first item to return.                                                                                                                                       |
 | limit          | number                                                                    | ❌       | The maximum number of elements to return. If the value exceeds the maximum value of `1000`, then the system uses the `1000` value.                                                       |
 | parentFolderId | number                                                                    | ❌       | Return the folders and elements in a specific folder. If this value is `0`, then the endpoint only returns the root folder's elements.                                                   |
-| type\_         | [GetAllElementsAndFoldersType](../models/GetAllElementsAndFoldersType.md) | ❌       | Filter by the element type.                                                                                                                                                              |
+| type           | [GetAllElementsAndFoldersType](../models/GetAllElementsAndFoldersType.md) | ❌       | Filter by the element type.                                                                                                                                                              |
 
 **Return Type**
 
@@ -50,9 +50,9 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const sort = GetAllElementsAndFoldersSort.createdAt;
-  const direction = AscDesc.asc;
-  const type_ = GetAllElementsAndFoldersType.api;
+  const sort = GetAllElementsAndFoldersSort.CREATEDAT;
+  const direction = AscDesc.ASC;
+  const type = GetAllElementsAndFoldersType.API;
 
   const { data } = await postmanClient.privateApiNetwork.getAllElementsAndFolders({
     since: '2022-06-01T00:00:00.000Z',
@@ -67,7 +67,7 @@ import { PostmanClient } from 'postman_client';
     offset: 5,
     limit: 10,
     parentFolderId: 1,
-    type_: type_,
+    type: type,
   });
 
   console.log(data);
@@ -151,7 +151,7 @@ import { PostmanClient, UpdatePanApi, UpdatePanCollection, UpdatePanElementOrFol
   const postmanClient = new PostmanClient({
 	apiKey: 'YOUR_API_KEY'});
 
-  const elementType = UpdatePanElementOrFolderElementType.api;
+  const elementType = UpdatePanElementOrFolderElementType.API;
 
 
 const updatePanApiApi: UpdatePanApiApi = {
@@ -200,7 +200,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const elementType = UpdatePanElementOrFolderElementType.api;
+  const elementType = UpdatePanElementOrFolderElementType.API;
 
   const { data } = await postmanClient.privateApiNetwork.deletePanElementOrFolder(
     '5360b75f-447e-467c-9299-12fd6c92450d',
@@ -224,7 +224,7 @@ Gets a list requests to add elements to the [Private API Network](https://learni
 | since       | string                                                                              | ❌       | Return only results created since the given time, in [ISO 8601](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format. This value cannot be later than the `until` value.    |
 | until       | string                                                                              | ❌       | Return only results created until this given time, in [ISO 8601](https://datatracker.ietf.org/doc/html/rfc3339#section-5.6) format. This value cannot be earlier than the `since` value. |
 | requestedBy | number                                                                              | ❌       | Return a user's element requests by their user ID.                                                                                                                                       |
-| type\_      | [GetAllElementsAndFoldersType](../models/GetAllElementsAndFoldersType.md)           | ❌       | Filter by the element type.                                                                                                                                                              |
+| type        | [GetAllElementsAndFoldersType](../models/GetAllElementsAndFoldersType.md)           | ❌       | Filter by the element type.                                                                                                                                                              |
 | status      | [GetAllPanAddElementRequestsStatus](../models/GetAllPanAddElementRequestsStatus.md) | ❌       | Filter by the request status.                                                                                                                                                            |
 | name        | string                                                                              | ❌       | Return only elements whose name includes the given value. Matching is not case-sensitive.                                                                                                |
 | sort        | [GetAllElementsAndFoldersSort](../models/GetAllElementsAndFoldersSort.md)           | ❌       | Sort the results by the given value. If you use this query parameter, you must also use the `direction` parameter.                                                                       |
@@ -246,16 +246,16 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const type_ = GetAllElementsAndFoldersType.api;
-  const status = GetAllPanAddElementRequestsStatus.pending;
-  const sort = GetAllElementsAndFoldersSort.createdAt;
-  const direction = AscDesc.asc;
+  const type = GetAllElementsAndFoldersType.API;
+  const status = GetAllPanAddElementRequestsStatus.PENDING;
+  const sort = GetAllElementsAndFoldersSort.CREATEDAT;
+  const direction = AscDesc.ASC;
 
   const { data } = await postmanClient.privateApiNetwork.getAllPanAddElementRequests({
     since: '2022-06-01T00:00:00.000Z',
     until: '2022-06-15T00:00:00.000Z',
     requestedBy: 12345678,
-    type_: type_,
+    type: type,
     status: status,
     name: 'billing',
     sort: sort,
@@ -300,7 +300,7 @@ import { PostmanClient, PrivateApiNetworkRespondPanElementAddRequestRequest1 } f
     message: 'The requested collection has a lot of governance violations. Please fix them.',
   };
 
-  const respondPanElementAddRequestStatus = RespondPanElementAddRequestStatus.denied;
+  const respondPanElementAddRequestStatus = RespondPanElementAddRequestStatus.DENIED;
 
   const input: PrivateApiNetworkRespondPanElementAddRequestRequest1 = {
     response: respondPanElementAddRequestResponse,

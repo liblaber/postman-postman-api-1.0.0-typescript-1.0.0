@@ -13,11 +13,11 @@ Information about the secret type.
 
 **Properties**
 
-| Name   | Type     | Required | Description                                                                                                                                                                                                                                                                                    |
-| :----- | :------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name   | string   | ❌       | The name of the secret type.                                                                                                                                                                                                                                                                   |
-| id     | string   | ❌       | The ID of the secret type.                                                                                                                                                                                                                                                                     |
-| type\_ | DataType | ❌       | The origin of the secret type: - `DEFAULT` — Supported by default in Postman. - `TEAM_REGEX` — A custom regex added by an Admin or Super Admin user in the **Configure Alerts** section of the [**Team Settings**](https://learning.postman.com/docs/administration/team-settings/) interface. |
+| Name | Type     | Required | Description                                                                                                                                                                                                                                                                                    |
+| :--- | :------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name | string   | ❌       | The name of the secret type.                                                                                                                                                                                                                                                                   |
+| id   | string   | ❌       | The ID of the secret type.                                                                                                                                                                                                                                                                     |
+| type | DataType | ❌       | The origin of the secret type: - `DEFAULT` — Supported by default in Postman. - `TEAM_REGEX` — A custom regex added by an Admin or Super Admin user in the **Configure Alerts** section of the [**Team Settings**](https://learning.postman.com/docs/administration/team-settings/) interface. |
 
 # DataType
 
@@ -25,10 +25,10 @@ The origin of the secret type: - `DEFAULT` — Supported by default in Postman. 
 
 **Properties**
 
-| Name       | Type   | Required | Description  |
-| :--------- | :----- | :------- | :----------- |
-| DEFAULT    | string | ✅       | "DEFAULT"    |
-| TEAM_REGEX | string | ✅       | "TEAM_REGEX" |
+| Name      | Type   | Required | Description  |
+| :-------- | :----- | :------- | :----------- |
+| DEFAULT\_ | string | ✅       | "DEFAULT"    |
+| TEAMREGEX | string | ✅       | "TEAM_REGEX" |
 
 # GetSecretTypesMeta
 

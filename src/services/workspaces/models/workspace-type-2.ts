@@ -2,6 +2,10 @@
 
 import { z } from 'zod';
 
-export const workspaceType2 = z.enum(['personal', 'team', 'private', 'public', 'partner']);
-
-export type WorkspaceType2 = z.infer<typeof workspaceType2>;
+export enum WorkspaceType2 {
+  PERSONAL = 'personal',
+  TEAM = 'team',
+  PRIVATE_ = 'private',
+  PUBLIC_ = 'public',
+  PARTNER = 'partner',
+}

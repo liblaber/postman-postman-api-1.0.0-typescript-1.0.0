@@ -5,11 +5,13 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const authenticationSchemes = z.object({
-  description: z.string().optional(),
-  name: z.string().optional(),
-  specUri: z.string().optional(),
-  type_: z.string().optional(),
+export const authenticationSchemes: any = z.lazy(() => {
+  return z.object({
+    description: z.string().optional(),
+    name: z.string().optional(),
+    specUri: z.string().optional(),
+    type: z.string().optional(),
+  });
 });
 
 /**
@@ -26,34 +28,38 @@ export type AuthenticationSchemes = z.infer<typeof authenticationSchemes>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const authenticationSchemesResponse = z
-  .object({
-    description: z.string().optional(),
-    name: z.string().optional(),
-    specUri: z.string().optional(),
-    type: z.string().optional(),
-  })
-  .transform((data) => ({
-    description: data['description'],
-    name: data['name'],
-    specUri: data['specUri'],
-    type_: data['type'],
-  }));
+export const authenticationSchemesResponse: any = z.lazy(() => {
+  return z
+    .object({
+      description: z.string().optional(),
+      name: z.string().optional(),
+      specUri: z.string().optional(),
+      type: z.string().optional(),
+    })
+    .transform((data) => ({
+      description: data['description'],
+      name: data['name'],
+      specUri: data['specUri'],
+      type: data['type'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const authenticationSchemesRequest = z
-  .object({
-    description: z.string().nullish(),
-    name: z.string().nullish(),
-    specUri: z.string().nullish(),
-    type_: z.string().nullish(),
-  })
-  .transform((data) => ({
-    description: data['description'],
-    name: data['name'],
-    specUri: data['specUri'],
-    type: data['type_'],
-  }));
+export const authenticationSchemesRequest: any = z.lazy(() => {
+  return z
+    .object({
+      description: z.string().nullish(),
+      name: z.string().nullish(),
+      specUri: z.string().nullish(),
+      type: z.string().nullish(),
+    })
+    .transform((data) => ({
+      description: data['description'],
+      name: data['name'],
+      specUri: data['specUri'],
+      type: data['type'],
+    }));
+});

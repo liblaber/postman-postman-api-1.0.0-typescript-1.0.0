@@ -6,10 +6,12 @@ import { filesRoot, filesRootRequest, filesRootResponse } from './files-root';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createApiSchemaFiles1 = z.object({
-  path: z.string().optional(),
-  root: filesRoot.optional(),
-  content: z.string().optional(),
+export const createApiSchemaFiles1: any = z.lazy(() => {
+  return z.object({
+    path: z.string().optional(),
+    root: filesRoot.optional(),
+    content: z.string().optional(),
+  });
 });
 
 /**
@@ -25,26 +27,30 @@ export type CreateApiSchemaFiles1 = z.infer<typeof createApiSchemaFiles1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiSchemaFiles1Response = z
-  .object({
-    path: z.string().optional(),
-    root: filesRootResponse.optional(),
-    content: z.string().optional(),
-  })
-  .transform((data) => ({
-    path: data['path'],
-    root: data['root'],
-    content: data['content'],
-  }));
+export const createApiSchemaFiles1Response: any = z.lazy(() => {
+  return z
+    .object({
+      path: z.string().optional(),
+      root: filesRootResponse.optional(),
+      content: z.string().optional(),
+    })
+    .transform((data) => ({
+      path: data['path'],
+      root: data['root'],
+      content: data['content'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiSchemaFiles1Request = z
-  .object({ path: z.string().nullish(), root: filesRootRequest.nullish(), content: z.string().nullish() })
-  .transform((data) => ({
-    path: data['path'],
-    root: data['root'],
-    content: data['content'],
-  }));
+export const createApiSchemaFiles1Request: any = z.lazy(() => {
+  return z
+    .object({ path: z.string().nullish(), root: filesRootRequest.nullish(), content: z.string().nullish() })
+    .transform((data) => ({
+      path: data['path'],
+      root: data['root'],
+      content: data['content'],
+    }));
+});

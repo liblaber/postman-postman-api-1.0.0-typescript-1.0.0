@@ -4,12 +4,15 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
+import { Request } from '../../http/transport/request';
+import {
+  ImportOpenApiDefinitionRequest,
+  importOpenApiDefinitionRequestRequest,
+} from './models/import-open-api-definition-request';
 import {
   ImportOpenApiDefinitionOkResponse,
-  ImportOpenApiDefinitionRequest,
   importOpenApiDefinitionOkResponseResponse,
-  importOpenApiDefinitionRequestRequest,
-} from './models';
+} from './models/import-open-api-definition-ok-response';
 import { ImportOpenApiDefinitionParams } from './request-params';
 
 export class Import_Service extends BaseService {
@@ -23,23 +26,19 @@ export class Import_Service extends BaseService {
     params?: ImportOpenApiDefinitionParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<ImportOpenApiDefinitionOkResponse>> {
-    const path = '/import/openapi';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/import/openapi',
+      config: this.config,
       responseSchema: importOpenApiDefinitionOkResponseResponse,
       requestSchema: importOpenApiDefinitionRequestRequest,
-      body: body as any,
-      queryParams: {},
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.workspace) {
-      options.queryParams['workspace'] = params?.workspace;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('workspace', params?.workspace);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<ImportOpenApiDefinitionOkResponse>(request);
   }
 }

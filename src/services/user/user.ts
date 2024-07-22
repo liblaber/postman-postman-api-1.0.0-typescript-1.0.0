@@ -4,7 +4,8 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
-import { GetAuthenticatedUser, getAuthenticatedUserResponse } from './models';
+import { Request } from '../../http/transport/request';
+import { GetAuthenticatedUser, getAuthenticatedUserResponse } from './models/get-authenticated-user';
 
 export class UserService extends BaseService {
   /**
@@ -16,16 +17,16 @@ This API returns a different response for users with the [Guest role](https://le
  * @returns {Promise<HttpResponse<GetAuthenticatedUser>>} Successful Response
  */
   async getAuthenticatedUser(requestConfig?: RequestConfig): Promise<HttpResponse<GetAuthenticatedUser>> {
-    const path = '/me';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/me',
+      config: this.config,
       responseSchema: getAuthenticatedUserResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    return this.client.call<GetAuthenticatedUser>(request);
   }
 }

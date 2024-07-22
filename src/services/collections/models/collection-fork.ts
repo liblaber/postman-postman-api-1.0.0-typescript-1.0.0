@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const collectionFork = z.object({
-  label: z.string().optional(),
-  createdAt: z.string().optional(),
-  from_: z.string().optional(),
+export const collectionFork: any = z.lazy(() => {
+  return z.object({
+    label: z.string().optional(),
+    createdAt: z.string().optional(),
+    from: z.string().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type CollectionFork = z.infer<typeof collectionFork>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const collectionForkResponse = z
-  .object({
-    label: z.string().optional(),
-    createdAt: z.string().optional(),
-    from: z.string().optional(),
-  })
-  .transform((data) => ({
-    label: data['label'],
-    createdAt: data['createdAt'],
-    from_: data['from'],
-  }));
+export const collectionForkResponse: any = z.lazy(() => {
+  return z
+    .object({
+      label: z.string().optional(),
+      createdAt: z.string().optional(),
+      from: z.string().optional(),
+    })
+    .transform((data) => ({
+      label: data['label'],
+      createdAt: data['createdAt'],
+      from: data['from'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const collectionForkRequest = z
-  .object({ label: z.string().nullish(), createdAt: z.string().nullish(), from_: z.string().nullish() })
-  .transform((data) => ({
-    label: data['label'],
-    createdAt: data['createdAt'],
-    from: data['from_'],
-  }));
+export const collectionForkRequest: any = z.lazy(() => {
+  return z
+    .object({ label: z.string().nullish(), createdAt: z.string().nullish(), from: z.string().nullish() })
+    .transform((data) => ({
+      label: data['label'],
+      createdAt: data['createdAt'],
+      from: data['from'],
+    }));
+});

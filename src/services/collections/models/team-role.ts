@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const teamRole = z.enum(['VIEWER', 'EDITOR']);
-
-export type TeamRole = z.infer<typeof teamRole>;
+export enum TeamRole {
+  VIEWER = 'VIEWER',
+  EDITOR = 'EDITOR',
+}

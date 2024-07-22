@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const getAccountInvoicesStatus = z.enum(['PAID']);
-
-export type GetAccountInvoicesStatus = z.infer<typeof getAccountInvoicesStatus>;
+export enum GetAccountInvoicesStatus {
+  PAID = 'PAID',
+}

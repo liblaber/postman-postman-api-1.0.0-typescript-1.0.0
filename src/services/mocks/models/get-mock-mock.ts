@@ -6,19 +6,21 @@ import { mockConfig1, mockConfig1Request, mockConfig1Response } from './mock-con
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getMockMock = z.object({
-  id: z.string().optional(),
-  owner: z.string().optional(),
-  uid: z.string().optional(),
-  collection: z.string().optional(),
-  mockUrl: z.string().optional(),
-  name: z.string().optional(),
-  config: mockConfig1.optional(),
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
-  isPublic: z.boolean().optional(),
-  deactivated: z.boolean().optional(),
-  environment: z.string().optional(),
+export const getMockMock: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    owner: z.string().optional(),
+    uid: z.string().optional(),
+    collection: z.string().optional(),
+    mockUrl: z.string().optional(),
+    name: z.string().optional(),
+    config: mockConfig1.optional(),
+    createdAt: z.string().optional(),
+    updatedAt: z.string().optional(),
+    isPublic: z.boolean().optional(),
+    deactivated: z.boolean().optional(),
+    environment: z.string().optional(),
+  });
 });
 
 /**
@@ -43,66 +45,70 @@ export type GetMockMock = z.infer<typeof getMockMock>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMockMockResponse = z
-  .object({
-    id: z.string().optional(),
-    owner: z.string().optional(),
-    uid: z.string().optional(),
-    collection: z.string().optional(),
-    mockUrl: z.string().optional(),
-    name: z.string().optional(),
-    config: mockConfig1Response.optional(),
-    createdAt: z.string().optional(),
-    updatedAt: z.string().optional(),
-    isPublic: z.boolean().optional(),
-    deactivated: z.boolean().optional(),
-    environment: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    owner: data['owner'],
-    uid: data['uid'],
-    collection: data['collection'],
-    mockUrl: data['mockUrl'],
-    name: data['name'],
-    config: data['config'],
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-    isPublic: data['isPublic'],
-    deactivated: data['deactivated'],
-    environment: data['environment'],
-  }));
+export const getMockMockResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      owner: z.string().optional(),
+      uid: z.string().optional(),
+      collection: z.string().optional(),
+      mockUrl: z.string().optional(),
+      name: z.string().optional(),
+      config: mockConfig1Response.optional(),
+      createdAt: z.string().optional(),
+      updatedAt: z.string().optional(),
+      isPublic: z.boolean().optional(),
+      deactivated: z.boolean().optional(),
+      environment: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      owner: data['owner'],
+      uid: data['uid'],
+      collection: data['collection'],
+      mockUrl: data['mockUrl'],
+      name: data['name'],
+      config: data['config'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+      isPublic: data['isPublic'],
+      deactivated: data['deactivated'],
+      environment: data['environment'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMockMockRequest = z
-  .object({
-    id: z.string().nullish(),
-    owner: z.string().nullish(),
-    uid: z.string().nullish(),
-    collection: z.string().nullish(),
-    mockUrl: z.string().nullish(),
-    name: z.string().nullish(),
-    config: mockConfig1Request.nullish(),
-    createdAt: z.string().nullish(),
-    updatedAt: z.string().nullish(),
-    isPublic: z.boolean().nullish(),
-    deactivated: z.boolean().nullish(),
-    environment: z.string().nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    owner: data['owner'],
-    uid: data['uid'],
-    collection: data['collection'],
-    mockUrl: data['mockUrl'],
-    name: data['name'],
-    config: data['config'],
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-    isPublic: data['isPublic'],
-    deactivated: data['deactivated'],
-    environment: data['environment'],
-  }));
+export const getMockMockRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      owner: z.string().nullish(),
+      uid: z.string().nullish(),
+      collection: z.string().nullish(),
+      mockUrl: z.string().nullish(),
+      name: z.string().nullish(),
+      config: mockConfig1Request.nullish(),
+      createdAt: z.string().nullish(),
+      updatedAt: z.string().nullish(),
+      isPublic: z.boolean().nullish(),
+      deactivated: z.boolean().nullish(),
+      environment: z.string().nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      owner: data['owner'],
+      uid: data['uid'],
+      collection: data['collection'],
+      mockUrl: data['mockUrl'],
+      name: data['name'],
+      config: data['config'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+      isPublic: data['isPublic'],
+      deactivated: data['deactivated'],
+      environment: data['environment'],
+    }));
+});

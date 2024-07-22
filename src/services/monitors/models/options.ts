@@ -5,11 +5,13 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const options = z.object({
-  followRedirects: z.boolean().optional(),
-  requestDelay: z.number().optional(),
-  requestTimeout: z.number().optional(),
-  strictSsl: z.boolean().optional(),
+export const options: any = z.lazy(() => {
+  return z.object({
+    followRedirects: z.boolean().optional(),
+    requestDelay: z.number().optional(),
+    requestTimeout: z.number().optional(),
+    strictSsl: z.boolean().optional(),
+  });
 });
 
 /**
@@ -26,34 +28,38 @@ export type Options = z.infer<typeof options>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const optionsResponse = z
-  .object({
-    followRedirects: z.boolean().optional(),
-    requestDelay: z.number().optional(),
-    requestTimeout: z.number().optional(),
-    strictSSL: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    followRedirects: data['followRedirects'],
-    requestDelay: data['requestDelay'],
-    requestTimeout: data['requestTimeout'],
-    strictSsl: data['strictSSL'],
-  }));
+export const optionsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      followRedirects: z.boolean().optional(),
+      requestDelay: z.number().optional(),
+      requestTimeout: z.number().optional(),
+      strictSSL: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      followRedirects: data['followRedirects'],
+      requestDelay: data['requestDelay'],
+      requestTimeout: data['requestTimeout'],
+      strictSsl: data['strictSSL'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const optionsRequest = z
-  .object({
-    followRedirects: z.boolean().nullish(),
-    requestDelay: z.number().nullish(),
-    requestTimeout: z.number().nullish(),
-    strictSsl: z.boolean().nullish(),
-  })
-  .transform((data) => ({
-    followRedirects: data['followRedirects'],
-    requestDelay: data['requestDelay'],
-    requestTimeout: data['requestTimeout'],
-    strictSSL: data['strictSsl'],
-  }));
+export const optionsRequest: any = z.lazy(() => {
+  return z
+    .object({
+      followRedirects: z.boolean().nullish(),
+      requestDelay: z.number().nullish(),
+      requestTimeout: z.number().nullish(),
+      strictSsl: z.boolean().nullish(),
+    })
+    .transform((data) => ({
+      followRedirects: data['followRedirects'],
+      requestDelay: data['requestDelay'],
+      requestTimeout: data['requestTimeout'],
+      strictSSL: data['strictSsl'],
+    }));
+});

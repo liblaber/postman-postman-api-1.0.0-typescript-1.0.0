@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const scimGroupResourceMembers = z.object({
-  value: z.string().optional(),
-  display: z.string().optional(),
+export const scimGroupResourceMembers: any = z.lazy(() => {
+  return z.object({
+    value: z.string().optional(),
+    display: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type ScimGroupResourceMembers = z.infer<typeof scimGroupResourceMembers>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimGroupResourceMembersResponse = z
-  .object({
-    value: z.string().optional(),
-    display: z.string().optional(),
-  })
-  .transform((data) => ({
-    value: data['value'],
-    display: data['display'],
-  }));
+export const scimGroupResourceMembersResponse: any = z.lazy(() => {
+  return z
+    .object({
+      value: z.string().optional(),
+      display: z.string().optional(),
+    })
+    .transform((data) => ({
+      value: data['value'],
+      display: data['display'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimGroupResourceMembersRequest = z
-  .object({ value: z.string().nullish(), display: z.string().nullish() })
-  .transform((data) => ({
+export const scimGroupResourceMembersRequest: any = z.lazy(() => {
+  return z.object({ value: z.string().nullish(), display: z.string().nullish() }).transform((data) => ({
     value: data['value'],
     display: data['display'],
   }));
+});

@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getAllPanAddElementRequestsMeta = z.object({
-  limit: z.number().optional(),
-  offset: z.number().optional(),
-  totalCount: z.number().optional(),
+export const getAllPanAddElementRequestsMeta: any = z.lazy(() => {
+  return z.object({
+    limit: z.number().optional(),
+    offset: z.number().optional(),
+    totalCount: z.number().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type GetAllPanAddElementRequestsMeta = z.infer<typeof getAllPanAddElement
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAllPanAddElementRequestsMetaResponse = z
-  .object({
-    limit: z.number().optional(),
-    offset: z.number().optional(),
-    totalCount: z.number().optional(),
-  })
-  .transform((data) => ({
-    limit: data['limit'],
-    offset: data['offset'],
-    totalCount: data['totalCount'],
-  }));
+export const getAllPanAddElementRequestsMetaResponse: any = z.lazy(() => {
+  return z
+    .object({
+      limit: z.number().optional(),
+      offset: z.number().optional(),
+      totalCount: z.number().optional(),
+    })
+    .transform((data) => ({
+      limit: data['limit'],
+      offset: data['offset'],
+      totalCount: data['totalCount'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAllPanAddElementRequestsMetaRequest = z
-  .object({ limit: z.number().nullish(), offset: z.number().nullish(), totalCount: z.number().nullish() })
-  .transform((data) => ({
-    limit: data['limit'],
-    offset: data['offset'],
-    totalCount: data['totalCount'],
-  }));
+export const getAllPanAddElementRequestsMetaRequest: any = z.lazy(() => {
+  return z
+    .object({ limit: z.number().nullish(), offset: z.number().nullish(), totalCount: z.number().nullish() })
+    .transform((data) => ({
+      limit: data['limit'],
+      offset: data['offset'],
+      totalCount: data['totalCount'],
+    }));
+});

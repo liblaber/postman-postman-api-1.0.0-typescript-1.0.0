@@ -7,9 +7,11 @@ import { getApisMeta, getApisMetaRequest, getApisMetaResponse } from './get-apis
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApis = z.object({
-  apis: z.array(getApisApis).optional(),
-  meta: getApisMeta.optional(),
+export const getApis: any = z.lazy(() => {
+  return z.object({
+    apis: z.array(getApisApis).optional(),
+    meta: getApisMeta.optional(),
+  });
 });
 
 /**
@@ -24,23 +26,27 @@ export type GetApis = z.infer<typeof getApis>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApisResponse = z
-  .object({
-    apis: z.array(getApisApisResponse).optional(),
-    meta: getApisMetaResponse.optional(),
-  })
-  .transform((data) => ({
-    apis: data['apis'],
-    meta: data['meta'],
-  }));
+export const getApisResponse: any = z.lazy(() => {
+  return z
+    .object({
+      apis: z.array(getApisApisResponse).optional(),
+      meta: getApisMetaResponse.optional(),
+    })
+    .transform((data) => ({
+      apis: data['apis'],
+      meta: data['meta'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApisRequest = z
-  .object({ apis: z.array(getApisApisRequest).nullish(), meta: getApisMetaRequest.nullish() })
-  .transform((data) => ({
-    apis: data['apis'],
-    meta: data['meta'],
-  }));
+export const getApisRequest: any = z.lazy(() => {
+  return z
+    .object({ apis: z.array(getApisApisRequest).nullish(), meta: getApisMetaRequest.nullish() })
+    .transform((data) => ({
+      apis: data['apis'],
+      meta: data['meta'],
+    }));
+});

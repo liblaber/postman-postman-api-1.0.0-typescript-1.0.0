@@ -10,8 +10,10 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createEnvironmentRequest = z.object({
-  environment: createEnvironmentEnvironment1.optional(),
+export const createEnvironmentRequest: any = z.lazy(() => {
+  return z.object({
+    environment: createEnvironmentEnvironment1.optional(),
+  });
 });
 
 /**
@@ -25,20 +27,22 @@ export type CreateEnvironmentRequest = z.infer<typeof createEnvironmentRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createEnvironmentRequestResponse = z
-  .object({
-    environment: createEnvironmentEnvironment1Response.optional(),
-  })
-  .transform((data) => ({
-    environment: data['environment'],
-  }));
+export const createEnvironmentRequestResponse: any = z.lazy(() => {
+  return z
+    .object({
+      environment: createEnvironmentEnvironment1Response.optional(),
+    })
+    .transform((data) => ({
+      environment: data['environment'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createEnvironmentRequestRequest = z
-  .object({ environment: createEnvironmentEnvironment1Request.nullish() })
-  .transform((data) => ({
+export const createEnvironmentRequestRequest: any = z.lazy(() => {
+  return z.object({ environment: createEnvironmentEnvironment1Request.nullish() }).transform((data) => ({
     environment: data['environment'],
   }));
+});

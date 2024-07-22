@@ -9,19 +9,21 @@ import { getApi2Collections, getApi2CollectionsRequest, getApi2CollectionsRespon
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApi2 = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  summary: z.string().optional(),
-  createdAt: z.string().optional(),
-  createdBy: z.number().optional(),
-  updatedAt: z.string().optional(),
-  updatedBy: z.number().optional(),
-  description: z.string().optional(),
-  gitInfo: gitInfo.optional(),
-  schemas: z.array(getApi2Schemas).optional(),
-  versions: z.array(getApi2Versions).optional(),
-  collections: z.array(getApi2Collections).optional(),
+export const getApi2: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    summary: z.string().optional(),
+    createdAt: z.string().optional(),
+    createdBy: z.number().optional(),
+    updatedAt: z.string().optional(),
+    updatedBy: z.number().optional(),
+    description: z.string().optional(),
+    gitInfo: gitInfo.optional(),
+    schemas: z.array(getApi2Schemas).optional(),
+    versions: z.array(getApi2Versions).optional(),
+    collections: z.array(getApi2Collections).optional(),
+  });
 });
 
 /**
@@ -46,66 +48,70 @@ export type GetApi2 = z.infer<typeof getApi2>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApi2Response = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    summary: z.string().optional(),
-    createdAt: z.string().optional(),
-    createdBy: z.number().optional(),
-    updatedAt: z.string().optional(),
-    updatedBy: z.number().optional(),
-    description: z.string().optional(),
-    gitInfo: gitInfoResponse.optional(),
-    schemas: z.array(getApi2SchemasResponse).optional(),
-    versions: z.array(getApi2VersionsResponse).optional(),
-    collections: z.array(getApi2CollectionsResponse).optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    summary: data['summary'],
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    updatedAt: data['updatedAt'],
-    updatedBy: data['updatedBy'],
-    description: data['description'],
-    gitInfo: data['gitInfo'],
-    schemas: data['schemas'],
-    versions: data['versions'],
-    collections: data['collections'],
-  }));
+export const getApi2Response: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      summary: z.string().optional(),
+      createdAt: z.string().optional(),
+      createdBy: z.number().optional(),
+      updatedAt: z.string().optional(),
+      updatedBy: z.number().optional(),
+      description: z.string().optional(),
+      gitInfo: gitInfoResponse.optional(),
+      schemas: z.array(getApi2SchemasResponse).optional(),
+      versions: z.array(getApi2VersionsResponse).optional(),
+      collections: z.array(getApi2CollectionsResponse).optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      summary: data['summary'],
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      updatedAt: data['updatedAt'],
+      updatedBy: data['updatedBy'],
+      description: data['description'],
+      gitInfo: data['gitInfo'],
+      schemas: data['schemas'],
+      versions: data['versions'],
+      collections: data['collections'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApi2Request = z
-  .object({
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    summary: z.string().nullish(),
-    createdAt: z.string().nullish(),
-    createdBy: z.number().nullish(),
-    updatedAt: z.string().nullish(),
-    updatedBy: z.number().nullish(),
-    description: z.string().nullish(),
-    gitInfo: gitInfoRequest.nullish(),
-    schemas: z.array(getApi2SchemasRequest).nullish(),
-    versions: z.array(getApi2VersionsRequest).nullish(),
-    collections: z.array(getApi2CollectionsRequest).nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    summary: data['summary'],
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    updatedAt: data['updatedAt'],
-    updatedBy: data['updatedBy'],
-    description: data['description'],
-    gitInfo: data['gitInfo'],
-    schemas: data['schemas'],
-    versions: data['versions'],
-    collections: data['collections'],
-  }));
+export const getApi2Request: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      summary: z.string().nullish(),
+      createdAt: z.string().nullish(),
+      createdBy: z.number().nullish(),
+      updatedAt: z.string().nullish(),
+      updatedBy: z.number().nullish(),
+      description: z.string().nullish(),
+      gitInfo: gitInfoRequest.nullish(),
+      schemas: z.array(getApi2SchemasRequest).nullish(),
+      versions: z.array(getApi2VersionsRequest).nullish(),
+      collections: z.array(getApi2CollectionsRequest).nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      summary: data['summary'],
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      updatedAt: data['updatedAt'],
+      updatedBy: data['updatedBy'],
+      description: data['description'],
+      gitInfo: data['gitInfo'],
+      schemas: data['schemas'],
+      versions: data['versions'],
+      collections: data['collections'],
+    }));
+});

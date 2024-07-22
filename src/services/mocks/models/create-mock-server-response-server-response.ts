@@ -6,17 +6,18 @@ import {
   serverResponseHeaders1Request,
   serverResponseHeaders1Response,
 } from './server-response-headers-1';
-import { serverResponseLanguage1 } from './server-response-language-1';
 
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createMockServerResponseServerResponse = z.object({
-  name: z.string(),
-  statusCode: z.number(),
-  headers: z.array(serverResponseHeaders1).optional(),
-  language: serverResponseLanguage1.optional(),
-  body: z.string().optional(),
+export const createMockServerResponseServerResponse: any = z.lazy(() => {
+  return z.object({
+    name: z.string(),
+    statusCode: z.number(),
+    headers: z.array(serverResponseHeaders1).optional(),
+    language: z.string().optional().nullable(),
+    body: z.string().optional(),
+  });
 });
 
 /**
@@ -34,38 +35,42 @@ export type CreateMockServerResponseServerResponse = z.infer<typeof createMockSe
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createMockServerResponseServerResponseResponse = z
-  .object({
-    name: z.string(),
-    statusCode: z.number(),
-    headers: z.array(serverResponseHeaders1Response).optional(),
-    language: serverResponseLanguage1.optional(),
-    body: z.string().optional(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    statusCode: data['statusCode'],
-    headers: data['headers'],
-    language: data['language'],
-    body: data['body'],
-  }));
+export const createMockServerResponseServerResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string(),
+      statusCode: z.number(),
+      headers: z.array(serverResponseHeaders1Response).optional(),
+      language: z.string().optional().nullable(),
+      body: z.string().optional(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      statusCode: data['statusCode'],
+      headers: data['headers'],
+      language: data['language'],
+      body: data['body'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createMockServerResponseServerResponseRequest = z
-  .object({
-    name: z.string().nullish(),
-    statusCode: z.number().nullish(),
-    headers: z.array(serverResponseHeaders1Request).nullish(),
-    language: serverResponseLanguage1.nullish(),
-    body: z.string().nullish(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    statusCode: data['statusCode'],
-    headers: data['headers'],
-    language: data['language'],
-    body: data['body'],
-  }));
+export const createMockServerResponseServerResponseRequest: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string().nullish(),
+      statusCode: z.number().nullish(),
+      headers: z.array(serverResponseHeaders1Request).nullish(),
+      language: z.string().nullish(),
+      body: z.string().nullish(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      statusCode: data['statusCode'],
+      headers: data['headers'],
+      language: data['language'],
+      body: data['body'],
+    }));
+});

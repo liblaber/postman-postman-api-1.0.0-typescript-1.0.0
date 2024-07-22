@@ -4,35 +4,36 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
-import {
-  CreateWorkspaceOkResponse,
-  CreateWorkspaceRequest,
-  DeleteWorkspace,
-  GetWorkspace,
-  GetWorkspaceGlobalVariables,
-  GetWorkspaceRoles,
-  GetWorkspaces,
-  UpdateWorkspaceGlobalVariablesOkResponse,
-  UpdateWorkspaceGlobalVariablesRequest,
-  UpdateWorkspaceOkResponse,
-  UpdateWorkspaceRequest,
-  UpdateWorkspaceRolesOkResponse,
-  UpdateWorkspaceRolesRequest,
-  createWorkspaceOkResponseResponse,
-  createWorkspaceRequestRequest,
-  deleteWorkspaceResponse,
-  getWorkspaceGlobalVariablesResponse,
-  getWorkspaceResponse,
-  getWorkspaceRolesResponse,
-  getWorkspacesResponse,
-  updateWorkspaceGlobalVariablesOkResponseResponse,
-  updateWorkspaceGlobalVariablesRequestRequest,
-  updateWorkspaceOkResponseResponse,
-  updateWorkspaceRequestRequest,
-  updateWorkspaceRolesOkResponseResponse,
-  updateWorkspaceRolesRequestRequest,
-} from './models';
+import { Request } from '../../http/transport/request';
+import { GetWorkspaces, getWorkspacesResponse } from './models/get-workspaces';
 import { GetWorkspacesParams } from './request-params';
+import { CreateWorkspaceRequest, createWorkspaceRequestRequest } from './models/create-workspace-request';
+import { CreateWorkspaceOkResponse, createWorkspaceOkResponseResponse } from './models/create-workspace-ok-response';
+import { GetWorkspaceRoles, getWorkspaceRolesResponse } from './models/get-workspace-roles';
+import { GetWorkspace, getWorkspaceResponse } from './models/get-workspace';
+import { UpdateWorkspaceRequest, updateWorkspaceRequestRequest } from './models/update-workspace-request';
+import { UpdateWorkspaceOkResponse, updateWorkspaceOkResponseResponse } from './models/update-workspace-ok-response';
+import { DeleteWorkspace, deleteWorkspaceResponse } from './models/delete-workspace';
+import {
+  GetWorkspaceGlobalVariables,
+  getWorkspaceGlobalVariablesResponse,
+} from './models/get-workspace-global-variables';
+import {
+  UpdateWorkspaceGlobalVariablesRequest,
+  updateWorkspaceGlobalVariablesRequestRequest,
+} from './models/update-workspace-global-variables-request';
+import {
+  UpdateWorkspaceGlobalVariablesOkResponse,
+  updateWorkspaceGlobalVariablesOkResponseResponse,
+} from './models/update-workspace-global-variables-ok-response';
+import {
+  UpdateWorkspaceRolesRequest,
+  updateWorkspaceRolesRequestRequest,
+} from './models/update-workspace-roles-request';
+import {
+  UpdateWorkspaceRolesOkResponse,
+  updateWorkspaceRolesOkResponseResponse,
+} from './models/update-workspace-roles-ok-response';
 
 export class WorkspacesService extends BaseService {
   /**
@@ -46,7 +47,7 @@ This endpoint's response contains the visibility field. Visibility determines wh
 - `public` — Everyone can access the workspace.
 - `partner` — Only invited team members and [partners](https://learning.postman.com/docs/collaborating-in-postman/using-workspaces/partner-workspaces/) can access the workspace ([**Professional** and **Enterprise** plans only](https://www.postman.com/pricing)).
 
- * @param {GetWorkspacesType} [type_] - The type of workspace to filter the response by.
+ * @param {GetWorkspacesType} [type] - The type of workspace to filter the response by.
  * @param {number} [createdBy] - Return only workspaces created by a specific user ID. For multiple users, pass this value as a comma-separated list of user IDs. The response only returns workspaces that you have access to.
  * @param {GetWorkspacesInclude} [include] - Include the following information in the endpoint's response:
 - `mocks:deactivated` — Include all deactivated mock servers in the response.
@@ -57,27 +58,20 @@ This endpoint's response contains the visibility field. Visibility determines wh
     params?: GetWorkspacesParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetWorkspaces>> {
-    const path = '/workspaces';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/workspaces',
+      config: this.config,
       responseSchema: getWorkspacesResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.type_) {
-      options.queryParams['type'] = params?.type_;
-    }
-    if (params?.createdBy) {
-      options.queryParams['createdBy'] = params?.createdBy;
-    }
-    if (params?.include) {
-      options.queryParams['include'] = params?.include;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('type', params?.type);
+    request.addQueryParam('createdBy', params?.createdBy);
+    request.addQueryParam('include', params?.include);
+    return this.client.call<GetWorkspaces>(request);
   }
 
   /**
@@ -101,20 +95,19 @@ If you have a linked collection or environment, note the following:
     body: CreateWorkspaceRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateWorkspaceOkResponse>> {
-    const path = '/workspaces';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/workspaces',
+      config: this.config,
       responseSchema: createWorkspaceOkResponseResponse,
       requestSchema: createWorkspaceRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateWorkspaceOkResponse>(request);
   }
 
   /**
@@ -122,17 +115,17 @@ If you have a linked collection or environment, note the following:
    * @returns {Promise<HttpResponse<GetWorkspaceRoles>>} Successful Response
    */
   async getWorkspaceRoles(requestConfig?: RequestConfig): Promise<HttpResponse<GetWorkspaceRoles>> {
-    const path = '/workspaces-roles';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/workspaces-roles',
+      config: this.config,
       responseSchema: getWorkspaceRolesResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    return this.client.call<GetWorkspaceRoles>(request);
   }
 
   /**
@@ -159,17 +152,18 @@ We have deprecated the `name` and `uid` responses in the following array of obje
  * @returns {Promise<HttpResponse<GetWorkspace>>} Successful Response
  */
   async getWorkspace(workspaceId: string, requestConfig?: RequestConfig): Promise<HttpResponse<GetWorkspace>> {
-    const path = this.client.buildPath('/workspaces/{workspaceId}', { workspaceId: workspaceId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/workspaces/{workspaceId}',
+      config: this.config,
       responseSchema: getWorkspaceResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('workspaceId', workspaceId);
+    return this.client.call<GetWorkspace>(request);
   }
 
   /**
@@ -191,20 +185,20 @@ If you have a linked collection or environment, note the following:
     body: UpdateWorkspaceRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdateWorkspaceOkResponse>> {
-    const path = this.client.buildPath('/workspaces/{workspaceId}', { workspaceId: workspaceId });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/workspaces/{workspaceId}',
+      config: this.config,
       responseSchema: updateWorkspaceOkResponseResponse,
       requestSchema: updateWorkspaceRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('workspaceId', workspaceId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<UpdateWorkspaceOkResponse>(request);
   }
 
   /**
@@ -217,17 +211,18 @@ If you delete a workspace that has a linked collection or environment with anoth
  * @returns {Promise<HttpResponse<DeleteWorkspace>>} Successful Response
  */
   async deleteWorkspace(workspaceId: string, requestConfig?: RequestConfig): Promise<HttpResponse<DeleteWorkspace>> {
-    const path = this.client.buildPath('/workspaces/{workspaceId}', { workspaceId: workspaceId });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/workspaces/{workspaceId}',
+      config: this.config,
       responseSchema: deleteWorkspaceResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('workspaceId', workspaceId);
+    return this.client.call<DeleteWorkspace>(request);
   }
 
   /**
@@ -239,17 +234,18 @@ If you delete a workspace that has a linked collection or environment with anoth
     workspaceId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetWorkspaceGlobalVariables>> {
-    const path = this.client.buildPath('/workspaces/{workspaceId}/global-variables', { workspaceId: workspaceId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/workspaces/{workspaceId}/global-variables',
+      config: this.config,
       responseSchema: getWorkspaceGlobalVariablesResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('workspaceId', workspaceId);
+    return this.client.call<GetWorkspaceGlobalVariables>(request);
   }
 
   /**
@@ -262,20 +258,20 @@ If you delete a workspace that has a linked collection or environment with anoth
     body: UpdateWorkspaceGlobalVariablesRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdateWorkspaceGlobalVariablesOkResponse>> {
-    const path = this.client.buildPath('/workspaces/{workspaceId}/global-variables', { workspaceId: workspaceId });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/workspaces/{workspaceId}/global-variables',
+      config: this.config,
       responseSchema: updateWorkspaceGlobalVariablesOkResponseResponse,
       requestSchema: updateWorkspaceGlobalVariablesRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('workspaceId', workspaceId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<UpdateWorkspaceGlobalVariablesOkResponse>(request);
   }
 
   /**
@@ -294,19 +290,19 @@ If you delete a workspace that has a linked collection or environment with anoth
     body: UpdateWorkspaceRolesRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdateWorkspaceRolesOkResponse>> {
-    const path = this.client.buildPath('/workspaces/{workspaceId}/roles', { workspaceId: workspaceId });
-    const options: any = {
+    const request = new Request({
+      method: 'PATCH',
+      body,
+      path: '/workspaces/{workspaceId}/roles',
+      config: this.config,
       responseSchema: updateWorkspaceRolesOkResponseResponse,
       requestSchema: updateWorkspaceRolesRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json-patch+json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.patch(path, options);
+      requestConfig,
+    });
+    request.addPathParam('workspaceId', workspaceId);
+    request.addHeaderParam('Content-Type', 'application/json-patch+json');
+    return this.client.call<UpdateWorkspaceRolesOkResponse>(request);
   }
 }

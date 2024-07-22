@@ -6,11 +6,13 @@ import { lastRunStats, lastRunStatsRequest, lastRunStatsResponse } from './last-
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const lastRun = z.object({
-  finishedAt: z.string().optional(),
-  startedAt: z.string().optional(),
-  stats: lastRunStats.optional(),
-  status: z.string().optional(),
+export const lastRun: any = z.lazy(() => {
+  return z.object({
+    finishedAt: z.string().optional(),
+    startedAt: z.string().optional(),
+    stats: lastRunStats.optional(),
+    status: z.string().optional(),
+  });
 });
 
 /**
@@ -27,34 +29,38 @@ export type LastRun = z.infer<typeof lastRun>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const lastRunResponse = z
-  .object({
-    finishedAt: z.string().optional(),
-    startedAt: z.string().optional(),
-    stats: lastRunStatsResponse.optional(),
-    status: z.string().optional(),
-  })
-  .transform((data) => ({
-    finishedAt: data['finishedAt'],
-    startedAt: data['startedAt'],
-    stats: data['stats'],
-    status: data['status'],
-  }));
+export const lastRunResponse: any = z.lazy(() => {
+  return z
+    .object({
+      finishedAt: z.string().optional(),
+      startedAt: z.string().optional(),
+      stats: lastRunStatsResponse.optional(),
+      status: z.string().optional(),
+    })
+    .transform((data) => ({
+      finishedAt: data['finishedAt'],
+      startedAt: data['startedAt'],
+      stats: data['stats'],
+      status: data['status'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const lastRunRequest = z
-  .object({
-    finishedAt: z.string().nullish(),
-    startedAt: z.string().nullish(),
-    stats: lastRunStatsRequest.nullish(),
-    status: z.string().nullish(),
-  })
-  .transform((data) => ({
-    finishedAt: data['finishedAt'],
-    startedAt: data['startedAt'],
-    stats: data['stats'],
-    status: data['status'],
-  }));
+export const lastRunRequest: any = z.lazy(() => {
+  return z
+    .object({
+      finishedAt: z.string().nullish(),
+      startedAt: z.string().nullish(),
+      stats: lastRunStatsRequest.nullish(),
+      status: z.string().nullish(),
+    })
+    .transform((data) => ({
+      finishedAt: data['finishedAt'],
+      startedAt: data['startedAt'],
+      stats: data['stats'],
+      status: data['status'],
+    }));
+});

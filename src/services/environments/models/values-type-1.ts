@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
-export const valuesType1 = z.enum(['secret', 'default', 'any']);
-
-export type ValuesType1 = z.infer<typeof valuesType1>;
+export enum ValuesType1 {
+  SECRET = 'secret',
+  DEFAULT_ = 'default',
+  ANY_ = 'any',
+}

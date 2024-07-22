@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const groupRole = z.enum(['VIEWER', 'EDITOR']);
-
-export type GroupRole = z.infer<typeof groupRole>;
+export enum GroupRole {
+  VIEWER = 'VIEWER',
+  EDITOR = 'EDITOR',
+}

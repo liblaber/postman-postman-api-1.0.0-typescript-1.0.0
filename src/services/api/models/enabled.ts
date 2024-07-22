@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const enabled = z.enum(['true']);
-
-export type Enabled = z.infer<typeof enabled>;
+export enum Enabled {
+  TRUE_ = 'true',
+}

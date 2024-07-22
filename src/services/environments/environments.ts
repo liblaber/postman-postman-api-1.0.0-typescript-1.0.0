@@ -4,42 +4,39 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
-import {
-  CreateEnvironmentOkResponse,
-  CreateEnvironmentRequest,
-  DeleteEnvironment,
-  ForkEnvironmentOkResponse,
-  ForkEnvironmentRequest,
-  GetEnvironment,
-  GetEnvironmentForks,
-  GetEnvironments,
-  MergeEnvironmentForkOkResponse,
-  MergeEnvironmentForkRequest,
-  PullEnvironmentOkResponse,
-  PullEnvironmentRequest,
-  UpdateEnvironmentOkResponse,
-  UpdateEnvironmentRequest,
-  createEnvironmentOkResponseResponse,
-  createEnvironmentRequestRequest,
-  deleteEnvironmentResponse,
-  forkEnvironmentOkResponseResponse,
-  forkEnvironmentRequestRequest,
-  getEnvironmentForksResponse,
-  getEnvironmentResponse,
-  getEnvironmentsResponse,
-  mergeEnvironmentForkOkResponseResponse,
-  mergeEnvironmentForkRequestRequest,
-  pullEnvironmentOkResponseResponse,
-  pullEnvironmentRequestRequest,
-  updateEnvironmentOkResponseResponse,
-  updateEnvironmentRequestRequest,
-} from './models';
+import { Request } from '../../http/transport/request';
+import { GetEnvironments, getEnvironmentsResponse } from './models/get-environments';
 import {
   CreateEnvironmentParams,
   ForkEnvironmentParams,
   GetEnvironmentForksParams,
   GetEnvironmentsParams,
 } from './request-params';
+import { CreateEnvironmentRequest, createEnvironmentRequestRequest } from './models/create-environment-request';
+import {
+  CreateEnvironmentOkResponse,
+  createEnvironmentOkResponseResponse,
+} from './models/create-environment-ok-response';
+import { GetEnvironment, getEnvironmentResponse } from './models/get-environment';
+import { UpdateEnvironmentRequest, updateEnvironmentRequestRequest } from './models/update-environment-request';
+import {
+  UpdateEnvironmentOkResponse,
+  updateEnvironmentOkResponseResponse,
+} from './models/update-environment-ok-response';
+import { DeleteEnvironment, deleteEnvironmentResponse } from './models/delete-environment';
+import { GetEnvironmentForks, getEnvironmentForksResponse } from './models/get-environment-forks';
+import { ForkEnvironmentRequest, forkEnvironmentRequestRequest } from './models/fork-environment-request';
+import { ForkEnvironmentOkResponse, forkEnvironmentOkResponseResponse } from './models/fork-environment-ok-response';
+import {
+  MergeEnvironmentForkRequest,
+  mergeEnvironmentForkRequestRequest,
+} from './models/merge-environment-fork-request';
+import {
+  MergeEnvironmentForkOkResponse,
+  mergeEnvironmentForkOkResponseResponse,
+} from './models/merge-environment-fork-ok-response';
+import { PullEnvironmentRequest, pullEnvironmentRequestRequest } from './models/pull-environment-request';
+import { PullEnvironmentOkResponse, pullEnvironmentOkResponseResponse } from './models/pull-environment-ok-response';
 
 export class EnvironmentsService extends BaseService {
   /**
@@ -51,21 +48,18 @@ export class EnvironmentsService extends BaseService {
     params?: GetEnvironmentsParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetEnvironments>> {
-    const path = '/environments';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/environments',
+      config: this.config,
       responseSchema: getEnvironmentsResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.workspace) {
-      options.queryParams['workspace'] = params?.workspace;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('workspace', params?.workspace);
+    return this.client.call<GetEnvironments>(request);
   }
 
   /**
@@ -78,24 +72,20 @@ export class EnvironmentsService extends BaseService {
     params?: CreateEnvironmentParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateEnvironmentOkResponse>> {
-    const path = '/environments';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/environments',
+      config: this.config,
       responseSchema: createEnvironmentOkResponseResponse,
       requestSchema: createEnvironmentRequestRequest,
-      body: body as any,
-      queryParams: {},
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.workspace) {
-      options.queryParams['workspace'] = params?.workspace;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('workspace', params?.workspace);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateEnvironmentOkResponse>(request);
   }
 
   /**
@@ -104,17 +94,18 @@ export class EnvironmentsService extends BaseService {
    * @returns {Promise<HttpResponse<GetEnvironment>>} Successful Response
    */
   async getEnvironment(environmentId: string, requestConfig?: RequestConfig): Promise<HttpResponse<GetEnvironment>> {
-    const path = this.client.buildPath('/environments/{environmentId}', { environmentId: environmentId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/environments/{environmentId}',
+      config: this.config,
       responseSchema: getEnvironmentResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('environmentId', environmentId);
+    return this.client.call<GetEnvironment>(request);
   }
 
   /**
@@ -127,20 +118,20 @@ export class EnvironmentsService extends BaseService {
     body: UpdateEnvironmentRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdateEnvironmentOkResponse>> {
-    const path = this.client.buildPath('/environments/{environmentId}', { environmentId: environmentId });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/environments/{environmentId}',
+      config: this.config,
       responseSchema: updateEnvironmentOkResponseResponse,
       requestSchema: updateEnvironmentRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('environmentId', environmentId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<UpdateEnvironmentOkResponse>(request);
   }
 
   /**
@@ -152,17 +143,18 @@ export class EnvironmentsService extends BaseService {
     environmentId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<DeleteEnvironment>> {
-    const path = this.client.buildPath('/environments/{environmentId}', { environmentId: environmentId });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/environments/{environmentId}',
+      config: this.config,
       responseSchema: deleteEnvironmentResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('environmentId', environmentId);
+    return this.client.call<DeleteEnvironment>(request);
   }
 
   /**
@@ -179,30 +171,22 @@ export class EnvironmentsService extends BaseService {
     params?: GetEnvironmentForksParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetEnvironmentForks>> {
-    const path = this.client.buildPath('/environments/{environmentId}/forks', { environmentId: environmentId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/environments/{environmentId}/forks',
+      config: this.config,
       responseSchema: getEnvironmentForksResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.cursor) {
-      options.queryParams['cursor'] = params?.cursor;
-    }
-    if (params?.direction) {
-      options.queryParams['direction'] = params?.direction;
-    }
-    if (params?.limit) {
-      options.queryParams['limit'] = params?.limit;
-    }
-    if (params?.sort) {
-      options.queryParams['sort'] = params?.sort;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('environmentId', environmentId);
+    request.addQueryParam('cursor', params?.cursor);
+    request.addQueryParam('direction', params?.direction);
+    request.addQueryParam('limit', params?.limit);
+    request.addQueryParam('sort', params?.sort);
+    return this.client.call<GetEnvironmentForks>(request);
   }
 
   /**
@@ -217,24 +201,21 @@ export class EnvironmentsService extends BaseService {
     params: ForkEnvironmentParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<ForkEnvironmentOkResponse>> {
-    const path = this.client.buildPath('/environments/{environmentId}/forks', { environmentId: environmentId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/environments/{environmentId}/forks',
+      config: this.config,
       responseSchema: forkEnvironmentOkResponseResponse,
       requestSchema: forkEnvironmentRequestRequest,
-      body: body as any,
-      queryParams: {},
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.workspaceId) {
-      options.queryParams['workspaceId'] = params?.workspaceId;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('environmentId', environmentId);
+    request.addQueryParam('workspaceId', params?.workspaceId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<ForkEnvironmentOkResponse>(request);
   }
 
   /**
@@ -247,20 +228,20 @@ export class EnvironmentsService extends BaseService {
     body: MergeEnvironmentForkRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<MergeEnvironmentForkOkResponse>> {
-    const path = this.client.buildPath('/environments/{environmentId}/merges', { environmentId: environmentId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/environments/{environmentId}/merges',
+      config: this.config,
       responseSchema: mergeEnvironmentForkOkResponseResponse,
       requestSchema: mergeEnvironmentForkRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('environmentId', environmentId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<MergeEnvironmentForkOkResponse>(request);
   }
 
   /**
@@ -273,19 +254,19 @@ export class EnvironmentsService extends BaseService {
     body: PullEnvironmentRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PullEnvironmentOkResponse>> {
-    const path = this.client.buildPath('/environments/{environmentId}/pulls', { environmentId: environmentId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/environments/{environmentId}/pulls',
+      config: this.config,
       responseSchema: pullEnvironmentOkResponseResponse,
       requestSchema: pullEnvironmentRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('environmentId', environmentId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<PullEnvironmentOkResponse>(request);
   }
 }

@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApisMeta = z.object({
-  limit: z.number().optional(),
-  total: z.number().optional(),
-  nextCursor: z.string().optional(),
+export const getApisMeta: any = z.lazy(() => {
+  return z.object({
+    limit: z.number().optional(),
+    total: z.number().optional(),
+    nextCursor: z.string().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type GetApisMeta = z.infer<typeof getApisMeta>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApisMetaResponse = z
-  .object({
-    limit: z.number().optional(),
-    total: z.number().optional(),
-    nextCursor: z.string().optional(),
-  })
-  .transform((data) => ({
-    limit: data['limit'],
-    total: data['total'],
-    nextCursor: data['nextCursor'],
-  }));
+export const getApisMetaResponse: any = z.lazy(() => {
+  return z
+    .object({
+      limit: z.number().optional(),
+      total: z.number().optional(),
+      nextCursor: z.string().optional(),
+    })
+    .transform((data) => ({
+      limit: data['limit'],
+      total: data['total'],
+      nextCursor: data['nextCursor'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApisMetaRequest = z
-  .object({ limit: z.number().nullish(), total: z.number().nullish(), nextCursor: z.string().nullish() })
-  .transform((data) => ({
-    limit: data['limit'],
-    total: data['total'],
-    nextCursor: data['nextCursor'],
-  }));
+export const getApisMetaRequest: any = z.lazy(() => {
+  return z
+    .object({ limit: z.number().nullish(), total: z.number().nullish(), nextCursor: z.string().nullish() })
+    .transform((data) => ({
+      limit: data['limit'],
+      total: data['total'],
+      nextCursor: data['nextCursor'],
+    }));
+});

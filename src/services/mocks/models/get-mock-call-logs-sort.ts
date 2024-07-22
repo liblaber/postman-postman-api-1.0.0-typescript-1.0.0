@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const getMockCallLogsSort = z.enum(['servedAt']);
-
-export type GetMockCallLogsSort = z.infer<typeof getMockCallLogsSort>;
+export enum GetMockCallLogsSort {
+  SERVEDAT = 'servedAt',
+}

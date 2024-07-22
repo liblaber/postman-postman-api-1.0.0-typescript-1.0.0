@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createApiVersion3Schemas = z.object({
-  directoryPath: z.string().optional(),
+export const createApiVersion3Schemas: any = z.lazy(() => {
+  return z.object({
+    directoryPath: z.string().optional(),
+  });
 });
 
 /**
@@ -20,18 +22,22 @@ export type CreateApiVersion3Schemas = z.infer<typeof createApiVersion3Schemas>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiVersion3SchemasResponse = z
-  .object({
-    directoryPath: z.string().optional(),
-  })
-  .transform((data) => ({
-    directoryPath: data['directoryPath'],
-  }));
+export const createApiVersion3SchemasResponse: any = z.lazy(() => {
+  return z
+    .object({
+      directoryPath: z.string().optional(),
+    })
+    .transform((data) => ({
+      directoryPath: data['directoryPath'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiVersion3SchemasRequest = z.object({ directoryPath: z.string().nullish() }).transform((data) => ({
-  directoryPath: data['directoryPath'],
-}));
+export const createApiVersion3SchemasRequest: any = z.lazy(() => {
+  return z.object({ directoryPath: z.string().nullish() }).transform((data) => ({
+    directoryPath: data['directoryPath'],
+  }));
+});

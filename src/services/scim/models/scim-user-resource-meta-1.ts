@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const scimUserResourceMeta1 = z.object({
-  resourceType: z.string().optional(),
-  created: z.string().optional(),
-  lastModified: z.string().optional(),
+export const scimUserResourceMeta1: any = z.lazy(() => {
+  return z.object({
+    resourceType: z.string().optional(),
+    created: z.string().optional(),
+    lastModified: z.string().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type ScimUserResourceMeta1 = z.infer<typeof scimUserResourceMeta1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUserResourceMeta1Response = z
-  .object({
-    resourceType: z.string().optional(),
-    created: z.string().optional(),
-    lastModified: z.string().optional(),
-  })
-  .transform((data) => ({
-    resourceType: data['resourceType'],
-    created: data['created'],
-    lastModified: data['lastModified'],
-  }));
+export const scimUserResourceMeta1Response: any = z.lazy(() => {
+  return z
+    .object({
+      resourceType: z.string().optional(),
+      created: z.string().optional(),
+      lastModified: z.string().optional(),
+    })
+    .transform((data) => ({
+      resourceType: data['resourceType'],
+      created: data['created'],
+      lastModified: data['lastModified'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUserResourceMeta1Request = z
-  .object({ resourceType: z.string().nullish(), created: z.string().nullish(), lastModified: z.string().nullish() })
-  .transform((data) => ({
-    resourceType: data['resourceType'],
-    created: data['created'],
-    lastModified: data['lastModified'],
-  }));
+export const scimUserResourceMeta1Request: any = z.lazy(() => {
+  return z
+    .object({ resourceType: z.string().nullish(), created: z.string().nullish(), lastModified: z.string().nullish() })
+    .transform((data) => ({
+      resourceType: data['resourceType'],
+      created: data['created'],
+      lastModified: data['lastModified'],
+    }));
+});

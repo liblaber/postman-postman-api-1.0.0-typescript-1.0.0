@@ -3,19 +3,20 @@
 import { z } from 'zod';
 import { requestResponse, requestResponseRequest, requestResponseResponse } from './request-response';
 import { requestElement, requestElementRequest, requestElementResponse } from './request-element';
-import { requestStatus } from './request-status';
 
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const respondPanElementAddRequestRequest2 = z.object({
-  id: z.number().optional(),
-  createdAt: z.string().optional(),
-  createdBy: z.number().optional(),
-  message: z.string().optional(),
-  response: requestResponse.optional(),
-  element: requestElement.optional(),
-  status: requestStatus.optional(),
+export const respondPanElementAddRequestRequest2: any = z.lazy(() => {
+  return z.object({
+    id: z.number().optional(),
+    createdAt: z.string().optional(),
+    createdBy: z.number().optional(),
+    message: z.string().optional(),
+    response: requestResponse.optional(),
+    element: requestElement.optional(),
+    status: z.string().optional(),
+  });
 });
 
 /**
@@ -35,46 +36,50 @@ export type RespondPanElementAddRequestRequest2 = z.infer<typeof respondPanEleme
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const respondPanElementAddRequestRequest2Response = z
-  .object({
-    id: z.number().optional(),
-    createdAt: z.string().optional(),
-    createdBy: z.number().optional(),
-    message: z.string().optional(),
-    response: requestResponseResponse.optional(),
-    element: requestElementResponse.optional(),
-    status: requestStatus.optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    message: data['message'],
-    response: data['response'],
-    element: data['element'],
-    status: data['status'],
-  }));
+export const respondPanElementAddRequestRequest2Response: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.number().optional(),
+      createdAt: z.string().optional(),
+      createdBy: z.number().optional(),
+      message: z.string().optional(),
+      response: requestResponseResponse.optional(),
+      element: requestElementResponse.optional(),
+      status: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      message: data['message'],
+      response: data['response'],
+      element: data['element'],
+      status: data['status'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const respondPanElementAddRequestRequest2Request = z
-  .object({
-    id: z.number().nullish(),
-    createdAt: z.string().nullish(),
-    createdBy: z.number().nullish(),
-    message: z.string().nullish(),
-    response: requestResponseRequest.nullish(),
-    element: requestElementRequest.nullish(),
-    status: requestStatus.nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    message: data['message'],
-    response: data['response'],
-    element: data['element'],
-    status: data['status'],
-  }));
+export const respondPanElementAddRequestRequest2Request: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.number().nullish(),
+      createdAt: z.string().nullish(),
+      createdBy: z.number().nullish(),
+      message: z.string().nullish(),
+      response: requestResponseRequest.nullish(),
+      element: requestElementRequest.nullish(),
+      status: z.string().nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      message: data['message'],
+      response: data['response'],
+      element: data['element'],
+      status: data['status'],
+    }));
+});

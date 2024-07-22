@@ -7,11 +7,13 @@ import { requestBody, requestBodyRequest, requestBodyResponse } from './request-
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const callLogsRequest1 = z.object({
-  method: z.string().optional(),
-  path: z.string().optional(),
-  headers: requestHeaders.optional(),
-  body: requestBody.optional(),
+export const callLogsRequest1: any = z.lazy(() => {
+  return z.object({
+    method: z.string().optional(),
+    path: z.string().optional(),
+    headers: requestHeaders.optional(),
+    body: requestBody.optional(),
+  });
 });
 
 /**
@@ -28,34 +30,38 @@ export type CallLogsRequest1 = z.infer<typeof callLogsRequest1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const callLogsRequest1Response = z
-  .object({
-    method: z.string().optional(),
-    path: z.string().optional(),
-    headers: requestHeadersResponse.optional(),
-    body: requestBodyResponse.optional(),
-  })
-  .transform((data) => ({
-    method: data['method'],
-    path: data['path'],
-    headers: data['headers'],
-    body: data['body'],
-  }));
+export const callLogsRequest1Response: any = z.lazy(() => {
+  return z
+    .object({
+      method: z.string().optional(),
+      path: z.string().optional(),
+      headers: requestHeadersResponse.optional(),
+      body: requestBodyResponse.optional(),
+    })
+    .transform((data) => ({
+      method: data['method'],
+      path: data['path'],
+      headers: data['headers'],
+      body: data['body'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const callLogsRequest1Request = z
-  .object({
-    method: z.string().nullish(),
-    path: z.string().nullish(),
-    headers: requestHeadersRequest.nullish(),
-    body: requestBodyRequest.nullish(),
-  })
-  .transform((data) => ({
-    method: data['method'],
-    path: data['path'],
-    headers: data['headers'],
-    body: data['body'],
-  }));
+export const callLogsRequest1Request: any = z.lazy(() => {
+  return z
+    .object({
+      method: z.string().nullish(),
+      path: z.string().nullish(),
+      headers: requestHeadersRequest.nullish(),
+      body: requestBodyRequest.nullish(),
+    })
+    .transform((data) => ({
+      method: data['method'],
+      path: data['path'],
+      headers: data['headers'],
+      body: data['body'],
+    }));
+});

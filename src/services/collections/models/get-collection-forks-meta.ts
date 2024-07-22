@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getCollectionForksMeta = z.object({
-  nextCursor: z.string().optional(),
-  total: z.number().optional(),
+export const getCollectionForksMeta: any = z.lazy(() => {
+  return z.object({
+    nextCursor: z.string().optional().nullable(),
+    total: z.number().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type GetCollectionForksMeta = z.infer<typeof getCollectionForksMeta>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionForksMetaResponse = z
-  .object({
-    nextCursor: z.string().optional(),
-    total: z.number().optional(),
-  })
-  .transform((data) => ({
-    nextCursor: data['nextCursor'],
-    total: data['total'],
-  }));
+export const getCollectionForksMetaResponse: any = z.lazy(() => {
+  return z
+    .object({
+      nextCursor: z.string().optional().nullable(),
+      total: z.number().optional(),
+    })
+    .transform((data) => ({
+      nextCursor: data['nextCursor'],
+      total: data['total'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionForksMetaRequest = z
-  .object({ nextCursor: z.string().nullish(), total: z.number().nullish() })
-  .transform((data) => ({
+export const getCollectionForksMetaRequest: any = z.lazy(() => {
+  return z.object({ nextCursor: z.string().nullish(), total: z.number().nullish() }).transform((data) => ({
     nextCursor: data['nextCursor'],
     total: data['total'],
   }));
+});

@@ -5,12 +5,14 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApiVersionsVersions = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
-  releaseNotes: z.string().optional(),
+export const getApiVersionsVersions: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    createdAt: z.string().optional(),
+    updatedAt: z.string().optional(),
+    releaseNotes: z.string().optional(),
+  });
 });
 
 /**
@@ -28,38 +30,42 @@ export type GetApiVersionsVersions = z.infer<typeof getApiVersionsVersions>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiVersionsVersionsResponse = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    createdAt: z.string().optional(),
-    updatedAt: z.string().optional(),
-    releaseNotes: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-    releaseNotes: data['releaseNotes'],
-  }));
+export const getApiVersionsVersionsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      createdAt: z.string().optional(),
+      updatedAt: z.string().optional(),
+      releaseNotes: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+      releaseNotes: data['releaseNotes'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiVersionsVersionsRequest = z
-  .object({
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    createdAt: z.string().nullish(),
-    updatedAt: z.string().nullish(),
-    releaseNotes: z.string().nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-    releaseNotes: data['releaseNotes'],
-  }));
+export const getApiVersionsVersionsRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      createdAt: z.string().nullish(),
+      updatedAt: z.string().nullish(),
+      releaseNotes: z.string().nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+      releaseNotes: data['releaseNotes'],
+    }));
+});

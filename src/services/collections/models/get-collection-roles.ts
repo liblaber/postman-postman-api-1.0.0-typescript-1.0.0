@@ -16,10 +16,12 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getCollectionRoles = z.object({
-  group: z.array(group).optional(),
-  team: z.array(getCollectionRolesTeam).optional(),
-  user: z.array(getCollectionRolesUser).optional(),
+export const getCollectionRoles: any = z.lazy(() => {
+  return z.object({
+    group: z.array(group).optional(),
+    team: z.array(getCollectionRolesTeam).optional(),
+    user: z.array(getCollectionRolesUser).optional(),
+  });
 });
 
 /**
@@ -35,30 +37,34 @@ export type GetCollectionRoles = z.infer<typeof getCollectionRoles>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionRolesResponse = z
-  .object({
-    group: z.array(groupResponse).optional(),
-    team: z.array(getCollectionRolesTeamResponse).optional(),
-    user: z.array(getCollectionRolesUserResponse).optional(),
-  })
-  .transform((data) => ({
-    group: data['group'],
-    team: data['team'],
-    user: data['user'],
-  }));
+export const getCollectionRolesResponse: any = z.lazy(() => {
+  return z
+    .object({
+      group: z.array(groupResponse).optional(),
+      team: z.array(getCollectionRolesTeamResponse).optional(),
+      user: z.array(getCollectionRolesUserResponse).optional(),
+    })
+    .transform((data) => ({
+      group: data['group'],
+      team: data['team'],
+      user: data['user'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionRolesRequest = z
-  .object({
-    group: z.array(groupRequest).nullish(),
-    team: z.array(getCollectionRolesTeamRequest).nullish(),
-    user: z.array(getCollectionRolesUserRequest).nullish(),
-  })
-  .transform((data) => ({
-    group: data['group'],
-    team: data['team'],
-    user: data['user'],
-  }));
+export const getCollectionRolesRequest: any = z.lazy(() => {
+  return z
+    .object({
+      group: z.array(groupRequest).nullish(),
+      team: z.array(getCollectionRolesTeamRequest).nullish(),
+      user: z.array(getCollectionRolesUserRequest).nullish(),
+    })
+    .transform((data) => ({
+      group: data['group'],
+      team: data['team'],
+      user: data['user'],
+    }));
+});

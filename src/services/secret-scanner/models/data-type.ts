@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const dataType = z.enum(['DEFAULT', 'TEAM_REGEX']);
-
-export type DataType = z.infer<typeof dataType>;
+export enum DataType {
+  DEFAULT_ = 'DEFAULT',
+  TEAMREGEX = 'TEAM_REGEX',
+}

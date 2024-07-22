@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const rolesOp = z.enum(['update']);
-
-export type RolesOp = z.infer<typeof rolesOp>;
+export enum RolesOp {
+  UPDATE = 'update',
+}

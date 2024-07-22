@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const accept = z.enum(['application/vnd.api.v10+json']);
-
-export type Accept = z.infer<typeof accept>;
+export enum Accept {
+  APPLICATIONVNDAPIV10JSON = 'application/vnd.api.v10+json',
+}

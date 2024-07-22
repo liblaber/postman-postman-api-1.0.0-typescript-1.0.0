@@ -5,11 +5,13 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const dataUser = z.object({
-  name: z.string().optional(),
-  username: z.string().optional(),
-  email: z.string().optional(),
-  id: z.number().optional(),
+export const dataUser: any = z.lazy(() => {
+  return z.object({
+    name: z.string().optional(),
+    username: z.string().optional(),
+    email: z.string().optional(),
+    id: z.number().optional(),
+  });
 });
 
 /**
@@ -26,34 +28,38 @@ export type DataUser = z.infer<typeof dataUser>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const dataUserResponse = z
-  .object({
-    name: z.string().optional(),
-    username: z.string().optional(),
-    email: z.string().optional(),
-    id: z.number().optional(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    username: data['username'],
-    email: data['email'],
-    id: data['id'],
-  }));
+export const dataUserResponse: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string().optional(),
+      username: z.string().optional(),
+      email: z.string().optional(),
+      id: z.number().optional(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      username: data['username'],
+      email: data['email'],
+      id: data['id'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const dataUserRequest = z
-  .object({
-    name: z.string().nullish(),
-    username: z.string().nullish(),
-    email: z.string().nullish(),
-    id: z.number().nullish(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    username: data['username'],
-    email: data['email'],
-    id: data['id'],
-  }));
+export const dataUserRequest: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string().nullish(),
+      username: z.string().nullish(),
+      email: z.string().nullish(),
+      id: z.number().nullish(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      username: data['username'],
+      email: data['email'],
+      id: data['id'],
+    }));
+});

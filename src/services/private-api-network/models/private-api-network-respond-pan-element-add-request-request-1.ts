@@ -6,14 +6,15 @@ import {
   respondPanElementAddRequestResponseRequest,
   respondPanElementAddRequestResponseResponse,
 } from './respond-pan-element-add-request-response';
-import { respondPanElementAddRequestStatus } from './respond-pan-element-add-request-status';
 
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const privateApiNetworkRespondPanElementAddRequestRequest1 = z.object({
-  response: respondPanElementAddRequestResponse.optional(),
-  status: respondPanElementAddRequestStatus,
+export const privateApiNetworkRespondPanElementAddRequestRequest1: any = z.lazy(() => {
+  return z.object({
+    response: respondPanElementAddRequestResponse.optional(),
+    status: z.string(),
+  });
 });
 
 /**
@@ -30,26 +31,27 @@ export type PrivateApiNetworkRespondPanElementAddRequestRequest1 = z.infer<
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const privateApiNetworkRespondPanElementAddRequestRequest1Response = z
-  .object({
-    response: respondPanElementAddRequestResponseResponse.optional(),
-    status: respondPanElementAddRequestStatus,
-  })
-  .transform((data) => ({
-    response: data['response'],
-    status: data['status'],
-  }));
+export const privateApiNetworkRespondPanElementAddRequestRequest1Response: any = z.lazy(() => {
+  return z
+    .object({
+      response: respondPanElementAddRequestResponseResponse.optional(),
+      status: z.string(),
+    })
+    .transform((data) => ({
+      response: data['response'],
+      status: data['status'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const privateApiNetworkRespondPanElementAddRequestRequest1Request = z
-  .object({
-    response: respondPanElementAddRequestResponseRequest.nullish(),
-    status: respondPanElementAddRequestStatus.nullish(),
-  })
-  .transform((data) => ({
-    response: data['response'],
-    status: data['status'],
-  }));
+export const privateApiNetworkRespondPanElementAddRequestRequest1Request: any = z.lazy(() => {
+  return z
+    .object({ response: respondPanElementAddRequestResponseRequest.nullish(), status: z.string().nullish() })
+    .transform((data) => ({
+      response: data['response'],
+      status: data['status'],
+    }));
+});

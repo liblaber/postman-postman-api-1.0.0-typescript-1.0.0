@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const schemaType = z.enum(['openapi3', 'openapi2']);
-
-export type SchemaType = z.infer<typeof schemaType>;
+export enum SchemaType {
+  OPENAPI3 = 'openapi3',
+  OPENAPI2 = 'openapi2',
+}

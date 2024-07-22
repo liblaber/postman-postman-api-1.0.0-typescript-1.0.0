@@ -10,8 +10,10 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateMockServerResponse = z.object({
-  serverResponse: updateMockServerResponseServerResponse.optional(),
+export const updateMockServerResponse: any = z.lazy(() => {
+  return z.object({
+    serverResponse: updateMockServerResponseServerResponse.optional(),
+  });
 });
 
 /**
@@ -25,20 +27,22 @@ export type UpdateMockServerResponse = z.infer<typeof updateMockServerResponse>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateMockServerResponseResponse = z
-  .object({
-    serverResponse: updateMockServerResponseServerResponseResponse.optional(),
-  })
-  .transform((data) => ({
-    serverResponse: data['serverResponse'],
-  }));
+export const updateMockServerResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      serverResponse: updateMockServerResponseServerResponseResponse.optional(),
+    })
+    .transform((data) => ({
+      serverResponse: data['serverResponse'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateMockServerResponseRequest = z
-  .object({ serverResponse: updateMockServerResponseServerResponseRequest.nullish() })
-  .transform((data) => ({
+export const updateMockServerResponseRequest: any = z.lazy(() => {
+  return z.object({ serverResponse: updateMockServerResponseServerResponseRequest.nullish() }).transform((data) => ({
     serverResponse: data['serverResponse'],
   }));
+});

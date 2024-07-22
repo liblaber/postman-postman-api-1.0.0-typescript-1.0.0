@@ -6,8 +6,10 @@ import { panCreateApiApi, panCreateApiApiRequest, panCreateApiApiResponse } from
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const panCreateApi = z.object({
-  api: panCreateApiApi.optional(),
+export const panCreateApi: any = z.lazy(() => {
+  return z.object({
+    api: panCreateApiApi.optional(),
+  });
 });
 
 /**
@@ -21,18 +23,22 @@ export type PanCreateApi = z.infer<typeof panCreateApi>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const panCreateApiResponse = z
-  .object({
-    api: panCreateApiApiResponse.optional(),
-  })
-  .transform((data) => ({
-    api: data['api'],
-  }));
+export const panCreateApiResponse: any = z.lazy(() => {
+  return z
+    .object({
+      api: panCreateApiApiResponse.optional(),
+    })
+    .transform((data) => ({
+      api: data['api'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const panCreateApiRequest = z.object({ api: panCreateApiApiRequest.nullish() }).transform((data) => ({
-  api: data['api'],
-}));
+export const panCreateApiRequest: any = z.lazy(() => {
+  return z.object({ api: panCreateApiApiRequest.nullish() }).transform((data) => ({
+    api: data['api'],
+  }));
+});

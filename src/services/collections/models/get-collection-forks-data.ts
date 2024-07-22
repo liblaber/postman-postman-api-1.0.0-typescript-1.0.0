@@ -5,11 +5,13 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getCollectionForksData = z.object({
-  createdAt: z.string().optional(),
-  createdBy: z.string().optional(),
-  forkId: z.string().optional(),
-  forkName: z.string().optional(),
+export const getCollectionForksData: any = z.lazy(() => {
+  return z.object({
+    createdAt: z.string().optional(),
+    createdBy: z.string().optional(),
+    forkId: z.string().optional(),
+    forkName: z.string().optional(),
+  });
 });
 
 /**
@@ -26,34 +28,38 @@ export type GetCollectionForksData = z.infer<typeof getCollectionForksData>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionForksDataResponse = z
-  .object({
-    createdAt: z.string().optional(),
-    createdBy: z.string().optional(),
-    forkId: z.string().optional(),
-    forkName: z.string().optional(),
-  })
-  .transform((data) => ({
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    forkId: data['forkId'],
-    forkName: data['forkName'],
-  }));
+export const getCollectionForksDataResponse: any = z.lazy(() => {
+  return z
+    .object({
+      createdAt: z.string().optional(),
+      createdBy: z.string().optional(),
+      forkId: z.string().optional(),
+      forkName: z.string().optional(),
+    })
+    .transform((data) => ({
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      forkId: data['forkId'],
+      forkName: data['forkName'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionForksDataRequest = z
-  .object({
-    createdAt: z.string().nullish(),
-    createdBy: z.string().nullish(),
-    forkId: z.string().nullish(),
-    forkName: z.string().nullish(),
-  })
-  .transform((data) => ({
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    forkId: data['forkId'],
-    forkName: data['forkName'],
-  }));
+export const getCollectionForksDataRequest: any = z.lazy(() => {
+  return z
+    .object({
+      createdAt: z.string().nullish(),
+      createdBy: z.string().nullish(),
+      forkId: z.string().nullish(),
+      forkName: z.string().nullish(),
+    })
+    .transform((data) => ({
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      forkId: data['forkId'],
+      forkName: data['forkName'],
+    }));
+});

@@ -5,12 +5,14 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createWebhookWebhook2 = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  collection: z.string().optional(),
-  webhookUrl: z.string().optional(),
-  uid: z.string().optional(),
+export const createWebhookWebhook2: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    collection: z.string().optional(),
+    webhookUrl: z.string().optional(),
+    uid: z.string().optional(),
+  });
 });
 
 /**
@@ -28,38 +30,42 @@ export type CreateWebhookWebhook2 = z.infer<typeof createWebhookWebhook2>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createWebhookWebhook2Response = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    collection: z.string().optional(),
-    webhookUrl: z.string().optional(),
-    uid: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    collection: data['collection'],
-    webhookUrl: data['webhookUrl'],
-    uid: data['uid'],
-  }));
+export const createWebhookWebhook2Response: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      collection: z.string().optional(),
+      webhookUrl: z.string().optional(),
+      uid: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      collection: data['collection'],
+      webhookUrl: data['webhookUrl'],
+      uid: data['uid'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createWebhookWebhook2Request = z
-  .object({
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    collection: z.string().nullish(),
-    webhookUrl: z.string().nullish(),
-    uid: z.string().nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    collection: data['collection'],
-    webhookUrl: data['webhookUrl'],
-    uid: data['uid'],
-  }));
+export const createWebhookWebhook2Request: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      collection: z.string().nullish(),
+      webhookUrl: z.string().nullish(),
+      uid: z.string().nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      collection: data['collection'],
+      webhookUrl: data['webhookUrl'],
+      uid: data['uid'],
+    }));
+});

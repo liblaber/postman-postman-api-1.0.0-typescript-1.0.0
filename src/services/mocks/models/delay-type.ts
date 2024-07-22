@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const delayType = z.enum(['fixed']);
-
-export type DelayType = z.infer<typeof delayType>;
+export enum DelayType {
+  FIXED = 'fixed',
+}

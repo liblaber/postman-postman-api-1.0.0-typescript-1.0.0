@@ -5,11 +5,13 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const slots = z.object({
-  available: z.number().optional(),
-  consumed: z.number().optional(),
-  total: z.number().optional(),
-  unbilled: z.number().optional(),
+export const slots: any = z.lazy(() => {
+  return z.object({
+    available: z.number().optional(),
+    consumed: z.number().optional(),
+    total: z.number().optional(),
+    unbilled: z.number().optional(),
+  });
 });
 
 /**
@@ -26,34 +28,38 @@ export type Slots = z.infer<typeof slots>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const slotsResponse = z
-  .object({
-    available: z.number().optional(),
-    consumed: z.number().optional(),
-    total: z.number().optional(),
-    unbilled: z.number().optional(),
-  })
-  .transform((data) => ({
-    available: data['available'],
-    consumed: data['consumed'],
-    total: data['total'],
-    unbilled: data['unbilled'],
-  }));
+export const slotsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      available: z.number().optional(),
+      consumed: z.number().optional(),
+      total: z.number().optional(),
+      unbilled: z.number().optional(),
+    })
+    .transform((data) => ({
+      available: data['available'],
+      consumed: data['consumed'],
+      total: data['total'],
+      unbilled: data['unbilled'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const slotsRequest = z
-  .object({
-    available: z.number().nullish(),
-    consumed: z.number().nullish(),
-    total: z.number().nullish(),
-    unbilled: z.number().nullish(),
-  })
-  .transform((data) => ({
-    available: data['available'],
-    consumed: data['consumed'],
-    total: data['total'],
-    unbilled: data['unbilled'],
-  }));
+export const slotsRequest: any = z.lazy(() => {
+  return z
+    .object({
+      available: z.number().nullish(),
+      consumed: z.number().nullish(),
+      total: z.number().nullish(),
+      unbilled: z.number().nullish(),
+    })
+    .transform((data) => ({
+      available: data['available'],
+      consumed: data['consumed'],
+      total: data['total'],
+      unbilled: data['unbilled'],
+    }));
+});

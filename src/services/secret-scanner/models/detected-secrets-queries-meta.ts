@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const detectedSecretsQueriesMeta = z.object({
-  limit: z.number().optional(),
-  nextCursor: z.string().optional(),
-  total: z.number().optional(),
+export const detectedSecretsQueriesMeta: any = z.lazy(() => {
+  return z.object({
+    limit: z.number().optional(),
+    nextCursor: z.string().optional().nullable(),
+    total: z.number().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type DetectedSecretsQueriesMeta = z.infer<typeof detectedSecretsQueriesMe
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const detectedSecretsQueriesMetaResponse = z
-  .object({
-    limit: z.number().optional(),
-    nextCursor: z.string().optional(),
-    total: z.number().optional(),
-  })
-  .transform((data) => ({
-    limit: data['limit'],
-    nextCursor: data['nextCursor'],
-    total: data['total'],
-  }));
+export const detectedSecretsQueriesMetaResponse: any = z.lazy(() => {
+  return z
+    .object({
+      limit: z.number().optional(),
+      nextCursor: z.string().optional().nullable(),
+      total: z.number().optional(),
+    })
+    .transform((data) => ({
+      limit: data['limit'],
+      nextCursor: data['nextCursor'],
+      total: data['total'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const detectedSecretsQueriesMetaRequest = z
-  .object({ limit: z.number().nullish(), nextCursor: z.string().nullish(), total: z.number().nullish() })
-  .transform((data) => ({
-    limit: data['limit'],
-    nextCursor: data['nextCursor'],
-    total: data['total'],
-  }));
+export const detectedSecretsQueriesMetaRequest: any = z.lazy(() => {
+  return z
+    .object({ limit: z.number().nullish(), nextCursor: z.string().nullish(), total: z.number().nullish() })
+    .transform((data) => ({
+      limit: data['limit'],
+      nextCursor: data['nextCursor'],
+      total: data['total'],
+    }));
+});

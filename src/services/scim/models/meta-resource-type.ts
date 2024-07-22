@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const metaResourceType = z.enum(['User']);
-
-export type MetaResourceType = z.infer<typeof metaResourceType>;
+export enum MetaResourceType {
+  USER = 'User',
+}

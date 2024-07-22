@@ -4,12 +4,9 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
-import {
-  GetAccountInvoices,
-  InvoicesAccountInfo,
-  getAccountInvoicesResponse,
-  invoicesAccountInfoResponse,
-} from './models';
+import { Request } from '../../http/transport/request';
+import { InvoicesAccountInfo, invoicesAccountInfoResponse } from './models/invoices-account-info';
+import { GetAccountInvoices, getAccountInvoicesResponse } from './models/get-account-invoices';
 import { GetAccountInvoicesParams } from './request-params';
 
 export class BillingService extends BaseService {
@@ -18,17 +15,17 @@ export class BillingService extends BaseService {
    * @returns {Promise<HttpResponse<InvoicesAccountInfo>>} Successful Response
    */
   async getAccounts(requestConfig?: RequestConfig): Promise<HttpResponse<InvoicesAccountInfo>> {
-    const path = '/accounts';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/accounts',
+      config: this.config,
       responseSchema: invoicesAccountInfoResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    return this.client.call<InvoicesAccountInfo>(request);
   }
 
   /**
@@ -42,20 +39,18 @@ export class BillingService extends BaseService {
     params: GetAccountInvoicesParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetAccountInvoices>> {
-    const path = this.client.buildPath('/accounts/{accountId}/invoices', { accountId: accountId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/accounts/{accountId}/invoices',
+      config: this.config,
       responseSchema: getAccountInvoicesResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.status) {
-      options.queryParams['status'] = params?.status;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('accountId', accountId);
+    request.addQueryParam('status', params?.status);
+    return this.client.call<GetAccountInvoices>(request);
   }
 }

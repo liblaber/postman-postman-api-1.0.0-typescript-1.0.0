@@ -6,12 +6,14 @@ import { scimUpdateGroupMeta, scimUpdateGroupMetaRequest, scimUpdateGroupMetaRes
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const scimUpdateGroupOkResponse = z.object({
-  schemas: z.array(z.string()).optional(),
-  id: z.string().optional(),
-  displayName: z.string().optional(),
-  externalId: z.string().optional(),
-  meta: scimUpdateGroupMeta.optional(),
+export const scimUpdateGroupOkResponse: any = z.lazy(() => {
+  return z.object({
+    schemas: z.array(z.string()).optional(),
+    id: z.string().optional(),
+    displayName: z.string().optional(),
+    externalId: z.string().optional(),
+    meta: scimUpdateGroupMeta.optional(),
+  });
 });
 
 /**
@@ -29,38 +31,42 @@ export type ScimUpdateGroupOkResponse = z.infer<typeof scimUpdateGroupOkResponse
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUpdateGroupOkResponseResponse = z
-  .object({
-    schemas: z.array(z.string()).optional(),
-    id: z.string().optional(),
-    displayName: z.string().optional(),
-    externalId: z.string().optional(),
-    meta: scimUpdateGroupMetaResponse.optional(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    id: data['id'],
-    displayName: data['displayName'],
-    externalId: data['externalId'],
-    meta: data['meta'],
-  }));
+export const scimUpdateGroupOkResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).optional(),
+      id: z.string().optional(),
+      displayName: z.string().optional(),
+      externalId: z.string().optional(),
+      meta: scimUpdateGroupMetaResponse.optional(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      id: data['id'],
+      displayName: data['displayName'],
+      externalId: data['externalId'],
+      meta: data['meta'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUpdateGroupOkResponseRequest = z
-  .object({
-    schemas: z.array(z.string()).nullish(),
-    id: z.string().nullish(),
-    displayName: z.string().nullish(),
-    externalId: z.string().nullish(),
-    meta: scimUpdateGroupMetaRequest.nullish(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    id: data['id'],
-    displayName: data['displayName'],
-    externalId: data['externalId'],
-    meta: data['meta'],
-  }));
+export const scimUpdateGroupOkResponseRequest: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).nullish(),
+      id: z.string().nullish(),
+      displayName: z.string().nullish(),
+      externalId: z.string().nullish(),
+      meta: scimUpdateGroupMetaRequest.nullish(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      id: data['id'],
+      displayName: data['displayName'],
+      externalId: data['externalId'],
+      meta: data['meta'],
+    }));
+});

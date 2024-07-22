@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const action = z.enum(['update', 'create']);
-
-export type Action = z.infer<typeof action>;
+export enum Action {
+  UPDATE = 'update',
+  CREATE = 'create',
+}

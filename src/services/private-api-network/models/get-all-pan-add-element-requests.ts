@@ -15,9 +15,11 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getAllPanAddElementRequests = z.object({
-  requests: z.array(getAllPanAddElementRequestsRequests).optional(),
-  meta: getAllPanAddElementRequestsMeta.optional(),
+export const getAllPanAddElementRequests: any = z.lazy(() => {
+  return z.object({
+    requests: z.array(getAllPanAddElementRequestsRequests).optional(),
+    meta: getAllPanAddElementRequestsMeta.optional(),
+  });
 });
 
 /**
@@ -32,26 +34,30 @@ export type GetAllPanAddElementRequests = z.infer<typeof getAllPanAddElementRequ
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAllPanAddElementRequestsResponse = z
-  .object({
-    requests: z.array(getAllPanAddElementRequestsRequestsResponse).optional(),
-    meta: getAllPanAddElementRequestsMetaResponse.optional(),
-  })
-  .transform((data) => ({
-    requests: data['requests'],
-    meta: data['meta'],
-  }));
+export const getAllPanAddElementRequestsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      requests: z.array(getAllPanAddElementRequestsRequestsResponse).optional(),
+      meta: getAllPanAddElementRequestsMetaResponse.optional(),
+    })
+    .transform((data) => ({
+      requests: data['requests'],
+      meta: data['meta'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAllPanAddElementRequestsRequest = z
-  .object({
-    requests: z.array(getAllPanAddElementRequestsRequestsRequest).nullish(),
-    meta: getAllPanAddElementRequestsMetaRequest.nullish(),
-  })
-  .transform((data) => ({
-    requests: data['requests'],
-    meta: data['meta'],
-  }));
+export const getAllPanAddElementRequestsRequest: any = z.lazy(() => {
+  return z
+    .object({
+      requests: z.array(getAllPanAddElementRequestsRequestsRequest).nullish(),
+      meta: getAllPanAddElementRequestsMetaRequest.nullish(),
+    })
+    .transform((data) => ({
+      requests: data['requests'],
+      meta: data['meta'],
+    }));
+});

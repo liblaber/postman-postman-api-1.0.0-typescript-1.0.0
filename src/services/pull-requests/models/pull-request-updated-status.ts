@@ -2,6 +2,9 @@
 
 import { z } from 'zod';
 
-export const pullRequestUpdatedStatus = z.enum(['open', 'approved', 'declined', 'merged']);
-
-export type PullRequestUpdatedStatus = z.infer<typeof pullRequestUpdatedStatus>;
+export enum PullRequestUpdatedStatus {
+  OPEN = 'open',
+  APPROVED = 'approved',
+  DECLINED = 'declined',
+  MERGED = 'merged',
+}

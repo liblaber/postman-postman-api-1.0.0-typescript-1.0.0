@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const versionSchemas = z.object({
-  id: z.string().optional(),
-  type_: z.string().optional(),
+export const versionSchemas: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    type: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type VersionSchemas = z.infer<typeof versionSchemas>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const versionSchemasResponse = z
-  .object({
-    id: z.string().optional(),
-    type: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    type_: data['type'],
-  }));
+export const versionSchemasResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      type: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      type: data['type'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const versionSchemasRequest = z
-  .object({ id: z.string().nullish(), type_: z.string().nullish() })
-  .transform((data) => ({
+export const versionSchemasRequest: any = z.lazy(() => {
+  return z.object({ id: z.string().nullish(), type: z.string().nullish() }).transform((data) => ({
     id: data['id'],
-    type: data['type_'],
+    type: data['type'],
   }));
+});

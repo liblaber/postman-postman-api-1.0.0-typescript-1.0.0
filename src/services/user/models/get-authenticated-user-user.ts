@@ -5,17 +5,19 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getAuthenticatedUserUser = z.object({
-  id: z.number().optional(),
-  username: z.string().optional(),
-  email: z.string().optional(),
-  fullName: z.string().optional(),
-  avatar: z.string().optional(),
-  isPublic: z.boolean().optional(),
-  teamId: z.number().optional(),
-  teamName: z.string().optional(),
-  teamDomain: z.string().optional(),
-  roles: z.array(z.string()).optional(),
+export const getAuthenticatedUserUser: any = z.lazy(() => {
+  return z.object({
+    id: z.number().optional(),
+    username: z.string().optional(),
+    email: z.string().optional(),
+    fullName: z.string().optional(),
+    avatar: z.string().optional().nullable(),
+    isPublic: z.boolean().optional(),
+    teamId: z.number().optional(),
+    teamName: z.string().optional(),
+    teamDomain: z.string().optional(),
+    roles: z.array(z.string()).optional(),
+  });
 });
 
 /**
@@ -38,58 +40,62 @@ export type GetAuthenticatedUserUser = z.infer<typeof getAuthenticatedUserUser>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAuthenticatedUserUserResponse = z
-  .object({
-    id: z.number().optional(),
-    username: z.string().optional(),
-    email: z.string().optional(),
-    fullName: z.string().optional(),
-    avatar: z.string().optional(),
-    isPublic: z.boolean().optional(),
-    teamId: z.number().optional(),
-    teamName: z.string().optional(),
-    teamDomain: z.string().optional(),
-    roles: z.array(z.string()).optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    username: data['username'],
-    email: data['email'],
-    fullName: data['fullName'],
-    avatar: data['avatar'],
-    isPublic: data['isPublic'],
-    teamId: data['teamId'],
-    teamName: data['teamName'],
-    teamDomain: data['teamDomain'],
-    roles: data['roles'],
-  }));
+export const getAuthenticatedUserUserResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.number().optional(),
+      username: z.string().optional(),
+      email: z.string().optional(),
+      fullName: z.string().optional(),
+      avatar: z.string().optional().nullable(),
+      isPublic: z.boolean().optional(),
+      teamId: z.number().optional(),
+      teamName: z.string().optional(),
+      teamDomain: z.string().optional(),
+      roles: z.array(z.string()).optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      username: data['username'],
+      email: data['email'],
+      fullName: data['fullName'],
+      avatar: data['avatar'],
+      isPublic: data['isPublic'],
+      teamId: data['teamId'],
+      teamName: data['teamName'],
+      teamDomain: data['teamDomain'],
+      roles: data['roles'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAuthenticatedUserUserRequest = z
-  .object({
-    id: z.number().nullish(),
-    username: z.string().nullish(),
-    email: z.string().nullish(),
-    fullName: z.string().nullish(),
-    avatar: z.string().nullish(),
-    isPublic: z.boolean().nullish(),
-    teamId: z.number().nullish(),
-    teamName: z.string().nullish(),
-    teamDomain: z.string().nullish(),
-    roles: z.array(z.string()).nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    username: data['username'],
-    email: data['email'],
-    fullName: data['fullName'],
-    avatar: data['avatar'],
-    isPublic: data['isPublic'],
-    teamId: data['teamId'],
-    teamName: data['teamName'],
-    teamDomain: data['teamDomain'],
-    roles: data['roles'],
-  }));
+export const getAuthenticatedUserUserRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.number().nullish(),
+      username: z.string().nullish(),
+      email: z.string().nullish(),
+      fullName: z.string().nullish(),
+      avatar: z.string().nullish(),
+      isPublic: z.boolean().nullish(),
+      teamId: z.number().nullish(),
+      teamName: z.string().nullish(),
+      teamDomain: z.string().nullish(),
+      roles: z.array(z.string()).nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      username: data['username'],
+      email: data['email'],
+      fullName: data['fullName'],
+      avatar: data['avatar'],
+      isPublic: data['isPublic'],
+      teamId: data['teamId'],
+      teamName: data['teamName'],
+      teamDomain: data['teamDomain'],
+      roles: data['roles'],
+    }));
+});

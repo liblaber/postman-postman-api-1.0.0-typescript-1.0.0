@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const ascDesc = z.enum(['asc', 'desc']);
-
-export type AscDesc = z.infer<typeof ascDesc>;
+export enum AscDesc {
+  ASC = 'asc',
+  DESC = 'desc',
+}

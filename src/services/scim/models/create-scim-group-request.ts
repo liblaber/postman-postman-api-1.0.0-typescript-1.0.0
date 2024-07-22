@@ -10,10 +10,12 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createScimGroupRequest = z.object({
-  schemas: z.array(z.string()).optional(),
-  displayName: z.string().optional(),
-  members: z.array(createScimGroupMembers1).optional(),
+export const createScimGroupRequest: any = z.lazy(() => {
+  return z.object({
+    schemas: z.array(z.string()).optional(),
+    displayName: z.string().optional(),
+    members: z.array(createScimGroupMembers1).optional(),
+  });
 });
 
 /**
@@ -29,30 +31,34 @@ export type CreateScimGroupRequest = z.infer<typeof createScimGroupRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createScimGroupRequestResponse = z
-  .object({
-    schemas: z.array(z.string()).optional(),
-    displayName: z.string().optional(),
-    members: z.array(createScimGroupMembers1Response).optional(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    displayName: data['displayName'],
-    members: data['members'],
-  }));
+export const createScimGroupRequestResponse: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).optional(),
+      displayName: z.string().optional(),
+      members: z.array(createScimGroupMembers1Response).optional(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      displayName: data['displayName'],
+      members: data['members'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createScimGroupRequestRequest = z
-  .object({
-    schemas: z.array(z.string()).nullish(),
-    displayName: z.string().nullish(),
-    members: z.array(createScimGroupMembers1Request).nullish(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    displayName: data['displayName'],
-    members: data['members'],
-  }));
+export const createScimGroupRequestRequest: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).nullish(),
+      displayName: z.string().nullish(),
+      members: z.array(createScimGroupMembers1Request).nullish(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      displayName: data['displayName'],
+      members: data['members'],
+    }));
+});

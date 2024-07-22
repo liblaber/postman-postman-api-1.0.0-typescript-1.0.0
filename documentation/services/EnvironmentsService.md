@@ -77,13 +77,13 @@ import { CreateEnvironmentRequest, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const valuesType1 = ValuesType1.secret;
+  const valuesType1 = ValuesType1.SECRET;
 
   const environmentValues1: EnvironmentValues1 = {
     enabled: true,
     key: 'apiKey',
     value: 'PMAK-XXX',
-    type_: valuesType1,
+    type: valuesType1,
   };
 
   const createEnvironmentEnvironment1: CreateEnvironmentEnvironment1 = {
@@ -164,13 +164,13 @@ import { PostmanClient, UpdateEnvironmentRequest } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const valuesType3 = ValuesType3.secret;
+  const valuesType3 = ValuesType3.SECRET;
 
   const environmentValues3: EnvironmentValues3 = {
     enabled: true,
     key: 'apiKey',
     value: 'PMAK-XXX',
-    type_: valuesType3,
+    type: valuesType3,
   };
 
   const updateEnvironmentEnvironment1: UpdateEnvironmentEnvironment1 = {
@@ -252,8 +252,8 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const direction = AscDesc.asc;
-  const sort = GetEnvironmentForksSort.createdAt;
+  const direction = AscDesc.ASC;
+  const sort = GetEnvironmentForksSort.CREATEDAT;
 
   const { data } = await postmanClient.environments.getEnvironmentForks(
     '12345678-12ece9e1-2abf-4edc-8e34-de66e74114d2',

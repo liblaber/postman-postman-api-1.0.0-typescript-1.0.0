@@ -61,7 +61,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.getApis({
     workspaceId: '1f0df51a-8658-4ee8-a2a1-d2567dfa09a9',
@@ -105,7 +105,7 @@ import { CreateApiRequest, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const input: CreateApiRequest = {
     name: 'Test API',
@@ -151,7 +151,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.getApi('90ca9f5a-c4c4-11ed-afa1-0242ac120002', {
     include: [getApiInclude],
@@ -191,7 +191,7 @@ import { PostmanClient, UpdateApiRequest } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const input: UpdateApiRequest = {
     name: 'Test API',
@@ -231,7 +231,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.deleteApi('90ca9f5a-c4c4-11ed-afa1-0242ac120002', {
     accept: accept,
@@ -270,13 +270,13 @@ import { AddApiCollectionRequest, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const addApiCollection1Data: AddApiCollection1Data = {
     collectionId: '12345678-61867bcc-c4c1-11ed-afa1-0242ac120002',
   };
 
-  const addApiCollection1OperationType = AddApiCollection1OperationType.COPY_COLLECTION;
+  const addApiCollection1OperationType = AddApiCollection1OperationType.COPYCOLLECTION;
 
   const addApiCollectionRequest: AddApiCollection1 = {
     data: addApiCollection1Data,
@@ -321,7 +321,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.getApiCollection(
     '90ca9f5a-c4c4-11ed-afa1-0242ac120002',
@@ -365,7 +365,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.syncCollectionWithSchema(
     '90ca9f5a-c4c4-11ed-afa1-0242ac120002',
@@ -440,10 +440,10 @@ import { CommentCreateUpdate, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const userNameType = UserNameType.user;
+  const userNameType = UserNameType.USER;
 
   const userName: UserName = {
-    type_: userNameType,
+    type: userNameType,
     id: 87654321,
   };
 
@@ -491,10 +491,10 @@ import { CommentCreateUpdate, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const userNameType = UserNameType.user;
+  const userNameType = UserNameType.USER;
 
   const userName: UserName = {
-    type_: userNameType,
+    type: userNameType,
     id: 87654321,
   };
 
@@ -569,36 +569,33 @@ import { CreateApiSchemaRequest, PostmanClient } from 'postman_client';
 
 (async () => {
   const postmanClient = new PostmanClient({
-	apiKey: 'YOUR_API_KEY'});
+    apiKey: 'YOUR_API_KEY',
+  });
 
-  const accept = Accept.application/vnd.api.v10+json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
-  const createApiSchemaType1 = CreateApiSchemaType1.proto:2;
+  const createApiSchemaType1 = CreateApiSchemaType1.PROTO2;
 
-const enabled = Enabled.true;
+  const enabled = Enabled.TRUE_;
 
-const filesRoot: FilesRoot = {
-  enabled: enabled
-};
+  const filesRoot: FilesRoot = {
+    enabled: enabled,
+  };
 
-const createApiSchemaFiles1: CreateApiSchemaFiles1 = {
-  path: "common/Error.json",
-  root: filesRoot,
-  content: "content"
-};
+  const createApiSchemaFiles1: CreateApiSchemaFiles1 = {
+    path: 'common/Error.json',
+    root: filesRoot,
+    content: 'content',
+  };
 
-const input: CreateApiSchemaRequest = {
-  type_: createApiSchemaType1,
-  files: [createApiSchemaFiles1]
-};
+  const input: CreateApiSchemaRequest = {
+    type: createApiSchemaType1,
+    files: [createApiSchemaFiles1],
+  };
 
-  const { data } = await postmanClient.api.createApiSchema(
-  "90ca9f5a-c4c4-11ed-afa1-0242ac120002",
-  input,
-  {
-		accept: accept,
-  }
-);
+  const { data } = await postmanClient.api.createApiSchema('90ca9f5a-c4c4-11ed-afa1-0242ac120002', input, {
+    accept: accept,
+  });
 
   console.log(data);
 })();
@@ -635,7 +632,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.getApiSchema(
     '90ca9f5a-c4c4-11ed-afa1-0242ac120002',
@@ -683,7 +680,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.getApiSchemaFiles(
     '90ca9f5a-c4c4-11ed-afa1-0242ac120002',
@@ -731,7 +728,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.getApiSchemaFileContents(
     '90ca9f5a-c4c4-11ed-afa1-0242ac120002',
@@ -777,7 +774,7 @@ import { CreateUpdateApiSchemaFileRequest, PostmanClient } from 'postman_client'
   const postmanClient = new PostmanClient({
 	apiKey: 'YOUR_API_KEY'});
 
-  const accept = Accept.application/vnd.api.v10+json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
 
 const createUpdateApiSchemaFileRoot: CreateUpdateApiSchemaFileRoot = {
@@ -848,7 +845,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.deleteApiSchemaFile(
     '90ca9f5a-c4c4-11ed-afa1-0242ac120002',
@@ -892,7 +889,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.getStatusOfAnAsyncTask(
     '90ca9f5a-c4c4-11ed-afa1-0242ac120002',
@@ -936,7 +933,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.getApiVersions('90ca9f5a-c4c4-11ed-afa1-0242ac120002', {
     cursor: 'RnJpIEZlYiAyNCAyMDIzIDEzOjI0OjA5IEdNVCswMDAwIChDb29yZGluYXRlZCBVbml2ZXJzYWwgVGltZSk=',
@@ -977,7 +974,7 @@ import { CreateApiVersionRequest, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const createApiVersion1Schemas: CreateApiVersion1Schemas = {
     id: '5381f010-c4c1-11ed-afa1-0242ac120002',
@@ -1031,7 +1028,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.getApiVersion(
     '90ca9f5a-c4c4-11ed-afa1-0242ac120002',
@@ -1075,7 +1072,7 @@ import { PostmanClient, UpdateApiVersionRequest } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const input: UpdateApiVersionRequest = {
     name: 'Release 1.5',
@@ -1120,7 +1117,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.api.deleteApiVersion(
     '90ca9f5a-c4c4-11ed-afa1-0242ac120002',

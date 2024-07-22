@@ -7,7 +7,9 @@ import { details2, details2Request, details2Response } from './details-2';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const details = z.union([details1, details2]);
+export const details: any = z.lazy(() => {
+  return z.union([details1, details2]);
+});
 
 /**
  *
@@ -21,10 +23,14 @@ export type Details = z.infer<typeof details>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const detailsResponse = z.union([details1Response, details2Response]);
+export const detailsResponse: any = z.lazy(() => {
+  return z.union([details1Response, details2Response]);
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const detailsRequest = z.union([details1Request, details2Request]);
+export const detailsRequest: any = z.lazy(() => {
+  return z.union([details1Request, details2Request]);
+});

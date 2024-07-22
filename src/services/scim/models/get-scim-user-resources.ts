@@ -6,12 +6,14 @@ import { resources, resourcesRequest, resourcesResponse } from './resources';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getScimUserResources = z.object({
-  resources: z.array(resources).optional(),
-  itemsPerPage: z.number().optional(),
-  schemas: z.array(z.string()).optional(),
-  startIndex: z.number().optional(),
-  totalResults: z.number().optional(),
+export const getScimUserResources: any = z.lazy(() => {
+  return z.object({
+    resources: z.array(resources).optional(),
+    itemsPerPage: z.number().optional(),
+    schemas: z.array(z.string()).optional(),
+    startIndex: z.number().optional(),
+    totalResults: z.number().optional(),
+  });
 });
 
 /**
@@ -29,38 +31,42 @@ export type GetScimUserResources = z.infer<typeof getScimUserResources>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimUserResourcesResponse = z
-  .object({
-    Resources: z.array(resourcesResponse).optional(),
-    itemsPerPage: z.number().optional(),
-    schemas: z.array(z.string()).optional(),
-    startIndex: z.number().optional(),
-    totalResults: z.number().optional(),
-  })
-  .transform((data) => ({
-    resources: data['Resources'],
-    itemsPerPage: data['itemsPerPage'],
-    schemas: data['schemas'],
-    startIndex: data['startIndex'],
-    totalResults: data['totalResults'],
-  }));
+export const getScimUserResourcesResponse: any = z.lazy(() => {
+  return z
+    .object({
+      Resources: z.array(resourcesResponse).optional(),
+      itemsPerPage: z.number().optional(),
+      schemas: z.array(z.string()).optional(),
+      startIndex: z.number().optional(),
+      totalResults: z.number().optional(),
+    })
+    .transform((data) => ({
+      resources: data['Resources'],
+      itemsPerPage: data['itemsPerPage'],
+      schemas: data['schemas'],
+      startIndex: data['startIndex'],
+      totalResults: data['totalResults'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimUserResourcesRequest = z
-  .object({
-    resources: z.array(resourcesRequest).nullish(),
-    itemsPerPage: z.number().nullish(),
-    schemas: z.array(z.string()).nullish(),
-    startIndex: z.number().nullish(),
-    totalResults: z.number().nullish(),
-  })
-  .transform((data) => ({
-    Resources: data['resources'],
-    itemsPerPage: data['itemsPerPage'],
-    schemas: data['schemas'],
-    startIndex: data['startIndex'],
-    totalResults: data['totalResults'],
-  }));
+export const getScimUserResourcesRequest: any = z.lazy(() => {
+  return z
+    .object({
+      resources: z.array(resourcesRequest).nullish(),
+      itemsPerPage: z.number().nullish(),
+      schemas: z.array(z.string()).nullish(),
+      startIndex: z.number().nullish(),
+      totalResults: z.number().nullish(),
+    })
+    .transform((data) => ({
+      Resources: data['resources'],
+      itemsPerPage: data['itemsPerPage'],
+      schemas: data['schemas'],
+      startIndex: data['startIndex'],
+      totalResults: data['totalResults'],
+    }));
+});

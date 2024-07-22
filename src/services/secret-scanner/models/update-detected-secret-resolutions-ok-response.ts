@@ -2,16 +2,17 @@
 
 import { z } from 'zod';
 import { history, historyRequest, historyResponse } from './history';
-import { updateSecretResolutionsResolution2 } from './update-secret-resolutions-resolution-2';
 
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateDetectedSecretResolutionsOkResponse = z.object({
-  history: z.array(history).optional(),
-  resolution: updateSecretResolutionsResolution2.optional(),
-  secretHash: z.string().optional(),
-  workspaceId: z.string().optional(),
+export const updateDetectedSecretResolutionsOkResponse: any = z.lazy(() => {
+  return z.object({
+    history: z.array(history).optional(),
+    resolution: z.string().optional(),
+    secretHash: z.string().optional(),
+    workspaceId: z.string().optional(),
+  });
 });
 
 /**
@@ -33,34 +34,38 @@ export type UpdateDetectedSecretResolutionsOkResponse = z.infer<typeof updateDet
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateDetectedSecretResolutionsOkResponseResponse = z
-  .object({
-    history: z.array(historyResponse).optional(),
-    resolution: updateSecretResolutionsResolution2.optional(),
-    secretHash: z.string().optional(),
-    workspaceId: z.string().optional(),
-  })
-  .transform((data) => ({
-    history: data['history'],
-    resolution: data['resolution'],
-    secretHash: data['secretHash'],
-    workspaceId: data['workspaceId'],
-  }));
+export const updateDetectedSecretResolutionsOkResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      history: z.array(historyResponse).optional(),
+      resolution: z.string().optional(),
+      secretHash: z.string().optional(),
+      workspaceId: z.string().optional(),
+    })
+    .transform((data) => ({
+      history: data['history'],
+      resolution: data['resolution'],
+      secretHash: data['secretHash'],
+      workspaceId: data['workspaceId'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateDetectedSecretResolutionsOkResponseRequest = z
-  .object({
-    history: z.array(historyRequest).nullish(),
-    resolution: updateSecretResolutionsResolution2.nullish(),
-    secretHash: z.string().nullish(),
-    workspaceId: z.string().nullish(),
-  })
-  .transform((data) => ({
-    history: data['history'],
-    resolution: data['resolution'],
-    secretHash: data['secretHash'],
-    workspaceId: data['workspaceId'],
-  }));
+export const updateDetectedSecretResolutionsOkResponseRequest: any = z.lazy(() => {
+  return z
+    .object({
+      history: z.array(historyRequest).nullish(),
+      resolution: z.string().nullish(),
+      secretHash: z.string().nullish(),
+      workspaceId: z.string().nullish(),
+    })
+    .transform((data) => ({
+      history: data['history'],
+      resolution: data['resolution'],
+      secretHash: data['secretHash'],
+      workspaceId: data['workspaceId'],
+    }));
+});

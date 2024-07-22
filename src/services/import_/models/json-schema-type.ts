@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const jsonSchemaType = z.enum(['json']);
-
-export type JsonSchemaType = z.infer<typeof jsonSchemaType>;
+export enum JsonSchemaType {
+  JSON = 'json',
+}

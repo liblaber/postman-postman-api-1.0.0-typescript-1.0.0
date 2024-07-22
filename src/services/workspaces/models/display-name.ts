@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
-export const displayName = z.enum(['Admin', 'Viewer', 'Editor']);
-
-export type DisplayName = z.infer<typeof displayName>;
+export enum DisplayName {
+  ADMIN = 'Admin',
+  VIEWER = 'Viewer',
+  EDITOR = 'Editor',
+}

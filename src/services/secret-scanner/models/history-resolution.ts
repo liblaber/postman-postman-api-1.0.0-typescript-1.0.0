@@ -2,6 +2,9 @@
 
 import { z } from 'zod';
 
-export const historyResolution = z.enum(['FALSE_POSITIVE', 'ACCEPTED_RISK', 'REVOKED', 'ACTIVE']);
-
-export type HistoryResolution = z.infer<typeof historyResolution>;
+export enum HistoryResolution {
+  FALSEPOSITIVE = 'FALSE_POSITIVE',
+  ACCEPTEDRISK = 'ACCEPTED_RISK',
+  REVOKED = 'REVOKED',
+  ACTIVE = 'ACTIVE',
+}

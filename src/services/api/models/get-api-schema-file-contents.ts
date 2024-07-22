@@ -5,15 +5,17 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApiSchemaFileContents = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  path: z.string().optional(),
-  content: z.string().optional(),
-  createdAt: z.string().optional(),
-  createdBy: z.string().optional(),
-  updatedAt: z.string().optional(),
-  updatedBy: z.string().optional(),
+export const getApiSchemaFileContents: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    path: z.string().optional(),
+    content: z.string().optional(),
+    createdAt: z.string().optional(),
+    createdBy: z.string().optional(),
+    updatedAt: z.string().optional(),
+    updatedBy: z.string().optional(),
+  });
 });
 
 /**
@@ -34,50 +36,54 @@ export type GetApiSchemaFileContents = z.infer<typeof getApiSchemaFileContents>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiSchemaFileContentsResponse = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    path: z.string().optional(),
-    content: z.string().optional(),
-    createdAt: z.string().optional(),
-    createdBy: z.string().optional(),
-    updatedAt: z.string().optional(),
-    updatedBy: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    path: data['path'],
-    content: data['content'],
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    updatedAt: data['updatedAt'],
-    updatedBy: data['updatedBy'],
-  }));
+export const getApiSchemaFileContentsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      path: z.string().optional(),
+      content: z.string().optional(),
+      createdAt: z.string().optional(),
+      createdBy: z.string().optional(),
+      updatedAt: z.string().optional(),
+      updatedBy: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      path: data['path'],
+      content: data['content'],
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      updatedAt: data['updatedAt'],
+      updatedBy: data['updatedBy'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiSchemaFileContentsRequest = z
-  .object({
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    path: z.string().nullish(),
-    content: z.string().nullish(),
-    createdAt: z.string().nullish(),
-    createdBy: z.string().nullish(),
-    updatedAt: z.string().nullish(),
-    updatedBy: z.string().nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    path: data['path'],
-    content: data['content'],
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    updatedAt: data['updatedAt'],
-    updatedBy: data['updatedBy'],
-  }));
+export const getApiSchemaFileContentsRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      path: z.string().nullish(),
+      content: z.string().nullish(),
+      createdAt: z.string().nullish(),
+      createdBy: z.string().nullish(),
+      updatedAt: z.string().nullish(),
+      updatedBy: z.string().nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      path: data['path'],
+      content: data['content'],
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      updatedAt: data['updatedAt'],
+      updatedBy: data['updatedBy'],
+    }));
+});

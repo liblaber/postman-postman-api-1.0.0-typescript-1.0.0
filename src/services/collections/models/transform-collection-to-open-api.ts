@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const transformCollectionToOpenApi = z.object({
-  output: z.string().optional(),
+export const transformCollectionToOpenApi: any = z.lazy(() => {
+  return z.object({
+    output: z.string().optional(),
+  });
 });
 
 /**
@@ -20,18 +22,22 @@ export type TransformCollectionToOpenApi = z.infer<typeof transformCollectionToO
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const transformCollectionToOpenApiResponse = z
-  .object({
-    output: z.string().optional(),
-  })
-  .transform((data) => ({
-    output: data['output'],
-  }));
+export const transformCollectionToOpenApiResponse: any = z.lazy(() => {
+  return z
+    .object({
+      output: z.string().optional(),
+    })
+    .transform((data) => ({
+      output: data['output'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const transformCollectionToOpenApiRequest = z.object({ output: z.string().nullish() }).transform((data) => ({
-  output: data['output'],
-}));
+export const transformCollectionToOpenApiRequest: any = z.lazy(() => {
+  return z.object({ output: z.string().nullish() }).transform((data) => ({
+    output: data['output'],
+  }));
+});

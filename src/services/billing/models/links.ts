@@ -6,8 +6,10 @@ import { web, webRequest, webResponse } from './web';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const links = z.object({
-  web: web.optional(),
+export const links: any = z.lazy(() => {
+  return z.object({
+    web: web.optional(),
+  });
 });
 
 /**
@@ -21,18 +23,22 @@ export type Links = z.infer<typeof links>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const linksResponse = z
-  .object({
-    web: webResponse.optional(),
-  })
-  .transform((data) => ({
-    web: data['web'],
-  }));
+export const linksResponse: any = z.lazy(() => {
+  return z
+    .object({
+      web: webResponse.optional(),
+    })
+    .transform((data) => ({
+      web: data['web'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const linksRequest = z.object({ web: webRequest.nullish() }).transform((data) => ({
-  web: data['web'],
-}));
+export const linksRequest: any = z.lazy(() => {
+  return z.object({ web: webRequest.nullish() }).transform((data) => ({
+    web: data['web'],
+  }));
+});

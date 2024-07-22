@@ -6,8 +6,10 @@ import { version, versionRequest, versionResponse } from './version';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApiVersion = z.object({
-  version: version.optional(),
+export const getApiVersion: any = z.lazy(() => {
+  return z.object({
+    version: version.optional(),
+  });
 });
 
 /**
@@ -21,18 +23,22 @@ export type GetApiVersion = z.infer<typeof getApiVersion>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiVersionResponse = z
-  .object({
-    version: versionResponse.optional(),
-  })
-  .transform((data) => ({
-    version: data['version'],
-  }));
+export const getApiVersionResponse: any = z.lazy(() => {
+  return z
+    .object({
+      version: versionResponse.optional(),
+    })
+    .transform((data) => ({
+      version: data['version'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiVersionRequest = z.object({ version: versionRequest.nullish() }).transform((data) => ({
-  version: data['version'],
-}));
+export const getApiVersionRequest: any = z.lazy(() => {
+  return z.object({ version: versionRequest.nullish() }).transform((data) => ({
+    version: data['version'],
+  }));
+});

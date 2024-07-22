@@ -25,17 +25,19 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getScimServiceProviderConfig = z.object({
-  schemas: z.array(z.string()).optional(),
-  documentationUri: z.string().optional(),
-  patch: patch.optional(),
-  bulk: bulk.optional(),
-  filter: filter.optional(),
-  changePassword: changePassword.optional(),
-  sort: getScimServiceProviderConfigSort.optional(),
-  authenticationSchemes: z.array(authenticationSchemes).optional(),
-  etag: etag.optional(),
-  meta: getScimServiceProviderConfigMeta.optional(),
+export const getScimServiceProviderConfig: any = z.lazy(() => {
+  return z.object({
+    schemas: z.array(z.string()).optional(),
+    documentationUri: z.string().optional(),
+    patch: patch.optional(),
+    bulk: bulk.optional(),
+    filter: filter.optional(),
+    changePassword: changePassword.optional(),
+    sort: getScimServiceProviderConfigSort.optional(),
+    authenticationSchemes: z.array(authenticationSchemes).optional(),
+    etag: etag.optional(),
+    meta: getScimServiceProviderConfigMeta.optional(),
+  });
 });
 
 /**
@@ -58,58 +60,62 @@ export type GetScimServiceProviderConfig = z.infer<typeof getScimServiceProvider
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimServiceProviderConfigResponse = z
-  .object({
-    schemas: z.array(z.string()).optional(),
-    documentationUri: z.string().optional(),
-    patch: patchResponse.optional(),
-    bulk: bulkResponse.optional(),
-    filter: filterResponse.optional(),
-    changePassword: changePasswordResponse.optional(),
-    sort: getScimServiceProviderConfigSortResponse.optional(),
-    authenticationSchemes: z.array(authenticationSchemesResponse).optional(),
-    etag: etagResponse.optional(),
-    meta: getScimServiceProviderConfigMetaResponse.optional(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    documentationUri: data['documentationUri'],
-    patch: data['patch'],
-    bulk: data['bulk'],
-    filter: data['filter'],
-    changePassword: data['changePassword'],
-    sort: data['sort'],
-    authenticationSchemes: data['authenticationSchemes'],
-    etag: data['etag'],
-    meta: data['meta'],
-  }));
+export const getScimServiceProviderConfigResponse: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).optional(),
+      documentationUri: z.string().optional(),
+      patch: patchResponse.optional(),
+      bulk: bulkResponse.optional(),
+      filter: filterResponse.optional(),
+      changePassword: changePasswordResponse.optional(),
+      sort: getScimServiceProviderConfigSortResponse.optional(),
+      authenticationSchemes: z.array(authenticationSchemesResponse).optional(),
+      etag: etagResponse.optional(),
+      meta: getScimServiceProviderConfigMetaResponse.optional(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      documentationUri: data['documentationUri'],
+      patch: data['patch'],
+      bulk: data['bulk'],
+      filter: data['filter'],
+      changePassword: data['changePassword'],
+      sort: data['sort'],
+      authenticationSchemes: data['authenticationSchemes'],
+      etag: data['etag'],
+      meta: data['meta'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimServiceProviderConfigRequest = z
-  .object({
-    schemas: z.array(z.string()).nullish(),
-    documentationUri: z.string().nullish(),
-    patch: patchRequest.nullish(),
-    bulk: bulkRequest.nullish(),
-    filter: filterRequest.nullish(),
-    changePassword: changePasswordRequest.nullish(),
-    sort: getScimServiceProviderConfigSortRequest.nullish(),
-    authenticationSchemes: z.array(authenticationSchemesRequest).nullish(),
-    etag: etagRequest.nullish(),
-    meta: getScimServiceProviderConfigMetaRequest.nullish(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    documentationUri: data['documentationUri'],
-    patch: data['patch'],
-    bulk: data['bulk'],
-    filter: data['filter'],
-    changePassword: data['changePassword'],
-    sort: data['sort'],
-    authenticationSchemes: data['authenticationSchemes'],
-    etag: data['etag'],
-    meta: data['meta'],
-  }));
+export const getScimServiceProviderConfigRequest: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).nullish(),
+      documentationUri: z.string().nullish(),
+      patch: patchRequest.nullish(),
+      bulk: bulkRequest.nullish(),
+      filter: filterRequest.nullish(),
+      changePassword: changePasswordRequest.nullish(),
+      sort: getScimServiceProviderConfigSortRequest.nullish(),
+      authenticationSchemes: z.array(authenticationSchemesRequest).nullish(),
+      etag: etagRequest.nullish(),
+      meta: getScimServiceProviderConfigMetaRequest.nullish(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      documentationUri: data['documentationUri'],
+      patch: data['patch'],
+      bulk: data['bulk'],
+      filter: data['filter'],
+      changePassword: data['changePassword'],
+      sort: data['sort'],
+      authenticationSchemes: data['authenticationSchemes'],
+      etag: data['etag'],
+      meta: data['meta'],
+    }));
+});

@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createWebhookWebhook1 = z.object({
-  collection: z.string().optional(),
-  name: z.string().optional(),
+export const createWebhookWebhook1: any = z.lazy(() => {
+  return z.object({
+    collection: z.string().optional(),
+    name: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type CreateWebhookWebhook1 = z.infer<typeof createWebhookWebhook1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createWebhookWebhook1Response = z
-  .object({
-    collection: z.string().optional(),
-    name: z.string().optional(),
-  })
-  .transform((data) => ({
-    collection: data['collection'],
-    name: data['name'],
-  }));
+export const createWebhookWebhook1Response: any = z.lazy(() => {
+  return z
+    .object({
+      collection: z.string().optional(),
+      name: z.string().optional(),
+    })
+    .transform((data) => ({
+      collection: data['collection'],
+      name: data['name'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createWebhookWebhook1Request = z
-  .object({ collection: z.string().nullish(), name: z.string().nullish() })
-  .transform((data) => ({
+export const createWebhookWebhook1Request: any = z.lazy(() => {
+  return z.object({ collection: z.string().nullish(), name: z.string().nullish() }).transform((data) => ({
     collection: data['collection'],
     name: data['name'],
   }));
+});

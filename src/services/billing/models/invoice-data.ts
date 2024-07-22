@@ -7,12 +7,14 @@ import { links, linksRequest, linksResponse } from './links';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const invoiceData = z.object({
-  id: z.string().optional(),
-  status: z.string().optional(),
-  issuedAt: z.string().optional(),
-  totalAmount: totalAmount.optional(),
-  links: links.optional(),
+export const invoiceData: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    status: z.string().optional(),
+    issuedAt: z.string().optional(),
+    totalAmount: totalAmount.optional(),
+    links: links.optional(),
+  });
 });
 
 /**
@@ -30,38 +32,42 @@ export type InvoiceData = z.infer<typeof invoiceData>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const invoiceDataResponse = z
-  .object({
-    id: z.string().optional(),
-    status: z.string().optional(),
-    issuedAt: z.string().optional(),
-    totalAmount: totalAmountResponse.optional(),
-    links: linksResponse.optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    status: data['status'],
-    issuedAt: data['issuedAt'],
-    totalAmount: data['totalAmount'],
-    links: data['links'],
-  }));
+export const invoiceDataResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      status: z.string().optional(),
+      issuedAt: z.string().optional(),
+      totalAmount: totalAmountResponse.optional(),
+      links: linksResponse.optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      status: data['status'],
+      issuedAt: data['issuedAt'],
+      totalAmount: data['totalAmount'],
+      links: data['links'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const invoiceDataRequest = z
-  .object({
-    id: z.string().nullish(),
-    status: z.string().nullish(),
-    issuedAt: z.string().nullish(),
-    totalAmount: totalAmountRequest.nullish(),
-    links: linksRequest.nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    status: data['status'],
-    issuedAt: data['issuedAt'],
-    totalAmount: data['totalAmount'],
-    links: data['links'],
-  }));
+export const invoiceDataRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      status: z.string().nullish(),
+      issuedAt: z.string().nullish(),
+      totalAmount: totalAmountRequest.nullish(),
+      links: linksRequest.nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      status: data['status'],
+      issuedAt: data['issuedAt'],
+      totalAmount: data['totalAmount'],
+      links: data['links'],
+    }));
+});

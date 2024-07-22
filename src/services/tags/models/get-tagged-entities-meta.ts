@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getTaggedEntitiesMeta = z.object({
-  count: z.number(),
-  nextCursor: z.string().optional(),
+export const getTaggedEntitiesMeta: any = z.lazy(() => {
+  return z.object({
+    count: z.number(),
+    nextCursor: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type GetTaggedEntitiesMeta = z.infer<typeof getTaggedEntitiesMeta>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getTaggedEntitiesMetaResponse = z
-  .object({
-    count: z.number(),
-    nextCursor: z.string().optional(),
-  })
-  .transform((data) => ({
-    count: data['count'],
-    nextCursor: data['nextCursor'],
-  }));
+export const getTaggedEntitiesMetaResponse: any = z.lazy(() => {
+  return z
+    .object({
+      count: z.number(),
+      nextCursor: z.string().optional(),
+    })
+    .transform((data) => ({
+      count: data['count'],
+      nextCursor: data['nextCursor'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getTaggedEntitiesMetaRequest = z
-  .object({ count: z.number().nullish(), nextCursor: z.string().nullish() })
-  .transform((data) => ({
+export const getTaggedEntitiesMetaRequest: any = z.lazy(() => {
+  return z.object({ count: z.number().nullish(), nextCursor: z.string().nullish() }).transform((data) => ({
     count: data['count'],
     nextCursor: data['nextCursor'],
   }));
+});

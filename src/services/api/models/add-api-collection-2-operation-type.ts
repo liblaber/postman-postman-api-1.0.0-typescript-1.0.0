@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const addApiCollection2OperationType = z.enum(['GENERATE_FROM_SCHEMA']);
-
-export type AddApiCollection2OperationType = z.infer<typeof addApiCollection2OperationType>;
+export enum AddApiCollection2OperationType {
+  GENERATEFROMSCHEMA = 'GENERATE_FROM_SCHEMA',
+}

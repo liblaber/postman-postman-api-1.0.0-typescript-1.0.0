@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updatePanFolderFolder = z.object({
-  name: z.string().optional(),
-  description: z.string().optional(),
-  parentFolderId: z.number().optional(),
+export const updatePanFolderFolder: any = z.lazy(() => {
+  return z.object({
+    name: z.string().optional(),
+    description: z.string().optional(),
+    parentFolderId: z.number().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type UpdatePanFolderFolder = z.infer<typeof updatePanFolderFolder>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanFolderFolderResponse = z
-  .object({
-    name: z.string().optional(),
-    description: z.string().optional(),
-    parentFolderId: z.number().optional(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    description: data['description'],
-    parentFolderId: data['parentFolderId'],
-  }));
+export const updatePanFolderFolderResponse: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string().optional(),
+      description: z.string().optional(),
+      parentFolderId: z.number().optional(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      description: data['description'],
+      parentFolderId: data['parentFolderId'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanFolderFolderRequest = z
-  .object({ name: z.string().nullish(), description: z.string().nullish(), parentFolderId: z.number().nullish() })
-  .transform((data) => ({
-    name: data['name'],
-    description: data['description'],
-    parentFolderId: data['parentFolderId'],
-  }));
+export const updatePanFolderFolderRequest: any = z.lazy(() => {
+  return z
+    .object({ name: z.string().nullish(), description: z.string().nullish(), parentFolderId: z.number().nullish() })
+    .transform((data) => ({
+      name: data['name'],
+      description: data['description'],
+      parentFolderId: data['parentFolderId'],
+    }));
+});

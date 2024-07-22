@@ -31,12 +31,12 @@ The secret's current status: - `ACTIVE` — The secret is active. - `FALSE_POSIT
 
 **Properties**
 
-| Name           | Type   | Required | Description      |
-| :------------- | :----- | :------- | :--------------- |
-| FALSE_POSITIVE | string | ✅       | "FALSE_POSITIVE" |
-| ACCEPTED_RISK  | string | ✅       | "ACCEPTED_RISK"  |
-| REVOKED        | string | ✅       | "REVOKED"        |
-| ACTIVE         | string | ✅       | "ACTIVE"         |
+| Name          | Type   | Required | Description      |
+| :------------ | :----- | :------- | :--------------- |
+| FALSEPOSITIVE | string | ✅       | "FALSE_POSITIVE" |
+| ACCEPTEDRISK  | string | ✅       | "ACCEPTED_RISK"  |
+| REVOKED       | string | ✅       | "REVOKED"        |
+| ACTIVE        | string | ✅       | "ACTIVE"         |
 
 # DataWorkspaceVisibility
 
@@ -44,12 +44,12 @@ The workspace's [visibility setting](https://learning.postman.com/docs/collabora
 
 **Properties**
 
-| Name     | Type   | Required | Description |
-| :------- | :----- | :------- | :---------- |
-| personal | string | ✅       | "personal"  |
-| private  | string | ✅       | "private"   |
-| team     | string | ✅       | "team"      |
-| public   | string | ✅       | "public"    |
+| Name      | Type   | Required | Description |
+| :-------- | :----- | :------- | :---------- |
+| PERSONAL  | string | ✅       | "personal"  |
+| PRIVATE\_ | string | ✅       | "private"   |
+| TEAM      | string | ✅       | "team"      |
+| PUBLIC\_  | string | ✅       | "public"    |
 
 # DetectedSecretsQueriesMeta
 

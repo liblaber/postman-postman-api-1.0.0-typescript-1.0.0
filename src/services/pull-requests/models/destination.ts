@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const destination = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  exists: z.boolean().optional(),
+export const destination: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    exists: z.boolean().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type Destination = z.infer<typeof destination>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const destinationResponse = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    exists: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    exists: data['exists'],
-  }));
+export const destinationResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      exists: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      exists: data['exists'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const destinationRequest = z
-  .object({ id: z.string().nullish(), name: z.string().nullish(), exists: z.boolean().nullish() })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    exists: data['exists'],
-  }));
+export const destinationRequest: any = z.lazy(() => {
+  return z
+    .object({ id: z.string().nullish(), name: z.string().nullish(), exists: z.boolean().nullish() })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      exists: data['exists'],
+    }));
+});

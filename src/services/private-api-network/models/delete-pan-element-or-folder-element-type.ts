@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const deletePanElementOrFolderElementType = z.object({
-  id: z.string().optional(),
+export const deletePanElementOrFolderElementType: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+  });
 });
 
 /**
@@ -20,18 +22,22 @@ export type DeletePanElementOrFolderElementType = z.infer<typeof deletePanElemen
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const deletePanElementOrFolderElementTypeResponse = z
-  .object({
-    id: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-  }));
+export const deletePanElementOrFolderElementTypeResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const deletePanElementOrFolderElementTypeRequest = z.object({ id: z.string().nullish() }).transform((data) => ({
-  id: data['id'],
-}));
+export const deletePanElementOrFolderElementTypeRequest: any = z.lazy(() => {
+  return z.object({ id: z.string().nullish() }).transform((data) => ({
+    id: data['id'],
+  }));
+});

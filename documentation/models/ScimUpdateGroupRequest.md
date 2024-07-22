@@ -25,9 +25,9 @@ The operation to perform.
 
 | Name    | Type   | Required | Description |
 | :------ | :----- | :------- | :---------- |
-| replace | string | ✅       | "replace"   |
-| remove  | string | ✅       | "remove"    |
-| add     | string | ✅       | "add"       |
+| REPLACE | string | ✅       | "replace"   |
+| REMOVE  | string | ✅       | "remove"    |
+| ADD     | string | ✅       | "add"       |
 
 # OperationsValue1
 

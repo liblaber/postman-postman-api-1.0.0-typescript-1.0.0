@@ -15,9 +15,11 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getSecretsLocations = z.object({
-  data: z.array(getSecretsLocationsData).optional(),
-  meta: getSecretsLocationsMeta.optional(),
+export const getSecretsLocations: any = z.lazy(() => {
+  return z.object({
+    data: z.array(getSecretsLocationsData).optional(),
+    meta: getSecretsLocationsMeta.optional(),
+  });
 });
 
 /**
@@ -32,23 +34,27 @@ export type GetSecretsLocations = z.infer<typeof getSecretsLocations>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSecretsLocationsResponse = z
-  .object({
-    data: z.array(getSecretsLocationsDataResponse).optional(),
-    meta: getSecretsLocationsMetaResponse.optional(),
-  })
-  .transform((data) => ({
-    data: data['data'],
-    meta: data['meta'],
-  }));
+export const getSecretsLocationsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      data: z.array(getSecretsLocationsDataResponse).optional(),
+      meta: getSecretsLocationsMetaResponse.optional(),
+    })
+    .transform((data) => ({
+      data: data['data'],
+      meta: data['meta'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSecretsLocationsRequest = z
-  .object({ data: z.array(getSecretsLocationsDataRequest).nullish(), meta: getSecretsLocationsMetaRequest.nullish() })
-  .transform((data) => ({
-    data: data['data'],
-    meta: data['meta'],
-  }));
+export const getSecretsLocationsRequest: any = z.lazy(() => {
+  return z
+    .object({ data: z.array(getSecretsLocationsDataRequest).nullish(), meta: getSecretsLocationsMetaRequest.nullish() })
+    .transform((data) => ({
+      data: data['data'],
+      meta: data['meta'],
+    }));
+});

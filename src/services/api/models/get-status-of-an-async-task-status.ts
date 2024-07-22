@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
-export const getStatusOfAnAsyncTaskStatus = z.enum(['pending', 'failed', 'completed']);
-
-export type GetStatusOfAnAsyncTaskStatus = z.infer<typeof getStatusOfAnAsyncTaskStatus>;
+export enum GetStatusOfAnAsyncTaskStatus {
+  PENDING = 'pending',
+  FAILED = 'failed',
+  COMPLETED = 'completed',
+}

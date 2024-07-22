@@ -4,21 +4,26 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
+import { Request } from '../../http/transport/request';
+import {
+  DetectedSecretsQueriesRequest,
+  detectedSecretsQueriesRequestRequest,
+} from './models/detected-secrets-queries-request';
 import {
   DetectedSecretsQueriesOkResponse,
-  DetectedSecretsQueriesRequest,
-  GetSecretTypes,
-  GetSecretsLocations,
-  UpdateDetectedSecretResolutionsOkResponse,
-  UpdateDetectedSecretResolutionsRequest,
   detectedSecretsQueriesOkResponseResponse,
-  detectedSecretsQueriesRequestRequest,
-  getSecretTypesResponse,
-  getSecretsLocationsResponse,
-  updateDetectedSecretResolutionsOkResponseResponse,
-  updateDetectedSecretResolutionsRequestRequest,
-} from './models';
+} from './models/detected-secrets-queries-ok-response';
 import { DetectedSecretsQueriesParams, GetDetectedSecretsLocationsParams } from './request-params';
+import {
+  UpdateDetectedSecretResolutionsRequest,
+  updateDetectedSecretResolutionsRequestRequest,
+} from './models/update-detected-secret-resolutions-request';
+import {
+  UpdateDetectedSecretResolutionsOkResponse,
+  updateDetectedSecretResolutionsOkResponseResponse,
+} from './models/update-detected-secret-resolutions-ok-response';
+import { GetSecretsLocations, getSecretsLocationsResponse } from './models/get-secrets-locations';
+import { GetSecretTypes, getSecretTypesResponse } from './models/get-secret-types';
 
 export class SecretScannerService extends BaseService {
   /**
@@ -33,30 +38,22 @@ export class SecretScannerService extends BaseService {
     params?: DetectedSecretsQueriesParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<DetectedSecretsQueriesOkResponse>> {
-    const path = '/detected-secrets-queries';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/detected-secrets-queries',
+      config: this.config,
       responseSchema: detectedSecretsQueriesOkResponseResponse,
       requestSchema: detectedSecretsQueriesRequestRequest,
-      body: body as any,
-      queryParams: {},
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.limit) {
-      options.queryParams['limit'] = params?.limit;
-    }
-    if (params?.cursor) {
-      options.queryParams['cursor'] = params?.cursor;
-    }
-    if (params?.include) {
-      options.queryParams['include'] = params?.include;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('limit', params?.limit);
+    request.addQueryParam('cursor', params?.cursor);
+    request.addQueryParam('include', params?.include);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<DetectedSecretsQueriesOkResponse>(request);
   }
 
   /**
@@ -69,20 +66,20 @@ export class SecretScannerService extends BaseService {
     body: UpdateDetectedSecretResolutionsRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdateDetectedSecretResolutionsOkResponse>> {
-    const path = this.client.buildPath('/detected-secrets/{secretId}', { secretId: secretId });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/detected-secrets/{secretId}',
+      config: this.config,
       responseSchema: updateDetectedSecretResolutionsOkResponseResponse,
       requestSchema: updateDetectedSecretResolutionsRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('secretId', secretId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<UpdateDetectedSecretResolutionsOkResponse>(request);
   }
 
   /**
@@ -98,27 +95,21 @@ export class SecretScannerService extends BaseService {
     params: GetDetectedSecretsLocationsParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetSecretsLocations>> {
-    const path = this.client.buildPath('/detected-secrets/{secretId}/locations', { secretId: secretId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/detected-secrets/{secretId}/locations',
+      config: this.config,
       responseSchema: getSecretsLocationsResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.limit) {
-      options.queryParams['limit'] = params?.limit;
-    }
-    if (params?.cursor) {
-      options.queryParams['cursor'] = params?.cursor;
-    }
-    if (params?.workspaceId) {
-      options.queryParams['workspaceId'] = params?.workspaceId;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('secretId', secretId);
+    request.addQueryParam('limit', params?.limit);
+    request.addQueryParam('cursor', params?.cursor);
+    request.addQueryParam('workspaceId', params?.workspaceId);
+    return this.client.call<GetSecretsLocations>(request);
   }
 
   /**
@@ -126,16 +117,16 @@ export class SecretScannerService extends BaseService {
    * @returns {Promise<HttpResponse<GetSecretTypes>>} Successful Response
    */
   async getSecretTypes(requestConfig?: RequestConfig): Promise<HttpResponse<GetSecretTypes>> {
-    const path = '/secret-types';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/secret-types',
+      config: this.config,
       responseSchema: getSecretTypesResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    return this.client.call<GetSecretTypes>(request);
   }
 }

@@ -10,8 +10,10 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createCollectionForkOkResponse = z.object({
-  collection: createCollectionForkCollection.optional(),
+export const createCollectionForkOkResponse: any = z.lazy(() => {
+  return z.object({
+    collection: createCollectionForkCollection.optional(),
+  });
 });
 
 /**
@@ -25,20 +27,22 @@ export type CreateCollectionForkOkResponse = z.infer<typeof createCollectionFork
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createCollectionForkOkResponseResponse = z
-  .object({
-    collection: createCollectionForkCollectionResponse.optional(),
-  })
-  .transform((data) => ({
-    collection: data['collection'],
-  }));
+export const createCollectionForkOkResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      collection: createCollectionForkCollectionResponse.optional(),
+    })
+    .transform((data) => ({
+      collection: data['collection'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createCollectionForkOkResponseRequest = z
-  .object({ collection: createCollectionForkCollectionRequest.nullish() })
-  .transform((data) => ({
+export const createCollectionForkOkResponseRequest: any = z.lazy(() => {
+  return z.object({ collection: createCollectionForkCollectionRequest.nullish() }).transform((data) => ({
     collection: data['collection'],
   }));
+});

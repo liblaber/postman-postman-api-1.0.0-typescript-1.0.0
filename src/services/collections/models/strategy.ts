@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const strategy = z.enum(['deleteSource', 'updateSourceWithDestination']);
-
-export type Strategy = z.infer<typeof strategy>;
+export enum Strategy {
+  DELETESOURCE = 'deleteSource',
+  UPDATESOURCEWITHDESTINATION = 'updateSourceWithDestination',
+}

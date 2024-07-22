@@ -10,8 +10,10 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const respondPanElementAddRequestOkResponse = z.object({
-  request: z.array(respondPanElementAddRequestRequest2).optional(),
+export const respondPanElementAddRequestOkResponse: any = z.lazy(() => {
+  return z.object({
+    request: z.array(respondPanElementAddRequestRequest2).optional(),
+  });
 });
 
 /**
@@ -25,20 +27,22 @@ export type RespondPanElementAddRequestOkResponse = z.infer<typeof respondPanEle
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const respondPanElementAddRequestOkResponseResponse = z
-  .object({
-    request: z.array(respondPanElementAddRequestRequest2Response).optional(),
-  })
-  .transform((data) => ({
-    request: data['request'],
-  }));
+export const respondPanElementAddRequestOkResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      request: z.array(respondPanElementAddRequestRequest2Response).optional(),
+    })
+    .transform((data) => ({
+      request: data['request'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const respondPanElementAddRequestOkResponseRequest = z
-  .object({ request: z.array(respondPanElementAddRequestRequest2Request).nullish() })
-  .transform((data) => ({
+export const respondPanElementAddRequestOkResponseRequest: any = z.lazy(() => {
+  return z.object({ request: z.array(respondPanElementAddRequestRequest2Request).nullish() }).transform((data) => ({
     request: data['request'],
   }));
+});

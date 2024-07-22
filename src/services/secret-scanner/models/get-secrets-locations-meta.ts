@@ -6,15 +6,17 @@ import { activityFeed, activityFeedRequest, activityFeedResponse } from './activ
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getSecretsLocationsMeta = z.object({
-  activityFeed: z.array(activityFeed).optional(),
-  cursor: z.string().optional(),
-  limit: z.number().optional(),
-  nextCursor: z.string().optional(),
-  obfuscatedSecret: z.string().optional(),
-  secretHash: z.string().optional(),
-  secretType: z.string().optional(),
-  total: z.number().optional(),
+export const getSecretsLocationsMeta: any = z.lazy(() => {
+  return z.object({
+    activityFeed: z.array(activityFeed).optional(),
+    cursor: z.string().optional(),
+    limit: z.number().optional(),
+    nextCursor: z.string().optional().nullable(),
+    obfuscatedSecret: z.string().optional(),
+    secretHash: z.string().optional(),
+    secretType: z.string().optional(),
+    total: z.number().optional(),
+  });
 });
 
 /**
@@ -35,50 +37,54 @@ export type GetSecretsLocationsMeta = z.infer<typeof getSecretsLocationsMeta>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSecretsLocationsMetaResponse = z
-  .object({
-    activityFeed: z.array(activityFeedResponse).optional(),
-    cursor: z.string().optional(),
-    limit: z.number().optional(),
-    nextCursor: z.string().optional(),
-    obfuscatedSecret: z.string().optional(),
-    secretHash: z.string().optional(),
-    secretType: z.string().optional(),
-    total: z.number().optional(),
-  })
-  .transform((data) => ({
-    activityFeed: data['activityFeed'],
-    cursor: data['cursor'],
-    limit: data['limit'],
-    nextCursor: data['nextCursor'],
-    obfuscatedSecret: data['obfuscatedSecret'],
-    secretHash: data['secretHash'],
-    secretType: data['secretType'],
-    total: data['total'],
-  }));
+export const getSecretsLocationsMetaResponse: any = z.lazy(() => {
+  return z
+    .object({
+      activityFeed: z.array(activityFeedResponse).optional(),
+      cursor: z.string().optional(),
+      limit: z.number().optional(),
+      nextCursor: z.string().optional().nullable(),
+      obfuscatedSecret: z.string().optional(),
+      secretHash: z.string().optional(),
+      secretType: z.string().optional(),
+      total: z.number().optional(),
+    })
+    .transform((data) => ({
+      activityFeed: data['activityFeed'],
+      cursor: data['cursor'],
+      limit: data['limit'],
+      nextCursor: data['nextCursor'],
+      obfuscatedSecret: data['obfuscatedSecret'],
+      secretHash: data['secretHash'],
+      secretType: data['secretType'],
+      total: data['total'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSecretsLocationsMetaRequest = z
-  .object({
-    activityFeed: z.array(activityFeedRequest).nullish(),
-    cursor: z.string().nullish(),
-    limit: z.number().nullish(),
-    nextCursor: z.string().nullish(),
-    obfuscatedSecret: z.string().nullish(),
-    secretHash: z.string().nullish(),
-    secretType: z.string().nullish(),
-    total: z.number().nullish(),
-  })
-  .transform((data) => ({
-    activityFeed: data['activityFeed'],
-    cursor: data['cursor'],
-    limit: data['limit'],
-    nextCursor: data['nextCursor'],
-    obfuscatedSecret: data['obfuscatedSecret'],
-    secretHash: data['secretHash'],
-    secretType: data['secretType'],
-    total: data['total'],
-  }));
+export const getSecretsLocationsMetaRequest: any = z.lazy(() => {
+  return z
+    .object({
+      activityFeed: z.array(activityFeedRequest).nullish(),
+      cursor: z.string().nullish(),
+      limit: z.number().nullish(),
+      nextCursor: z.string().nullish(),
+      obfuscatedSecret: z.string().nullish(),
+      secretHash: z.string().nullish(),
+      secretType: z.string().nullish(),
+      total: z.number().nullish(),
+    })
+    .transform((data) => ({
+      activityFeed: data['activityFeed'],
+      cursor: data['cursor'],
+      limit: data['limit'],
+      nextCursor: data['nextCursor'],
+      obfuscatedSecret: data['obfuscatedSecret'],
+      secretHash: data['secretHash'],
+      secretType: data['secretType'],
+      total: data['total'],
+    }));
+});

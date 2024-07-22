@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getCollectionFolder = z.object({
-  modelId: z.string().optional(),
-  meta: z.any().optional(),
-  data: z.any().optional(),
+export const getCollectionFolder: any = z.lazy(() => {
+  return z.object({
+    modelId: z.string().optional(),
+    meta: z.any().optional(),
+    data: z.any().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type GetCollectionFolder = z.infer<typeof getCollectionFolder>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionFolderResponse = z
-  .object({
-    model_id: z.string().optional(),
-    meta: z.any().optional(),
-    data: z.any().optional(),
-  })
-  .transform((data) => ({
-    modelId: data['model_id'],
-    meta: data['meta'],
-    data: data['data'],
-  }));
+export const getCollectionFolderResponse: any = z.lazy(() => {
+  return z
+    .object({
+      model_id: z.string().optional(),
+      meta: z.any().optional(),
+      data: z.any().optional(),
+    })
+    .transform((data) => ({
+      modelId: data['model_id'],
+      meta: data['meta'],
+      data: data['data'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionFolderRequest = z
-  .object({ modelId: z.string().nullish(), meta: z.any().nullish(), data: z.any().nullish() })
-  .transform((data) => ({
-    model_id: data['modelId'],
-    meta: data['meta'],
-    data: data['data'],
-  }));
+export const getCollectionFolderRequest: any = z.lazy(() => {
+  return z
+    .object({ modelId: z.string().nullish(), meta: z.any().nullish(), data: z.any().nullish() })
+    .transform((data) => ({
+      model_id: data['modelId'],
+      meta: data['meta'],
+      data: data['data'],
+    }));
+});

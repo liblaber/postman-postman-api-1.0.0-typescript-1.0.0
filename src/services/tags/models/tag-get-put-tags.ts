@@ -5,13 +5,15 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const tagGetPutTags = z.object({
-  slug: z
-    .string()
-    .min(2)
-    .max(64)
-    .regex(/^[a-z][a-z0-9-]*[a-z0-9]+$/)
-    .optional(),
+export const tagGetPutTags: any = z.lazy(() => {
+  return z.object({
+    slug: z
+      .string()
+      .min(2)
+      .max(64)
+      .regex(/^[a-z][a-z0-9-]*[a-z0-9]+$/)
+      .optional(),
+  });
 });
 
 /**
@@ -25,23 +27,27 @@ export type TagGetPutTags = z.infer<typeof tagGetPutTags>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const tagGetPutTagsResponse = z
-  .object({
-    slug: z
-      .string()
-      .min(2)
-      .max(64)
-      .regex(/^[a-z][a-z0-9-]*[a-z0-9]+$/)
-      .optional(),
-  })
-  .transform((data) => ({
-    slug: data['slug'],
-  }));
+export const tagGetPutTagsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      slug: z
+        .string()
+        .min(2)
+        .max(64)
+        .regex(/^[a-z][a-z0-9-]*[a-z0-9]+$/)
+        .optional(),
+    })
+    .transform((data) => ({
+      slug: data['slug'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const tagGetPutTagsRequest = z.object({ slug: z.string().nullish() }).transform((data) => ({
-  slug: data['slug'],
-}));
+export const tagGetPutTagsRequest: any = z.lazy(() => {
+  return z.object({ slug: z.string().nullish() }).transform((data) => ({
+    slug: data['slug'],
+  }));
+});

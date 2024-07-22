@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const schemaLanguage = z.enum(['json', 'yaml']);
-
-export type SchemaLanguage = z.infer<typeof schemaLanguage>;
+export enum SchemaLanguage {
+  JSON = 'json',
+  YAML = 'yaml',
+}

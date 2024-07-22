@@ -6,8 +6,10 @@ import { updateMockMock, updateMockMockRequest, updateMockMockResponse } from '.
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateMock = z.object({
-  mock: updateMockMock.optional(),
+export const updateMock: any = z.lazy(() => {
+  return z.object({
+    mock: updateMockMock.optional(),
+  });
 });
 
 /**
@@ -21,18 +23,22 @@ export type UpdateMock = z.infer<typeof updateMock>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateMockResponse = z
-  .object({
-    mock: updateMockMockResponse.optional(),
-  })
-  .transform((data) => ({
-    mock: data['mock'],
-  }));
+export const updateMockResponse: any = z.lazy(() => {
+  return z
+    .object({
+      mock: updateMockMockResponse.optional(),
+    })
+    .transform((data) => ({
+      mock: data['mock'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateMockRequest = z.object({ mock: updateMockMockRequest.nullish() }).transform((data) => ({
-  mock: data['mock'],
-}));
+export const updateMockRequest: any = z.lazy(() => {
+  return z.object({ mock: updateMockMockRequest.nullish() }).transform((data) => ({
+    mock: data['mock'],
+  }));
+});

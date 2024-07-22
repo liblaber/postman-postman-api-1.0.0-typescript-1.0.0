@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
-export const elementType2 = z.enum(['api', 'workspace', 'collection']);
-
-export type ElementType2 = z.infer<typeof elementType2>;
+export enum ElementType2 {
+  API = 'api',
+  WORKSPACE = 'workspace',
+  COLLECTION = 'collection',
+}

@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const collectionUid = z.object({
-  isSourceAhead: z.boolean().optional(),
+export const collectionUid: any = z.lazy(() => {
+  return z.object({
+    isSourceAhead: z.boolean().optional(),
+  });
 });
 
 /**
@@ -20,18 +22,22 @@ export type CollectionUid = z.infer<typeof collectionUid>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const collectionUidResponse = z
-  .object({
-    isSourceAhead: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    isSourceAhead: data['isSourceAhead'],
-  }));
+export const collectionUidResponse: any = z.lazy(() => {
+  return z
+    .object({
+      isSourceAhead: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      isSourceAhead: data['isSourceAhead'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const collectionUidRequest = z.object({ isSourceAhead: z.boolean().nullish() }).transform((data) => ({
-  isSourceAhead: data['isSourceAhead'],
-}));
+export const collectionUidRequest: any = z.lazy(() => {
+  return z.object({ isSourceAhead: z.boolean().nullish() }).transform((data) => ({
+    isSourceAhead: data['isSourceAhead'],
+  }));
+});

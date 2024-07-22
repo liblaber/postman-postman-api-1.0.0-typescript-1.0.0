@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const changePassword = z.object({
-  supported: z.boolean().optional(),
+export const changePassword: any = z.lazy(() => {
+  return z.object({
+    supported: z.boolean().optional(),
+  });
 });
 
 /**
@@ -20,18 +22,22 @@ export type ChangePassword = z.infer<typeof changePassword>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const changePasswordResponse = z
-  .object({
-    supported: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    supported: data['supported'],
-  }));
+export const changePasswordResponse: any = z.lazy(() => {
+  return z
+    .object({
+      supported: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      supported: data['supported'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const changePasswordRequest = z.object({ supported: z.boolean().nullish() }).transform((data) => ({
-  supported: data['supported'],
-}));
+export const changePasswordRequest: any = z.lazy(() => {
+  return z.object({ supported: z.boolean().nullish() }).transform((data) => ({
+    supported: data['supported'],
+  }));
+});

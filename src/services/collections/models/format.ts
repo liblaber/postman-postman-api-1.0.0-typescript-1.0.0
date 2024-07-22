@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const format = z.enum(['json', 'yaml']);
-
-export type Format = z.infer<typeof format>;
+export enum Format {
+  JSON = 'json',
+  YAML = 'yaml',
+}

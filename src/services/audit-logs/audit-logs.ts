@@ -4,7 +4,8 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
-import { GetAuditLogs, getAuditLogsResponse } from './models';
+import { Request } from '../../http/transport/request';
+import { GetAuditLogs, getAuditLogsResponse } from './models/get-audit-logs';
 import { GetAuditLogsParams } from './request-params';
 
 export class AuditLogsService extends BaseService {
@@ -18,32 +19,21 @@ export class AuditLogsService extends BaseService {
    * @returns {Promise<HttpResponse<GetAuditLogs>>} Successful Response
    */
   async getAuditLogs(params?: GetAuditLogsParams, requestConfig?: RequestConfig): Promise<HttpResponse<GetAuditLogs>> {
-    const path = '/audit/logs';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/audit/logs',
+      config: this.config,
       responseSchema: getAuditLogsResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.since) {
-      options.queryParams['since'] = params?.since;
-    }
-    if (params?.until) {
-      options.queryParams['until'] = params?.until;
-    }
-    if (params?.limit) {
-      options.queryParams['limit'] = params?.limit;
-    }
-    if (params?.cursor) {
-      options.queryParams['cursor'] = params?.cursor;
-    }
-    if (params?.orderBy) {
-      options.queryParams['order_by'] = params?.orderBy;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('since', params?.since);
+    request.addQueryParam('until', params?.until);
+    request.addQueryParam('limit', params?.limit);
+    request.addQueryParam('cursor', params?.cursor);
+    request.addQueryParam('order_by', params?.orderBy);
+    return this.client.call<GetAuditLogs>(request);
   }
 }

@@ -37,7 +37,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const orderBy = AscDescDefaultDesc.asc;
+  const orderBy = AscDescDefaultDesc.ASC;
 
   const { data } = await postmanClient.auditLogs.getAuditLogs({
     since: '2022-08-30',

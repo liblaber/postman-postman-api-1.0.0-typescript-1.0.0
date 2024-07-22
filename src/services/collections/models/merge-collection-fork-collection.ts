@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const mergeCollectionForkCollection = z.object({
-  id: z.string().optional(),
-  uid: z.string().optional(),
+export const mergeCollectionForkCollection: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    uid: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type MergeCollectionForkCollection = z.infer<typeof mergeCollectionForkCo
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const mergeCollectionForkCollectionResponse = z
-  .object({
-    id: z.string().optional(),
-    uid: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    uid: data['uid'],
-  }));
+export const mergeCollectionForkCollectionResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      uid: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      uid: data['uid'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const mergeCollectionForkCollectionRequest = z
-  .object({ id: z.string().nullish(), uid: z.string().nullish() })
-  .transform((data) => ({
+export const mergeCollectionForkCollectionRequest: any = z.lazy(() => {
+  return z.object({ id: z.string().nullish(), uid: z.string().nullish() }).transform((data) => ({
     id: data['id'],
     uid: data['uid'],
   }));
+});

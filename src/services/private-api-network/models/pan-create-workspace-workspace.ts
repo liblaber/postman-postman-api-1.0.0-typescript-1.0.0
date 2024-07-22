@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const panCreateWorkspaceWorkspace = z.object({
-  id: z.string(),
-  parentFolderId: z.number(),
+export const panCreateWorkspaceWorkspace: any = z.lazy(() => {
+  return z.object({
+    id: z.string(),
+    parentFolderId: z.number(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type PanCreateWorkspaceWorkspace = z.infer<typeof panCreateWorkspaceWorks
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const panCreateWorkspaceWorkspaceResponse = z
-  .object({
-    id: z.string(),
-    parentFolderId: z.number(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    parentFolderId: data['parentFolderId'],
-  }));
+export const panCreateWorkspaceWorkspaceResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string(),
+      parentFolderId: z.number(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      parentFolderId: data['parentFolderId'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const panCreateWorkspaceWorkspaceRequest = z
-  .object({ id: z.string().nullish(), parentFolderId: z.number().nullish() })
-  .transform((data) => ({
+export const panCreateWorkspaceWorkspaceRequest: any = z.lazy(() => {
+  return z.object({ id: z.string().nullish(), parentFolderId: z.number().nullish() }).transform((data) => ({
     id: data['id'],
     parentFolderId: data['parentFolderId'],
   }));
+});

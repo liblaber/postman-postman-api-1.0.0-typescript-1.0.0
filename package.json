@@ -1,7 +1,7 @@
 {
   "name": "postman_client",
   "version": "1.0.0",
-  "description": "The Postman API enables you to programmatically access data stored in your Postman account. ",
+  "description": "The Postman API enables you to programmatically access data stored in your Postman account. For more information on the API, rate limiting, authentication, and policies click visit [Postman's Documentation](https://learning.postman.com/docs/introduction/overview/)",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -13,8 +13,8 @@
     "api",
     "client"
   ],
-  "author": "Postman Support",
-  "license": "",
+  "author": "LibLab",
+  "license": "MIT",
   "devDependencies": {
     "typescript": "5.3.3"
   },

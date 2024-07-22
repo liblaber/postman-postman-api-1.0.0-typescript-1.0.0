@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const schemaExtensions = z.object({
-  schema: z.string().optional(),
-  required: z.boolean().optional(),
+export const schemaExtensions: any = z.lazy(() => {
+  return z.object({
+    schema: z.string().optional(),
+    required: z.boolean().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type SchemaExtensions = z.infer<typeof schemaExtensions>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const schemaExtensionsResponse = z
-  .object({
-    schema: z.string().optional(),
-    required: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    schema: data['schema'],
-    required: data['required'],
-  }));
+export const schemaExtensionsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      schema: z.string().optional(),
+      required: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      schema: data['schema'],
+      required: data['required'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const schemaExtensionsRequest = z
-  .object({ schema: z.string().nullish(), required: z.boolean().nullish() })
-  .transform((data) => ({
+export const schemaExtensionsRequest: any = z.lazy(() => {
+  return z.object({ schema: z.string().nullish(), required: z.boolean().nullish() }).transform((data) => ({
     schema: data['schema'],
     required: data['required'],
   }));
+});

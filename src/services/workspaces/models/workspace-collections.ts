@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const workspaceCollections = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  uid: z.string().optional(),
+export const workspaceCollections: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    uid: z.string().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type WorkspaceCollections = z.infer<typeof workspaceCollections>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const workspaceCollectionsResponse = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    uid: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    uid: data['uid'],
-  }));
+export const workspaceCollectionsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      uid: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      uid: data['uid'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const workspaceCollectionsRequest = z
-  .object({ id: z.string().nullish(), name: z.string().nullish(), uid: z.string().nullish() })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    uid: data['uid'],
-  }));
+export const workspaceCollectionsRequest: any = z.lazy(() => {
+  return z
+    .object({ id: z.string().nullish(), name: z.string().nullish(), uid: z.string().nullish() })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      uid: data['uid'],
+    }));
+});

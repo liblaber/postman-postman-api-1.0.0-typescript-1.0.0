@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const usergroup = z.object({
-  id: z.number().optional(),
-  description: z.string().optional(),
-  displayName: z.string().optional(),
+export const usergroup: any = z.lazy(() => {
+  return z.object({
+    id: z.number().optional(),
+    description: z.string().optional(),
+    displayName: z.string().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type Usergroup = z.infer<typeof usergroup>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const usergroupResponse = z
-  .object({
-    id: z.number().optional(),
-    description: z.string().optional(),
-    displayName: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    description: data['description'],
-    displayName: data['displayName'],
-  }));
+export const usergroupResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.number().optional(),
+      description: z.string().optional(),
+      displayName: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      description: data['description'],
+      displayName: data['displayName'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const usergroupRequest = z
-  .object({ id: z.number().nullish(), description: z.string().nullish(), displayName: z.string().nullish() })
-  .transform((data) => ({
-    id: data['id'],
-    description: data['description'],
-    displayName: data['displayName'],
-  }));
+export const usergroupRequest: any = z.lazy(() => {
+  return z
+    .object({ id: z.number().nullish(), description: z.string().nullish(), displayName: z.string().nullish() })
+    .transform((data) => ({
+      id: data['id'],
+      description: data['description'],
+      displayName: data['displayName'],
+    }));
+});

@@ -7,9 +7,11 @@ import { usergroup, usergroupRequest, usergroupResponse } from './usergroup';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getWorkspaceRolesRoles = z.object({
-  user: z.array(rolesUser).optional(),
-  usergroup: z.array(usergroup).optional(),
+export const getWorkspaceRolesRoles: any = z.lazy(() => {
+  return z.object({
+    user: z.array(rolesUser).optional(),
+    usergroup: z.array(usergroup).optional(),
+  });
 });
 
 /**
@@ -24,23 +26,27 @@ export type GetWorkspaceRolesRoles = z.infer<typeof getWorkspaceRolesRoles>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspaceRolesRolesResponse = z
-  .object({
-    user: z.array(rolesUserResponse).optional(),
-    usergroup: z.array(usergroupResponse).optional(),
-  })
-  .transform((data) => ({
-    user: data['user'],
-    usergroup: data['usergroup'],
-  }));
+export const getWorkspaceRolesRolesResponse: any = z.lazy(() => {
+  return z
+    .object({
+      user: z.array(rolesUserResponse).optional(),
+      usergroup: z.array(usergroupResponse).optional(),
+    })
+    .transform((data) => ({
+      user: data['user'],
+      usergroup: data['usergroup'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspaceRolesRolesRequest = z
-  .object({ user: z.array(rolesUserRequest).nullish(), usergroup: z.array(usergroupRequest).nullish() })
-  .transform((data) => ({
-    user: data['user'],
-    usergroup: data['usergroup'],
-  }));
+export const getWorkspaceRolesRolesRequest: any = z.lazy(() => {
+  return z
+    .object({ user: z.array(rolesUserRequest).nullish(), usergroup: z.array(usergroupRequest).nullish() })
+    .transform((data) => ({
+      user: data['user'],
+      usergroup: data['usergroup'],
+    }));
+});

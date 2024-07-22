@@ -11,14 +11,16 @@ import { createScimUserMeta, createScimUserMetaRequest, createScimUserMetaRespon
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createScimUserCreatedResponse = z.object({
-  schemas: z.array(z.string()).optional(),
-  id: z.string().optional(),
-  userName: z.string().optional(),
-  name: createScimUserName2.optional(),
-  externalId: z.string().optional(),
-  active: z.boolean().optional(),
-  meta: createScimUserMeta.optional(),
+export const createScimUserCreatedResponse: any = z.lazy(() => {
+  return z.object({
+    schemas: z.array(z.string()).optional(),
+    id: z.string().optional(),
+    userName: z.string().optional(),
+    name: createScimUserName2.optional(),
+    externalId: z.string().optional(),
+    active: z.boolean().optional(),
+    meta: createScimUserMeta.optional(),
+  });
 });
 
 /**
@@ -38,46 +40,50 @@ export type CreateScimUserCreatedResponse = z.infer<typeof createScimUserCreated
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createScimUserCreatedResponseResponse = z
-  .object({
-    schemas: z.array(z.string()).optional(),
-    id: z.string().optional(),
-    userName: z.string().optional(),
-    name: createScimUserName2Response.optional(),
-    externalId: z.string().optional(),
-    active: z.boolean().optional(),
-    meta: createScimUserMetaResponse.optional(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    id: data['id'],
-    userName: data['userName'],
-    name: data['name'],
-    externalId: data['externalId'],
-    active: data['active'],
-    meta: data['meta'],
-  }));
+export const createScimUserCreatedResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).optional(),
+      id: z.string().optional(),
+      userName: z.string().optional(),
+      name: createScimUserName2Response.optional(),
+      externalId: z.string().optional(),
+      active: z.boolean().optional(),
+      meta: createScimUserMetaResponse.optional(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      id: data['id'],
+      userName: data['userName'],
+      name: data['name'],
+      externalId: data['externalId'],
+      active: data['active'],
+      meta: data['meta'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createScimUserCreatedResponseRequest = z
-  .object({
-    schemas: z.array(z.string()).nullish(),
-    id: z.string().nullish(),
-    userName: z.string().nullish(),
-    name: createScimUserName2Request.nullish(),
-    externalId: z.string().nullish(),
-    active: z.boolean().nullish(),
-    meta: createScimUserMetaRequest.nullish(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    id: data['id'],
-    userName: data['userName'],
-    name: data['name'],
-    externalId: data['externalId'],
-    active: data['active'],
-    meta: data['meta'],
-  }));
+export const createScimUserCreatedResponseRequest: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).nullish(),
+      id: z.string().nullish(),
+      userName: z.string().nullish(),
+      name: createScimUserName2Request.nullish(),
+      externalId: z.string().nullish(),
+      active: z.boolean().nullish(),
+      meta: createScimUserMetaRequest.nullish(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      id: data['id'],
+      userName: data['userName'],
+      name: data['name'],
+      externalId: data['externalId'],
+      active: data['active'],
+      meta: data['meta'],
+    }));
+});

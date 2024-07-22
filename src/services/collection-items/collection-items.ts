@@ -4,32 +4,12 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
+import { Request } from '../../http/transport/request';
+import { CreateCollectionFolder, createCollectionFolderResponse } from './models/create-collection-folder';
 import {
-  CreateCollectionFolder,
   CreateCollectionRequestOkResponse,
-  CreateCollectionResponse,
-  DeleteCollectionFolder,
-  DeleteCollectionRequest,
-  DeleteCollectionResponse,
-  GetCollectionFolder,
-  GetCollectionRequest,
-  GetCollectionResponse,
-  UpdateCollectionFolder,
-  UpdateCollectionRequest,
-  UpdateCollectionResponse,
-  createCollectionFolderResponse,
   createCollectionRequestOkResponseResponse,
-  createCollectionResponseResponse,
-  deleteCollectionFolderResponse,
-  deleteCollectionRequestResponse,
-  deleteCollectionResponseResponse,
-  getCollectionFolderResponse,
-  getCollectionRequestResponse,
-  getCollectionResponseResponse,
-  updateCollectionFolderResponse,
-  updateCollectionRequestResponse,
-  updateCollectionResponseResponse,
-} from './models';
+} from './models/create-collection-request-ok-response';
 import {
   CreateCollectionRequestParams,
   CreateCollectionResponseParams,
@@ -37,6 +17,16 @@ import {
   GetCollectionRequestParams,
   GetCollectionResponseParams,
 } from './request-params';
+import { CreateCollectionResponse, createCollectionResponseResponse } from './models/create-collection-response';
+import { GetCollectionFolder, getCollectionFolderResponse } from './models/get-collection-folder';
+import { UpdateCollectionFolder, updateCollectionFolderResponse } from './models/update-collection-folder';
+import { DeleteCollectionFolder, deleteCollectionFolderResponse } from './models/delete-collection-folder';
+import { GetCollectionRequest, getCollectionRequestResponse } from './models/get-collection-request';
+import { UpdateCollectionRequest, updateCollectionRequestResponse } from './models/update-collection-request';
+import { DeleteCollectionRequest, deleteCollectionRequestResponse } from './models/delete-collection-request';
+import { GetCollectionResponse, getCollectionResponseResponse } from './models/get-collection-response';
+import { UpdateCollectionResponse, updateCollectionResponseResponse } from './models/update-collection-response';
+import { DeleteCollectionResponse, deleteCollectionResponseResponse } from './models/delete-collection-response';
 
 export class CollectionItemsService extends BaseService {
   /**
@@ -55,20 +45,20 @@ It is recommended that you pass the `name` property in the request body. If you 
     body: any,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateCollectionFolder>> {
-    const path = this.client.buildPath('/collections/{collectionId}/folders', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/collections/{collectionId}/folders',
+      config: this.config,
       responseSchema: createCollectionFolderResponse,
       requestSchema: z.any(),
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateCollectionFolder>(request);
   }
 
   /**
@@ -87,24 +77,21 @@ It is recommended that you pass the `name` property in the request body. If you 
     params?: CreateCollectionRequestParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateCollectionRequestOkResponse>> {
-    const path = this.client.buildPath('/collections/{collectionId}/requests', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/collections/{collectionId}/requests',
+      config: this.config,
       responseSchema: createCollectionRequestOkResponseResponse,
       requestSchema: z.any(),
-      body: body as any,
-      queryParams: {},
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.folderId) {
-      options.queryParams['folderId'] = params?.folderId;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addQueryParam('folderId', params?.folderId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateCollectionRequestOkResponse>(request);
   }
 
   /**
@@ -123,24 +110,21 @@ It is recommended that you pass the `name` property in the request body. If you 
     params: CreateCollectionResponseParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateCollectionResponse>> {
-    const path = this.client.buildPath('/collections/{collectionId}/responses', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/collections/{collectionId}/responses',
+      config: this.config,
       responseSchema: createCollectionResponseResponse,
       requestSchema: z.any(),
-      body: body as any,
-      queryParams: {},
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.requestId) {
-      options.queryParams['requestId'] = params?.requestId;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addQueryParam('requestId', params?.requestId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateCollectionResponse>(request);
   }
 
   /**
@@ -158,30 +142,22 @@ It is recommended that you pass the `name` property in the request body. If you 
     params?: GetCollectionFolderParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollectionFolder>> {
-    const path = this.client.buildPath('/collections/{collectionId}/folders/{folderId}', {
-      folderId: folderId,
-      collectionId: collectionId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections/{collectionId}/folders/{folderId}',
+      config: this.config,
       responseSchema: getCollectionFolderResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.ids) {
-      options.queryParams['ids'] = params?.ids;
-    }
-    if (params?.uid) {
-      options.queryParams['uid'] = params?.uid;
-    }
-    if (params?.populate) {
-      options.queryParams['populate'] = params?.populate;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('folderId', folderId);
+    request.addPathParam('collectionId', collectionId);
+    request.addQueryParam('ids', params?.ids);
+    request.addQueryParam('uid', params?.uid);
+    request.addQueryParam('populate', params?.populate);
+    return this.client.call<GetCollectionFolder>(request);
   }
 
   /**
@@ -200,23 +176,21 @@ This endpoint acts like a PATCH method. It only updates the values that you pass
     body: any,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdateCollectionFolder>> {
-    const path = this.client.buildPath('/collections/{collectionId}/folders/{folderId}', {
-      folderId: folderId,
-      collectionId: collectionId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/collections/{collectionId}/folders/{folderId}',
+      config: this.config,
       responseSchema: updateCollectionFolderResponse,
       requestSchema: z.any(),
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('folderId', folderId);
+    request.addPathParam('collectionId', collectionId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<UpdateCollectionFolder>(request);
   }
 
   /**
@@ -230,20 +204,19 @@ This endpoint acts like a PATCH method. It only updates the values that you pass
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<DeleteCollectionFolder>> {
-    const path = this.client.buildPath('/collections/{collectionId}/folders/{folderId}', {
-      folderId: folderId,
-      collectionId: collectionId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/collections/{collectionId}/folders/{folderId}',
+      config: this.config,
       responseSchema: deleteCollectionFolderResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('folderId', folderId);
+    request.addPathParam('collectionId', collectionId);
+    return this.client.call<DeleteCollectionFolder>(request);
   }
 
   /**
@@ -261,30 +234,22 @@ This endpoint acts like a PATCH method. It only updates the values that you pass
     params?: GetCollectionRequestParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollectionRequest>> {
-    const path = this.client.buildPath('/collections/{collectionId}/requests/{requestId}', {
-      requestId: requestId,
-      collectionId: collectionId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections/{collectionId}/requests/{requestId}',
+      config: this.config,
       responseSchema: getCollectionRequestResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.ids) {
-      options.queryParams['ids'] = params?.ids;
-    }
-    if (params?.uid) {
-      options.queryParams['uid'] = params?.uid;
-    }
-    if (params?.populate) {
-      options.queryParams['populate'] = params?.populate;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('requestId', requestId);
+    request.addPathParam('collectionId', collectionId);
+    request.addQueryParam('ids', params?.ids);
+    request.addQueryParam('uid', params?.uid);
+    request.addQueryParam('populate', params?.populate);
+    return this.client.call<GetCollectionRequest>(request);
   }
 
   /**
@@ -304,23 +269,21 @@ This endpoint acts like a PATCH method. It only updates the values that you pass
     body: any,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdateCollectionRequest>> {
-    const path = this.client.buildPath('/collections/{collectionId}/requests/{requestId}', {
-      requestId: requestId,
-      collectionId: collectionId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/collections/{collectionId}/requests/{requestId}',
+      config: this.config,
       responseSchema: updateCollectionRequestResponse,
       requestSchema: z.any(),
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('requestId', requestId);
+    request.addPathParam('collectionId', collectionId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<UpdateCollectionRequest>(request);
   }
 
   /**
@@ -334,20 +297,19 @@ This endpoint acts like a PATCH method. It only updates the values that you pass
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<DeleteCollectionRequest>> {
-    const path = this.client.buildPath('/collections/{collectionId}/requests/{requestId}', {
-      requestId: requestId,
-      collectionId: collectionId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/collections/{collectionId}/requests/{requestId}',
+      config: this.config,
       responseSchema: deleteCollectionRequestResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('requestId', requestId);
+    request.addPathParam('collectionId', collectionId);
+    return this.client.call<DeleteCollectionRequest>(request);
   }
 
   /**
@@ -365,30 +327,22 @@ This endpoint acts like a PATCH method. It only updates the values that you pass
     params?: GetCollectionResponseParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollectionResponse>> {
-    const path = this.client.buildPath('/collections/{collectionId}/responses/{responseId}', {
-      responseId: responseId,
-      collectionId: collectionId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections/{collectionId}/responses/{responseId}',
+      config: this.config,
       responseSchema: getCollectionResponseResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.ids) {
-      options.queryParams['ids'] = params?.ids;
-    }
-    if (params?.uid) {
-      options.queryParams['uid'] = params?.uid;
-    }
-    if (params?.populate) {
-      options.queryParams['populate'] = params?.populate;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('responseId', responseId);
+    request.addPathParam('collectionId', collectionId);
+    request.addQueryParam('ids', params?.ids);
+    request.addQueryParam('uid', params?.uid);
+    request.addQueryParam('populate', params?.populate);
+    return this.client.call<GetCollectionResponse>(request);
   }
 
   /**
@@ -408,23 +362,21 @@ This endpoint acts like a PATCH method. It only updates the values that you pass
     body: any,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdateCollectionResponse>> {
-    const path = this.client.buildPath('/collections/{collectionId}/responses/{responseId}', {
-      responseId: responseId,
-      collectionId: collectionId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/collections/{collectionId}/responses/{responseId}',
+      config: this.config,
       responseSchema: updateCollectionResponseResponse,
       requestSchema: z.any(),
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('responseId', responseId);
+    request.addPathParam('collectionId', collectionId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<UpdateCollectionResponse>(request);
   }
 
   /**
@@ -438,19 +390,18 @@ This endpoint acts like a PATCH method. It only updates the values that you pass
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<DeleteCollectionResponse>> {
-    const path = this.client.buildPath('/collections/{collectionId}/responses/{responseId}', {
-      responseId: responseId,
-      collectionId: collectionId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/collections/{collectionId}/responses/{responseId}',
+      config: this.config,
       responseSchema: deleteCollectionResponseResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('responseId', responseId);
+    request.addPathParam('collectionId', collectionId);
+    return this.client.call<DeleteCollectionResponse>(request);
   }
 }

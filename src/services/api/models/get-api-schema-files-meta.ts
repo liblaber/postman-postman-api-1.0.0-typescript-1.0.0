@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApiSchemaFilesMeta = z.object({
-  nextCursor: z.string().optional(),
+export const getApiSchemaFilesMeta: any = z.lazy(() => {
+  return z.object({
+    nextCursor: z.string().optional(),
+  });
 });
 
 /**
@@ -20,18 +22,22 @@ export type GetApiSchemaFilesMeta = z.infer<typeof getApiSchemaFilesMeta>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiSchemaFilesMetaResponse = z
-  .object({
-    nextCursor: z.string().optional(),
-  })
-  .transform((data) => ({
-    nextCursor: data['nextCursor'],
-  }));
+export const getApiSchemaFilesMetaResponse: any = z.lazy(() => {
+  return z
+    .object({
+      nextCursor: z.string().optional(),
+    })
+    .transform((data) => ({
+      nextCursor: data['nextCursor'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiSchemaFilesMetaRequest = z.object({ nextCursor: z.string().nullish() }).transform((data) => ({
-  nextCursor: data['nextCursor'],
-}));
+export const getApiSchemaFilesMetaRequest: any = z.lazy(() => {
+  return z.object({ nextCursor: z.string().nullish() }).transform((data) => ({
+    nextCursor: data['nextCursor'],
+  }));
+});

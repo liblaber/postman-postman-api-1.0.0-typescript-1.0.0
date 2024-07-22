@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateWorkspaceWorkspace2 = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
+export const updateWorkspaceWorkspace2: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type UpdateWorkspaceWorkspace2 = z.infer<typeof updateWorkspaceWorkspace2
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateWorkspaceWorkspace2Response = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-  }));
+export const updateWorkspaceWorkspace2Response: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateWorkspaceWorkspace2Request = z
-  .object({ id: z.string().nullish(), name: z.string().nullish() })
-  .transform((data) => ({
+export const updateWorkspaceWorkspace2Request: any = z.lazy(() => {
+  return z.object({ id: z.string().nullish(), name: z.string().nullish() }).transform((data) => ({
     id: data['id'],
     name: data['name'],
   }));
+});

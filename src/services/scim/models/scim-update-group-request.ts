@@ -10,9 +10,11 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const scimUpdateGroupRequest = z.object({
-  schemas: z.array(z.string()).optional(),
-  operations: z.array(scimUpdateGroupOperations).optional(),
+export const scimUpdateGroupRequest: any = z.lazy(() => {
+  return z.object({
+    schemas: z.array(z.string()).optional(),
+    operations: z.array(scimUpdateGroupOperations).optional(),
+  });
 });
 
 /**
@@ -27,23 +29,27 @@ export type ScimUpdateGroupRequest = z.infer<typeof scimUpdateGroupRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUpdateGroupRequestResponse = z
-  .object({
-    schemas: z.array(z.string()).optional(),
-    Operations: z.array(scimUpdateGroupOperationsResponse).optional(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    operations: data['Operations'],
-  }));
+export const scimUpdateGroupRequestResponse: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).optional(),
+      Operations: z.array(scimUpdateGroupOperationsResponse).optional(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      operations: data['Operations'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUpdateGroupRequestRequest = z
-  .object({ schemas: z.array(z.string()).nullish(), operations: z.array(scimUpdateGroupOperationsRequest).nullish() })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    Operations: data['operations'],
-  }));
+export const scimUpdateGroupRequestRequest: any = z.lazy(() => {
+  return z
+    .object({ schemas: z.array(z.string()).nullish(), operations: z.array(scimUpdateGroupOperationsRequest).nullish() })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      Operations: data['operations'],
+    }));
+});

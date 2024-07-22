@@ -6,19 +6,20 @@ import {
   getStatusOfAnAsyncTaskMetaRequest,
   getStatusOfAnAsyncTaskMetaResponse,
 } from './get-status-of-an-async-task-meta';
-import { getStatusOfAnAsyncTaskStatus } from './get-status-of-an-async-task-status';
 import { details, detailsRequest, detailsResponse } from './details';
 
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getStatusOfAnAsyncTask = z.object({
-  id: z.string().optional(),
-  meta: getStatusOfAnAsyncTaskMeta.optional(),
-  status: getStatusOfAnAsyncTaskStatus.optional(),
-  details: details.optional(),
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
+export const getStatusOfAnAsyncTask: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    meta: getStatusOfAnAsyncTaskMeta.optional(),
+    status: z.string().optional(),
+    details: details.optional(),
+    createdAt: z.string().optional(),
+    updatedAt: z.string().optional(),
+  });
 });
 
 /**
@@ -37,42 +38,46 @@ export type GetStatusOfAnAsyncTask = z.infer<typeof getStatusOfAnAsyncTask>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getStatusOfAnAsyncTaskResponse = z
-  .object({
-    id: z.string().optional(),
-    meta: getStatusOfAnAsyncTaskMetaResponse.optional(),
-    status: getStatusOfAnAsyncTaskStatus.optional(),
-    details: detailsResponse.optional(),
-    createdAt: z.string().optional(),
-    updatedAt: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    meta: data['meta'],
-    status: data['status'],
-    details: data['details'],
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-  }));
+export const getStatusOfAnAsyncTaskResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      meta: getStatusOfAnAsyncTaskMetaResponse.optional(),
+      status: z.string().optional(),
+      details: detailsResponse.optional(),
+      createdAt: z.string().optional(),
+      updatedAt: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      meta: data['meta'],
+      status: data['status'],
+      details: data['details'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getStatusOfAnAsyncTaskRequest = z
-  .object({
-    id: z.string().nullish(),
-    meta: getStatusOfAnAsyncTaskMetaRequest.nullish(),
-    status: getStatusOfAnAsyncTaskStatus.nullish(),
-    details: detailsRequest.nullish(),
-    createdAt: z.string().nullish(),
-    updatedAt: z.string().nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    meta: data['meta'],
-    status: data['status'],
-    details: data['details'],
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-  }));
+export const getStatusOfAnAsyncTaskRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      meta: getStatusOfAnAsyncTaskMetaRequest.nullish(),
+      status: z.string().nullish(),
+      details: detailsRequest.nullish(),
+      createdAt: z.string().nullish(),
+      updatedAt: z.string().nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      meta: data['meta'],
+      status: data['status'],
+      details: data['details'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+    }));
+});

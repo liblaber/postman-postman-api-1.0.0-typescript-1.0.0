@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getCollectionsForkedByUserMeta = z.object({
-  total: z.number().optional(),
-  nextCursor: z.string().optional(),
-  inaccessibleFork: z.number().optional(),
+export const getCollectionsForkedByUserMeta: any = z.lazy(() => {
+  return z.object({
+    total: z.number().optional(),
+    nextCursor: z.string().optional().nullable(),
+    inaccessibleFork: z.number().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type GetCollectionsForkedByUserMeta = z.infer<typeof getCollectionsForked
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionsForkedByUserMetaResponse = z
-  .object({
-    total: z.number().optional(),
-    nextCursor: z.string().optional(),
-    inaccessibleFork: z.number().optional(),
-  })
-  .transform((data) => ({
-    total: data['total'],
-    nextCursor: data['nextCursor'],
-    inaccessibleFork: data['inaccessibleFork'],
-  }));
+export const getCollectionsForkedByUserMetaResponse: any = z.lazy(() => {
+  return z
+    .object({
+      total: z.number().optional(),
+      nextCursor: z.string().optional().nullable(),
+      inaccessibleFork: z.number().optional(),
+    })
+    .transform((data) => ({
+      total: data['total'],
+      nextCursor: data['nextCursor'],
+      inaccessibleFork: data['inaccessibleFork'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionsForkedByUserMetaRequest = z
-  .object({ total: z.number().nullish(), nextCursor: z.string().nullish(), inaccessibleFork: z.number().nullish() })
-  .transform((data) => ({
-    total: data['total'],
-    nextCursor: data['nextCursor'],
-    inaccessibleFork: data['inaccessibleFork'],
-  }));
+export const getCollectionsForkedByUserMetaRequest: any = z.lazy(() => {
+  return z
+    .object({ total: z.number().nullish(), nextCursor: z.string().nullish(), inaccessibleFork: z.number().nullish() })
+    .transform((data) => ({
+      total: data['total'],
+      nextCursor: data['nextCursor'],
+      inaccessibleFork: data['inaccessibleFork'],
+    }));
+});

@@ -5,20 +5,22 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const elements = z.object({
-  createdAt: z.string().optional(),
-  createdBy: z.number().optional(),
-  updatedAt: z.string().optional(),
-  updatedBy: z.number().optional(),
-  addedAt: z.string().optional(),
-  addedBy: z.number().optional(),
-  description: z.string().optional(),
-  id: z.string().optional(),
-  name: z.string().optional(),
-  summary: z.string().optional(),
-  type_: z.string().optional(),
-  parentFolderId: z.number().optional(),
-  href: z.string().optional(),
+export const elements: any = z.lazy(() => {
+  return z.object({
+    createdAt: z.string().optional(),
+    createdBy: z.number().optional(),
+    updatedAt: z.string().optional(),
+    updatedBy: z.number().optional(),
+    addedAt: z.string().optional(),
+    addedBy: z.number().optional(),
+    description: z.string().optional(),
+    id: z.string().optional(),
+    name: z.string().optional(),
+    summary: z.string().optional(),
+    type: z.string().optional(),
+    parentFolderId: z.number().optional(),
+    href: z.string().optional(),
+  });
 });
 
 /**
@@ -44,70 +46,74 @@ export type Elements = z.infer<typeof elements>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const elementsResponse = z
-  .object({
-    createdAt: z.string().optional(),
-    createdBy: z.number().optional(),
-    updatedAt: z.string().optional(),
-    updatedBy: z.number().optional(),
-    addedAt: z.string().optional(),
-    addedBy: z.number().optional(),
-    description: z.string().optional(),
-    id: z.string().optional(),
-    name: z.string().optional(),
-    summary: z.string().optional(),
-    type: z.string().optional(),
-    parentFolderId: z.number().optional(),
-    href: z.string().optional(),
-  })
-  .transform((data) => ({
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    updatedAt: data['updatedAt'],
-    updatedBy: data['updatedBy'],
-    addedAt: data['addedAt'],
-    addedBy: data['addedBy'],
-    description: data['description'],
-    id: data['id'],
-    name: data['name'],
-    summary: data['summary'],
-    type_: data['type'],
-    parentFolderId: data['parentFolderId'],
-    href: data['href'],
-  }));
+export const elementsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      createdAt: z.string().optional(),
+      createdBy: z.number().optional(),
+      updatedAt: z.string().optional(),
+      updatedBy: z.number().optional(),
+      addedAt: z.string().optional(),
+      addedBy: z.number().optional(),
+      description: z.string().optional(),
+      id: z.string().optional(),
+      name: z.string().optional(),
+      summary: z.string().optional(),
+      type: z.string().optional(),
+      parentFolderId: z.number().optional(),
+      href: z.string().optional(),
+    })
+    .transform((data) => ({
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      updatedAt: data['updatedAt'],
+      updatedBy: data['updatedBy'],
+      addedAt: data['addedAt'],
+      addedBy: data['addedBy'],
+      description: data['description'],
+      id: data['id'],
+      name: data['name'],
+      summary: data['summary'],
+      type: data['type'],
+      parentFolderId: data['parentFolderId'],
+      href: data['href'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const elementsRequest = z
-  .object({
-    createdAt: z.string().nullish(),
-    createdBy: z.number().nullish(),
-    updatedAt: z.string().nullish(),
-    updatedBy: z.number().nullish(),
-    addedAt: z.string().nullish(),
-    addedBy: z.number().nullish(),
-    description: z.string().nullish(),
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    summary: z.string().nullish(),
-    type_: z.string().nullish(),
-    parentFolderId: z.number().nullish(),
-    href: z.string().nullish(),
-  })
-  .transform((data) => ({
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    updatedAt: data['updatedAt'],
-    updatedBy: data['updatedBy'],
-    addedAt: data['addedAt'],
-    addedBy: data['addedBy'],
-    description: data['description'],
-    id: data['id'],
-    name: data['name'],
-    summary: data['summary'],
-    type: data['type_'],
-    parentFolderId: data['parentFolderId'],
-    href: data['href'],
-  }));
+export const elementsRequest: any = z.lazy(() => {
+  return z
+    .object({
+      createdAt: z.string().nullish(),
+      createdBy: z.number().nullish(),
+      updatedAt: z.string().nullish(),
+      updatedBy: z.number().nullish(),
+      addedAt: z.string().nullish(),
+      addedBy: z.number().nullish(),
+      description: z.string().nullish(),
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      summary: z.string().nullish(),
+      type: z.string().nullish(),
+      parentFolderId: z.number().nullish(),
+      href: z.string().nullish(),
+    })
+    .transform((data) => ({
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      updatedAt: data['updatedAt'],
+      updatedBy: data['updatedBy'],
+      addedAt: data['addedAt'],
+      addedBy: data['addedBy'],
+      description: data['description'],
+      id: data['id'],
+      name: data['name'],
+      summary: data['summary'],
+      type: data['type'],
+      parentFolderId: data['parentFolderId'],
+      href: data['href'],
+    }));
+});

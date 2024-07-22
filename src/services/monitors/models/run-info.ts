@@ -5,15 +5,17 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const runInfo = z.object({
-  jobId: z.string().optional(),
-  collectionUid: z.string().optional(),
-  environmentUid: z.string().optional(),
-  monitorId: z.string().optional(),
-  name: z.string().optional(),
-  status: z.string().optional(),
-  startedAt: z.string().optional(),
-  finishedAt: z.string().optional(),
+export const runInfo: any = z.lazy(() => {
+  return z.object({
+    jobId: z.string().optional(),
+    collectionUid: z.string().optional(),
+    environmentUid: z.string().optional(),
+    monitorId: z.string().optional(),
+    name: z.string().optional(),
+    status: z.string().optional(),
+    startedAt: z.string().optional(),
+    finishedAt: z.string().optional(),
+  });
 });
 
 /**
@@ -34,50 +36,54 @@ export type RunInfo = z.infer<typeof runInfo>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const runInfoResponse = z
-  .object({
-    jobId: z.string().optional(),
-    collectionUid: z.string().optional(),
-    environmentUid: z.string().optional(),
-    monitorId: z.string().optional(),
-    name: z.string().optional(),
-    status: z.string().optional(),
-    startedAt: z.string().optional(),
-    finishedAt: z.string().optional(),
-  })
-  .transform((data) => ({
-    jobId: data['jobId'],
-    collectionUid: data['collectionUid'],
-    environmentUid: data['environmentUid'],
-    monitorId: data['monitorId'],
-    name: data['name'],
-    status: data['status'],
-    startedAt: data['startedAt'],
-    finishedAt: data['finishedAt'],
-  }));
+export const runInfoResponse: any = z.lazy(() => {
+  return z
+    .object({
+      jobId: z.string().optional(),
+      collectionUid: z.string().optional(),
+      environmentUid: z.string().optional(),
+      monitorId: z.string().optional(),
+      name: z.string().optional(),
+      status: z.string().optional(),
+      startedAt: z.string().optional(),
+      finishedAt: z.string().optional(),
+    })
+    .transform((data) => ({
+      jobId: data['jobId'],
+      collectionUid: data['collectionUid'],
+      environmentUid: data['environmentUid'],
+      monitorId: data['monitorId'],
+      name: data['name'],
+      status: data['status'],
+      startedAt: data['startedAt'],
+      finishedAt: data['finishedAt'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const runInfoRequest = z
-  .object({
-    jobId: z.string().nullish(),
-    collectionUid: z.string().nullish(),
-    environmentUid: z.string().nullish(),
-    monitorId: z.string().nullish(),
-    name: z.string().nullish(),
-    status: z.string().nullish(),
-    startedAt: z.string().nullish(),
-    finishedAt: z.string().nullish(),
-  })
-  .transform((data) => ({
-    jobId: data['jobId'],
-    collectionUid: data['collectionUid'],
-    environmentUid: data['environmentUid'],
-    monitorId: data['monitorId'],
-    name: data['name'],
-    status: data['status'],
-    startedAt: data['startedAt'],
-    finishedAt: data['finishedAt'],
-  }));
+export const runInfoRequest: any = z.lazy(() => {
+  return z
+    .object({
+      jobId: z.string().nullish(),
+      collectionUid: z.string().nullish(),
+      environmentUid: z.string().nullish(),
+      monitorId: z.string().nullish(),
+      name: z.string().nullish(),
+      status: z.string().nullish(),
+      startedAt: z.string().nullish(),
+      finishedAt: z.string().nullish(),
+    })
+    .transform((data) => ({
+      jobId: data['jobId'],
+      collectionUid: data['collectionUid'],
+      environmentUid: data['environmentUid'],
+      monitorId: data['monitorId'],
+      name: data['name'],
+      status: data['status'],
+      startedAt: data['startedAt'],
+      finishedAt: data['finishedAt'],
+    }));
+});

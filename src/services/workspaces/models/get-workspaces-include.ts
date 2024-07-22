@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const getWorkspacesInclude = z.enum(['mocks:deactivated']);
-
-export type GetWorkspacesInclude = z.infer<typeof getWorkspacesInclude>;
+export enum GetWorkspacesInclude {
+  MOCKSDEACTIVATED = 'mocks:deactivated',
+}

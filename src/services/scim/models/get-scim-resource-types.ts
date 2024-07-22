@@ -6,14 +6,16 @@ import { schemaExtensions, schemaExtensionsRequest, schemaExtensionsResponse } f
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getScimResourceTypes = z.object({
-  schemas: z.array(z.string()).optional(),
-  id: z.string().optional(),
-  name: z.string().optional(),
-  endpoint: z.string().optional(),
-  description: z.string().optional(),
-  schema: z.string().optional(),
-  schemaExtensions: z.array(schemaExtensions).optional(),
+export const getScimResourceTypes: any = z.lazy(() => {
+  return z.object({
+    schemas: z.array(z.string()).optional(),
+    id: z.string().optional(),
+    name: z.string().optional(),
+    endpoint: z.string().optional(),
+    description: z.string().optional(),
+    schema: z.string().optional(),
+    schemaExtensions: z.array(schemaExtensions).optional(),
+  });
 });
 
 /**
@@ -33,46 +35,50 @@ export type GetScimResourceTypes = z.infer<typeof getScimResourceTypes>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimResourceTypesResponse = z
-  .object({
-    schemas: z.array(z.string()).optional(),
-    id: z.string().optional(),
-    name: z.string().optional(),
-    endpoint: z.string().optional(),
-    description: z.string().optional(),
-    schema: z.string().optional(),
-    schemaExtensions: z.array(schemaExtensionsResponse).optional(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    id: data['id'],
-    name: data['name'],
-    endpoint: data['endpoint'],
-    description: data['description'],
-    schema: data['schema'],
-    schemaExtensions: data['schemaExtensions'],
-  }));
+export const getScimResourceTypesResponse: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).optional(),
+      id: z.string().optional(),
+      name: z.string().optional(),
+      endpoint: z.string().optional(),
+      description: z.string().optional(),
+      schema: z.string().optional(),
+      schemaExtensions: z.array(schemaExtensionsResponse).optional(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      id: data['id'],
+      name: data['name'],
+      endpoint: data['endpoint'],
+      description: data['description'],
+      schema: data['schema'],
+      schemaExtensions: data['schemaExtensions'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimResourceTypesRequest = z
-  .object({
-    schemas: z.array(z.string()).nullish(),
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    endpoint: z.string().nullish(),
-    description: z.string().nullish(),
-    schema: z.string().nullish(),
-    schemaExtensions: z.array(schemaExtensionsRequest).nullish(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    id: data['id'],
-    name: data['name'],
-    endpoint: data['endpoint'],
-    description: data['description'],
-    schema: data['schema'],
-    schemaExtensions: data['schemaExtensions'],
-  }));
+export const getScimResourceTypesRequest: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).nullish(),
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      endpoint: z.string().nullish(),
+      description: z.string().nullish(),
+      schema: z.string().nullish(),
+      schemaExtensions: z.array(schemaExtensionsRequest).nullish(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      id: data['id'],
+      name: data['name'],
+      endpoint: data['endpoint'],
+      description: data['description'],
+      schema: data['schema'],
+      schemaExtensions: data['schemaExtensions'],
+    }));
+});

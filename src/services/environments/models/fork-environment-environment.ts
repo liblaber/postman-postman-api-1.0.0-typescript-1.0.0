@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const forkEnvironmentEnvironment = z.object({
-  uid: z.string().optional(),
-  name: z.string().optional(),
-  forkName: z.string().optional(),
+export const forkEnvironmentEnvironment: any = z.lazy(() => {
+  return z.object({
+    uid: z.string().optional(),
+    name: z.string().optional(),
+    forkName: z.string().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type ForkEnvironmentEnvironment = z.infer<typeof forkEnvironmentEnvironme
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const forkEnvironmentEnvironmentResponse = z
-  .object({
-    uid: z.string().optional(),
-    name: z.string().optional(),
-    forkName: z.string().optional(),
-  })
-  .transform((data) => ({
-    uid: data['uid'],
-    name: data['name'],
-    forkName: data['forkName'],
-  }));
+export const forkEnvironmentEnvironmentResponse: any = z.lazy(() => {
+  return z
+    .object({
+      uid: z.string().optional(),
+      name: z.string().optional(),
+      forkName: z.string().optional(),
+    })
+    .transform((data) => ({
+      uid: data['uid'],
+      name: data['name'],
+      forkName: data['forkName'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const forkEnvironmentEnvironmentRequest = z
-  .object({ uid: z.string().nullish(), name: z.string().nullish(), forkName: z.string().nullish() })
-  .transform((data) => ({
-    uid: data['uid'],
-    name: data['name'],
-    forkName: data['forkName'],
-  }));
+export const forkEnvironmentEnvironmentRequest: any = z.lazy(() => {
+  return z
+    .object({ uid: z.string().nullish(), name: z.string().nullish(), forkName: z.string().nullish() })
+    .transform((data) => ({
+      uid: data['uid'],
+      name: data['name'],
+      forkName: data['forkName'],
+    }));
+});

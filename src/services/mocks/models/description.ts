@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const description = z.object({
-  content: z.string().optional(),
-  type_: z.string().optional(),
+export const description: any = z.lazy(() => {
+  return z.object({
+    content: z.string().optional(),
+    type: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type Description = z.infer<typeof description>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const descriptionResponse = z
-  .object({
-    content: z.string().optional(),
-    type: z.string().optional(),
-  })
-  .transform((data) => ({
-    content: data['content'],
-    type_: data['type'],
-  }));
+export const descriptionResponse: any = z.lazy(() => {
+  return z
+    .object({
+      content: z.string().optional(),
+      type: z.string().optional(),
+    })
+    .transform((data) => ({
+      content: data['content'],
+      type: data['type'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const descriptionRequest = z
-  .object({ content: z.string().nullish(), type_: z.string().nullish() })
-  .transform((data) => ({
+export const descriptionRequest: any = z.lazy(() => {
+  return z.object({ content: z.string().nullish(), type: z.string().nullish() }).transform((data) => ({
     content: data['content'],
-    type: data['type_'],
+    type: data['type'],
   }));
+});

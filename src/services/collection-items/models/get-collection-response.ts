@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getCollectionResponse = z.object({
-  data: z.any().optional(),
-  meta: z.any().optional(),
-  modelId: z.string().optional(),
+export const getCollectionResponse: any = z.lazy(() => {
+  return z.object({
+    data: z.any().optional(),
+    meta: z.any().optional(),
+    modelId: z.string().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type GetCollectionResponse = z.infer<typeof getCollectionResponse>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionResponseResponse = z
-  .object({
-    data: z.any().optional(),
-    meta: z.any().optional(),
-    model_id: z.string().optional(),
-  })
-  .transform((data) => ({
-    data: data['data'],
-    meta: data['meta'],
-    modelId: data['model_id'],
-  }));
+export const getCollectionResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      data: z.any().optional(),
+      meta: z.any().optional(),
+      model_id: z.string().optional(),
+    })
+    .transform((data) => ({
+      data: data['data'],
+      meta: data['meta'],
+      modelId: data['model_id'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionResponseRequest = z
-  .object({ data: z.any().nullish(), meta: z.any().nullish(), modelId: z.string().nullish() })
-  .transform((data) => ({
-    data: data['data'],
-    meta: data['meta'],
-    model_id: data['modelId'],
-  }));
+export const getCollectionResponseRequest: any = z.lazy(() => {
+  return z
+    .object({ data: z.any().nullish(), meta: z.any().nullish(), modelId: z.string().nullish() })
+    .transform((data) => ({
+      data: data['data'],
+      meta: data['meta'],
+      model_id: data['modelId'],
+    }));
+});

@@ -10,11 +10,13 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const deleteCollectionResponse = z.object({
-  modelId: z.string().optional(),
-  meta: z.any().optional(),
-  data: deleteCollectionResponseData.optional(),
-  revision: z.number().optional(),
+export const deleteCollectionResponse: any = z.lazy(() => {
+  return z.object({
+    modelId: z.string().optional(),
+    meta: z.any().optional(),
+    data: deleteCollectionResponseData.optional(),
+    revision: z.number().optional(),
+  });
 });
 
 /**
@@ -31,34 +33,38 @@ export type DeleteCollectionResponse = z.infer<typeof deleteCollectionResponse>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteCollectionResponseResponse = z
-  .object({
-    model_id: z.string().optional(),
-    meta: z.any().optional(),
-    data: deleteCollectionResponseDataResponse.optional(),
-    revision: z.number().optional(),
-  })
-  .transform((data) => ({
-    modelId: data['model_id'],
-    meta: data['meta'],
-    data: data['data'],
-    revision: data['revision'],
-  }));
+export const deleteCollectionResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      model_id: z.string().optional(),
+      meta: z.any().optional(),
+      data: deleteCollectionResponseDataResponse.optional(),
+      revision: z.number().optional(),
+    })
+    .transform((data) => ({
+      modelId: data['model_id'],
+      meta: data['meta'],
+      data: data['data'],
+      revision: data['revision'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteCollectionResponseRequest = z
-  .object({
-    modelId: z.string().nullish(),
-    meta: z.any().nullish(),
-    data: deleteCollectionResponseDataRequest.nullish(),
-    revision: z.number().nullish(),
-  })
-  .transform((data) => ({
-    model_id: data['modelId'],
-    meta: data['meta'],
-    data: data['data'],
-    revision: data['revision'],
-  }));
+export const deleteCollectionResponseRequest: any = z.lazy(() => {
+  return z
+    .object({
+      modelId: z.string().nullish(),
+      meta: z.any().nullish(),
+      data: deleteCollectionResponseDataRequest.nullish(),
+      revision: z.number().nullish(),
+    })
+    .transform((data) => ({
+      model_id: data['modelId'],
+      meta: data['meta'],
+      data: data['data'],
+      revision: data['revision'],
+    }));
+});

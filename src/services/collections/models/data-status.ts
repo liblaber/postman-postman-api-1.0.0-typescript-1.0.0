@@ -2,6 +2,9 @@
 
 import { z } from 'zod';
 
-export const dataStatus = z.enum(['open', 'approved', 'declined', 'merged']);
-
-export type DataStatus = z.infer<typeof dataStatus>;
+export enum DataStatus {
+  OPEN = 'open',
+  APPROVED = 'approved',
+  DECLINED = 'declined',
+  MERGED = 'merged',
+}

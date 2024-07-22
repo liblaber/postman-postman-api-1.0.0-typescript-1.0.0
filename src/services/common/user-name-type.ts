@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const userNameType = z.enum(['user']);
-
-export type UserNameType = z.infer<typeof userNameType>;
+export enum UserNameType {
+  USER = 'user',
+}

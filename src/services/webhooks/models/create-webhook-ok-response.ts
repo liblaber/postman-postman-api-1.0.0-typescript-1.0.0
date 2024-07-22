@@ -10,8 +10,10 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createWebhookOkResponse = z.object({
-  webhook: createWebhookWebhook2.optional(),
+export const createWebhookOkResponse: any = z.lazy(() => {
+  return z.object({
+    webhook: createWebhookWebhook2.optional(),
+  });
 });
 
 /**
@@ -25,20 +27,22 @@ export type CreateWebhookOkResponse = z.infer<typeof createWebhookOkResponse>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createWebhookOkResponseResponse = z
-  .object({
-    webhook: createWebhookWebhook2Response.optional(),
-  })
-  .transform((data) => ({
-    webhook: data['webhook'],
-  }));
+export const createWebhookOkResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      webhook: createWebhookWebhook2Response.optional(),
+    })
+    .transform((data) => ({
+      webhook: data['webhook'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createWebhookOkResponseRequest = z
-  .object({ webhook: createWebhookWebhook2Request.nullish() })
-  .transform((data) => ({
+export const createWebhookOkResponseRequest: any = z.lazy(() => {
+  return z.object({ webhook: createWebhookWebhook2Request.nullish() }).transform((data) => ({
     webhook: data['webhook'],
   }));
+});

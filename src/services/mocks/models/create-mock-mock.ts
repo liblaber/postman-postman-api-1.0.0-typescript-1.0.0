@@ -5,11 +5,13 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createMockMock = z.object({
-  collection: z.string(),
-  environment: z.string().optional(),
-  name: z.string().optional(),
-  private_: z.boolean().optional(),
+export const createMockMock: any = z.lazy(() => {
+  return z.object({
+    collection: z.string(),
+    environment: z.string().optional(),
+    name: z.string().optional(),
+    private: z.boolean().optional(),
+  });
 });
 
 /**
@@ -26,34 +28,38 @@ export type CreateMockMock = z.infer<typeof createMockMock>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createMockMockResponse = z
-  .object({
-    collection: z.string(),
-    environment: z.string().optional(),
-    name: z.string().optional(),
-    private: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    collection: data['collection'],
-    environment: data['environment'],
-    name: data['name'],
-    private_: data['private'],
-  }));
+export const createMockMockResponse: any = z.lazy(() => {
+  return z
+    .object({
+      collection: z.string(),
+      environment: z.string().optional(),
+      name: z.string().optional(),
+      private: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      collection: data['collection'],
+      environment: data['environment'],
+      name: data['name'],
+      private: data['private'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createMockMockRequest = z
-  .object({
-    collection: z.string().nullish(),
-    environment: z.string().nullish(),
-    name: z.string().nullish(),
-    private_: z.boolean().nullish(),
-  })
-  .transform((data) => ({
-    collection: data['collection'],
-    environment: data['environment'],
-    name: data['name'],
-    private: data['private_'],
-  }));
+export const createMockMockRequest: any = z.lazy(() => {
+  return z
+    .object({
+      collection: z.string().nullish(),
+      environment: z.string().nullish(),
+      name: z.string().nullish(),
+      private: z.boolean().nullish(),
+    })
+    .transform((data) => ({
+      collection: data['collection'],
+      environment: data['environment'],
+      name: data['name'],
+      private: data['private'],
+    }));
+});

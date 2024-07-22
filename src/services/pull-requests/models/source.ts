@@ -5,11 +5,13 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const source = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  forkName: z.string().optional(),
-  exists: z.boolean().optional(),
+export const source: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    forkName: z.string().optional(),
+    exists: z.boolean().optional(),
+  });
 });
 
 /**
@@ -26,34 +28,38 @@ export type Source = z.infer<typeof source>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const sourceResponse = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    forkName: z.string().optional(),
-    exists: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    forkName: data['forkName'],
-    exists: data['exists'],
-  }));
+export const sourceResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      forkName: z.string().optional(),
+      exists: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      forkName: data['forkName'],
+      exists: data['exists'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const sourceRequest = z
-  .object({
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    forkName: z.string().nullish(),
-    exists: z.boolean().nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    forkName: data['forkName'],
-    exists: data['exists'],
-  }));
+export const sourceRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      forkName: z.string().nullish(),
+      exists: z.boolean().nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      forkName: data['forkName'],
+      exists: data['exists'],
+    }));
+});

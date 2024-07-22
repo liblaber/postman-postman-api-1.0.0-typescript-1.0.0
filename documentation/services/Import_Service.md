@@ -34,10 +34,10 @@ import { ImportOpenApiDefinitionRequest, JsonSchema, JsonStringified, PostmanCli
     apiKey: 'YOUR_API_KEY',
   });
 
-  const jsonSchemaType = JsonSchemaType.json;
+  const jsonSchemaType = JsonSchemaType.JSON;
 
   const importOpenApiDefinitionRequest: JsonSchema = {
-    type_: jsonSchemaType,
+    type: jsonSchemaType,
     input: {},
     options: {},
   };

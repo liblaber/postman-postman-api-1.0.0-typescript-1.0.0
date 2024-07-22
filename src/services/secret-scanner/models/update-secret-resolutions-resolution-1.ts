@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
-export const updateSecretResolutionsResolution1 = z.enum(['FALSE_POSITIVE', 'REVOKED', 'ACCEPTED_RISK']);
-
-export type UpdateSecretResolutionsResolution1 = z.infer<typeof updateSecretResolutionsResolution1>;
+export enum UpdateSecretResolutionsResolution1 {
+  FALSEPOSITIVE = 'FALSE_POSITIVE',
+  REVOKED = 'REVOKED',
+  ACCEPTEDRISK = 'ACCEPTED_RISK',
+}

@@ -15,8 +15,8 @@ The request's status.
 
 | Name     | Type   | Required | Description |
 | :------- | :----- | :------- | :---------- |
-| denied   | string | ✅       | "denied"    |
-| approved | string | ✅       | "approved"  |
+| DENIED   | string | ✅       | "denied"    |
+| APPROVED | string | ✅       | "approved"  |
 
 # RespondPanElementAddRequestResponse
 

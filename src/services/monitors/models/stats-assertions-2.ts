@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const statsAssertions2 = z.object({
-  total: z.number().optional(),
-  failed: z.number().optional(),
+export const statsAssertions2: any = z.lazy(() => {
+  return z.object({
+    total: z.number().optional(),
+    failed: z.number().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type StatsAssertions2 = z.infer<typeof statsAssertions2>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const statsAssertions2Response = z
-  .object({
-    total: z.number().optional(),
-    failed: z.number().optional(),
-  })
-  .transform((data) => ({
-    total: data['total'],
-    failed: data['failed'],
-  }));
+export const statsAssertions2Response: any = z.lazy(() => {
+  return z
+    .object({
+      total: z.number().optional(),
+      failed: z.number().optional(),
+    })
+    .transform((data) => ({
+      total: data['total'],
+      failed: data['failed'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const statsAssertions2Request = z
-  .object({ total: z.number().nullish(), failed: z.number().nullish() })
-  .transform((data) => ({
+export const statsAssertions2Request: any = z.lazy(() => {
+  return z.object({ total: z.number().nullish(), failed: z.number().nullish() }).transform((data) => ({
     total: data['total'],
     failed: data['failed'],
   }));
+});

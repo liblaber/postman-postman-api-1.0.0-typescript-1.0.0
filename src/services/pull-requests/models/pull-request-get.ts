@@ -9,21 +9,23 @@ import { reviewers, reviewersRequest, reviewersResponse } from './reviewers';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const pullRequestGet = z.object({
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
-  id: z.string().optional(),
-  title: z.string().optional(),
-  description: z.string().optional(),
-  createdBy: z.string().optional(),
-  updatedBy: z.string().optional(),
-  comment: z.string().optional(),
-  fortkType: z.string().optional(),
-  source: source.optional(),
-  destination: destination.optional(),
-  status: z.string().optional(),
-  merge: merge.optional(),
-  reviewers: z.array(reviewers).optional(),
+export const pullRequestGet: any = z.lazy(() => {
+  return z.object({
+    createdAt: z.string().optional(),
+    updatedAt: z.string().optional(),
+    id: z.string().optional(),
+    title: z.string().optional(),
+    description: z.string().optional(),
+    createdBy: z.string().optional(),
+    updatedBy: z.string().optional(),
+    comment: z.string().optional(),
+    fortkType: z.string().optional(),
+    source: source.optional(),
+    destination: destination.optional(),
+    status: z.string().optional(),
+    merge: merge.optional(),
+    reviewers: z.array(reviewers).optional(),
+  });
 });
 
 /**
@@ -54,74 +56,78 @@ export type PullRequestGet = z.infer<typeof pullRequestGet>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullRequestGetResponse = z
-  .object({
-    createdAt: z.string().optional(),
-    updatedAt: z.string().optional(),
-    id: z.string().optional(),
-    title: z.string().optional(),
-    description: z.string().optional(),
-    createdBy: z.string().optional(),
-    updatedBy: z.string().optional(),
-    comment: z.string().optional(),
-    fortkType: z.string().optional(),
-    source: sourceResponse.optional(),
-    destination: destinationResponse.optional(),
-    status: z.string().optional(),
-    merge: mergeResponse.optional(),
-    reviewers: z.array(reviewersResponse).optional(),
-  })
-  .transform((data) => ({
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-    id: data['id'],
-    title: data['title'],
-    description: data['description'],
-    createdBy: data['createdBy'],
-    updatedBy: data['updatedBy'],
-    comment: data['comment'],
-    fortkType: data['fortkType'],
-    source: data['source'],
-    destination: data['destination'],
-    status: data['status'],
-    merge: data['merge'],
-    reviewers: data['reviewers'],
-  }));
+export const pullRequestGetResponse: any = z.lazy(() => {
+  return z
+    .object({
+      createdAt: z.string().optional(),
+      updatedAt: z.string().optional(),
+      id: z.string().optional(),
+      title: z.string().optional(),
+      description: z.string().optional(),
+      createdBy: z.string().optional(),
+      updatedBy: z.string().optional(),
+      comment: z.string().optional(),
+      fortkType: z.string().optional(),
+      source: sourceResponse.optional(),
+      destination: destinationResponse.optional(),
+      status: z.string().optional(),
+      merge: mergeResponse.optional(),
+      reviewers: z.array(reviewersResponse).optional(),
+    })
+    .transform((data) => ({
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+      id: data['id'],
+      title: data['title'],
+      description: data['description'],
+      createdBy: data['createdBy'],
+      updatedBy: data['updatedBy'],
+      comment: data['comment'],
+      fortkType: data['fortkType'],
+      source: data['source'],
+      destination: data['destination'],
+      status: data['status'],
+      merge: data['merge'],
+      reviewers: data['reviewers'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullRequestGetRequest = z
-  .object({
-    createdAt: z.string().nullish(),
-    updatedAt: z.string().nullish(),
-    id: z.string().nullish(),
-    title: z.string().nullish(),
-    description: z.string().nullish(),
-    createdBy: z.string().nullish(),
-    updatedBy: z.string().nullish(),
-    comment: z.string().nullish(),
-    fortkType: z.string().nullish(),
-    source: sourceRequest.nullish(),
-    destination: destinationRequest.nullish(),
-    status: z.string().nullish(),
-    merge: mergeRequest.nullish(),
-    reviewers: z.array(reviewersRequest).nullish(),
-  })
-  .transform((data) => ({
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-    id: data['id'],
-    title: data['title'],
-    description: data['description'],
-    createdBy: data['createdBy'],
-    updatedBy: data['updatedBy'],
-    comment: data['comment'],
-    fortkType: data['fortkType'],
-    source: data['source'],
-    destination: data['destination'],
-    status: data['status'],
-    merge: data['merge'],
-    reviewers: data['reviewers'],
-  }));
+export const pullRequestGetRequest: any = z.lazy(() => {
+  return z
+    .object({
+      createdAt: z.string().nullish(),
+      updatedAt: z.string().nullish(),
+      id: z.string().nullish(),
+      title: z.string().nullish(),
+      description: z.string().nullish(),
+      createdBy: z.string().nullish(),
+      updatedBy: z.string().nullish(),
+      comment: z.string().nullish(),
+      fortkType: z.string().nullish(),
+      source: sourceRequest.nullish(),
+      destination: destinationRequest.nullish(),
+      status: z.string().nullish(),
+      merge: mergeRequest.nullish(),
+      reviewers: z.array(reviewersRequest).nullish(),
+    })
+    .transform((data) => ({
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+      id: data['id'],
+      title: data['title'],
+      description: data['description'],
+      createdBy: data['createdBy'],
+      updatedBy: data['updatedBy'],
+      comment: data['comment'],
+      fortkType: data['fortkType'],
+      source: data['source'],
+      destination: data['destination'],
+      status: data['status'],
+      merge: data['merge'],
+      reviewers: data['reviewers'],
+    }));
+});

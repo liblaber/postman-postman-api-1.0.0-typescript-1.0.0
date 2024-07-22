@@ -5,12 +5,14 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const actor = z.object({
-  name: z.string().optional(),
-  username: z.string().optional(),
-  email: z.string().optional(),
-  id: z.number().optional(),
-  active: z.boolean().optional(),
+export const actor: any = z.lazy(() => {
+  return z.object({
+    name: z.string().optional(),
+    username: z.string().optional(),
+    email: z.string().optional(),
+    id: z.number().optional(),
+    active: z.boolean().optional(),
+  });
 });
 
 /**
@@ -28,38 +30,42 @@ export type Actor = z.infer<typeof actor>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const actorResponse = z
-  .object({
-    name: z.string().optional(),
-    username: z.string().optional(),
-    email: z.string().optional(),
-    id: z.number().optional(),
-    active: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    username: data['username'],
-    email: data['email'],
-    id: data['id'],
-    active: data['active'],
-  }));
+export const actorResponse: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string().optional(),
+      username: z.string().optional(),
+      email: z.string().optional(),
+      id: z.number().optional(),
+      active: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      username: data['username'],
+      email: data['email'],
+      id: data['id'],
+      active: data['active'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const actorRequest = z
-  .object({
-    name: z.string().nullish(),
-    username: z.string().nullish(),
-    email: z.string().nullish(),
-    id: z.number().nullish(),
-    active: z.boolean().nullish(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    username: data['username'],
-    email: data['email'],
-    id: data['id'],
-    active: data['active'],
-  }));
+export const actorRequest: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string().nullish(),
+      username: z.string().nullish(),
+      email: z.string().nullish(),
+      id: z.number().nullish(),
+      active: z.boolean().nullish(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      username: data['username'],
+      email: data['email'],
+      id: data['id'],
+      active: data['active'],
+    }));
+});

@@ -6,8 +6,10 @@ import { tagUpdateTagsTags, tagUpdateTagsTagsRequest, tagUpdateTagsTagsResponse 
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const tagUpdateTags = z.object({
-  tags: z.array(tagUpdateTagsTags).max(5),
+export const tagUpdateTags: any = z.lazy(() => {
+  return z.object({
+    tags: z.array(tagUpdateTagsTags).max(5),
+  });
 });
 
 /**
@@ -21,20 +23,22 @@ export type TagUpdateTags = z.infer<typeof tagUpdateTags>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const tagUpdateTagsResponse = z
-  .object({
-    tags: z.array(tagUpdateTagsTagsResponse).max(5),
-  })
-  .transform((data) => ({
-    tags: data['tags'],
-  }));
+export const tagUpdateTagsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      tags: z.array(tagUpdateTagsTagsResponse).max(5),
+    })
+    .transform((data) => ({
+      tags: data['tags'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const tagUpdateTagsRequest = z
-  .object({ tags: z.array(tagUpdateTagsTagsRequest).nullish() })
-  .transform((data) => ({
+export const tagUpdateTagsRequest: any = z.lazy(() => {
+  return z.object({ tags: z.array(tagUpdateTagsTagsRequest).nullish() }).transform((data) => ({
     tags: data['tags'],
   }));
+});

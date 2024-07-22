@@ -4,54 +4,8 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
-import {
-  AddApiCollectionOkResponse,
-  AddApiCollectionRequest,
-  CreateApiOkResponse,
-  CreateApiRequest,
-  CreateApiSchemaOkResponse,
-  CreateApiSchemaRequest,
-  CreateApiVersionAcceptedResponse,
-  CreateApiVersionRequest,
-  CreateUpdateApiSchemaFileOkResponse,
-  CreateUpdateApiSchemaFileRequest,
-  GetApi,
-  GetApiSchema,
-  GetApiSchemaFileContents,
-  GetApiSchemaFiles,
-  GetApiVersion,
-  GetApiVersions,
-  GetApis,
-  GetStatusOfAnAsyncTask,
-  SyncCollectionWithSchema,
-  UpdateApiOkResponse,
-  UpdateApiRequest,
-  UpdateApiVersionOkResponse,
-  UpdateApiVersionRequest,
-  addApiCollectionOkResponseResponse,
-  addApiCollectionRequestRequest,
-  createApiOkResponseResponse,
-  createApiRequestRequest,
-  createApiSchemaOkResponseResponse,
-  createApiSchemaRequestRequest,
-  createApiVersionAcceptedResponseResponse,
-  createApiVersionRequestRequest,
-  createUpdateApiSchemaFileOkResponseResponse,
-  createUpdateApiSchemaFileRequestRequest,
-  getApiResponse,
-  getApiSchemaFileContentsResponse,
-  getApiSchemaFilesResponse,
-  getApiSchemaResponse,
-  getApiVersionResponse,
-  getApiVersionsResponse,
-  getApisResponse,
-  getStatusOfAnAsyncTaskResponse,
-  syncCollectionWithSchemaResponse,
-  updateApiOkResponseResponse,
-  updateApiRequestRequest,
-  updateApiVersionOkResponseResponse,
-  updateApiVersionRequestRequest,
-} from './models';
+import { Request } from '../../http/transport/request';
+import { GetApis, getApisResponse } from './models/get-apis';
 import {
   AddApiCollectionParams,
   CreateApiParams,
@@ -74,14 +28,46 @@ import {
   UpdateApiParams,
   UpdateApiVersionParams,
 } from './request-params';
+import { CreateApiRequest, createApiRequestRequest } from './models/create-api-request';
+import { CreateApiOkResponse, createApiOkResponseResponse } from './models/create-api-ok-response';
+import { GetApi, getApiResponse } from './models/get-api';
+import { UpdateApiRequest, updateApiRequestRequest } from './models/update-api-request';
+import { UpdateApiOkResponse, updateApiOkResponseResponse } from './models/update-api-ok-response';
+import { AddApiCollectionRequest, addApiCollectionRequestRequest } from './models/add-api-collection-request';
 import {
-  CommentCreateUpdate,
-  CommentCreatedUpdated,
-  CommentResponse,
-  commentCreateUpdateRequest,
-  commentCreatedUpdatedResponse,
-  commentResponseResponse,
-} from '../common';
+  AddApiCollectionOkResponse,
+  addApiCollectionOkResponseResponse,
+} from './models/add-api-collection-ok-response';
+import { SyncCollectionWithSchema, syncCollectionWithSchemaResponse } from './models/sync-collection-with-schema';
+import { CommentResponse, commentResponseResponse } from '../common/comment-response';
+import { CommentCreateUpdate, commentCreateUpdateRequest } from '../common/comment-create-update';
+import { CommentCreatedUpdated, commentCreatedUpdatedResponse } from '../common/comment-created-updated';
+import { CreateApiSchemaRequest, createApiSchemaRequestRequest } from './models/create-api-schema-request';
+import { CreateApiSchemaOkResponse, createApiSchemaOkResponseResponse } from './models/create-api-schema-ok-response';
+import { GetApiSchema, getApiSchemaResponse } from './models/get-api-schema';
+import { GetApiSchemaFiles, getApiSchemaFilesResponse } from './models/get-api-schema-files';
+import { GetApiSchemaFileContents, getApiSchemaFileContentsResponse } from './models/get-api-schema-file-contents';
+import {
+  CreateUpdateApiSchemaFileRequest,
+  createUpdateApiSchemaFileRequestRequest,
+} from './models/create-update-api-schema-file-request';
+import {
+  CreateUpdateApiSchemaFileOkResponse,
+  createUpdateApiSchemaFileOkResponseResponse,
+} from './models/create-update-api-schema-file-ok-response';
+import { GetStatusOfAnAsyncTask, getStatusOfAnAsyncTaskResponse } from './models/get-status-of-an-async-task';
+import { GetApiVersions, getApiVersionsResponse } from './models/get-api-versions';
+import { CreateApiVersionRequest, createApiVersionRequestRequest } from './models/create-api-version-request';
+import {
+  CreateApiVersionAcceptedResponse,
+  createApiVersionAcceptedResponseResponse,
+} from './models/create-api-version-accepted-response';
+import { GetApiVersion, getApiVersionResponse } from './models/get-api-version';
+import { UpdateApiVersionRequest, updateApiVersionRequestRequest } from './models/update-api-version-request';
+import {
+  UpdateApiVersionOkResponse,
+  updateApiVersionOkResponseResponse,
+} from './models/update-api-version-ok-response';
 
 export class ApiService extends BaseService {
   /**
@@ -95,36 +81,23 @@ export class ApiService extends BaseService {
    * @returns {Promise<HttpResponse<GetApis>>} Successful Response
    */
   async getApis(params: GetApisParams, requestConfig?: RequestConfig): Promise<HttpResponse<GetApis>> {
-    const path = '/apis';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/apis',
+      config: this.config,
       responseSchema: getApisResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    if (params?.workspaceId) {
-      options.queryParams['workspaceId'] = params?.workspaceId;
-    }
-    if (params?.createdBy) {
-      options.queryParams['createdBy'] = params?.createdBy;
-    }
-    if (params?.cursor) {
-      options.queryParams['cursor'] = params?.cursor;
-    }
-    if (params?.description) {
-      options.queryParams['description'] = params?.description;
-    }
-    if (params?.limit) {
-      options.queryParams['limit'] = params?.limit;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('workspaceId', params?.workspaceId);
+    request.addQueryParam('createdBy', params?.createdBy);
+    request.addQueryParam('cursor', params?.cursor);
+    request.addQueryParam('description', params?.description);
+    request.addQueryParam('limit', params?.limit);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<GetApis>(request);
   }
 
   /**
@@ -138,27 +111,21 @@ export class ApiService extends BaseService {
     params: CreateApiParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateApiOkResponse>> {
-    const path = '/apis';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/apis',
+      config: this.config,
       responseSchema: createApiOkResponseResponse,
       requestSchema: createApiRequestRequest,
-      body: body as any,
-      queryParams: {},
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    if (params?.workspaceId) {
-      options.queryParams['workspaceId'] = params?.workspaceId;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('workspaceId', params?.workspaceId);
+    request.addHeaderParam('Accept', params?.accept);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateApiOkResponse>(request);
   }
 
   /**
@@ -183,24 +150,20 @@ API viewers can only use the `versions` option.
  * @returns {Promise<HttpResponse<GetApi>>} Successful Response
  */
   async getApi(apiId: string, params: GetApiParams, requestConfig?: RequestConfig): Promise<HttpResponse<GetApi>> {
-    const path = this.client.buildPath('/apis/{apiId}', { apiId: apiId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/apis/{apiId}',
+      config: this.config,
       responseSchema: getApiResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    if (params?.include) {
-      options.queryParams['include'] = params?.include;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addQueryParam('include', params?.include);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<GetApi>(request);
   }
 
   /**
@@ -215,23 +178,21 @@ API viewers can only use the `versions` option.
     params: UpdateApiParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdateApiOkResponse>> {
-    const path = this.client.buildPath('/apis/{apiId}', { apiId: apiId });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/apis/{apiId}',
+      config: this.config,
       responseSchema: updateApiOkResponseResponse,
       requestSchema: updateApiRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addHeaderParam('Accept', params?.accept);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<UpdateApiOkResponse>(request);
   }
 
   /**
@@ -245,20 +206,19 @@ API viewers can only use the `versions` option.
     params: DeleteApiParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<undefined>> {
-    const path = this.client.buildPath('/apis/{apiId}', { apiId: apiId });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/apis/{apiId}',
+      config: this.config,
       responseSchema: z.undefined(),
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<undefined>(request);
   }
 
   /**
@@ -278,23 +238,21 @@ API viewers can only use the `versions` option.
     params: AddApiCollectionParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<AddApiCollectionOkResponse>> {
-    const path = this.client.buildPath('/apis/{apiId}/collections', { apiId: apiId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/apis/{apiId}/collections',
+      config: this.config,
       responseSchema: addApiCollectionOkResponseResponse,
       requestSchema: addApiCollectionRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addHeaderParam('Accept', params?.accept);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<AddApiCollectionOkResponse>(request);
   }
 
   /**
@@ -315,27 +273,21 @@ The `versionId` query parameter is a required parameter for API viewers.
     params: GetApiCollectionParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<any>> {
-    const path = this.client.buildPath('/apis/{apiId}/collections/{collectionId}', {
-      apiId: apiId,
-      collectionId: collectionId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/apis/{apiId}/collections/{collectionId}',
+      config: this.config,
       responseSchema: z.any(),
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    if (params?.versionId) {
-      options.queryParams['versionId'] = params?.versionId;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('collectionId', collectionId);
+    request.addQueryParam('versionId', params?.versionId);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<any>(request);
   }
 
   /**
@@ -357,23 +309,20 @@ This endpoint only supports the OpenAPI 3 schema type.
     params: SyncCollectionWithSchemaParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<SyncCollectionWithSchema>> {
-    const path = this.client.buildPath('/apis/{apiId}/collections/{collectionId}/sync-with-schema-tasks', {
-      apiId: apiId,
-      collectionId: collectionId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      path: '/apis/{apiId}/collections/{collectionId}/sync-with-schema-tasks',
+      config: this.config,
       responseSchema: syncCollectionWithSchemaResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('collectionId', collectionId);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<SyncCollectionWithSchema>(request);
   }
 
   /**
@@ -382,17 +331,18 @@ This endpoint only supports the OpenAPI 3 schema type.
    * @returns {Promise<HttpResponse<CommentResponse>>} Successful Response
    */
   async getApiComments(apiId: string, requestConfig?: RequestConfig): Promise<HttpResponse<CommentResponse>> {
-    const path = this.client.buildPath('/apis/{apiId}/comments', { apiId: apiId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/apis/{apiId}/comments',
+      config: this.config,
       responseSchema: commentResponseResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    return this.client.call<CommentResponse>(request);
   }
 
   /**
@@ -409,20 +359,20 @@ This endpoint accepts a max of 10,000 characters.
     body: CommentCreateUpdate,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CommentCreatedUpdated>> {
-    const path = this.client.buildPath('/apis/{apiId}/comments', { apiId: apiId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/apis/{apiId}/comments',
+      config: this.config,
       responseSchema: commentCreatedUpdatedResponse,
       requestSchema: commentCreateUpdateRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CommentCreatedUpdated>(request);
   }
 
   /**
@@ -441,20 +391,21 @@ This endpoint accepts a max of 10,000 characters.
     body: CommentCreateUpdate,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CommentCreatedUpdated>> {
-    const path = this.client.buildPath('/apis/{apiId}/comments/{commentId}', { apiId: apiId, commentId: commentId });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/apis/{apiId}/comments/{commentId}',
+      config: this.config,
       responseSchema: commentCreatedUpdatedResponse,
       requestSchema: commentCreateUpdateRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('commentId', commentId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CommentCreatedUpdated>(request);
   }
 
   /**
@@ -472,17 +423,19 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     commentId: number,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<undefined>> {
-    const path = this.client.buildPath('/apis/{apiId}/comments/{commentId}', { apiId: apiId, commentId: commentId });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/apis/{apiId}/comments/{commentId}',
+      config: this.config,
       responseSchema: z.undefined(),
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('commentId', commentId);
+    return this.client.call<undefined>(request);
   }
 
   /**
@@ -497,23 +450,21 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     params: CreateApiSchemaParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateApiSchemaOkResponse>> {
-    const path = this.client.buildPath('/apis/{apiId}/schemas', { apiId: apiId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/apis/{apiId}/schemas',
+      config: this.config,
       responseSchema: createApiSchemaOkResponseResponse,
       requestSchema: createApiSchemaRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addHeaderParam('Accept', params?.accept);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateApiSchemaOkResponse>(request);
   }
 
   /**
@@ -541,27 +492,22 @@ The `versionId` query parameter is a required parameter for API viewers.
     params: GetApiSchemaParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetApiSchema>> {
-    const path = this.client.buildPath('/apis/{apiId}/schemas/{schemaId}', { apiId: apiId, schemaId: schemaId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/apis/{apiId}/schemas/{schemaId}',
+      config: this.config,
       responseSchema: getApiSchemaResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    if (params?.versionId) {
-      options.queryParams['versionId'] = params?.versionId;
-    }
-    if (params?.bundled) {
-      options.queryParams['bundled'] = params?.bundled;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('schemaId', schemaId);
+    request.addQueryParam('versionId', params?.versionId);
+    request.addQueryParam('bundled', params?.bundled);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<GetApiSchema>(request);
   }
 
   /**
@@ -584,30 +530,23 @@ The `versionId` query parameter is a required parameter for API viewers.
     params: GetApiSchemaFilesParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetApiSchemaFiles>> {
-    const path = this.client.buildPath('/apis/{apiId}/schemas/{schemaId}/files', { apiId: apiId, schemaId: schemaId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/apis/{apiId}/schemas/{schemaId}/files',
+      config: this.config,
       responseSchema: getApiSchemaFilesResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    if (params?.versionId) {
-      options.queryParams['versionId'] = params?.versionId;
-    }
-    if (params?.limit) {
-      options.queryParams['limit'] = params?.limit;
-    }
-    if (params?.cursor) {
-      options.queryParams['cursor'] = params?.cursor;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('schemaId', schemaId);
+    request.addQueryParam('versionId', params?.versionId);
+    request.addQueryParam('limit', params?.limit);
+    request.addQueryParam('cursor', params?.cursor);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<GetApiSchemaFiles>(request);
   }
 
   /**
@@ -630,28 +569,22 @@ The `versionId` query parameter is a required parameter for API viewers.
     params: GetApiSchemaFileContentsParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetApiSchemaFileContents>> {
-    const path = this.client.buildPath('/apis/{apiId}/schemas/{schemaId}/files/{file-path}', {
-      apiId: apiId,
-      schemaId: schemaId,
-      'file-path': filePath,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/apis/{apiId}/schemas/{schemaId}/files/{file-path}',
+      config: this.config,
       responseSchema: getApiSchemaFileContentsResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    if (params?.versionId) {
-      options.queryParams['versionId'] = params?.versionId;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('schemaId', schemaId);
+    request.addPathParam('file-path', filePath);
+    request.addQueryParam('versionId', params?.versionId);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<GetApiSchemaFileContents>(request);
   }
 
   /**
@@ -676,27 +609,23 @@ The `versionId` query parameter is a required parameter for API viewers.
     params: CreateUpdateApiSchemaFileParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateUpdateApiSchemaFileOkResponse>> {
-    const path = this.client.buildPath('/apis/{apiId}/schemas/{schemaId}/files/{file-path}', {
-      apiId: apiId,
-      schemaId: schemaId,
-      'file-path': filePath,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/apis/{apiId}/schemas/{schemaId}/files/{file-path}',
+      config: this.config,
       responseSchema: createUpdateApiSchemaFileOkResponseResponse,
       requestSchema: createUpdateApiSchemaFileRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('schemaId', schemaId);
+    request.addPathParam('file-path', filePath);
+    request.addHeaderParam('Accept', params?.accept);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateUpdateApiSchemaFileOkResponse>(request);
   }
 
   /**
@@ -714,24 +643,21 @@ The `versionId` query parameter is a required parameter for API viewers.
     params: DeleteApiSchemaFileParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<undefined>> {
-    const path = this.client.buildPath('/apis/{apiId}/schemas/{schemaId}/files/{file-path}', {
-      apiId: apiId,
-      schemaId: schemaId,
-      'file-path': filePath,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/apis/{apiId}/schemas/{schemaId}/files/{file-path}',
+      config: this.config,
       responseSchema: z.undefined(),
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('schemaId', schemaId);
+    request.addPathParam('file-path', filePath);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<undefined>(request);
   }
 
   /**
@@ -747,20 +673,20 @@ The `versionId` query parameter is a required parameter for API viewers.
     params: GetStatusOfAnAsyncTaskParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetStatusOfAnAsyncTask>> {
-    const path = this.client.buildPath('/apis/{apiId}/tasks/{taskId}', { apiId: apiId, taskId: taskId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/apis/{apiId}/tasks/{taskId}',
+      config: this.config,
       responseSchema: getStatusOfAnAsyncTaskResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('taskId', taskId);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<GetStatusOfAnAsyncTask>(request);
   }
 
   /**
@@ -776,27 +702,21 @@ The `versionId` query parameter is a required parameter for API viewers.
     params: GetApiVersionsParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetApiVersions>> {
-    const path = this.client.buildPath('/apis/{apiId}/versions', { apiId: apiId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/apis/{apiId}/versions',
+      config: this.config,
       responseSchema: getApiVersionsResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    if (params?.cursor) {
-      options.queryParams['cursor'] = params?.cursor;
-    }
-    if (params?.limit) {
-      options.queryParams['limit'] = params?.limit;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addQueryParam('cursor', params?.cursor);
+    request.addQueryParam('limit', params?.limit);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<GetApiVersions>(request);
   }
 
   /**
@@ -813,23 +733,21 @@ This endpoint is equivalent to publishing a version in Postman app, which is the
     params: CreateApiVersionParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateApiVersionAcceptedResponse>> {
-    const path = this.client.buildPath('/apis/{apiId}/versions', { apiId: apiId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/apis/{apiId}/versions',
+      config: this.config,
       responseSchema: createApiVersionAcceptedResponseResponse,
       requestSchema: createApiVersionRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addHeaderParam('Accept', params?.accept);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateApiVersionAcceptedResponse>(request);
   }
 
   /**
@@ -850,20 +768,20 @@ This endpoint is equivalent to publishing a version in Postman app, which is the
     params: GetApiVersionParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetApiVersion>> {
-    const path = this.client.buildPath('/apis/{apiId}/versions/{versionId}', { apiId: apiId, versionId: versionId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/apis/{apiId}/versions/{versionId}',
+      config: this.config,
       responseSchema: getApiVersionResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('versionId', versionId);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<GetApiVersion>(request);
   }
 
   /**
@@ -884,23 +802,22 @@ This endpoint returns an HTTP `404 Not Found` response when an API version is pe
     params: UpdateApiVersionParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdateApiVersionOkResponse>> {
-    const path = this.client.buildPath('/apis/{apiId}/versions/{versionId}', { apiId: apiId, versionId: versionId });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/apis/{apiId}/versions/{versionId}',
+      config: this.config,
       responseSchema: updateApiVersionOkResponseResponse,
       requestSchema: updateApiVersionRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('versionId', versionId);
+    request.addHeaderParam('Accept', params?.accept);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<UpdateApiVersionOkResponse>(request);
   }
 
   /**
@@ -920,19 +837,19 @@ This endpoint returns an HTTP `404 Not Found` response when an API version is pe
     params: DeleteApiVersionParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<undefined>> {
-    const path = this.client.buildPath('/apis/{apiId}/versions/{versionId}', { apiId: apiId, versionId: versionId });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/apis/{apiId}/versions/{versionId}',
+      config: this.config,
       responseSchema: z.undefined(),
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accept) {
-      options.headers['Accept'] = params?.accept;
-    }
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('apiId', apiId);
+    request.addPathParam('versionId', versionId);
+    request.addHeaderParam('Accept', params?.accept);
+    return this.client.call<undefined>(request);
   }
 }

@@ -4,12 +4,15 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
+import { Request } from '../../http/transport/request';
+import {
+  SchemaSecurityValidationRequest,
+  schemaSecurityValidationRequestRequest,
+} from './models/schema-security-validation-request';
 import {
   SchemaSecurityValidationOkResponse,
-  SchemaSecurityValidationRequest,
   schemaSecurityValidationOkResponseResponse,
-  schemaSecurityValidationRequestRequest,
-} from './models';
+} from './models/schema-security-validation-ok-response';
 
 export class ApiSecurityService extends BaseService {
   /**
@@ -27,19 +30,18 @@ For more information, see our [Rule violations in the API definition](https://le
     body: SchemaSecurityValidationRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<SchemaSecurityValidationOkResponse>> {
-    const path = '/security/api-validation';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/security/api-validation',
+      config: this.config,
       responseSchema: schemaSecurityValidationOkResponseResponse,
       requestSchema: schemaSecurityValidationRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<SchemaSecurityValidationOkResponse>(request);
   }
 }

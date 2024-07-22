@@ -10,9 +10,11 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updatePanCollectionCollection = z.object({
-  parentFolderId: z.number().optional(),
-  environments: collectionEnvironments.optional(),
+export const updatePanCollectionCollection: any = z.lazy(() => {
+  return z.object({
+    parentFolderId: z.number().optional(),
+    environments: collectionEnvironments.optional(),
+  });
 });
 
 /**
@@ -27,23 +29,27 @@ export type UpdatePanCollectionCollection = z.infer<typeof updatePanCollectionCo
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanCollectionCollectionResponse = z
-  .object({
-    parentFolderId: z.number().optional(),
-    environments: collectionEnvironmentsResponse.optional(),
-  })
-  .transform((data) => ({
-    parentFolderId: data['parentFolderId'],
-    environments: data['environments'],
-  }));
+export const updatePanCollectionCollectionResponse: any = z.lazy(() => {
+  return z
+    .object({
+      parentFolderId: z.number().optional(),
+      environments: collectionEnvironmentsResponse.optional(),
+    })
+    .transform((data) => ({
+      parentFolderId: data['parentFolderId'],
+      environments: data['environments'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanCollectionCollectionRequest = z
-  .object({ parentFolderId: z.number().nullish(), environments: collectionEnvironmentsRequest.nullish() })
-  .transform((data) => ({
-    parentFolderId: data['parentFolderId'],
-    environments: data['environments'],
-  }));
+export const updatePanCollectionCollectionRequest: any = z.lazy(() => {
+  return z
+    .object({ parentFolderId: z.number().nullish(), environments: collectionEnvironmentsRequest.nullish() })
+    .transform((data) => ({
+      parentFolderId: data['parentFolderId'],
+      environments: data['environments'],
+    }));
+});

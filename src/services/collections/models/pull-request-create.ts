@@ -5,11 +5,13 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const pullRequestCreate = z.object({
-  title: z.string(),
-  description: z.string(),
-  reviewers: z.array(z.string()),
-  destinationId: z.string(),
+export const pullRequestCreate: any = z.lazy(() => {
+  return z.object({
+    title: z.string(),
+    description: z.string(),
+    reviewers: z.array(z.string()),
+    destinationId: z.string(),
+  });
 });
 
 /**
@@ -26,34 +28,38 @@ export type PullRequestCreate = z.infer<typeof pullRequestCreate>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullRequestCreateResponse = z
-  .object({
-    title: z.string(),
-    description: z.string(),
-    reviewers: z.array(z.string()),
-    destinationId: z.string(),
-  })
-  .transform((data) => ({
-    title: data['title'],
-    description: data['description'],
-    reviewers: data['reviewers'],
-    destinationId: data['destinationId'],
-  }));
+export const pullRequestCreateResponse: any = z.lazy(() => {
+  return z
+    .object({
+      title: z.string(),
+      description: z.string(),
+      reviewers: z.array(z.string()),
+      destinationId: z.string(),
+    })
+    .transform((data) => ({
+      title: data['title'],
+      description: data['description'],
+      reviewers: data['reviewers'],
+      destinationId: data['destinationId'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullRequestCreateRequest = z
-  .object({
-    title: z.string().nullish(),
-    description: z.string().nullish(),
-    reviewers: z.array(z.string()).nullish(),
-    destinationId: z.string().nullish(),
-  })
-  .transform((data) => ({
-    title: data['title'],
-    description: data['description'],
-    reviewers: data['reviewers'],
-    destinationId: data['destinationId'],
-  }));
+export const pullRequestCreateRequest: any = z.lazy(() => {
+  return z
+    .object({
+      title: z.string().nullish(),
+      description: z.string().nullish(),
+      reviewers: z.array(z.string()).nullish(),
+      destinationId: z.string().nullish(),
+    })
+    .transform((data) => ({
+      title: data['title'],
+      description: data['description'],
+      reviewers: data['reviewers'],
+      destinationId: data['destinationId'],
+    }));
+});

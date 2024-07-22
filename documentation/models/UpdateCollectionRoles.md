@@ -24,7 +24,7 @@ The operation to perform on the path.
 
 | Name   | Type   | Required | Description |
 | :----- | :----- | :------- | :---------- |
-| update | string | ✅       | "update"    |
+| UPDATE | string | ✅       | "update"    |
 
 # RolesPath1
 
@@ -32,11 +32,11 @@ The resource to perform the action on.
 
 **Properties**
 
-| Name   | Type   | Required | Description |
-| :----- | :----- | :------- | :---------- |
-| /user  | string | ✅       | "/user"     |
-| /group | string | ✅       | "/group"    |
-| /team  | string | ✅       | "/team"     |
+| Name    | Type   | Required | Description |
+| :------ | :----- | :------- | :---------- |
+| \_USER  | string | ✅       | "/user"     |
+| \_GROUP | string | ✅       | "/group"    |
+| \_TEAM  | string | ✅       | "/team"     |
 
 # RolesValue1
 

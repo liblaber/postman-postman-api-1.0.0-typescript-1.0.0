@@ -6,13 +6,15 @@ import { mockConfig2, mockConfig2Request, mockConfig2Response } from './mock-con
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateMockMock = z.object({
-  name: z.string().optional(),
-  environment: z.string().optional(),
-  description: z.string().optional(),
-  private_: z.boolean().optional(),
-  versionTag: z.string().optional(),
-  config: mockConfig2.optional(),
+export const updateMockMock: any = z.lazy(() => {
+  return z.object({
+    name: z.string().optional(),
+    environment: z.string().optional(),
+    description: z.string().optional(),
+    private: z.boolean().optional(),
+    versionTag: z.string().optional(),
+    config: mockConfig2.optional(),
+  });
 });
 
 /**
@@ -31,42 +33,46 @@ export type UpdateMockMock = z.infer<typeof updateMockMock>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateMockMockResponse = z
-  .object({
-    name: z.string().optional(),
-    environment: z.string().optional(),
-    description: z.string().optional(),
-    private: z.boolean().optional(),
-    versionTag: z.string().optional(),
-    config: mockConfig2Response.optional(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    environment: data['environment'],
-    description: data['description'],
-    private_: data['private'],
-    versionTag: data['versionTag'],
-    config: data['config'],
-  }));
+export const updateMockMockResponse: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string().optional(),
+      environment: z.string().optional(),
+      description: z.string().optional(),
+      private: z.boolean().optional(),
+      versionTag: z.string().optional(),
+      config: mockConfig2Response.optional(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      environment: data['environment'],
+      description: data['description'],
+      private: data['private'],
+      versionTag: data['versionTag'],
+      config: data['config'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateMockMockRequest = z
-  .object({
-    name: z.string().nullish(),
-    environment: z.string().nullish(),
-    description: z.string().nullish(),
-    private_: z.boolean().nullish(),
-    versionTag: z.string().nullish(),
-    config: mockConfig2Request.nullish(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    environment: data['environment'],
-    description: data['description'],
-    private: data['private_'],
-    versionTag: data['versionTag'],
-    config: data['config'],
-  }));
+export const updateMockMockRequest: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string().nullish(),
+      environment: z.string().nullish(),
+      description: z.string().nullish(),
+      private: z.boolean().nullish(),
+      versionTag: z.string().nullish(),
+      config: mockConfig2Request.nullish(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      environment: data['environment'],
+      description: data['description'],
+      private: data['private'],
+      versionTag: data['versionTag'],
+      config: data['config'],
+    }));
+});

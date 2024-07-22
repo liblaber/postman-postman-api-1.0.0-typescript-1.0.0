@@ -15,9 +15,11 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const detectedSecretsQueriesOkResponse = z.object({
-  data: z.array(detectedSecretsQueriesData).optional(),
-  meta: detectedSecretsQueriesMeta.optional(),
+export const detectedSecretsQueriesOkResponse: any = z.lazy(() => {
+  return z.object({
+    data: z.array(detectedSecretsQueriesData).optional(),
+    meta: detectedSecretsQueriesMeta.optional(),
+  });
 });
 
 /**
@@ -32,26 +34,30 @@ export type DetectedSecretsQueriesOkResponse = z.infer<typeof detectedSecretsQue
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const detectedSecretsQueriesOkResponseResponse = z
-  .object({
-    data: z.array(detectedSecretsQueriesDataResponse).optional(),
-    meta: detectedSecretsQueriesMetaResponse.optional(),
-  })
-  .transform((data) => ({
-    data: data['data'],
-    meta: data['meta'],
-  }));
+export const detectedSecretsQueriesOkResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      data: z.array(detectedSecretsQueriesDataResponse).optional(),
+      meta: detectedSecretsQueriesMetaResponse.optional(),
+    })
+    .transform((data) => ({
+      data: data['data'],
+      meta: data['meta'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const detectedSecretsQueriesOkResponseRequest = z
-  .object({
-    data: z.array(detectedSecretsQueriesDataRequest).nullish(),
-    meta: detectedSecretsQueriesMetaRequest.nullish(),
-  })
-  .transform((data) => ({
-    data: data['data'],
-    meta: data['meta'],
-  }));
+export const detectedSecretsQueriesOkResponseRequest: any = z.lazy(() => {
+  return z
+    .object({
+      data: z.array(detectedSecretsQueriesDataRequest).nullish(),
+      meta: detectedSecretsQueriesMetaRequest.nullish(),
+    })
+    .transform((data) => ({
+      data: data['data'],
+      meta: data['meta'],
+    }));
+});

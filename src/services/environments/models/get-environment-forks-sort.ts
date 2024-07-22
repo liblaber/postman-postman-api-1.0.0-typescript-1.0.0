@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const getEnvironmentForksSort = z.enum(['createdAt']);
-
-export type GetEnvironmentForksSort = z.infer<typeof getEnvironmentForksSort>;
+export enum GetEnvironmentForksSort {
+  CREATEDAT = 'createdAt',
+}

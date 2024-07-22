@@ -4,54 +4,8 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
-import {
-  CollectionsCreateCollectionRequest,
-  CreateCollectionForkOkResponse,
-  CreateCollectionForkRequest,
-  CreateCollectionOkResponse,
-  DeleteCollection,
-  GetCollection,
-  GetCollectionForks,
-  GetCollectionPullRequests,
-  GetCollectionRoles,
-  GetCollections,
-  GetCollectionsForkedByUser,
-  GetSourceCollectionStatus,
-  MergeCollectionForkOkResponse,
-  MergeCollectionForkRequest,
-  PatchCollectionOkResponse,
-  PatchCollectionRequest,
-  PullCollectionChanges,
-  PullRequestCreate,
-  PullRequestCreated,
-  PutCollectionOkResponse,
-  PutCollectionRequest,
-  TransformCollectionToOpenApi,
-  UpdateCollectionRoles,
-  collectionsCreateCollectionRequestRequest,
-  createCollectionForkOkResponseResponse,
-  createCollectionForkRequestRequest,
-  createCollectionOkResponseResponse,
-  deleteCollectionResponse,
-  getCollectionForksResponse,
-  getCollectionPullRequestsResponse,
-  getCollectionResponse,
-  getCollectionRolesResponse,
-  getCollectionsForkedByUserResponse,
-  getCollectionsResponse,
-  getSourceCollectionStatusResponse,
-  mergeCollectionForkOkResponseResponse,
-  mergeCollectionForkRequestRequest,
-  patchCollectionOkResponseResponse,
-  patchCollectionRequestRequest,
-  pullCollectionChangesResponse,
-  pullRequestCreateRequest,
-  pullRequestCreatedResponse,
-  putCollectionOkResponseResponse,
-  putCollectionRequestRequest,
-  transformCollectionToOpenApiResponse,
-  updateCollectionRolesRequest,
-} from './models';
+import { Request } from '../../http/transport/request';
+import { GetCollections, getCollectionsResponse } from './models/get-collections';
 import {
   CreateCollectionForkParams,
   CreateCollectionParams,
@@ -62,17 +16,53 @@ import {
   TransformCollectionToOpenApiParams,
 } from './request-params';
 import {
-  CommentCreateUpdate,
-  CommentCreatedUpdated,
-  CommentResponse,
-  TransferCollectionItems,
+  CollectionsCreateCollectionRequest,
+  collectionsCreateCollectionRequestRequest,
+} from './models/collections-create-collection-request';
+import { CreateCollectionOkResponse, createCollectionOkResponseResponse } from './models/create-collection-ok-response';
+import {
+  CreateCollectionForkRequest,
+  createCollectionForkRequestRequest,
+} from './models/create-collection-fork-request';
+import {
+  CreateCollectionForkOkResponse,
+  createCollectionForkOkResponseResponse,
+} from './models/create-collection-fork-ok-response';
+import { MergeCollectionForkRequest, mergeCollectionForkRequestRequest } from './models/merge-collection-fork-request';
+import {
+  MergeCollectionForkOkResponse,
+  mergeCollectionForkOkResponseResponse,
+} from './models/merge-collection-fork-ok-response';
+import { GetCollection, getCollectionResponse } from './models/get-collection';
+import { PutCollectionRequest, putCollectionRequestRequest } from './models/put-collection-request';
+import { PutCollectionOkResponse, putCollectionOkResponseResponse } from './models/put-collection-ok-response';
+import { PatchCollectionRequest, patchCollectionRequestRequest } from './models/patch-collection-request';
+import { PatchCollectionOkResponse, patchCollectionOkResponseResponse } from './models/patch-collection-ok-response';
+import { DeleteCollection, deleteCollectionResponse } from './models/delete-collection';
+import {
+  GetCollectionsForkedByUser,
+  getCollectionsForkedByUserResponse,
+} from './models/get-collections-forked-by-user';
+import { CommentResponse, commentResponseResponse } from '../common/comment-response';
+import { CommentCreateUpdate, commentCreateUpdateRequest } from '../common/comment-create-update';
+import { CommentCreatedUpdated, commentCreatedUpdatedResponse } from '../common/comment-created-updated';
+import { GetCollectionForks, getCollectionForksResponse } from './models/get-collection-forks';
+import { PullCollectionChanges, pullCollectionChangesResponse } from './models/pull-collection-changes';
+import { GetCollectionPullRequests, getCollectionPullRequestsResponse } from './models/get-collection-pull-requests';
+import { PullRequestCreate, pullRequestCreateRequest } from './models/pull-request-create';
+import { PullRequestCreated, pullRequestCreatedResponse } from './models/pull-request-created';
+import { GetCollectionRoles, getCollectionRolesResponse } from './models/get-collection-roles';
+import { UpdateCollectionRoles, updateCollectionRolesRequest } from './models/update-collection-roles';
+import { GetSourceCollectionStatus, getSourceCollectionStatusResponse } from './models/get-source-collection-status';
+import {
+  TransformCollectionToOpenApi,
+  transformCollectionToOpenApiResponse,
+} from './models/transform-collection-to-open-api';
+import { TransferCollectionItems, transferCollectionItemsRequest } from './models/transfer-collection-items';
+import {
   TransferCollectionItems200Error,
-  commentCreateUpdateRequest,
-  commentCreatedUpdatedResponse,
-  commentResponseResponse,
   transferCollectionItems200ErrorResponse,
-  transferCollectionItemsRequest,
-} from '../common';
+} from './models/transfer-collection-items200-error';
 
 export class CollectionsService extends BaseService {
   /**
@@ -85,24 +75,19 @@ export class CollectionsService extends BaseService {
     params?: GetCollectionsParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollections>> {
-    const path = '/collections';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections',
+      config: this.config,
       responseSchema: getCollectionsResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.workspace) {
-      options.queryParams['workspace'] = params?.workspace;
-    }
-    if (params?.name) {
-      options.queryParams['name'] = params?.name;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('workspace', params?.workspace);
+    request.addQueryParam('name', params?.name);
+    return this.client.call<GetCollections>(request);
   }
 
   /**
@@ -124,24 +109,20 @@ For more information about the Collection Format, see the [Postman Collection Fo
     params?: CreateCollectionParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateCollectionOkResponse>> {
-    const path = '/collections';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/collections',
+      config: this.config,
       responseSchema: createCollectionOkResponseResponse,
       requestSchema: collectionsCreateCollectionRequestRequest,
-      body: body as any,
-      queryParams: {},
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.workspace) {
-      options.queryParams['workspace'] = params?.workspace;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('workspace', params?.workspace);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateCollectionOkResponse>(request);
   }
 
   /**
@@ -156,24 +137,21 @@ For more information about the Collection Format, see the [Postman Collection Fo
     params: CreateCollectionForkParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateCollectionForkOkResponse>> {
-    const path = this.client.buildPath('/collections/fork/{collectionId}', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/collections/fork/{collectionId}',
+      config: this.config,
       responseSchema: createCollectionForkOkResponseResponse,
       requestSchema: createCollectionForkRequestRequest,
-      body: body as any,
-      queryParams: {},
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.workspace) {
-      options.queryParams['workspace'] = params?.workspace;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addQueryParam('workspace', params?.workspace);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateCollectionForkOkResponse>(request);
   }
 
   /**
@@ -184,20 +162,19 @@ For more information about the Collection Format, see the [Postman Collection Fo
     body: MergeCollectionForkRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<MergeCollectionForkOkResponse>> {
-    const path = '/collections/merge';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/collections/merge',
+      config: this.config,
       responseSchema: mergeCollectionForkOkResponseResponse,
       requestSchema: mergeCollectionForkRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<MergeCollectionForkOkResponse>(request);
   }
 
   /**
@@ -212,24 +189,20 @@ For more information about the Collection Format, see the [Postman Collection Fo
     params?: GetCollectionParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollection>> {
-    const path = this.client.buildPath('/collections/{collectionId}', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections/{collectionId}',
+      config: this.config,
       responseSchema: getCollectionResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.accessKey) {
-      options.queryParams['access_key'] = params?.accessKey;
-    }
-    if (params?.model) {
-      options.queryParams['model'] = params?.model;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addQueryParam('access_key', params?.accessKey);
+    request.addQueryParam('model', params?.model);
+    return this.client.call<GetCollection>(request);
   }
 
   /**
@@ -254,20 +227,20 @@ To copy another collection's contents to the given collection, remove all ID val
     body: PutCollectionRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PutCollectionOkResponse>> {
-    const path = this.client.buildPath('/collections/{collectionId}', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/collections/{collectionId}',
+      config: this.config,
       responseSchema: putCollectionOkResponseResponse,
       requestSchema: putCollectionRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<PutCollectionOkResponse>(request);
   }
 
   /**
@@ -285,20 +258,20 @@ For more information about the Collection Format, see the [Postman Collection Fo
     body: PatchCollectionRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PatchCollectionOkResponse>> {
-    const path = this.client.buildPath('/collections/{collectionId}', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'PATCH',
+      body,
+      path: '/collections/{collectionId}',
+      config: this.config,
       responseSchema: patchCollectionOkResponseResponse,
       requestSchema: patchCollectionRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.patch(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<PatchCollectionOkResponse>(request);
   }
 
   /**
@@ -307,17 +280,18 @@ For more information about the Collection Format, see the [Postman Collection Fo
    * @returns {Promise<HttpResponse<DeleteCollection>>} Successful Response
    */
   async deleteCollection(collectionId: string, requestConfig?: RequestConfig): Promise<HttpResponse<DeleteCollection>> {
-    const path = this.client.buildPath('/collections/{collectionId}', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/collections/{collectionId}',
+      config: this.config,
       responseSchema: deleteCollectionResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    return this.client.call<DeleteCollection>(request);
   }
 
   /**
@@ -333,27 +307,21 @@ For more information about the Collection Format, see the [Postman Collection Fo
     params?: GetCollectionsForkedByUserParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollectionsForkedByUser>> {
-    const path = this.client.buildPath('/collections/{collectionId}/collection-forks', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections/{collectionId}/collection-forks',
+      config: this.config,
       responseSchema: getCollectionsForkedByUserResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.cursor) {
-      options.queryParams['cursor'] = params?.cursor;
-    }
-    if (params?.limit) {
-      options.queryParams['limit'] = params?.limit;
-    }
-    if (params?.direction) {
-      options.queryParams['direction'] = params?.direction;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addQueryParam('cursor', params?.cursor);
+    request.addQueryParam('limit', params?.limit);
+    request.addQueryParam('direction', params?.direction);
+    return this.client.call<GetCollectionsForkedByUser>(request);
   }
 
   /**
@@ -365,17 +333,18 @@ For more information about the Collection Format, see the [Postman Collection Fo
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CommentResponse>> {
-    const path = this.client.buildPath('/collections/{collectionId}/comments', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections/{collectionId}/comments',
+      config: this.config,
       responseSchema: commentResponseResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    return this.client.call<CommentResponse>(request);
   }
 
   /**
@@ -392,20 +361,20 @@ This endpoint accepts a max of 10,000 characters.
     body: CommentCreateUpdate,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CommentCreatedUpdated>> {
-    const path = this.client.buildPath('/collections/{collectionId}/comments', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/collections/{collectionId}/comments',
+      config: this.config,
       responseSchema: commentCreatedUpdatedResponse,
       requestSchema: commentCreateUpdateRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CommentCreatedUpdated>(request);
   }
 
   /**
@@ -424,23 +393,21 @@ This endpoint accepts a max of 10,000 characters.
     body: CommentCreateUpdate,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CommentCreatedUpdated>> {
-    const path = this.client.buildPath('/collections/{collectionId}/comments/{commentId}', {
-      collectionId: collectionId,
-      commentId: commentId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/collections/{collectionId}/comments/{commentId}',
+      config: this.config,
       responseSchema: commentCreatedUpdatedResponse,
       requestSchema: commentCreateUpdateRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addPathParam('commentId', commentId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CommentCreatedUpdated>(request);
   }
 
   /**
@@ -458,20 +425,19 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     commentId: number,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<undefined>> {
-    const path = this.client.buildPath('/collections/{collectionId}/comments/{commentId}', {
-      collectionId: collectionId,
-      commentId: commentId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/collections/{collectionId}/comments/{commentId}',
+      config: this.config,
       responseSchema: z.undefined(),
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addPathParam('commentId', commentId);
+    return this.client.call<undefined>(request);
   }
 
   /**
@@ -487,27 +453,21 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     params?: GetCollectionForksParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollectionForks>> {
-    const path = this.client.buildPath('/collections/{collectionId}/forks', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections/{collectionId}/forks',
+      config: this.config,
       responseSchema: getCollectionForksResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.cursor) {
-      options.queryParams['cursor'] = params?.cursor;
-    }
-    if (params?.limit) {
-      options.queryParams['limit'] = params?.limit;
-    }
-    if (params?.direction) {
-      options.queryParams['direction'] = params?.direction;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addQueryParam('cursor', params?.cursor);
+    request.addQueryParam('limit', params?.limit);
+    request.addQueryParam('direction', params?.direction);
+    return this.client.call<GetCollectionForks>(request);
   }
 
   /**
@@ -522,17 +482,18 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PullCollectionChanges>> {
-    const path = this.client.buildPath('/collections/{collectionId}/pulls', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      path: '/collections/{collectionId}/pulls',
+      config: this.config,
       responseSchema: pullCollectionChangesResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    return this.client.call<PullCollectionChanges>(request);
   }
 
   /**
@@ -544,17 +505,18 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollectionPullRequests>> {
-    const path = this.client.buildPath('/collections/{collectionId}/pull-requests', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections/{collectionId}/pull-requests',
+      config: this.config,
       responseSchema: getCollectionPullRequestsResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    return this.client.call<GetCollectionPullRequests>(request);
   }
 
   /**
@@ -567,20 +529,20 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     body: PullRequestCreate,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PullRequestCreated>> {
-    const path = this.client.buildPath('/collections/{collectionId}/pull-requests', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/collections/{collectionId}/pull-requests',
+      config: this.config,
       responseSchema: pullRequestCreatedResponse,
       requestSchema: pullRequestCreateRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<PullRequestCreated>(request);
   }
 
   /**
@@ -592,17 +554,18 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollectionRoles>> {
-    const path = this.client.buildPath('/collections/{collectionId}/roles', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections/{collectionId}/roles',
+      config: this.config,
       responseSchema: getCollectionRolesResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    return this.client.call<GetCollectionRoles>(request);
   }
 
   /**
@@ -620,20 +583,20 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     body: UpdateCollectionRoles,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<undefined>> {
-    const path = this.client.buildPath('/collections/{collectionId}/roles', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'PATCH',
+      body,
+      path: '/collections/{collectionId}/roles',
+      config: this.config,
       responseSchema: z.undefined(),
       requestSchema: updateCollectionRolesRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.patch(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<undefined>(request);
   }
 
   /**
@@ -651,17 +614,18 @@ This endpoint may take a few minutes to return an updated `isSourceAhead` status
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetSourceCollectionStatus>> {
-    const path = this.client.buildPath('/collections/{collectionId}/source-status', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections/{collectionId}/source-status',
+      config: this.config,
       responseSchema: getSourceCollectionStatusResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    return this.client.call<GetSourceCollectionStatus>(request);
   }
 
   /**
@@ -679,21 +643,19 @@ This does not create an API.
     params?: TransformCollectionToOpenApiParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<TransformCollectionToOpenApi>> {
-    const path = this.client.buildPath('/collections/{collectionId}/transformations', { collectionId: collectionId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections/{collectionId}/transformations',
+      config: this.config,
       responseSchema: transformCollectionToOpenApiResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.format) {
-      options.queryParams['format'] = params?.format;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addQueryParam('format', params?.format);
+    return this.client.call<TransformCollectionToOpenApi>(request);
   }
 
   /**
@@ -704,20 +666,19 @@ This does not create an API.
     body: TransferCollectionItems,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<TransferCollectionItems200Error>> {
-    const path = '/collection-folders-transfers';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/collection-folders-transfers',
+      config: this.config,
       responseSchema: transferCollectionItems200ErrorResponse,
       requestSchema: transferCollectionItemsRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<TransferCollectionItems200Error>(request);
   }
 
   /**
@@ -728,20 +689,19 @@ This does not create an API.
     body: TransferCollectionItems,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<TransferCollectionItems200Error>> {
-    const path = '/collection-requests-transfers';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/collection-requests-transfers',
+      config: this.config,
       responseSchema: transferCollectionItems200ErrorResponse,
       requestSchema: transferCollectionItemsRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<TransferCollectionItems200Error>(request);
   }
 
   /**
@@ -752,19 +712,18 @@ This does not create an API.
     body: TransferCollectionItems,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<TransferCollectionItems200Error>> {
-    const path = '/collection-responses-transfers';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/collection-responses-transfers',
+      config: this.config,
       responseSchema: transferCollectionItems200ErrorResponse,
       requestSchema: transferCollectionItemsRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<TransferCollectionItems200Error>(request);
   }
 }

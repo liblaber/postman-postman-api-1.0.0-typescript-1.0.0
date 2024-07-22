@@ -6,10 +6,12 @@ import { description, descriptionRequest, descriptionResponse } from './descript
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const responseHeaders = z.object({
-  description: description.optional(),
-  key: z.string().optional(),
-  value: z.string().optional(),
+export const responseHeaders: any = z.lazy(() => {
+  return z.object({
+    description: description.optional(),
+    key: z.string().optional(),
+    value: z.string().optional(),
+  });
 });
 
 /**
@@ -25,26 +27,30 @@ export type ResponseHeaders = z.infer<typeof responseHeaders>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const responseHeadersResponse = z
-  .object({
-    description: descriptionResponse.optional(),
-    key: z.string().optional(),
-    value: z.string().optional(),
-  })
-  .transform((data) => ({
-    description: data['description'],
-    key: data['key'],
-    value: data['value'],
-  }));
+export const responseHeadersResponse: any = z.lazy(() => {
+  return z
+    .object({
+      description: descriptionResponse.optional(),
+      key: z.string().optional(),
+      value: z.string().optional(),
+    })
+    .transform((data) => ({
+      description: data['description'],
+      key: data['key'],
+      value: data['value'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const responseHeadersRequest = z
-  .object({ description: descriptionRequest.nullish(), key: z.string().nullish(), value: z.string().nullish() })
-  .transform((data) => ({
-    description: data['description'],
-    key: data['key'],
-    value: data['value'],
-  }));
+export const responseHeadersRequest: any = z.lazy(() => {
+  return z
+    .object({ description: descriptionRequest.nullish(), key: z.string().nullish(), value: z.string().nullish() })
+    .transform((data) => ({
+      description: data['description'],
+      key: data['key'],
+      value: data['value'],
+    }));
+});

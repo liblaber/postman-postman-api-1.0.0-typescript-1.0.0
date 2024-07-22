@@ -9,18 +9,20 @@ import { monitorSchedule2, monitorSchedule2Request, monitorSchedule2Response } f
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getMonitorMonitor = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  uid: z.string().optional(),
-  owner: z.number().optional(),
-  collectionUid: z.string().optional(),
-  environmentUid: z.string().optional(),
-  distribution: z.array(z.string()).optional(),
-  lastRun: lastRun.optional(),
-  notifications: notifications.optional(),
-  options: options.optional(),
-  schedule: monitorSchedule2.optional(),
+export const getMonitorMonitor: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    uid: z.string().optional(),
+    owner: z.number().optional(),
+    collectionUid: z.string().optional(),
+    environmentUid: z.string().optional(),
+    distribution: z.array(z.string()).optional(),
+    lastRun: lastRun.optional(),
+    notifications: notifications.optional(),
+    options: options.optional(),
+    schedule: monitorSchedule2.optional(),
+  });
 });
 
 /**
@@ -44,62 +46,66 @@ export type GetMonitorMonitor = z.infer<typeof getMonitorMonitor>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMonitorMonitorResponse = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    uid: z.string().optional(),
-    owner: z.number().optional(),
-    collectionUid: z.string().optional(),
-    environmentUid: z.string().optional(),
-    distribution: z.array(z.string()).optional(),
-    lastRun: lastRunResponse.optional(),
-    notifications: notificationsResponse.optional(),
-    options: optionsResponse.optional(),
-    schedule: monitorSchedule2Response.optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    uid: data['uid'],
-    owner: data['owner'],
-    collectionUid: data['collectionUid'],
-    environmentUid: data['environmentUid'],
-    distribution: data['distribution'],
-    lastRun: data['lastRun'],
-    notifications: data['notifications'],
-    options: data['options'],
-    schedule: data['schedule'],
-  }));
+export const getMonitorMonitorResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      uid: z.string().optional(),
+      owner: z.number().optional(),
+      collectionUid: z.string().optional(),
+      environmentUid: z.string().optional(),
+      distribution: z.array(z.string()).optional(),
+      lastRun: lastRunResponse.optional(),
+      notifications: notificationsResponse.optional(),
+      options: optionsResponse.optional(),
+      schedule: monitorSchedule2Response.optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      uid: data['uid'],
+      owner: data['owner'],
+      collectionUid: data['collectionUid'],
+      environmentUid: data['environmentUid'],
+      distribution: data['distribution'],
+      lastRun: data['lastRun'],
+      notifications: data['notifications'],
+      options: data['options'],
+      schedule: data['schedule'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMonitorMonitorRequest = z
-  .object({
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    uid: z.string().nullish(),
-    owner: z.number().nullish(),
-    collectionUid: z.string().nullish(),
-    environmentUid: z.string().nullish(),
-    distribution: z.array(z.string()).nullish(),
-    lastRun: lastRunRequest.nullish(),
-    notifications: notificationsRequest.nullish(),
-    options: optionsRequest.nullish(),
-    schedule: monitorSchedule2Request.nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    uid: data['uid'],
-    owner: data['owner'],
-    collectionUid: data['collectionUid'],
-    environmentUid: data['environmentUid'],
-    distribution: data['distribution'],
-    lastRun: data['lastRun'],
-    notifications: data['notifications'],
-    options: data['options'],
-    schedule: data['schedule'],
-  }));
+export const getMonitorMonitorRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      uid: z.string().nullish(),
+      owner: z.number().nullish(),
+      collectionUid: z.string().nullish(),
+      environmentUid: z.string().nullish(),
+      distribution: z.array(z.string()).nullish(),
+      lastRun: lastRunRequest.nullish(),
+      notifications: notificationsRequest.nullish(),
+      options: optionsRequest.nullish(),
+      schedule: monitorSchedule2Request.nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      uid: data['uid'],
+      owner: data['owner'],
+      collectionUid: data['collectionUid'],
+      environmentUid: data['environmentUid'],
+      distribution: data['distribution'],
+      lastRun: data['lastRun'],
+      notifications: data['notifications'],
+      options: data['options'],
+      schedule: data['schedule'],
+    }));
+});

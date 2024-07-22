@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const requestHeaders = z.object({
-  key: z.string().optional(),
-  value: z.string().optional(),
+export const requestHeaders: any = z.lazy(() => {
+  return z.object({
+    key: z.string().optional(),
+    value: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type RequestHeaders = z.infer<typeof requestHeaders>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const requestHeadersResponse = z
-  .object({
-    key: z.string().optional(),
-    value: z.string().optional(),
-  })
-  .transform((data) => ({
-    key: data['key'],
-    value: data['value'],
-  }));
+export const requestHeadersResponse: any = z.lazy(() => {
+  return z
+    .object({
+      key: z.string().optional(),
+      value: z.string().optional(),
+    })
+    .transform((data) => ({
+      key: data['key'],
+      value: data['value'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const requestHeadersRequest = z
-  .object({ key: z.string().nullish(), value: z.string().nullish() })
-  .transform((data) => ({
+export const requestHeadersRequest: any = z.lazy(() => {
+  return z.object({ key: z.string().nullish(), value: z.string().nullish() }).transform((data) => ({
     key: data['key'],
     value: data['value'],
   }));
+});

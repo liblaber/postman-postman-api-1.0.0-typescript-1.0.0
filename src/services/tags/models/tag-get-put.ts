@@ -6,8 +6,10 @@ import { tagGetPutTags, tagGetPutTagsRequest, tagGetPutTagsResponse } from './ta
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const tagGetPut = z.object({
-  tags: z.array(tagGetPutTags).max(5).optional(),
+export const tagGetPut: any = z.lazy(() => {
+  return z.object({
+    tags: z.array(tagGetPutTags).max(5).optional(),
+  });
 });
 
 /**
@@ -21,18 +23,22 @@ export type TagGetPut = z.infer<typeof tagGetPut>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const tagGetPutResponse = z
-  .object({
-    tags: z.array(tagGetPutTagsResponse).max(5).optional(),
-  })
-  .transform((data) => ({
-    tags: data['tags'],
-  }));
+export const tagGetPutResponse: any = z.lazy(() => {
+  return z
+    .object({
+      tags: z.array(tagGetPutTagsResponse).max(5).optional(),
+    })
+    .transform((data) => ({
+      tags: data['tags'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const tagGetPutRequest = z.object({ tags: z.array(tagGetPutTagsRequest).nullish() }).transform((data) => ({
-  tags: data['tags'],
-}));
+export const tagGetPutRequest: any = z.lazy(() => {
+  return z.object({ tags: z.array(tagGetPutTagsRequest).nullish() }).transform((data) => ({
+    tags: data['tags'],
+  }));
+});

@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const jsonStringifiedType = z.enum(['json']);
-
-export type JsonStringifiedType = z.infer<typeof jsonStringifiedType>;
+export enum JsonStringifiedType {
+  JSON = 'json',
+}

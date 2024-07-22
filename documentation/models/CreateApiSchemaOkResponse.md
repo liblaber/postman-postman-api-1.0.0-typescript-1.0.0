@@ -7,7 +7,7 @@ Information about the created API schema.
 | Name      | Type                    | Required | Description                                             |
 | :-------- | :---------------------- | :------- | :------------------------------------------------------ |
 | id        | string                  | ❌       | The schema's ID.                                        |
-| type\_    | CreateApiSchemaType2    | ❌       | The schema's type.                                      |
+| type      | CreateApiSchemaType2    | ❌       | The schema's type.                                      |
 | files     | CreateApiSchemaFiles2[] | ❌       | The list of the schema's files.                         |
 | createdAt | string                  | ❌       | The date and time at which the schema was created.      |
 | createdBy | string                  | ❌       | The user ID of the user that created the schema.        |
@@ -20,20 +20,20 @@ The schema's type.
 
 **Properties**
 
-| Name        | Type   | Required | Description   |
-| :---------- | :----- | :------- | :------------ |
-| proto:2     | string | ✅       | "proto:2"     |
-| proto:3     | string | ✅       | "proto:3"     |
-| graphql     | string | ✅       | "graphql"     |
-| openapi:3_1 | string | ✅       | "openapi:3_1" |
-| openapi:3   | string | ✅       | "openapi:3"   |
-| openapi:2   | string | ✅       | "openapi:2"   |
-| openapi:1   | string | ✅       | "openapi:1"   |
-| raml:1      | string | ✅       | "raml:1"      |
-| raml:0_8    | string | ✅       | "raml:0_8"    |
-| wsdl:2      | string | ✅       | "wsdl:2"      |
-| wsdl:1      | string | ✅       | "wsdl:1"      |
-| asyncapi:2  | string | ✅       | "asyncapi:2"  |
+| Name       | Type   | Required | Description   |
+| :--------- | :----- | :------- | :------------ |
+| PROTO2     | string | ✅       | "proto:2"     |
+| PROTO3     | string | ✅       | "proto:3"     |
+| GRAPHQL    | string | ✅       | "graphql"     |
+| OPENAPI3_1 | string | ✅       | "openapi:3_1" |
+| OPENAPI3   | string | ✅       | "openapi:3"   |
+| OPENAPI2   | string | ✅       | "openapi:2"   |
+| OPENAPI1   | string | ✅       | "openapi:1"   |
+| RAML1      | string | ✅       | "raml:1"      |
+| RAML0_8    | string | ✅       | "raml:0_8"    |
+| WSDL2      | string | ✅       | "wsdl:2"      |
+| WSDL1      | string | ✅       | "wsdl:1"      |
+| ASYNCAPI2  | string | ✅       | "asyncapi:2"  |
 
 # CreateApiSchemaFiles2
 

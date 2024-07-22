@@ -34,9 +34,9 @@ The type of Postman element.
 
 | Name       | Type   | Required | Description  |
 | :--------- | :----- | :------- | :----------- |
-| api        | string | ✅       | "api"        |
-| collection | string | ✅       | "collection" |
-| workspace  | string | ✅       | "workspace"  |
+| API        | string | ✅       | "api"        |
+| COLLECTION | string | ✅       | "collection" |
+| WORKSPACE  | string | ✅       | "workspace"  |
 
 # GetTaggedEntitiesMeta
 

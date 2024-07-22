@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
-export const entitiesEntityType = z.enum(['api', 'collection', 'workspace']);
-
-export type EntitiesEntityType = z.infer<typeof entitiesEntityType>;
+export enum EntitiesEntityType {
+  API = 'api',
+  COLLECTION = 'collection',
+  WORKSPACE = 'workspace',
+}

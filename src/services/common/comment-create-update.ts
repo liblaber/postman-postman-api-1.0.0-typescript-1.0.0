@@ -10,9 +10,11 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const commentCreateUpdate = z.object({
-  body: z.string(),
-  tags: commentCreateUpdateTags.optional(),
+export const commentCreateUpdate: any = z.lazy(() => {
+  return z.object({
+    body: z.string(),
+    tags: commentCreateUpdateTags.optional(),
+  });
 });
 
 /**
@@ -27,23 +29,25 @@ export type CommentCreateUpdate = z.infer<typeof commentCreateUpdate>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const commentCreateUpdateResponse = z
-  .object({
-    body: z.string(),
-    tags: commentCreateUpdateTagsResponse.optional(),
-  })
-  .transform((data) => ({
-    body: data['body'],
-    tags: data['tags'],
-  }));
+export const commentCreateUpdateResponse: any = z.lazy(() => {
+  return z
+    .object({
+      body: z.string(),
+      tags: commentCreateUpdateTagsResponse.optional(),
+    })
+    .transform((data) => ({
+      body: data['body'],
+      tags: data['tags'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const commentCreateUpdateRequest = z
-  .object({ body: z.string().nullish(), tags: commentCreateUpdateTagsRequest.nullish() })
-  .transform((data) => ({
+export const commentCreateUpdateRequest: any = z.lazy(() => {
+  return z.object({ body: z.string().nullish(), tags: commentCreateUpdateTagsRequest.nullish() }).transform((data) => ({
     body: data['body'],
     tags: data['tags'],
   }));
+});

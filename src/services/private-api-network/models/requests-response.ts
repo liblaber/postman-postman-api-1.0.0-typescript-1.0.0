@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const requestsResponse = z.object({
-  createdAt: z.string().optional(),
-  createdBy: z.number().optional(),
-  message: z.string().optional(),
+export const requestsResponse: any = z.lazy(() => {
+  return z.object({
+    createdAt: z.string().optional(),
+    createdBy: z.number().optional(),
+    message: z.string().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type RequestsResponse = z.infer<typeof requestsResponse>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const requestsResponseResponse = z
-  .object({
-    createdAt: z.string().optional(),
-    createdBy: z.number().optional(),
-    message: z.string().optional(),
-  })
-  .transform((data) => ({
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    message: data['message'],
-  }));
+export const requestsResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      createdAt: z.string().optional(),
+      createdBy: z.number().optional(),
+      message: z.string().optional(),
+    })
+    .transform((data) => ({
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      message: data['message'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const requestsResponseRequest = z
-  .object({ createdAt: z.string().nullish(), createdBy: z.number().nullish(), message: z.string().nullish() })
-  .transform((data) => ({
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    message: data['message'],
-  }));
+export const requestsResponseRequest: any = z.lazy(() => {
+  return z
+    .object({ createdAt: z.string().nullish(), createdBy: z.number().nullish(), message: z.string().nullish() })
+    .transform((data) => ({
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      message: data['message'],
+    }));
+});

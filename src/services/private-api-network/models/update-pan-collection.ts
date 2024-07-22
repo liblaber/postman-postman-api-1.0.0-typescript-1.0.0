@@ -10,8 +10,10 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updatePanCollection = z.object({
-  collection: updatePanCollectionCollection.optional(),
+export const updatePanCollection: any = z.lazy(() => {
+  return z.object({
+    collection: updatePanCollectionCollection.optional(),
+  });
 });
 
 /**
@@ -25,20 +27,22 @@ export type UpdatePanCollection = z.infer<typeof updatePanCollection>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanCollectionResponse = z
-  .object({
-    collection: updatePanCollectionCollectionResponse.optional(),
-  })
-  .transform((data) => ({
-    collection: data['collection'],
-  }));
+export const updatePanCollectionResponse: any = z.lazy(() => {
+  return z
+    .object({
+      collection: updatePanCollectionCollectionResponse.optional(),
+    })
+    .transform((data) => ({
+      collection: data['collection'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanCollectionRequest = z
-  .object({ collection: updatePanCollectionCollectionRequest.nullish() })
-  .transform((data) => ({
+export const updatePanCollectionRequest: any = z.lazy(() => {
+  return z.object({ collection: updatePanCollectionCollectionRequest.nullish() }).transform((data) => ({
     collection: data['collection'],
   }));
+});

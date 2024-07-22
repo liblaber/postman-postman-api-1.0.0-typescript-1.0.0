@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const addApiCollection1Data = z.object({
-  collectionId: z.string().optional(),
+export const addApiCollection1Data: any = z.lazy(() => {
+  return z.object({
+    collectionId: z.string().optional(),
+  });
 });
 
 /**
@@ -20,18 +22,22 @@ export type AddApiCollection1Data = z.infer<typeof addApiCollection1Data>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const addApiCollection1DataResponse = z
-  .object({
-    collectionId: z.string().optional(),
-  })
-  .transform((data) => ({
-    collectionId: data['collectionId'],
-  }));
+export const addApiCollection1DataResponse: any = z.lazy(() => {
+  return z
+    .object({
+      collectionId: z.string().optional(),
+    })
+    .transform((data) => ({
+      collectionId: data['collectionId'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const addApiCollection1DataRequest = z.object({ collectionId: z.string().nullish() }).transform((data) => ({
-  collectionId: data['collectionId'],
-}));
+export const addApiCollection1DataRequest: any = z.lazy(() => {
+  return z.object({ collectionId: z.string().nullish() }).transform((data) => ({
+    collectionId: data['collectionId'],
+  }));
+});
