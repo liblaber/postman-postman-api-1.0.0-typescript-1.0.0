@@ -25,7 +25,7 @@ Gets all [workspaces](https://learning.postman.com/docs/collaborating-in-postman
 
 | Name      | Type                                                      | Required | Description                                                                                                                                                                                    |
 | :-------- | :-------------------------------------------------------- | :------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type\_    | [GetWorkspacesType](../models/GetWorkspacesType.md)       | ❌       | The type of workspace to filter the response by.                                                                                                                                               |
+| type      | [GetWorkspacesType](../models/GetWorkspacesType.md)       | ❌       | The type of workspace to filter the response by.                                                                                                                                               |
 | createdBy | number                                                    | ❌       | Return only workspaces created by a specific user ID. For multiple users, pass this value as a comma-separated list of user IDs. The response only returns workspaces that you have access to. |
 | include   | [GetWorkspacesInclude](../models/GetWorkspacesInclude.md) | ❌       | Include the following information in the endpoint's response: - `mocks:deactivated` — Include all deactivated mock servers in the response.                                                    |
 
@@ -40,18 +40,17 @@ import { PostmanClient } from 'postman_client';
 
 (async () => {
   const postmanClient = new PostmanClient({
-	apiKey: 'YOUR_API_KEY'});
+    apiKey: 'YOUR_API_KEY',
+  });
 
-  const type_ = GetWorkspacesType.personal;
-const include = GetWorkspacesInclude.mocks:deactivated;
+  const type = GetWorkspacesType.PERSONAL;
+  const include = GetWorkspacesInclude.MOCKSDEACTIVATED;
 
-  const { data } = await postmanClient.workspaces.getWorkspaces(
-  {
-		type_: type_,
+  const { data } = await postmanClient.workspaces.getWorkspaces({
+    type: type,
     createdBy: 12345678,
-		include: include,
-  }
-);
+    include: include,
+  });
 
   console.log(data);
 })();
@@ -84,11 +83,11 @@ import { CreateWorkspaceRequest, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const workspaceType1 = WorkspaceType1.personal;
+  const workspaceType1 = WorkspaceType1.PERSONAL;
 
   const createWorkspaceWorkspace1: CreateWorkspaceWorkspace1 = {
     name: 'Team Workspace',
-    type_: workspaceType1,
+    type: workspaceType1,
     description: 'This is a team workspace.',
   };
 
@@ -190,11 +189,11 @@ import { PostmanClient, UpdateWorkspaceRequest } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const workspaceType3 = WorkspaceType3.private;
+  const workspaceType3 = WorkspaceType3.PRIVATE_;
 
   const updateWorkspaceWorkspace1: UpdateWorkspaceWorkspace1 = {
     name: 'Test Workspace',
-    type_: workspaceType3,
+    type: workspaceType3,
     description: 'This is a test team workspace.',
   };
 
@@ -302,11 +301,11 @@ import { GlobalVariable, PostmanClient, UpdateWorkspaceGlobalVariablesRequest } 
     apiKey: 'YOUR_API_KEY',
   });
 
-  const globalVariableType = GlobalVariableType.default;
+  const globalVariableType = GlobalVariableType.DEFAULT_;
 
   const globalVariable: GlobalVariable = {
     key: 'variableName',
-    type_: globalVariableType,
+    type: globalVariableType,
     value: 'variableValue',
     enabled: true,
   };
@@ -349,31 +348,29 @@ import { PostmanClient, UpdateWorkspaceRolesRequest } from 'postman_client';
 
 (async () => {
   const postmanClient = new PostmanClient({
-	apiKey: 'YOUR_API_KEY'});
+    apiKey: 'YOUR_API_KEY',
+  });
 
-  const rolesPath2 = RolesPath2./user;
+  const rolesPath2 = RolesPath2._USER;
 
-const valueRole2 = ValueRole2.1;
+  const valueRole2 = ValueRole2._1;
 
-const rolesValue2: RolesValue2 = {
-  id: "12345678",
-  role: valueRole2
-};
+  const rolesValue2: RolesValue2 = {
+    id: '12345678',
+    role: valueRole2,
+  };
 
-const updateWorkspaceRolesRoles1: UpdateWorkspaceRolesRoles1 = {
-  op: "add",
-  path: rolesPath2,
-  value: [rolesValue2]
-};
+  const updateWorkspaceRolesRoles1: UpdateWorkspaceRolesRoles1 = {
+    op: 'add',
+    path: rolesPath2,
+    value: [rolesValue2],
+  };
 
-const input: UpdateWorkspaceRolesRequest = {
-  roles: [updateWorkspaceRolesRoles1]
-};
+  const input: UpdateWorkspaceRolesRequest = {
+    roles: [updateWorkspaceRolesRoles1],
+  };
 
-  const { data } = await postmanClient.workspaces.updateWorkspaceRoles(
-  "1f0df51a-8658-4ee8-a2a1-d2567dfa09a9",
-  input
-);
+  const { data } = await postmanClient.workspaces.updateWorkspaceRoles('1f0df51a-8658-4ee8-a2a1-d2567dfa09a9', input);
 
   console.log(data);
 })();

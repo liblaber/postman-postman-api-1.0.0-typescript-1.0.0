@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const metaModel = z.enum(['collection', 'api-version']);
-
-export type MetaModel = z.infer<typeof metaModel>;
+export enum MetaModel {
+  COLLECTION = 'collection',
+  APIVERSION = 'api-version',
+}

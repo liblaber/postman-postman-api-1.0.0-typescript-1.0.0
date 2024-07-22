@@ -6,11 +6,13 @@ import { monitorSchedule1, monitorSchedule1Request, monitorSchedule1Response } f
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createMonitorMonitor1 = z.object({
-  collection: z.string().optional(),
-  environment: z.string().optional(),
-  name: z.string().optional(),
-  schedule: monitorSchedule1.optional(),
+export const createMonitorMonitor1: any = z.lazy(() => {
+  return z.object({
+    collection: z.string().optional(),
+    environment: z.string().optional(),
+    name: z.string().optional(),
+    schedule: monitorSchedule1.optional(),
+  });
 });
 
 /**
@@ -27,34 +29,38 @@ export type CreateMonitorMonitor1 = z.infer<typeof createMonitorMonitor1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createMonitorMonitor1Response = z
-  .object({
-    collection: z.string().optional(),
-    environment: z.string().optional(),
-    name: z.string().optional(),
-    schedule: monitorSchedule1Response.optional(),
-  })
-  .transform((data) => ({
-    collection: data['collection'],
-    environment: data['environment'],
-    name: data['name'],
-    schedule: data['schedule'],
-  }));
+export const createMonitorMonitor1Response: any = z.lazy(() => {
+  return z
+    .object({
+      collection: z.string().optional(),
+      environment: z.string().optional(),
+      name: z.string().optional(),
+      schedule: monitorSchedule1Response.optional(),
+    })
+    .transform((data) => ({
+      collection: data['collection'],
+      environment: data['environment'],
+      name: data['name'],
+      schedule: data['schedule'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createMonitorMonitor1Request = z
-  .object({
-    collection: z.string().nullish(),
-    environment: z.string().nullish(),
-    name: z.string().nullish(),
-    schedule: monitorSchedule1Request.nullish(),
-  })
-  .transform((data) => ({
-    collection: data['collection'],
-    environment: data['environment'],
-    name: data['name'],
-    schedule: data['schedule'],
-  }));
+export const createMonitorMonitor1Request: any = z.lazy(() => {
+  return z
+    .object({
+      collection: z.string().nullish(),
+      environment: z.string().nullish(),
+      name: z.string().nullish(),
+      schedule: monitorSchedule1Request.nullish(),
+    })
+    .transform((data) => ({
+      collection: data['collection'],
+      environment: data['environment'],
+      name: data['name'],
+      schedule: data['schedule'],
+    }));
+});

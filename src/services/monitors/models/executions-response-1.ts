@@ -5,12 +5,14 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const executionsResponse1 = z.object({
-  body: z.any().optional(),
-  code: z.number().optional(),
-  headers: z.any().optional(),
-  responseSize: z.number().optional(),
-  responseTime: z.number().optional(),
+export const executionsResponse1: any = z.lazy(() => {
+  return z.object({
+    body: z.any().optional(),
+    code: z.number().optional(),
+    headers: z.any().optional(),
+    responseSize: z.number().optional(),
+    responseTime: z.number().optional(),
+  });
 });
 
 /**
@@ -28,38 +30,42 @@ export type ExecutionsResponse1 = z.infer<typeof executionsResponse1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const executionsResponse1Response = z
-  .object({
-    body: z.any().optional(),
-    code: z.number().optional(),
-    headers: z.any().optional(),
-    responseSize: z.number().optional(),
-    responseTime: z.number().optional(),
-  })
-  .transform((data) => ({
-    body: data['body'],
-    code: data['code'],
-    headers: data['headers'],
-    responseSize: data['responseSize'],
-    responseTime: data['responseTime'],
-  }));
+export const executionsResponse1Response: any = z.lazy(() => {
+  return z
+    .object({
+      body: z.any().optional(),
+      code: z.number().optional(),
+      headers: z.any().optional(),
+      responseSize: z.number().optional(),
+      responseTime: z.number().optional(),
+    })
+    .transform((data) => ({
+      body: data['body'],
+      code: data['code'],
+      headers: data['headers'],
+      responseSize: data['responseSize'],
+      responseTime: data['responseTime'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const executionsResponse1Request = z
-  .object({
-    body: z.any().nullish(),
-    code: z.number().nullish(),
-    headers: z.any().nullish(),
-    responseSize: z.number().nullish(),
-    responseTime: z.number().nullish(),
-  })
-  .transform((data) => ({
-    body: data['body'],
-    code: data['code'],
-    headers: data['headers'],
-    responseSize: data['responseSize'],
-    responseTime: data['responseTime'],
-  }));
+export const executionsResponse1Request: any = z.lazy(() => {
+  return z
+    .object({
+      body: z.any().nullish(),
+      code: z.number().nullish(),
+      headers: z.any().nullish(),
+      responseSize: z.number().nullish(),
+      responseTime: z.number().nullish(),
+    })
+    .transform((data) => ({
+      body: data['body'],
+      code: data['code'],
+      headers: data['headers'],
+      responseSize: data['responseSize'],
+      responseTime: data['responseTime'],
+    }));
+});

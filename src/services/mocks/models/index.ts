@@ -2,6 +2,7 @@
 
 export * from './get-mocks';
 export * from './create-mock';
+export * from './mock-create-update';
 export * from './get-mock';
 export * from './update-mock';
 export * from './delete-mock';
@@ -19,6 +20,7 @@ export * from './delay';
 export * from './delay-type';
 export * from './preset';
 export * from './create-mock-mock';
+export * from './mock-create-update-mock';
 export * from './get-mock-mock';
 export * from './mock-config-1';
 export * from './update-mock-mock';

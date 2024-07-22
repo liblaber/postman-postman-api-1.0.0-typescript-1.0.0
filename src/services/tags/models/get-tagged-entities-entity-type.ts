@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
-export const getTaggedEntitiesEntityType = z.enum(['api', 'collection', 'workspace']);
-
-export type GetTaggedEntitiesEntityType = z.infer<typeof getTaggedEntitiesEntityType>;
+export enum GetTaggedEntitiesEntityType {
+  API = 'api',
+  COLLECTION = 'collection',
+  WORKSPACE = 'workspace',
+}

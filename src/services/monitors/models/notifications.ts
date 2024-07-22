@@ -7,9 +7,11 @@ import { onFailure, onFailureRequest, onFailureResponse } from './on-failure';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const notifications = z.object({
-  onError: z.array(onError).optional(),
-  onFailure: z.array(onFailure).optional(),
+export const notifications: any = z.lazy(() => {
+  return z.object({
+    onError: z.array(onError).optional(),
+    onFailure: z.array(onFailure).optional(),
+  });
 });
 
 /**
@@ -24,23 +26,27 @@ export type Notifications = z.infer<typeof notifications>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const notificationsResponse = z
-  .object({
-    onError: z.array(onErrorResponse).optional(),
-    onFailure: z.array(onFailureResponse).optional(),
-  })
-  .transform((data) => ({
-    onError: data['onError'],
-    onFailure: data['onFailure'],
-  }));
+export const notificationsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      onError: z.array(onErrorResponse).optional(),
+      onFailure: z.array(onFailureResponse).optional(),
+    })
+    .transform((data) => ({
+      onError: data['onError'],
+      onFailure: data['onFailure'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const notificationsRequest = z
-  .object({ onError: z.array(onErrorRequest).nullish(), onFailure: z.array(onFailureRequest).nullish() })
-  .transform((data) => ({
-    onError: data['onError'],
-    onFailure: data['onFailure'],
-  }));
+export const notificationsRequest: any = z.lazy(() => {
+  return z
+    .object({ onError: z.array(onErrorRequest).nullish(), onFailure: z.array(onFailureRequest).nullish() })
+    .transform((data) => ({
+      onError: data['onError'],
+      onFailure: data['onFailure'],
+    }));
+});

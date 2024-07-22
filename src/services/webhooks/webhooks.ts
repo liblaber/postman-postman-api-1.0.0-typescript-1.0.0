@@ -4,12 +4,9 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
-import {
-  CreateWebhookOkResponse,
-  CreateWebhookRequest,
-  createWebhookOkResponseResponse,
-  createWebhookRequestRequest,
-} from './models';
+import { Request } from '../../http/transport/request';
+import { CreateWebhookRequest, createWebhookRequestRequest } from './models/create-webhook-request';
+import { CreateWebhookOkResponse, createWebhookOkResponseResponse } from './models/create-webhook-ok-response';
 import { CreateWebhookParams } from './request-params';
 
 export class WebhooksService extends BaseService {
@@ -23,23 +20,19 @@ export class WebhooksService extends BaseService {
     params?: CreateWebhookParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateWebhookOkResponse>> {
-    const path = '/webhooks';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/webhooks',
+      config: this.config,
       responseSchema: createWebhookOkResponseResponse,
       requestSchema: createWebhookRequestRequest,
-      body: body as any,
-      queryParams: {},
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.workspace) {
-      options.queryParams['workspace'] = params?.workspace;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('workspace', params?.workspace);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateWebhookOkResponse>(request);
   }
 }

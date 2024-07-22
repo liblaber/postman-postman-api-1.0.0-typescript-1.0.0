@@ -2,6 +2,12 @@
 
 import { z } from 'zod';
 
-export const dataResourceType = z.enum(['collection', 'folder', 'request', 'example', 'environment', 'globals', 'api']);
-
-export type DataResourceType = z.infer<typeof dataResourceType>;
+export enum DataResourceType {
+  COLLECTION = 'collection',
+  FOLDER = 'folder',
+  REQUEST = 'request',
+  EXAMPLE = 'example',
+  ENVIRONMENT = 'environment',
+  GLOBALS = 'globals',
+  API = 'api',
+}

@@ -5,12 +5,14 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const mockConfig1 = z.object({
-  headers: z.array(z.string()).optional(),
-  matchBody: z.boolean().optional(),
-  matchQueryParams: z.boolean().optional(),
-  matchWildcards: z.boolean().optional(),
-  serverResponseId: z.string().optional(),
+export const mockConfig1: any = z.lazy(() => {
+  return z.object({
+    headers: z.array(z.string()).optional(),
+    matchBody: z.boolean().optional(),
+    matchQueryParams: z.boolean().optional(),
+    matchWildcards: z.boolean().optional(),
+    serverResponseId: z.string().optional().nullable(),
+  });
 });
 
 /**
@@ -28,38 +30,42 @@ export type MockConfig1 = z.infer<typeof mockConfig1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const mockConfig1Response = z
-  .object({
-    headers: z.array(z.string()).optional(),
-    matchBody: z.boolean().optional(),
-    matchQueryParams: z.boolean().optional(),
-    matchWildcards: z.boolean().optional(),
-    serverResponseId: z.string().optional(),
-  })
-  .transform((data) => ({
-    headers: data['headers'],
-    matchBody: data['matchBody'],
-    matchQueryParams: data['matchQueryParams'],
-    matchWildcards: data['matchWildcards'],
-    serverResponseId: data['serverResponseId'],
-  }));
+export const mockConfig1Response: any = z.lazy(() => {
+  return z
+    .object({
+      headers: z.array(z.string()).optional(),
+      matchBody: z.boolean().optional(),
+      matchQueryParams: z.boolean().optional(),
+      matchWildcards: z.boolean().optional(),
+      serverResponseId: z.string().optional().nullable(),
+    })
+    .transform((data) => ({
+      headers: data['headers'],
+      matchBody: data['matchBody'],
+      matchQueryParams: data['matchQueryParams'],
+      matchWildcards: data['matchWildcards'],
+      serverResponseId: data['serverResponseId'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const mockConfig1Request = z
-  .object({
-    headers: z.array(z.string()).nullish(),
-    matchBody: z.boolean().nullish(),
-    matchQueryParams: z.boolean().nullish(),
-    matchWildcards: z.boolean().nullish(),
-    serverResponseId: z.string().nullish(),
-  })
-  .transform((data) => ({
-    headers: data['headers'],
-    matchBody: data['matchBody'],
-    matchQueryParams: data['matchQueryParams'],
-    matchWildcards: data['matchWildcards'],
-    serverResponseId: data['serverResponseId'],
-  }));
+export const mockConfig1Request: any = z.lazy(() => {
+  return z
+    .object({
+      headers: z.array(z.string()).nullish(),
+      matchBody: z.boolean().nullish(),
+      matchQueryParams: z.boolean().nullish(),
+      matchWildcards: z.boolean().nullish(),
+      serverResponseId: z.string().nullish(),
+    })
+    .transform((data) => ({
+      headers: data['headers'],
+      matchBody: data['matchBody'],
+      matchQueryParams: data['matchQueryParams'],
+      matchWildcards: data['matchWildcards'],
+      serverResponseId: data['serverResponseId'],
+    }));
+});

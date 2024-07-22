@@ -15,9 +15,11 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getCollectionForks = z.object({
-  data: z.array(getCollectionForksData).optional(),
-  meta: getCollectionForksMeta.optional(),
+export const getCollectionForks: any = z.lazy(() => {
+  return z.object({
+    data: z.array(getCollectionForksData).optional(),
+    meta: getCollectionForksMeta.optional(),
+  });
 });
 
 /**
@@ -32,23 +34,27 @@ export type GetCollectionForks = z.infer<typeof getCollectionForks>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionForksResponse = z
-  .object({
-    data: z.array(getCollectionForksDataResponse).optional(),
-    meta: getCollectionForksMetaResponse.optional(),
-  })
-  .transform((data) => ({
-    data: data['data'],
-    meta: data['meta'],
-  }));
+export const getCollectionForksResponse: any = z.lazy(() => {
+  return z
+    .object({
+      data: z.array(getCollectionForksDataResponse).optional(),
+      meta: getCollectionForksMetaResponse.optional(),
+    })
+    .transform((data) => ({
+      data: data['data'],
+      meta: data['meta'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionForksRequest = z
-  .object({ data: z.array(getCollectionForksDataRequest).nullish(), meta: getCollectionForksMetaRequest.nullish() })
-  .transform((data) => ({
-    data: data['data'],
-    meta: data['meta'],
-  }));
+export const getCollectionForksRequest: any = z.lazy(() => {
+  return z
+    .object({ data: z.array(getCollectionForksDataRequest).nullish(), meta: getCollectionForksMetaRequest.nullish() })
+    .transform((data) => ({
+      data: data['data'],
+      meta: data['meta'],
+    }));
+});

@@ -6,15 +6,17 @@ import { collectionsFork, collectionsForkRequest, collectionsForkResponse } from
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getCollectionsCollections = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  owner: z.string().optional(),
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
-  uid: z.string().optional(),
-  fork: collectionsFork.optional(),
-  isPublic: z.boolean().optional(),
+export const getCollectionsCollections: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    owner: z.string().optional(),
+    createdAt: z.string().optional(),
+    updatedAt: z.string().optional(),
+    uid: z.string().optional(),
+    fork: collectionsFork.optional(),
+    isPublic: z.boolean().optional(),
+  });
 });
 
 /**
@@ -35,50 +37,54 @@ export type GetCollectionsCollections = z.infer<typeof getCollectionsCollections
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionsCollectionsResponse = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    owner: z.string().optional(),
-    createdAt: z.string().optional(),
-    updatedAt: z.string().optional(),
-    uid: z.string().optional(),
-    fork: collectionsForkResponse.optional(),
-    isPublic: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    owner: data['owner'],
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-    uid: data['uid'],
-    fork: data['fork'],
-    isPublic: data['isPublic'],
-  }));
+export const getCollectionsCollectionsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      owner: z.string().optional(),
+      createdAt: z.string().optional(),
+      updatedAt: z.string().optional(),
+      uid: z.string().optional(),
+      fork: collectionsForkResponse.optional(),
+      isPublic: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      owner: data['owner'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+      uid: data['uid'],
+      fork: data['fork'],
+      isPublic: data['isPublic'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionsCollectionsRequest = z
-  .object({
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    owner: z.string().nullish(),
-    createdAt: z.string().nullish(),
-    updatedAt: z.string().nullish(),
-    uid: z.string().nullish(),
-    fork: collectionsForkRequest.nullish(),
-    isPublic: z.boolean().nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    owner: data['owner'],
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-    uid: data['uid'],
-    fork: data['fork'],
-    isPublic: data['isPublic'],
-  }));
+export const getCollectionsCollectionsRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      owner: z.string().nullish(),
+      createdAt: z.string().nullish(),
+      updatedAt: z.string().nullish(),
+      uid: z.string().nullish(),
+      fork: collectionsForkRequest.nullish(),
+      isPublic: z.boolean().nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      owner: data['owner'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+      uid: data['uid'],
+      fork: data['fork'],
+      isPublic: data['isPublic'],
+    }));
+});

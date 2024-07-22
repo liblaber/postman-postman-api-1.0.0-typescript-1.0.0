@@ -19,10 +19,10 @@ The sales channel from which the account was created: - `SELF_SERVE` — The use
 
 **Properties**
 
-| Name        | Type   | Required | Description   |
-| :---------- | :----- | :------- | :------------ |
-| SELF_SERVE  | string | ✅       | "SELF_SERVE"  |
-| SALES_SERVE | string | ✅       | "SALES_SERVE" |
+| Name       | Type   | Required | Description   |
+| :--------- | :----- | :------- | :------------ |
+| SELFSERVE  | string | ✅       | "SELF_SERVE"  |
+| SALESSERVE | string | ✅       | "SALES_SERVE" |
 
 # Slots
 

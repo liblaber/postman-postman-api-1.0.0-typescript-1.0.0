@@ -6,8 +6,10 @@ import { details1Resources, details1ResourcesRequest, details1ResourcesResponse 
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const details1 = z.object({
-  resources: z.array(details1Resources).optional(),
+export const details1: any = z.lazy(() => {
+  return z.object({
+    resources: z.array(details1Resources).optional(),
+  });
 });
 
 /**
@@ -21,20 +23,22 @@ export type Details1 = z.infer<typeof details1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const details1Response = z
-  .object({
-    resources: z.array(details1ResourcesResponse).optional(),
-  })
-  .transform((data) => ({
-    resources: data['resources'],
-  }));
+export const details1Response: any = z.lazy(() => {
+  return z
+    .object({
+      resources: z.array(details1ResourcesResponse).optional(),
+    })
+    .transform((data) => ({
+      resources: data['resources'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const details1Request = z
-  .object({ resources: z.array(details1ResourcesRequest).nullish() })
-  .transform((data) => ({
+export const details1Request: any = z.lazy(() => {
+  return z.object({ resources: z.array(details1ResourcesRequest).nullish() }).transform((data) => ({
     resources: data['resources'],
   }));
+});

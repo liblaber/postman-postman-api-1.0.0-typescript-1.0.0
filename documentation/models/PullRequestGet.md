@@ -62,9 +62,9 @@ The pull request's current merge status: - `inactive` — There is no merge in p
 
 | Name       | Type   | Required | Description  |
 | :--------- | :----- | :------- | :----------- |
-| inactive   | string | ✅       | "inactive"   |
-| inprogress | string | ✅       | "inprogress" |
-| failed     | string | ✅       | "failed"     |
+| INACTIVE   | string | ✅       | "inactive"   |
+| INPROGRESS | string | ✅       | "inprogress" |
+| FAILED     | string | ✅       | "failed"     |
 
 # Reviewers
 

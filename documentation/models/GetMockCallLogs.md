@@ -64,7 +64,7 @@ The server response's response information.
 
 | Name       | Type            | Required | Description                      |
 | :--------- | :-------------- | :------- | :------------------------------- |
-| type\_     | string          | ❌       | The type of response.            |
+| type       | string          | ❌       | The type of response.            |
 | statusCode | number          | ❌       | The response's status code.      |
 | headers    | ResponseHeaders | ❌       | The response's headers.          |
 | body       | ResponseBody    | ❌       | The response's body information. |
@@ -90,7 +90,7 @@ The response header's description information.
 | Name    | Type   | Required | Description                                   |
 | :------ | :----- | :------- | :-------------------------------------------- |
 | content | string | ❌       | The response header description's content.    |
-| type\_  | string | ❌       | The response header description's media type. |
+| type    | string | ❌       | The response header description's media type. |
 
 # ResponseBody
 

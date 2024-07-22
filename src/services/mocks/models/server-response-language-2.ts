@@ -2,6 +2,10 @@
 
 import { z } from 'zod';
 
-export const serverResponseLanguage2 = z.enum(['text', 'javascript', 'json', 'html', 'xml']);
-
-export type ServerResponseLanguage2 = z.infer<typeof serverResponseLanguage2>;
+export enum ServerResponseLanguage2 {
+  TEXT = 'text',
+  JAVASCRIPT = 'javascript',
+  JSON = 'json',
+  HTML = 'html',
+  XML = 'xml',
+}

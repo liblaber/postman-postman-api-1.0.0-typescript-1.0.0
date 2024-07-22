@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createApiRequest = z.object({
-  name: z.string(),
-  summary: z.string().optional(),
-  description: z.string().optional(),
+export const createApiRequest: any = z.lazy(() => {
+  return z.object({
+    name: z.string(),
+    summary: z.string().optional(),
+    description: z.string().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type CreateApiRequest = z.infer<typeof createApiRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiRequestResponse = z
-  .object({
-    name: z.string(),
-    summary: z.string().optional(),
-    description: z.string().optional(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    summary: data['summary'],
-    description: data['description'],
-  }));
+export const createApiRequestResponse: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string(),
+      summary: z.string().optional(),
+      description: z.string().optional(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      summary: data['summary'],
+      description: data['description'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiRequestRequest = z
-  .object({ name: z.string().nullish(), summary: z.string().nullish(), description: z.string().nullish() })
-  .transform((data) => ({
-    name: data['name'],
-    summary: data['summary'],
-    description: data['description'],
-  }));
+export const createApiRequestRequest: any = z.lazy(() => {
+  return z
+    .object({ name: z.string().nullish(), summary: z.string().nullish(), description: z.string().nullish() })
+    .transform((data) => ({
+      name: data['name'],
+      summary: data['summary'],
+      description: data['description'],
+    }));
+});

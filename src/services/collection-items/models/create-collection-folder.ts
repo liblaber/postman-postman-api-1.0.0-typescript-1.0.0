@@ -5,11 +5,13 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createCollectionFolder = z.object({
-  data: z.any().optional(),
-  meta: z.any().optional(),
-  modelId: z.string().optional(),
-  revision: z.number().optional(),
+export const createCollectionFolder: any = z.lazy(() => {
+  return z.object({
+    data: z.any().optional(),
+    meta: z.any().optional(),
+    modelId: z.string().optional(),
+    revision: z.number().optional(),
+  });
 });
 
 /**
@@ -26,34 +28,38 @@ export type CreateCollectionFolder = z.infer<typeof createCollectionFolder>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createCollectionFolderResponse = z
-  .object({
-    data: z.any().optional(),
-    meta: z.any().optional(),
-    model_id: z.string().optional(),
-    revision: z.number().optional(),
-  })
-  .transform((data) => ({
-    data: data['data'],
-    meta: data['meta'],
-    modelId: data['model_id'],
-    revision: data['revision'],
-  }));
+export const createCollectionFolderResponse: any = z.lazy(() => {
+  return z
+    .object({
+      data: z.any().optional(),
+      meta: z.any().optional(),
+      model_id: z.string().optional(),
+      revision: z.number().optional(),
+    })
+    .transform((data) => ({
+      data: data['data'],
+      meta: data['meta'],
+      modelId: data['model_id'],
+      revision: data['revision'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createCollectionFolderRequest = z
-  .object({
-    data: z.any().nullish(),
-    meta: z.any().nullish(),
-    modelId: z.string().nullish(),
-    revision: z.number().nullish(),
-  })
-  .transform((data) => ({
-    data: data['data'],
-    meta: data['meta'],
-    model_id: data['modelId'],
-    revision: data['revision'],
-  }));
+export const createCollectionFolderRequest: any = z.lazy(() => {
+  return z
+    .object({
+      data: z.any().nullish(),
+      meta: z.any().nullish(),
+      modelId: z.string().nullish(),
+      revision: z.number().nullish(),
+    })
+    .transform((data) => ({
+      data: data['data'],
+      meta: data['meta'],
+      model_id: data['modelId'],
+      revision: data['revision'],
+    }));
+});

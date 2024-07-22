@@ -5,14 +5,16 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getMockServerResponses = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  statusCode: z.number().optional(),
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
-  createdBy: z.string().optional(),
-  updatedBy: z.string().optional(),
+export const getMockServerResponses: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    statusCode: z.number().optional(),
+    createdAt: z.string().optional(),
+    updatedAt: z.string().optional(),
+    createdBy: z.string().optional(),
+    updatedBy: z.string().optional(),
+  });
 });
 
 /**
@@ -32,46 +34,50 @@ export type GetMockServerResponses = z.infer<typeof getMockServerResponses>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMockServerResponsesResponse = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    statusCode: z.number().optional(),
-    createdAt: z.string().optional(),
-    updatedAt: z.string().optional(),
-    createdBy: z.string().optional(),
-    updatedBy: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    statusCode: data['statusCode'],
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-    createdBy: data['createdBy'],
-    updatedBy: data['updatedBy'],
-  }));
+export const getMockServerResponsesResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      statusCode: z.number().optional(),
+      createdAt: z.string().optional(),
+      updatedAt: z.string().optional(),
+      createdBy: z.string().optional(),
+      updatedBy: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      statusCode: data['statusCode'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+      createdBy: data['createdBy'],
+      updatedBy: data['updatedBy'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMockServerResponsesRequest = z
-  .object({
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    statusCode: z.number().nullish(),
-    createdAt: z.string().nullish(),
-    updatedAt: z.string().nullish(),
-    createdBy: z.string().nullish(),
-    updatedBy: z.string().nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    statusCode: data['statusCode'],
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-    createdBy: data['createdBy'],
-    updatedBy: data['updatedBy'],
-  }));
+export const getMockServerResponsesRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      statusCode: z.number().nullish(),
+      createdAt: z.string().nullish(),
+      updatedAt: z.string().nullish(),
+      createdBy: z.string().nullish(),
+      updatedBy: z.string().nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      statusCode: data['statusCode'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+      createdBy: data['createdBy'],
+      updatedBy: data['updatedBy'],
+    }));
+});

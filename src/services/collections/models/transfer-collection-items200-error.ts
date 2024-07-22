@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const transferCollectionItems200Error = z.object({
-  ids: z.array(z.string()).optional(),
+export const transferCollectionItems200Error: any = z.lazy(() => {
+  return z.object({
+    ids: z.array(z.string()).optional(),
+  });
 });
 
 /**
@@ -20,20 +22,22 @@ export type TransferCollectionItems200Error = z.infer<typeof transferCollectionI
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const transferCollectionItems200ErrorResponse = z
-  .object({
-    ids: z.array(z.string()).optional(),
-  })
-  .transform((data) => ({
-    ids: data['ids'],
-  }));
+export const transferCollectionItems200ErrorResponse: any = z.lazy(() => {
+  return z
+    .object({
+      ids: z.array(z.string()).optional(),
+    })
+    .transform((data) => ({
+      ids: data['ids'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const transferCollectionItems200ErrorRequest = z
-  .object({ ids: z.array(z.string()).nullish() })
-  .transform((data) => ({
+export const transferCollectionItems200ErrorRequest: any = z.lazy(() => {
+  return z.object({ ids: z.array(z.string()).nullish() }).transform((data) => ({
     ids: data['ids'],
   }));
+});

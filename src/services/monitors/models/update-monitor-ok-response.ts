@@ -10,8 +10,10 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateMonitorOkResponse = z.object({
-  monitor: updateMonitorMonitor2.optional(),
+export const updateMonitorOkResponse: any = z.lazy(() => {
+  return z.object({
+    monitor: updateMonitorMonitor2.optional(),
+  });
 });
 
 /**
@@ -25,20 +27,22 @@ export type UpdateMonitorOkResponse = z.infer<typeof updateMonitorOkResponse>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateMonitorOkResponseResponse = z
-  .object({
-    monitor: updateMonitorMonitor2Response.optional(),
-  })
-  .transform((data) => ({
-    monitor: data['monitor'],
-  }));
+export const updateMonitorOkResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      monitor: updateMonitorMonitor2Response.optional(),
+    })
+    .transform((data) => ({
+      monitor: data['monitor'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateMonitorOkResponseRequest = z
-  .object({ monitor: updateMonitorMonitor2Request.nullish() })
-  .transform((data) => ({
+export const updateMonitorOkResponseRequest: any = z.lazy(() => {
+  return z.object({ monitor: updateMonitorMonitor2Request.nullish() }).transform((data) => ({
     monitor: data['monitor'],
   }));
+});

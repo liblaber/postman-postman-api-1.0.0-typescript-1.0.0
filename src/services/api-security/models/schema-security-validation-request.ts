@@ -10,8 +10,10 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const schemaSecurityValidationRequest = z.object({
-  schema: schemaSecurityValidationSchema.optional(),
+export const schemaSecurityValidationRequest: any = z.lazy(() => {
+  return z.object({
+    schema: schemaSecurityValidationSchema.optional(),
+  });
 });
 
 /**
@@ -25,20 +27,22 @@ export type SchemaSecurityValidationRequest = z.infer<typeof schemaSecurityValid
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const schemaSecurityValidationRequestResponse = z
-  .object({
-    schema: schemaSecurityValidationSchemaResponse.optional(),
-  })
-  .transform((data) => ({
-    schema: data['schema'],
-  }));
+export const schemaSecurityValidationRequestResponse: any = z.lazy(() => {
+  return z
+    .object({
+      schema: schemaSecurityValidationSchemaResponse.optional(),
+    })
+    .transform((data) => ({
+      schema: data['schema'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const schemaSecurityValidationRequestRequest = z
-  .object({ schema: schemaSecurityValidationSchemaRequest.nullish() })
-  .transform((data) => ({
+export const schemaSecurityValidationRequestRequest: any = z.lazy(() => {
+  return z.object({ schema: schemaSecurityValidationSchemaRequest.nullish() }).transform((data) => ({
     schema: data['schema'],
   }));
+});

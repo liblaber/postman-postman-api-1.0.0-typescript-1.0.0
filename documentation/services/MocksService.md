@@ -87,7 +87,7 @@ import { CreateMock, PostmanClient } from 'postman_client';
     collection: '12345678-12ece9e1-2abf-4edc-8e34-de66e74114d2',
     environment: '12345678-5daabc50-8451-43f6-922d-96b403b4f28e',
     name: 'Test Mock',
-    private_: true,
+    private: true,
   };
 
   const input: CreateMock = {
@@ -171,7 +171,7 @@ import { PostmanClient, UpdateMock } from 'postman_client';
     name: 'Test Mock',
     environment: '12345678-5daabc50-8451-43f6-922d-96b403b4f28e',
     description: 'This is a test mock server.',
-    private_: true,
+    private: true,
     versionTag: 'abf07d3d-f8ec-47d4-8015-9fe83078b4ec',
     config: mockConfig2,
   };
@@ -257,8 +257,8 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const sort = GetMockCallLogsSort.servedAt;
-  const direction = AscDesc.asc;
+  const sort = GetMockCallLogsSort.SERVEDAT;
+  const direction = AscDesc.ASC;
 
   const { data } = await postmanClient.mocks.getMockCallLogs('e3d951bf-873f-49ac-a658-b2dcb91d3289', {
     limit: 3,
@@ -410,7 +410,7 @@ const serverResponseHeaders1: ServerResponseHeaders1 = {
   value: "application/json"
 };
 
-const serverResponseLanguage1 = ServerResponseLanguage1.text;
+const serverResponseLanguage1 = ServerResponseLanguage1.TEXT;
 
 const createMockServerResponseServerResponse: CreateMockServerResponseServerResponse = {
   name: "Internal Server Error",
@@ -506,7 +506,7 @@ const serverResponseHeaders2: ServerResponseHeaders2 = {
   value: "application/json"
 };
 
-const serverResponseLanguage2 = ServerResponseLanguage2.text;
+const serverResponseLanguage2 = ServerResponseLanguage2.TEXT;
 
 const updateMockServerResponseServerResponse: UpdateMockServerResponseServerResponse = {
   name: "Internal Server Error",

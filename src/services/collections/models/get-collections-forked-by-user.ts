@@ -15,9 +15,11 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getCollectionsForkedByUser = z.object({
-  data: z.array(getCollectionsForkedByUserData).optional(),
-  meta: getCollectionsForkedByUserMeta.optional(),
+export const getCollectionsForkedByUser: any = z.lazy(() => {
+  return z.object({
+    data: z.array(getCollectionsForkedByUserData).optional(),
+    meta: getCollectionsForkedByUserMeta.optional(),
+  });
 });
 
 /**
@@ -32,26 +34,30 @@ export type GetCollectionsForkedByUser = z.infer<typeof getCollectionsForkedByUs
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionsForkedByUserResponse = z
-  .object({
-    data: z.array(getCollectionsForkedByUserDataResponse).optional(),
-    meta: getCollectionsForkedByUserMetaResponse.optional(),
-  })
-  .transform((data) => ({
-    data: data['data'],
-    meta: data['meta'],
-  }));
+export const getCollectionsForkedByUserResponse: any = z.lazy(() => {
+  return z
+    .object({
+      data: z.array(getCollectionsForkedByUserDataResponse).optional(),
+      meta: getCollectionsForkedByUserMetaResponse.optional(),
+    })
+    .transform((data) => ({
+      data: data['data'],
+      meta: data['meta'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionsForkedByUserRequest = z
-  .object({
-    data: z.array(getCollectionsForkedByUserDataRequest).nullish(),
-    meta: getCollectionsForkedByUserMetaRequest.nullish(),
-  })
-  .transform((data) => ({
-    data: data['data'],
-    meta: data['meta'],
-  }));
+export const getCollectionsForkedByUserRequest: any = z.lazy(() => {
+  return z
+    .object({
+      data: z.array(getCollectionsForkedByUserDataRequest).nullish(),
+      meta: getCollectionsForkedByUserMetaRequest.nullish(),
+    })
+    .transform((data) => ({
+      data: data['data'],
+      meta: data['meta'],
+    }));
+});

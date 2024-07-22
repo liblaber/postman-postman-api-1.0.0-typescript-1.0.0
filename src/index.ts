@@ -164,6 +164,30 @@ export class PostmanClient {
     this.workspaces.baseUrl = environment;
   }
 
+  set timeout(timeout: number) {
+    this.billing.timeout = timeout;
+    this.api.timeout = timeout;
+    this.tags.timeout = timeout;
+    this.auditLogs.timeout = timeout;
+    this.collections.timeout = timeout;
+    this.collectionItems.timeout = timeout;
+    this.collectionFolders.timeout = timeout;
+    this.collectionRequests.timeout = timeout;
+    this.collectionResponses.timeout = timeout;
+    this.secretScanner.timeout = timeout;
+    this.environments.timeout = timeout;
+    this.import_.timeout = timeout;
+    this.user.timeout = timeout;
+    this.mocks.timeout = timeout;
+    this.monitors.timeout = timeout;
+    this.privateApiNetwork.timeout = timeout;
+    this.pullRequests.timeout = timeout;
+    this.apiSecurity.timeout = timeout;
+    this.scim.timeout = timeout;
+    this.webhooks.timeout = timeout;
+    this.workspaces.timeout = timeout;
+  }
+
   set apiKey(apiKey: string) {
     this.billing.apiKey = apiKey;
     this.api.apiKey = apiKey;

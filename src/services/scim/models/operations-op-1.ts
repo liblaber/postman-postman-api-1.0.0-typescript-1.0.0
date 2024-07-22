@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
-export const operationsOp1 = z.enum(['replace', 'remove', 'add']);
-
-export type OperationsOp1 = z.infer<typeof operationsOp1>;
+export enum OperationsOp1 {
+  REPLACE = 'replace',
+  REMOVE = 'remove',
+  ADD = 'add',
+}

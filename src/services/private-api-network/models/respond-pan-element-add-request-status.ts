@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const respondPanElementAddRequestStatus = z.enum(['denied', 'approved']);
-
-export type RespondPanElementAddRequestStatus = z.infer<typeof respondPanElementAddRequestStatus>;
+export enum RespondPanElementAddRequestStatus {
+  DENIED = 'denied',
+  APPROVED = 'approved',
+}

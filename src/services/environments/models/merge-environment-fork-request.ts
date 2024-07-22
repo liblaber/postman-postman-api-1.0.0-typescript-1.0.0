@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const mergeEnvironmentForkRequest = z.object({
-  source: z.string(),
-  deleteSource: z.boolean().optional(),
+export const mergeEnvironmentForkRequest: any = z.lazy(() => {
+  return z.object({
+    source: z.string(),
+    deleteSource: z.boolean().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type MergeEnvironmentForkRequest = z.infer<typeof mergeEnvironmentForkReq
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const mergeEnvironmentForkRequestResponse = z
-  .object({
-    source: z.string(),
-    deleteSource: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    source: data['source'],
-    deleteSource: data['deleteSource'],
-  }));
+export const mergeEnvironmentForkRequestResponse: any = z.lazy(() => {
+  return z
+    .object({
+      source: z.string(),
+      deleteSource: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      source: data['source'],
+      deleteSource: data['deleteSource'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const mergeEnvironmentForkRequestRequest = z
-  .object({ source: z.string().nullish(), deleteSource: z.boolean().nullish() })
-  .transform((data) => ({
+export const mergeEnvironmentForkRequestRequest: any = z.lazy(() => {
+  return z.object({ source: z.string().nullish(), deleteSource: z.boolean().nullish() }).transform((data) => ({
     source: data['source'],
     deleteSource: data['deleteSource'],
   }));
+});

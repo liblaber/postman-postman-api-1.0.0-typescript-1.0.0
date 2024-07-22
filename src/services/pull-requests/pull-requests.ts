@@ -4,14 +4,10 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
-import {
-  PullRequestGet,
-  PullRequestUpdate,
-  PullRequestUpdated,
-  pullRequestGetResponse,
-  pullRequestUpdateRequest,
-  pullRequestUpdatedResponse,
-} from './models';
+import { Request } from '../../http/transport/request';
+import { PullRequestGet, pullRequestGetResponse } from './models/pull-request-get';
+import { PullRequestUpdate, pullRequestUpdateRequest } from './models/pull-request-update';
+import { PullRequestUpdated, pullRequestUpdatedResponse } from './models/pull-request-updated';
 
 export class PullRequestsService extends BaseService {
   /**
@@ -20,17 +16,18 @@ export class PullRequestsService extends BaseService {
    * @returns {Promise<HttpResponse<PullRequestGet>>} Successful Response
    */
   async getPullRequest(pullRequestId: string, requestConfig?: RequestConfig): Promise<HttpResponse<PullRequestGet>> {
-    const path = this.client.buildPath('/pull-requests/{pullRequestId}', { pullRequestId: pullRequestId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/pull-requests/{pullRequestId}',
+      config: this.config,
       responseSchema: pullRequestGetResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('pullRequestId', pullRequestId);
+    return this.client.call<PullRequestGet>(request);
   }
 
   /**
@@ -43,19 +40,19 @@ export class PullRequestsService extends BaseService {
     body: PullRequestUpdate,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PullRequestUpdated>> {
-    const path = this.client.buildPath('/pull-requests/{pullRequestId}', { pullRequestId: pullRequestId });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/pull-requests/{pullRequestId}',
+      config: this.config,
       responseSchema: pullRequestUpdatedResponse,
       requestSchema: pullRequestUpdateRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('pullRequestId', pullRequestId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<PullRequestUpdated>(request);
   }
 }

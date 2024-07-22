@@ -12,10 +12,12 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getPanElementsAndFolders = z.object({
-  elements: z.array(elements).optional(),
-  folders: z.array(folders).optional(),
-  meta: getPanElementsAndFoldersMeta.optional(),
+export const getPanElementsAndFolders: any = z.lazy(() => {
+  return z.object({
+    elements: z.array(elements).optional(),
+    folders: z.array(folders).optional(),
+    meta: getPanElementsAndFoldersMeta.optional(),
+  });
 });
 
 /**
@@ -31,30 +33,34 @@ export type GetPanElementsAndFolders = z.infer<typeof getPanElementsAndFolders>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getPanElementsAndFoldersResponse = z
-  .object({
-    elements: z.array(elementsResponse).optional(),
-    folders: z.array(foldersResponse).optional(),
-    meta: getPanElementsAndFoldersMetaResponse.optional(),
-  })
-  .transform((data) => ({
-    elements: data['elements'],
-    folders: data['folders'],
-    meta: data['meta'],
-  }));
+export const getPanElementsAndFoldersResponse: any = z.lazy(() => {
+  return z
+    .object({
+      elements: z.array(elementsResponse).optional(),
+      folders: z.array(foldersResponse).optional(),
+      meta: getPanElementsAndFoldersMetaResponse.optional(),
+    })
+    .transform((data) => ({
+      elements: data['elements'],
+      folders: data['folders'],
+      meta: data['meta'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getPanElementsAndFoldersRequest = z
-  .object({
-    elements: z.array(elementsRequest).nullish(),
-    folders: z.array(foldersRequest).nullish(),
-    meta: getPanElementsAndFoldersMetaRequest.nullish(),
-  })
-  .transform((data) => ({
-    elements: data['elements'],
-    folders: data['folders'],
-    meta: data['meta'],
-  }));
+export const getPanElementsAndFoldersRequest: any = z.lazy(() => {
+  return z
+    .object({
+      elements: z.array(elementsRequest).nullish(),
+      folders: z.array(foldersRequest).nullish(),
+      meta: getPanElementsAndFoldersMetaRequest.nullish(),
+    })
+    .transform((data) => ({
+      elements: data['elements'],
+      folders: data['folders'],
+      meta: data['meta'],
+    }));
+});

@@ -10,8 +10,10 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateWorkspaceRolesOkResponse = z.object({
-  roles: z.array(updateWorkspaceRolesRoles2).optional(),
+export const updateWorkspaceRolesOkResponse: any = z.lazy(() => {
+  return z.object({
+    roles: z.array(updateWorkspaceRolesRoles2).optional(),
+  });
 });
 
 /**
@@ -25,20 +27,22 @@ export type UpdateWorkspaceRolesOkResponse = z.infer<typeof updateWorkspaceRoles
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateWorkspaceRolesOkResponseResponse = z
-  .object({
-    roles: z.array(updateWorkspaceRolesRoles2Response).optional(),
-  })
-  .transform((data) => ({
-    roles: data['roles'],
-  }));
+export const updateWorkspaceRolesOkResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      roles: z.array(updateWorkspaceRolesRoles2Response).optional(),
+    })
+    .transform((data) => ({
+      roles: data['roles'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateWorkspaceRolesOkResponseRequest = z
-  .object({ roles: z.array(updateWorkspaceRolesRoles2Request).nullish() })
-  .transform((data) => ({
+export const updateWorkspaceRolesOkResponseRequest: any = z.lazy(() => {
+  return z.object({ roles: z.array(updateWorkspaceRolesRoles2Request).nullish() }).transform((data) => ({
     roles: data['roles'],
   }));
+});

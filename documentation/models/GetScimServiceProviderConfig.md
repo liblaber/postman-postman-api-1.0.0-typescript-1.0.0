@@ -81,7 +81,7 @@ Information about the scheme.
 | description | string | ❌       | The scheme's description.                           |
 | name        | string | ❌       | The scheme's friendly name.                         |
 | specUri     | string | ❌       | A link to the scheme's specification documentation. |
-| type\_      | string | ❌       | The scheme's type.                                  |
+| type        | string | ❌       | The scheme's type.                                  |
 
 # Etag
 

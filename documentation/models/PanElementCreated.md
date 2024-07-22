@@ -12,7 +12,7 @@ Information about the Private API Network element.
 | createdAt      | string   | ❌       | The date and time at which the element was created.      |
 | updatedBy      | number   | ❌       | The user who last updated the element.                   |
 | updatedAt      | string   | ❌       | The date and time at which the element was last updated. |
-| type\_         | string   | ❌       | The element's type.                                      |
+| type           | string   | ❌       | The element's type.                                      |
 | id             | string   | ❌       | The element's ID or UID.                                 |
 | name           | string   | ❌       | The element's name.                                      |
 | summary        | string   | ❌       | The element's summary.                                   |

@@ -40,7 +40,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const { data } = await postmanClient.tags.getApiTags('12345678-6fd634a3-79ba-451d-8f07-56a953f96667', {
     accept: accept,
@@ -79,7 +79,7 @@ import { PostmanClient, TagUpdateTags } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const accept = Accept.application / vnd.api.v10 + json;
+  const accept = Accept.APPLICATIONVNDAPIV10JSON;
 
   const tagUpdateTagsTags: TagUpdateTagsTags = {
     slug: 'needs-review',
@@ -206,8 +206,8 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const direction = AscDescDefaultDesc.asc;
-  const entityType = GetTaggedEntitiesEntityType.api;
+  const direction = AscDescDefaultDesc.ASC;
+  const entityType = GetTaggedEntitiesEntityType.API;
 
   const { data } = await postmanClient.tags.getTaggedEntities('needs-review', {
     limit: 2,

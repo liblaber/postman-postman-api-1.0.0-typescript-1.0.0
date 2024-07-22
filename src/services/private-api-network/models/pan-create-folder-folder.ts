@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const panCreateFolderFolder = z.object({
-  name: z.string(),
-  description: z.string().optional(),
-  parentFolderId: z.number().optional(),
+export const panCreateFolderFolder: any = z.lazy(() => {
+  return z.object({
+    name: z.string(),
+    description: z.string().optional(),
+    parentFolderId: z.number().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type PanCreateFolderFolder = z.infer<typeof panCreateFolderFolder>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const panCreateFolderFolderResponse = z
-  .object({
-    name: z.string(),
-    description: z.string().optional(),
-    parentFolderId: z.number().optional(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    description: data['description'],
-    parentFolderId: data['parentFolderId'],
-  }));
+export const panCreateFolderFolderResponse: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string(),
+      description: z.string().optional(),
+      parentFolderId: z.number().optional(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      description: data['description'],
+      parentFolderId: data['parentFolderId'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const panCreateFolderFolderRequest = z
-  .object({ name: z.string().nullish(), description: z.string().nullish(), parentFolderId: z.number().nullish() })
-  .transform((data) => ({
-    name: data['name'],
-    description: data['description'],
-    parentFolderId: data['parentFolderId'],
-  }));
+export const panCreateFolderFolderRequest: any = z.lazy(() => {
+  return z
+    .object({ name: z.string().nullish(), description: z.string().nullish(), parentFolderId: z.number().nullish() })
+    .transform((data) => ({
+      name: data['name'],
+      description: data['description'],
+      parentFolderId: data['parentFolderId'],
+    }));
+});

@@ -29,10 +29,10 @@ The model for which the task is performing the operation.
 
 **Properties**
 
-| Name        | Type   | Required | Description   |
-| :---------- | :----- | :------- | :------------ |
-| collection  | string | ✅       | "collection"  |
-| api-version | string | ✅       | "api-version" |
+| Name       | Type   | Required | Description   |
+| :--------- | :----- | :------- | :------------ |
+| COLLECTION | string | ✅       | "collection"  |
+| APIVERSION | string | ✅       | "api-version" |
 
 # Action
 
@@ -42,8 +42,8 @@ The task's action.
 
 | Name   | Type   | Required | Description |
 | :----- | :----- | :------- | :---------- |
-| update | string | ✅       | "update"    |
-| create | string | ✅       | "create"    |
+| UPDATE | string | ✅       | "update"    |
+| CREATE | string | ✅       | "create"    |
 
 # GetStatusOfAnAsyncTaskStatus
 
@@ -53,9 +53,9 @@ The task's current status.
 
 | Name      | Type   | Required | Description |
 | :-------- | :----- | :------- | :---------- |
-| pending   | string | ✅       | "pending"   |
-| failed    | string | ✅       | "failed"    |
-| completed | string | ✅       | "completed" |
+| PENDING   | string | ✅       | "pending"   |
+| FAILED    | string | ✅       | "failed"    |
+| COMPLETED | string | ✅       | "completed" |
 
 # Details
 

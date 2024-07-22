@@ -7,7 +7,9 @@ import { getApiSchema2, getApiSchema2Request, getApiSchema2Response } from './ge
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApiSchema = z.union([getApiSchema1, getApiSchema2]);
+export const getApiSchema: any = z.lazy(() => {
+  return z.union([getApiSchema1, getApiSchema2]);
+});
 
 /**
  *
@@ -21,10 +23,14 @@ export type GetApiSchema = z.infer<typeof getApiSchema>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiSchemaResponse = z.union([getApiSchema1Response, getApiSchema2Response]);
+export const getApiSchemaResponse: any = z.lazy(() => {
+  return z.union([getApiSchema1Response, getApiSchema2Response]);
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiSchemaRequest = z.union([getApiSchema1Request, getApiSchema2Request]);
+export const getApiSchemaRequest: any = z.lazy(() => {
+  return z.union([getApiSchema1Request, getApiSchema2Request]);
+});

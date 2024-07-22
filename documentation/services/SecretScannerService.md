@@ -39,9 +39,9 @@ import { DetectedSecretsQueriesRequest, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const statuses = Statuses.FALSE_POSITIVE;
+  const statuses = Statuses.FALSEPOSITIVE;
 
-  const workspaceVisiblities = WorkspaceVisiblities.team;
+  const workspaceVisiblities = WorkspaceVisiblities.TEAM;
 
   const input: DetectedSecretsQueriesRequest = {
     resolved: true,
@@ -89,7 +89,7 @@ import { PostmanClient, UpdateDetectedSecretResolutionsRequest } from 'postman_c
     apiKey: 'YOUR_API_KEY',
   });
 
-  const updateSecretResolutionsResolution1 = UpdateSecretResolutionsResolution1.FALSE_POSITIVE;
+  const updateSecretResolutionsResolution1 = UpdateSecretResolutionsResolution1.FALSEPOSITIVE;
 
   const input: UpdateDetectedSecretResolutionsRequest = {
     resolution: updateSecretResolutionsResolution1,

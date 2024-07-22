@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const responseBody = z.object({
-  data: z.string().optional(),
+export const responseBody: any = z.lazy(() => {
+  return z.object({
+    data: z.string().optional(),
+  });
 });
 
 /**
@@ -20,18 +22,22 @@ export type ResponseBody = z.infer<typeof responseBody>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const responseBodyResponse = z
-  .object({
-    data: z.string().optional(),
-  })
-  .transform((data) => ({
-    data: data['data'],
-  }));
+export const responseBodyResponse: any = z.lazy(() => {
+  return z
+    .object({
+      data: z.string().optional(),
+    })
+    .transform((data) => ({
+      data: data['data'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const responseBodyRequest = z.object({ data: z.string().nullish() }).transform((data) => ({
-  data: data['data'],
-}));
+export const responseBodyRequest: any = z.lazy(() => {
+  return z.object({ data: z.string().nullish() }).transform((data) => ({
+    data: data['data'],
+  }));
+});

@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const addApiCollection3OperationType = z.enum(['CREATE_NEW']);
-
-export type AddApiCollection3OperationType = z.infer<typeof addApiCollection3OperationType>;
+export enum AddApiCollection3OperationType {
+  CREATENEW = 'CREATE_NEW',
+}

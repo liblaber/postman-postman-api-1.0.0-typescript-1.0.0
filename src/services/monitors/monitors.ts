@@ -4,25 +4,16 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
-import {
-  CreateMonitorOkResponse,
-  CreateMonitorRequest,
-  DeleteMonitor,
-  GetMonitor,
-  GetMonitors,
-  RunMonitor,
-  UpdateMonitorOkResponse,
-  UpdateMonitorRequest,
-  createMonitorOkResponseResponse,
-  createMonitorRequestRequest,
-  deleteMonitorResponse,
-  getMonitorResponse,
-  getMonitorsResponse,
-  runMonitorResponse,
-  updateMonitorOkResponseResponse,
-  updateMonitorRequestRequest,
-} from './models';
+import { Request } from '../../http/transport/request';
+import { GetMonitors, getMonitorsResponse } from './models/get-monitors';
 import { CreateMonitorParams, GetMonitorsParams } from './request-params';
+import { CreateMonitorRequest, createMonitorRequestRequest } from './models/create-monitor-request';
+import { CreateMonitorOkResponse, createMonitorOkResponseResponse } from './models/create-monitor-ok-response';
+import { GetMonitor, getMonitorResponse } from './models/get-monitor';
+import { UpdateMonitorRequest, updateMonitorRequestRequest } from './models/update-monitor-request';
+import { UpdateMonitorOkResponse, updateMonitorOkResponseResponse } from './models/update-monitor-ok-response';
+import { DeleteMonitor, deleteMonitorResponse } from './models/delete-monitor';
+import { RunMonitor, runMonitorResponse } from './models/run-monitor';
 
 export class MonitorsService extends BaseService {
   /**
@@ -31,21 +22,18 @@ export class MonitorsService extends BaseService {
    * @returns {Promise<HttpResponse<GetMonitors>>} Successful Response
    */
   async getMonitors(params?: GetMonitorsParams, requestConfig?: RequestConfig): Promise<HttpResponse<GetMonitors>> {
-    const path = '/monitors';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/monitors',
+      config: this.config,
       responseSchema: getMonitorsResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.workspace) {
-      options.queryParams['workspace'] = params?.workspace;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('workspace', params?.workspace);
+    return this.client.call<GetMonitors>(request);
   }
 
   /**
@@ -62,24 +50,20 @@ You cannot create monitors for collections added to an API definition.
     params?: CreateMonitorParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateMonitorOkResponse>> {
-    const path = '/monitors';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/monitors',
+      config: this.config,
       responseSchema: createMonitorOkResponseResponse,
       requestSchema: createMonitorRequestRequest,
-      body: body as any,
-      queryParams: {},
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.workspace) {
-      options.queryParams['workspace'] = params?.workspace;
-    }
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('workspace', params?.workspace);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateMonitorOkResponse>(request);
   }
 
   /**
@@ -88,17 +72,18 @@ You cannot create monitors for collections added to an API definition.
    * @returns {Promise<HttpResponse<GetMonitor>>} Successful Response
    */
   async getMonitor(monitorId: string, requestConfig?: RequestConfig): Promise<HttpResponse<GetMonitor>> {
-    const path = this.client.buildPath('/monitors/{monitorId}', { monitorId: monitorId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/monitors/{monitorId}',
+      config: this.config,
       responseSchema: getMonitorResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('monitorId', monitorId);
+    return this.client.call<GetMonitor>(request);
   }
 
   /**
@@ -111,20 +96,20 @@ You cannot create monitors for collections added to an API definition.
     body: UpdateMonitorRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdateMonitorOkResponse>> {
-    const path = this.client.buildPath('/monitors/{monitorId}', { monitorId: monitorId });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/monitors/{monitorId}',
+      config: this.config,
       responseSchema: updateMonitorOkResponseResponse,
       requestSchema: updateMonitorRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('monitorId', monitorId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<UpdateMonitorOkResponse>(request);
   }
 
   /**
@@ -133,17 +118,18 @@ You cannot create monitors for collections added to an API definition.
    * @returns {Promise<HttpResponse<DeleteMonitor>>} Successful Response
    */
   async deleteMonitor(monitorId: string, requestConfig?: RequestConfig): Promise<HttpResponse<DeleteMonitor>> {
-    const path = this.client.buildPath('/monitors/{monitorId}', { monitorId: monitorId });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/monitors/{monitorId}',
+      config: this.config,
       responseSchema: deleteMonitorResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('monitorId', monitorId);
+    return this.client.call<DeleteMonitor>(request);
   }
 
   /**
@@ -152,16 +138,17 @@ You cannot create monitors for collections added to an API definition.
    * @returns {Promise<HttpResponse<RunMonitor>>} Successful Response
    */
   async runMonitor(monitorId: string, requestConfig?: RequestConfig): Promise<HttpResponse<RunMonitor>> {
-    const path = this.client.buildPath('/monitors/{monitorId}/run', { monitorId: monitorId });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      path: '/monitors/{monitorId}/run',
+      config: this.config,
       responseSchema: runMonitorResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('monitorId', monitorId);
+    return this.client.call<RunMonitor>(request);
   }
 }

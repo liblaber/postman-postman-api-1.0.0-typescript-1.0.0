@@ -5,11 +5,13 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const workspaceMocks = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  uid: z.string().optional(),
-  deactivated: z.boolean().optional(),
+export const workspaceMocks: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    uid: z.string().optional(),
+    deactivated: z.boolean().optional(),
+  });
 });
 
 /**
@@ -26,34 +28,38 @@ export type WorkspaceMocks = z.infer<typeof workspaceMocks>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const workspaceMocksResponse = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    uid: z.string().optional(),
-    deactivated: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    uid: data['uid'],
-    deactivated: data['deactivated'],
-  }));
+export const workspaceMocksResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      uid: z.string().optional(),
+      deactivated: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      uid: data['uid'],
+      deactivated: data['deactivated'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const workspaceMocksRequest = z
-  .object({
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    uid: z.string().nullish(),
-    deactivated: z.boolean().nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    uid: data['uid'],
-    deactivated: data['deactivated'],
-  }));
+export const workspaceMocksRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      uid: z.string().nullish(),
+      deactivated: z.boolean().nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      uid: data['uid'],
+      deactivated: data['deactivated'],
+    }));
+});

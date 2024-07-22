@@ -24,7 +24,7 @@
 | id             | string | ❌       | The element's ID.                                                                                                             |
 | name           | string | ❌       | The element's name.                                                                                                           |
 | summary        | string | ❌       | The element's summary.                                                                                                        |
-| type\_         | string | ❌       | The element's type.                                                                                                           |
+| type           | string | ❌       | The element's type.                                                                                                           |
 | parentFolderId | number | ❌       | The element's parent folder ID.                                                                                               |
 | href           | string | ❌       | The element's HREF.                                                                                                           |
 
@@ -42,7 +42,7 @@
 | createdBy      | number | ❌       | The user who created the folder.                   |
 | name           | string | ❌       | The folder's name.                                 |
 | description    | string | ❌       | The folder's description.                          |
-| type\_         | string | ❌       | The element's type. This value is always `folder`. |
+| type           | string | ❌       | The element's type. This value is always `folder`. |
 
 # GetPanElementsAndFoldersMeta
 

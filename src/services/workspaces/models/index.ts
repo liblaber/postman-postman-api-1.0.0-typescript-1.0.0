@@ -36,6 +36,8 @@ export * from './update-workspace-workspace-1';
 export * from './workspace-type-3';
 export * from './update-workspace-workspace-2';
 export * from './delete-workspace-workspace';
+export * from './global-variable';
+export * from './global-variable-type';
 export * from './update-workspace-roles-roles-1';
 export * from './roles-path-2';
 export * from './roles-value-2';

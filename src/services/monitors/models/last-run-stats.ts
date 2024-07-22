@@ -7,9 +7,11 @@ import { statsRequests1, statsRequests1Request, statsRequests1Response } from '.
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const lastRunStats = z.object({
-  assertions: statsAssertions1.optional(),
-  requests: statsRequests1.optional(),
+export const lastRunStats: any = z.lazy(() => {
+  return z.object({
+    assertions: statsAssertions1.optional(),
+    requests: statsRequests1.optional(),
+  });
 });
 
 /**
@@ -24,23 +26,27 @@ export type LastRunStats = z.infer<typeof lastRunStats>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const lastRunStatsResponse = z
-  .object({
-    assertions: statsAssertions1Response.optional(),
-    requests: statsRequests1Response.optional(),
-  })
-  .transform((data) => ({
-    assertions: data['assertions'],
-    requests: data['requests'],
-  }));
+export const lastRunStatsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      assertions: statsAssertions1Response.optional(),
+      requests: statsRequests1Response.optional(),
+    })
+    .transform((data) => ({
+      assertions: data['assertions'],
+      requests: data['requests'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const lastRunStatsRequest = z
-  .object({ assertions: statsAssertions1Request.nullish(), requests: statsRequests1Request.nullish() })
-  .transform((data) => ({
-    assertions: data['assertions'],
-    requests: data['requests'],
-  }));
+export const lastRunStatsRequest: any = z.lazy(() => {
+  return z
+    .object({ assertions: statsAssertions1Request.nullish(), requests: statsRequests1Request.nullish() })
+    .transform((data) => ({
+      assertions: data['assertions'],
+      requests: data['requests'],
+    }));
+});

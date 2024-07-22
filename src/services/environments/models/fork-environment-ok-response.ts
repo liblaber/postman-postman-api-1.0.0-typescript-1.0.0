@@ -10,8 +10,10 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const forkEnvironmentOkResponse = z.object({
-  environment: forkEnvironmentEnvironment.optional(),
+export const forkEnvironmentOkResponse: any = z.lazy(() => {
+  return z.object({
+    environment: forkEnvironmentEnvironment.optional(),
+  });
 });
 
 /**
@@ -25,20 +27,22 @@ export type ForkEnvironmentOkResponse = z.infer<typeof forkEnvironmentOkResponse
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const forkEnvironmentOkResponseResponse = z
-  .object({
-    environment: forkEnvironmentEnvironmentResponse.optional(),
-  })
-  .transform((data) => ({
-    environment: data['environment'],
-  }));
+export const forkEnvironmentOkResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      environment: forkEnvironmentEnvironmentResponse.optional(),
+    })
+    .transform((data) => ({
+      environment: data['environment'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const forkEnvironmentOkResponseRequest = z
-  .object({ environment: forkEnvironmentEnvironmentRequest.nullish() })
-  .transform((data) => ({
+export const forkEnvironmentOkResponseRequest: any = z.lazy(() => {
+  return z.object({ environment: forkEnvironmentEnvironmentRequest.nullish() }).transform((data) => ({
     environment: data['environment'],
   }));
+});

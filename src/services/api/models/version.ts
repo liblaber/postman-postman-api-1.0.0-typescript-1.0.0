@@ -7,14 +7,16 @@ import { versionCollections, versionCollectionsRequest, versionCollectionsRespon
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const version = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
-  releaseNotes: z.string().optional(),
-  schemas: z.array(versionSchemas).optional(),
-  collections: z.array(versionCollections).optional(),
+export const version: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    createdAt: z.string().optional(),
+    updatedAt: z.string().optional(),
+    releaseNotes: z.string().optional(),
+    schemas: z.array(versionSchemas).optional(),
+    collections: z.array(versionCollections).optional(),
+  });
 });
 
 /**
@@ -34,46 +36,50 @@ export type Version = z.infer<typeof version>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const versionResponse = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    createdAt: z.string().optional(),
-    updatedAt: z.string().optional(),
-    releaseNotes: z.string().optional(),
-    schemas: z.array(versionSchemasResponse).optional(),
-    collections: z.array(versionCollectionsResponse).optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-    releaseNotes: data['releaseNotes'],
-    schemas: data['schemas'],
-    collections: data['collections'],
-  }));
+export const versionResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      createdAt: z.string().optional(),
+      updatedAt: z.string().optional(),
+      releaseNotes: z.string().optional(),
+      schemas: z.array(versionSchemasResponse).optional(),
+      collections: z.array(versionCollectionsResponse).optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+      releaseNotes: data['releaseNotes'],
+      schemas: data['schemas'],
+      collections: data['collections'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const versionRequest = z
-  .object({
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    createdAt: z.string().nullish(),
-    updatedAt: z.string().nullish(),
-    releaseNotes: z.string().nullish(),
-    schemas: z.array(versionSchemasRequest).nullish(),
-    collections: z.array(versionCollectionsRequest).nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    createdAt: data['createdAt'],
-    updatedAt: data['updatedAt'],
-    releaseNotes: data['releaseNotes'],
-    schemas: data['schemas'],
-    collections: data['collections'],
-  }));
+export const versionRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      createdAt: z.string().nullish(),
+      updatedAt: z.string().nullish(),
+      releaseNotes: z.string().nullish(),
+      schemas: z.array(versionSchemasRequest).nullish(),
+      collections: z.array(versionCollectionsRequest).nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      createdAt: data['createdAt'],
+      updatedAt: data['updatedAt'],
+      releaseNotes: data['releaseNotes'],
+      schemas: data['schemas'],
+      collections: data['collections'],
+    }));
+});

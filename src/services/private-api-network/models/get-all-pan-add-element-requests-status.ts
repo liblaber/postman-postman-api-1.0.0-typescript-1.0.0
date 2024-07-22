@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const getAllPanAddElementRequestsStatus = z.enum(['pending', 'denied']);
-
-export type GetAllPanAddElementRequestsStatus = z.infer<typeof getAllPanAddElementRequestsStatus>;
+export enum GetAllPanAddElementRequestsStatus {
+  PENDING = 'pending',
+  DENIED = 'denied',
+}

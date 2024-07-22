@@ -15,7 +15,7 @@
 | name        | string      | ❌       | The mock server's name.                                                                                                         |
 | environment | string      | ❌       | The associated environment's unique ID.                                                                                         |
 | description | string      | ❌       | The mock server's description.                                                                                                  |
-| private\_   | boolean     | ❌       | If true, the mock server is set private. By default, mock servers are public and can receive requests from anyone and anywhere. |
+| private     | boolean     | ❌       | If true, the mock server is set private. By default, mock servers are public and can receive requests from anyone and anywhere. |
 | versionTag  | string      | ❌       | The API's version tag ID.                                                                                                       |
 | config      | MockConfig2 | ❌       | The mock server's configuration settings.                                                                                       |
 

@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const details1Resources = z.object({
-  id: z.string().optional(),
-  url: z.string().optional(),
+export const details1Resources: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    url: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type Details1Resources = z.infer<typeof details1Resources>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const details1ResourcesResponse = z
-  .object({
-    id: z.string().optional(),
-    url: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    url: data['url'],
-  }));
+export const details1ResourcesResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      url: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      url: data['url'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const details1ResourcesRequest = z
-  .object({ id: z.string().nullish(), url: z.string().nullish() })
-  .transform((data) => ({
+export const details1ResourcesRequest: any = z.lazy(() => {
+  return z.object({ id: z.string().nullish(), url: z.string().nullish() }).transform((data) => ({
     id: data['id'],
     url: data['url'],
   }));
+});

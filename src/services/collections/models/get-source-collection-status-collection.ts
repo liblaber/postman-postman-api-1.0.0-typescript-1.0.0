@@ -6,8 +6,10 @@ import { collectionUid, collectionUidRequest, collectionUidResponse } from './co
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getSourceCollectionStatusCollection = z.object({
-  collectionUid: collectionUid.optional(),
+export const getSourceCollectionStatusCollection: any = z.lazy(() => {
+  return z.object({
+    collectionUid: collectionUid.optional(),
+  });
 });
 
 /**
@@ -21,20 +23,22 @@ export type GetSourceCollectionStatusCollection = z.infer<typeof getSourceCollec
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSourceCollectionStatusCollectionResponse = z
-  .object({
-    collectionUid: collectionUidResponse.optional(),
-  })
-  .transform((data) => ({
-    collectionUid: data['collectionUid'],
-  }));
+export const getSourceCollectionStatusCollectionResponse: any = z.lazy(() => {
+  return z
+    .object({
+      collectionUid: collectionUidResponse.optional(),
+    })
+    .transform((data) => ({
+      collectionUid: data['collectionUid'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSourceCollectionStatusCollectionRequest = z
-  .object({ collectionUid: collectionUidRequest.nullish() })
-  .transform((data) => ({
+export const getSourceCollectionStatusCollectionRequest: any = z.lazy(() => {
+  return z.object({ collectionUid: collectionUidRequest.nullish() }).transform((data) => ({
     collectionUid: data['collectionUid'],
   }));
+});

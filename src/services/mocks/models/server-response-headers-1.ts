@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const serverResponseHeaders1 = z.object({
-  key: z.string().optional(),
-  value: z.string().optional(),
+export const serverResponseHeaders1: any = z.lazy(() => {
+  return z.object({
+    key: z.string().optional(),
+    value: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type ServerResponseHeaders1 = z.infer<typeof serverResponseHeaders1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const serverResponseHeaders1Response = z
-  .object({
-    key: z.string().optional(),
-    value: z.string().optional(),
-  })
-  .transform((data) => ({
-    key: data['key'],
-    value: data['value'],
-  }));
+export const serverResponseHeaders1Response: any = z.lazy(() => {
+  return z
+    .object({
+      key: z.string().optional(),
+      value: z.string().optional(),
+    })
+    .transform((data) => ({
+      key: data['key'],
+      value: data['value'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const serverResponseHeaders1Request = z
-  .object({ key: z.string().nullish(), value: z.string().nullish() })
-  .transform((data) => ({
+export const serverResponseHeaders1Request: any = z.lazy(() => {
+  return z.object({ key: z.string().nullish(), value: z.string().nullish() }).transform((data) => ({
     key: data['key'],
     value: data['value'],
   }));
+});

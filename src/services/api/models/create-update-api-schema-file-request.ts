@@ -10,10 +10,12 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createUpdateApiSchemaFileRequest = z.object({
-  name: z.string().optional(),
-  root: createUpdateApiSchemaFileRoot.optional(),
-  content: z.string().optional(),
+export const createUpdateApiSchemaFileRequest: any = z.lazy(() => {
+  return z.object({
+    name: z.string().optional(),
+    root: createUpdateApiSchemaFileRoot.optional(),
+    content: z.string().optional(),
+  });
 });
 
 /**
@@ -29,30 +31,34 @@ export type CreateUpdateApiSchemaFileRequest = z.infer<typeof createUpdateApiSch
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createUpdateApiSchemaFileRequestResponse = z
-  .object({
-    name: z.string().optional(),
-    root: createUpdateApiSchemaFileRootResponse.optional(),
-    content: z.string().optional(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    root: data['root'],
-    content: data['content'],
-  }));
+export const createUpdateApiSchemaFileRequestResponse: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string().optional(),
+      root: createUpdateApiSchemaFileRootResponse.optional(),
+      content: z.string().optional(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      root: data['root'],
+      content: data['content'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createUpdateApiSchemaFileRequestRequest = z
-  .object({
-    name: z.string().nullish(),
-    root: createUpdateApiSchemaFileRootRequest.nullish(),
-    content: z.string().nullish(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    root: data['root'],
-    content: data['content'],
-  }));
+export const createUpdateApiSchemaFileRequestRequest: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string().nullish(),
+      root: createUpdateApiSchemaFileRootRequest.nullish(),
+      content: z.string().nullish(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      root: data['root'],
+      content: data['content'],
+    }));
+});

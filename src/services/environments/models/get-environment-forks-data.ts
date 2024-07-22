@@ -5,12 +5,14 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getEnvironmentForksData = z.object({
-  forkId: z.string().optional(),
-  forkName: z.string().optional(),
-  createdAt: z.string().optional(),
-  createdBy: z.string().optional(),
-  updatedAt: z.string().optional(),
+export const getEnvironmentForksData: any = z.lazy(() => {
+  return z.object({
+    forkId: z.string().optional(),
+    forkName: z.string().optional(),
+    createdAt: z.string().optional(),
+    createdBy: z.string().optional(),
+    updatedAt: z.string().optional(),
+  });
 });
 
 /**
@@ -28,38 +30,42 @@ export type GetEnvironmentForksData = z.infer<typeof getEnvironmentForksData>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getEnvironmentForksDataResponse = z
-  .object({
-    forkId: z.string().optional(),
-    forkName: z.string().optional(),
-    createdAt: z.string().optional(),
-    createdBy: z.string().optional(),
-    updatedAt: z.string().optional(),
-  })
-  .transform((data) => ({
-    forkId: data['forkId'],
-    forkName: data['forkName'],
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    updatedAt: data['updatedAt'],
-  }));
+export const getEnvironmentForksDataResponse: any = z.lazy(() => {
+  return z
+    .object({
+      forkId: z.string().optional(),
+      forkName: z.string().optional(),
+      createdAt: z.string().optional(),
+      createdBy: z.string().optional(),
+      updatedAt: z.string().optional(),
+    })
+    .transform((data) => ({
+      forkId: data['forkId'],
+      forkName: data['forkName'],
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      updatedAt: data['updatedAt'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getEnvironmentForksDataRequest = z
-  .object({
-    forkId: z.string().nullish(),
-    forkName: z.string().nullish(),
-    createdAt: z.string().nullish(),
-    createdBy: z.string().nullish(),
-    updatedAt: z.string().nullish(),
-  })
-  .transform((data) => ({
-    forkId: data['forkId'],
-    forkName: data['forkName'],
-    createdAt: data['createdAt'],
-    createdBy: data['createdBy'],
-    updatedAt: data['updatedAt'],
-  }));
+export const getEnvironmentForksDataRequest: any = z.lazy(() => {
+  return z
+    .object({
+      forkId: z.string().nullish(),
+      forkName: z.string().nullish(),
+      createdAt: z.string().nullish(),
+      createdBy: z.string().nullish(),
+      updatedAt: z.string().nullish(),
+    })
+    .transform((data) => ({
+      forkId: data['forkId'],
+      forkName: data['forkName'],
+      createdAt: data['createdAt'],
+      createdBy: data['createdBy'],
+      updatedAt: data['updatedAt'],
+    }));
+});

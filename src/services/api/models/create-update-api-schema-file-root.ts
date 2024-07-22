@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createUpdateApiSchemaFileRoot = z.object({
-  enabled: z.boolean().optional(),
+export const createUpdateApiSchemaFileRoot: any = z.lazy(() => {
+  return z.object({
+    enabled: z.boolean().optional(),
+  });
 });
 
 /**
@@ -20,18 +22,22 @@ export type CreateUpdateApiSchemaFileRoot = z.infer<typeof createUpdateApiSchema
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createUpdateApiSchemaFileRootResponse = z
-  .object({
-    enabled: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    enabled: data['enabled'],
-  }));
+export const createUpdateApiSchemaFileRootResponse: any = z.lazy(() => {
+  return z
+    .object({
+      enabled: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      enabled: data['enabled'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createUpdateApiSchemaFileRootRequest = z.object({ enabled: z.boolean().nullish() }).transform((data) => ({
-  enabled: data['enabled'],
-}));
+export const createUpdateApiSchemaFileRootRequest: any = z.lazy(() => {
+  return z.object({ enabled: z.boolean().nullish() }).transform((data) => ({
+    enabled: data['enabled'],
+  }));
+});

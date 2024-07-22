@@ -6,11 +6,13 @@ import { collectionFork, collectionForkRequest, collectionForkResponse } from '.
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createCollectionForkCollection = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  fork: collectionFork.optional(),
-  uid: z.string().optional(),
+export const createCollectionForkCollection: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    fork: collectionFork.optional(),
+    uid: z.string().optional(),
+  });
 });
 
 /**
@@ -27,34 +29,38 @@ export type CreateCollectionForkCollection = z.infer<typeof createCollectionFork
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createCollectionForkCollectionResponse = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    fork: collectionForkResponse.optional(),
-    uid: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    fork: data['fork'],
-    uid: data['uid'],
-  }));
+export const createCollectionForkCollectionResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      fork: collectionForkResponse.optional(),
+      uid: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      fork: data['fork'],
+      uid: data['uid'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createCollectionForkCollectionRequest = z
-  .object({
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    fork: collectionForkRequest.nullish(),
-    uid: z.string().nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    fork: data['fork'],
-    uid: data['uid'],
-  }));
+export const createCollectionForkCollectionRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      fork: collectionForkRequest.nullish(),
+      uid: z.string().nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      fork: data['fork'],
+      uid: data['uid'],
+    }));
+});

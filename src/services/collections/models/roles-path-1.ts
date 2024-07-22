@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
-export const rolesPath1 = z.enum(['/user', '/group', '/team']);
-
-export type RolesPath1 = z.infer<typeof rolesPath1>;
+export enum RolesPath1 {
+  _USER = '/user',
+  _GROUP = '/group',
+  _TEAM = '/team',
+}

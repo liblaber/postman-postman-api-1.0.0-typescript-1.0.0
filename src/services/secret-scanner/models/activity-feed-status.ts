@@ -2,6 +2,9 @@
 
 import { z } from 'zod';
 
-export const activityFeedStatus = z.enum(['FALSE_POSITIVE', 'ACCEPTED_RISK', 'REVOKED', 'ACTIVE']);
-
-export type ActivityFeedStatus = z.infer<typeof activityFeedStatus>;
+export enum ActivityFeedStatus {
+  FALSEPOSITIVE = 'FALSE_POSITIVE',
+  ACCEPTEDRISK = 'ACCEPTED_RISK',
+  REVOKED = 'REVOKED',
+  ACTIVE = 'ACTIVE',
+}

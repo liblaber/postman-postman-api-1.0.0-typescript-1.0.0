@@ -8,11 +8,13 @@ import { executions, executionsRequest, executionsResponse } from './executions'
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const run = z.object({
-  info: runInfo.optional(),
-  stats: runStats.optional(),
-  executions: z.array(executions).optional(),
-  failures: z.array(z.any()).optional(),
+export const run: any = z.lazy(() => {
+  return z.object({
+    info: runInfo.optional(),
+    stats: runStats.optional(),
+    executions: z.array(executions).optional(),
+    failures: z.array(z.any()).optional(),
+  });
 });
 
 /**
@@ -29,34 +31,38 @@ export type Run = z.infer<typeof run>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const runResponse = z
-  .object({
-    info: runInfoResponse.optional(),
-    stats: runStatsResponse.optional(),
-    executions: z.array(executionsResponse).optional(),
-    failures: z.array(z.any()).optional(),
-  })
-  .transform((data) => ({
-    info: data['info'],
-    stats: data['stats'],
-    executions: data['executions'],
-    failures: data['failures'],
-  }));
+export const runResponse: any = z.lazy(() => {
+  return z
+    .object({
+      info: runInfoResponse.optional(),
+      stats: runStatsResponse.optional(),
+      executions: z.array(executionsResponse).optional(),
+      failures: z.array(z.any()).optional(),
+    })
+    .transform((data) => ({
+      info: data['info'],
+      stats: data['stats'],
+      executions: data['executions'],
+      failures: data['failures'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const runRequest = z
-  .object({
-    info: runInfoRequest.nullish(),
-    stats: runStatsRequest.nullish(),
-    executions: z.array(executionsRequest).nullish(),
-    failures: z.array(z.any()).nullish(),
-  })
-  .transform((data) => ({
-    info: data['info'],
-    stats: data['stats'],
-    executions: data['executions'],
-    failures: data['failures'],
-  }));
+export const runRequest: any = z.lazy(() => {
+  return z
+    .object({
+      info: runInfoRequest.nullish(),
+      stats: runStatsRequest.nullish(),
+      executions: z.array(executionsRequest).nullish(),
+      failures: z.array(z.any()).nullish(),
+    })
+    .transform((data) => ({
+      info: data['info'],
+      stats: data['stats'],
+      executions: data['executions'],
+      failures: data['failures'],
+    }));
+});

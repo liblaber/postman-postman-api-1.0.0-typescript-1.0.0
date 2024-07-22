@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const filter = z.object({
-  maxResults: z.number().optional(),
-  supported: z.boolean().optional(),
+export const filter: any = z.lazy(() => {
+  return z.object({
+    maxResults: z.number().optional(),
+    supported: z.boolean().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type Filter = z.infer<typeof filter>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const filterResponse = z
-  .object({
-    maxResults: z.number().optional(),
-    supported: z.boolean().optional(),
-  })
-  .transform((data) => ({
-    maxResults: data['maxResults'],
-    supported: data['supported'],
-  }));
+export const filterResponse: any = z.lazy(() => {
+  return z
+    .object({
+      maxResults: z.number().optional(),
+      supported: z.boolean().optional(),
+    })
+    .transform((data) => ({
+      maxResults: data['maxResults'],
+      supported: data['supported'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const filterRequest = z
-  .object({ maxResults: z.number().nullish(), supported: z.boolean().nullish() })
-  .transform((data) => ({
+export const filterRequest: any = z.lazy(() => {
+  return z.object({ maxResults: z.number().nullish(), supported: z.boolean().nullish() }).transform((data) => ({
     maxResults: data['maxResults'],
     supported: data['supported'],
   }));
+});

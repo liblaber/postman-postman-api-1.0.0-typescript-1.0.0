@@ -15,12 +15,14 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createApiVersion3 = z.object({
-  name: z.string(),
-  branch: z.string(),
-  schemas: z.array(createApiVersion3Schemas),
-  collections: z.array(createApiVersion3Collections),
-  releaseNotes: z.string().optional(),
+export const createApiVersion3: any = z.lazy(() => {
+  return z.object({
+    name: z.string(),
+    branch: z.string(),
+    schemas: z.array(createApiVersion3Schemas),
+    collections: z.array(createApiVersion3Collections),
+    releaseNotes: z.string().optional(),
+  });
 });
 
 /**
@@ -38,38 +40,42 @@ export type CreateApiVersion3 = z.infer<typeof createApiVersion3>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiVersion3Response = z
-  .object({
-    name: z.string(),
-    branch: z.string(),
-    schemas: z.array(createApiVersion3SchemasResponse),
-    collections: z.array(createApiVersion3CollectionsResponse),
-    releaseNotes: z.string().optional(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    branch: data['branch'],
-    schemas: data['schemas'],
-    collections: data['collections'],
-    releaseNotes: data['releaseNotes'],
-  }));
+export const createApiVersion3Response: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string(),
+      branch: z.string(),
+      schemas: z.array(createApiVersion3SchemasResponse),
+      collections: z.array(createApiVersion3CollectionsResponse),
+      releaseNotes: z.string().optional(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      branch: data['branch'],
+      schemas: data['schemas'],
+      collections: data['collections'],
+      releaseNotes: data['releaseNotes'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiVersion3Request = z
-  .object({
-    name: z.string().nullish(),
-    branch: z.string().nullish(),
-    schemas: z.array(createApiVersion3SchemasRequest).nullish(),
-    collections: z.array(createApiVersion3CollectionsRequest).nullish(),
-    releaseNotes: z.string().nullish(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    branch: data['branch'],
-    schemas: data['schemas'],
-    collections: data['collections'],
-    releaseNotes: data['releaseNotes'],
-  }));
+export const createApiVersion3Request: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string().nullish(),
+      branch: z.string().nullish(),
+      schemas: z.array(createApiVersion3SchemasRequest).nullish(),
+      collections: z.array(createApiVersion3CollectionsRequest).nullish(),
+      releaseNotes: z.string().nullish(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      branch: data['branch'],
+      schemas: data['schemas'],
+      collections: data['collections'],
+      releaseNotes: data['releaseNotes'],
+    }));
+});

@@ -6,21 +6,22 @@ import {
   deleteMockServerResponseHeadersRequest,
   deleteMockServerResponseHeadersResponse,
 } from './delete-mock-server-response-headers';
-import { deleteMockServerResponseLanguage } from './delete-mock-server-response-language';
 
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const deleteMockServerResponse = z.object({
-  id: z.string().optional(),
-  name: z.string().optional(),
-  statusCode: z.number().optional(),
-  headers: z.array(deleteMockServerResponseHeaders).optional(),
-  language: deleteMockServerResponseLanguage.optional(),
-  body: z.string().optional(),
-  createdBy: z.string().optional(),
-  updatedBy: z.string().optional(),
-  createdAt: z.string().optional(),
+export const deleteMockServerResponse: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    name: z.string().optional(),
+    statusCode: z.number().optional(),
+    headers: z.array(deleteMockServerResponseHeaders).optional(),
+    language: z.string().optional().nullable(),
+    body: z.string().optional(),
+    createdBy: z.string().optional(),
+    updatedBy: z.string().optional(),
+    createdAt: z.string().optional(),
+  });
 });
 
 /**
@@ -42,54 +43,58 @@ export type DeleteMockServerResponse = z.infer<typeof deleteMockServerResponse>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteMockServerResponseResponse = z
-  .object({
-    id: z.string().optional(),
-    name: z.string().optional(),
-    statusCode: z.number().optional(),
-    headers: z.array(deleteMockServerResponseHeadersResponse).optional(),
-    language: deleteMockServerResponseLanguage.optional(),
-    body: z.string().optional(),
-    createdBy: z.string().optional(),
-    updatedBy: z.string().optional(),
-    createdAt: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    statusCode: data['statusCode'],
-    headers: data['headers'],
-    language: data['language'],
-    body: data['body'],
-    createdBy: data['createdBy'],
-    updatedBy: data['updatedBy'],
-    createdAt: data['createdAt'],
-  }));
+export const deleteMockServerResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      name: z.string().optional(),
+      statusCode: z.number().optional(),
+      headers: z.array(deleteMockServerResponseHeadersResponse).optional(),
+      language: z.string().optional().nullable(),
+      body: z.string().optional(),
+      createdBy: z.string().optional(),
+      updatedBy: z.string().optional(),
+      createdAt: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      statusCode: data['statusCode'],
+      headers: data['headers'],
+      language: data['language'],
+      body: data['body'],
+      createdBy: data['createdBy'],
+      updatedBy: data['updatedBy'],
+      createdAt: data['createdAt'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteMockServerResponseRequest = z
-  .object({
-    id: z.string().nullish(),
-    name: z.string().nullish(),
-    statusCode: z.number().nullish(),
-    headers: z.array(deleteMockServerResponseHeadersRequest).nullish(),
-    language: deleteMockServerResponseLanguage.nullish(),
-    body: z.string().nullish(),
-    createdBy: z.string().nullish(),
-    updatedBy: z.string().nullish(),
-    createdAt: z.string().nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    name: data['name'],
-    statusCode: data['statusCode'],
-    headers: data['headers'],
-    language: data['language'],
-    body: data['body'],
-    createdBy: data['createdBy'],
-    updatedBy: data['updatedBy'],
-    createdAt: data['createdAt'],
-  }));
+export const deleteMockServerResponseRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      name: z.string().nullish(),
+      statusCode: z.number().nullish(),
+      headers: z.array(deleteMockServerResponseHeadersRequest).nullish(),
+      language: z.string().nullish(),
+      body: z.string().nullish(),
+      createdBy: z.string().nullish(),
+      updatedBy: z.string().nullish(),
+      createdAt: z.string().nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      name: data['name'],
+      statusCode: data['statusCode'],
+      headers: data['headers'],
+      language: data['language'],
+      body: data['body'],
+      createdBy: data['createdBy'],
+      updatedBy: data['updatedBy'],
+      createdAt: data['createdAt'],
+    }));
+});

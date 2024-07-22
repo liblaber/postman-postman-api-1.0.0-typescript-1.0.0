@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const monitorSchedule3 = z.object({
-  cron: z.string().optional(),
-  timezone: z.string().optional(),
+export const monitorSchedule3: any = z.lazy(() => {
+  return z.object({
+    cron: z.string().optional(),
+    timezone: z.string().optional(),
+  });
 });
 
 /**
@@ -17,10 +19,10 @@ export const monitorSchedule3 = z.object({
 
 | Frequency | Pattern |
 | --------- | ------- |
-| Every 5 minutes | `*\/5 * * * *` |
-| Every 30 minutes | `*\/30 * * * *` |
-| Every hour | `0 *\/1 * * *` |
-| Every 6 hours | `0 *\/6 * * *` |
+| Every 5 minutes | `*`/5 * * * *` |
+| Every 30 minutes | `*`/30 * * * *` |
+| Every hour | `0 *`/1 * * *` |
+| Every 6 hours | `0 *`/6 * * *` |
 | Every day at 5 pm | `0 17 * * *` |
 | Every Monday at 12 pm | `0 12 * * MON` |
 | Every weekday (Mon — Fri) at 6 am | `0 6 * * MON-FRI` |
@@ -35,23 +37,25 @@ export type MonitorSchedule3 = z.infer<typeof monitorSchedule3>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const monitorSchedule3Response = z
-  .object({
-    cron: z.string().optional(),
-    timezone: z.string().optional(),
-  })
-  .transform((data) => ({
-    cron: data['cron'],
-    timezone: data['timezone'],
-  }));
+export const monitorSchedule3Response: any = z.lazy(() => {
+  return z
+    .object({
+      cron: z.string().optional(),
+      timezone: z.string().optional(),
+    })
+    .transform((data) => ({
+      cron: data['cron'],
+      timezone: data['timezone'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const monitorSchedule3Request = z
-  .object({ cron: z.string().nullish(), timezone: z.string().nullish() })
-  .transform((data) => ({
+export const monitorSchedule3Request: any = z.lazy(() => {
+  return z.object({ cron: z.string().nullish(), timezone: z.string().nullish() }).transform((data) => ({
     cron: data['cron'],
     timezone: data['timezone'],
   }));
+});

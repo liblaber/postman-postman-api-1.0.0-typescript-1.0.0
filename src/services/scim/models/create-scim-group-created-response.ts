@@ -11,13 +11,15 @@ import { createScimGroupMeta, createScimGroupMetaRequest, createScimGroupMetaRes
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createScimGroupCreatedResponse = z.object({
-  schemas: z.array(z.string()).optional(),
-  id: z.string().optional(),
-  displayName: z.string().optional(),
-  externalId: z.string().optional(),
-  members: z.array(createScimGroupMembers2).optional(),
-  meta: createScimGroupMeta.optional(),
+export const createScimGroupCreatedResponse: any = z.lazy(() => {
+  return z.object({
+    schemas: z.array(z.string()).optional(),
+    id: z.string().optional(),
+    displayName: z.string().optional(),
+    externalId: z.string().optional(),
+    members: z.array(createScimGroupMembers2).optional(),
+    meta: createScimGroupMeta.optional(),
+  });
 });
 
 /**
@@ -36,42 +38,46 @@ export type CreateScimGroupCreatedResponse = z.infer<typeof createScimGroupCreat
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createScimGroupCreatedResponseResponse = z
-  .object({
-    schemas: z.array(z.string()).optional(),
-    id: z.string().optional(),
-    displayName: z.string().optional(),
-    externalId: z.string().optional(),
-    members: z.array(createScimGroupMembers2Response).optional(),
-    meta: createScimGroupMetaResponse.optional(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    id: data['id'],
-    displayName: data['displayName'],
-    externalId: data['externalId'],
-    members: data['members'],
-    meta: data['meta'],
-  }));
+export const createScimGroupCreatedResponseResponse: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).optional(),
+      id: z.string().optional(),
+      displayName: z.string().optional(),
+      externalId: z.string().optional(),
+      members: z.array(createScimGroupMembers2Response).optional(),
+      meta: createScimGroupMetaResponse.optional(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      id: data['id'],
+      displayName: data['displayName'],
+      externalId: data['externalId'],
+      members: data['members'],
+      meta: data['meta'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createScimGroupCreatedResponseRequest = z
-  .object({
-    schemas: z.array(z.string()).nullish(),
-    id: z.string().nullish(),
-    displayName: z.string().nullish(),
-    externalId: z.string().nullish(),
-    members: z.array(createScimGroupMembers2Request).nullish(),
-    meta: createScimGroupMetaRequest.nullish(),
-  })
-  .transform((data) => ({
-    schemas: data['schemas'],
-    id: data['id'],
-    displayName: data['displayName'],
-    externalId: data['externalId'],
-    members: data['members'],
-    meta: data['meta'],
-  }));
+export const createScimGroupCreatedResponseRequest: any = z.lazy(() => {
+  return z
+    .object({
+      schemas: z.array(z.string()).nullish(),
+      id: z.string().nullish(),
+      displayName: z.string().nullish(),
+      externalId: z.string().nullish(),
+      members: z.array(createScimGroupMembers2Request).nullish(),
+      meta: createScimGroupMetaRequest.nullish(),
+    })
+    .transform((data) => ({
+      schemas: data['schemas'],
+      id: data['id'],
+      displayName: data['displayName'],
+      externalId: data['externalId'],
+      members: data['members'],
+      meta: data['meta'],
+    }));
+});

@@ -2,6 +2,10 @@
 
 import { z } from 'zod';
 
-export const deleteMockServerResponseLanguage = z.enum(['text', 'javascript', 'json', 'html', 'xml']);
-
-export type DeleteMockServerResponseLanguage = z.infer<typeof deleteMockServerResponseLanguage>;
+export enum DeleteMockServerResponseLanguage {
+  TEXT = 'text',
+  JAVASCRIPT = 'javascript',
+  JSON = 'json',
+  HTML = 'html',
+  XML = 'xml',
+}

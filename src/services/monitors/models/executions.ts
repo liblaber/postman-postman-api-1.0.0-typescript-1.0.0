@@ -8,11 +8,13 @@ import { executionsResponse1, executionsResponse1Request, executionsResponse1Res
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const executions = z.object({
-  id: z.number().optional(),
-  item: executionsItem.optional(),
-  request: executionsRequest1.optional(),
-  response: executionsResponse1.optional(),
+export const executions: any = z.lazy(() => {
+  return z.object({
+    id: z.number().optional(),
+    item: executionsItem.optional(),
+    request: executionsRequest1.optional(),
+    response: executionsResponse1.optional(),
+  });
 });
 
 /**
@@ -29,34 +31,38 @@ export type Executions = z.infer<typeof executions>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const executionsResponse = z
-  .object({
-    id: z.number().optional(),
-    item: executionsItemResponse.optional(),
-    request: executionsRequest1Response.optional(),
-    response: executionsResponse1Response.optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    item: data['item'],
-    request: data['request'],
-    response: data['response'],
-  }));
+export const executionsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.number().optional(),
+      item: executionsItemResponse.optional(),
+      request: executionsRequest1Response.optional(),
+      response: executionsResponse1Response.optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      item: data['item'],
+      request: data['request'],
+      response: data['response'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const executionsRequest = z
-  .object({
-    id: z.number().nullish(),
-    item: executionsItemRequest.nullish(),
-    request: executionsRequest1Request.nullish(),
-    response: executionsResponse1Request.nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    item: data['item'],
-    request: data['request'],
-    response: data['response'],
-  }));
+export const executionsRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.number().nullish(),
+      item: executionsItemRequest.nullish(),
+      request: executionsRequest1Request.nullish(),
+      response: executionsResponse1Request.nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      item: data['item'],
+      request: data['request'],
+      response: data['response'],
+    }));
+});

@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApiVersionsMeta = z.object({
-  limit: z.number().optional(),
-  total: z.number().optional(),
-  nextCursor: z.string().optional(),
+export const getApiVersionsMeta: any = z.lazy(() => {
+  return z.object({
+    limit: z.number().optional(),
+    total: z.number().optional(),
+    nextCursor: z.string().optional(),
+  });
 });
 
 /**
@@ -24,26 +26,30 @@ export type GetApiVersionsMeta = z.infer<typeof getApiVersionsMeta>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiVersionsMetaResponse = z
-  .object({
-    limit: z.number().optional(),
-    total: z.number().optional(),
-    nextCursor: z.string().optional(),
-  })
-  .transform((data) => ({
-    limit: data['limit'],
-    total: data['total'],
-    nextCursor: data['nextCursor'],
-  }));
+export const getApiVersionsMetaResponse: any = z.lazy(() => {
+  return z
+    .object({
+      limit: z.number().optional(),
+      total: z.number().optional(),
+      nextCursor: z.string().optional(),
+    })
+    .transform((data) => ({
+      limit: data['limit'],
+      total: data['total'],
+      nextCursor: data['nextCursor'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiVersionsMetaRequest = z
-  .object({ limit: z.number().nullish(), total: z.number().nullish(), nextCursor: z.string().nullish() })
-  .transform((data) => ({
-    limit: data['limit'],
-    total: data['total'],
-    nextCursor: data['nextCursor'],
-  }));
+export const getApiVersionsMetaRequest: any = z.lazy(() => {
+  return z
+    .object({ limit: z.number().nullish(), total: z.number().nullish(), nextCursor: z.string().nullish() })
+    .transform((data) => ({
+      limit: data['limit'],
+      total: data['total'],
+      nextCursor: data['nextCursor'],
+    }));
+});

@@ -9,7 +9,7 @@ Welcome to the PostmanClient SDK documentation. This guide will help you get sta
 
 ## About the API
 
-The Postman API enables you to programmatically access data stored in your Postman account.
+The Postman API enables you to programmatically access data stored in your Postman account. For more information on the API, rate limiting, authentication, and policies click visit [Postman's Documentation](https://learning.postman.com/docs/introduction/overview/)
 
 ## Table of Contents
 

@@ -6,14 +6,15 @@ import {
   addApiCollection1DataRequest,
   addApiCollection1DataResponse,
 } from './add-api-collection-1-data';
-import { addApiCollection1OperationType } from './add-api-collection-1-operation-type';
 
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const addApiCollection1 = z.object({
-  data: addApiCollection1Data.optional(),
-  operationType: addApiCollection1OperationType.optional(),
+export const addApiCollection1: any = z.lazy(() => {
+  return z.object({
+    data: addApiCollection1Data.optional(),
+    operationType: z.string().optional(),
+  });
 });
 
 /**
@@ -28,23 +29,27 @@ export type AddApiCollection1 = z.infer<typeof addApiCollection1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const addApiCollection1Response = z
-  .object({
-    data: addApiCollection1DataResponse.optional(),
-    operationType: addApiCollection1OperationType.optional(),
-  })
-  .transform((data) => ({
-    data: data['data'],
-    operationType: data['operationType'],
-  }));
+export const addApiCollection1Response: any = z.lazy(() => {
+  return z
+    .object({
+      data: addApiCollection1DataResponse.optional(),
+      operationType: z.string().optional(),
+    })
+    .transform((data) => ({
+      data: data['data'],
+      operationType: data['operationType'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const addApiCollection1Request = z
-  .object({ data: addApiCollection1DataRequest.nullish(), operationType: addApiCollection1OperationType.nullish() })
-  .transform((data) => ({
-    data: data['data'],
-    operationType: data['operationType'],
-  }));
+export const addApiCollection1Request: any = z.lazy(() => {
+  return z
+    .object({ data: addApiCollection1DataRequest.nullish(), operationType: z.string().nullish() })
+    .transform((data) => ({
+      data: data['data'],
+      operationType: data['operationType'],
+    }));
+});

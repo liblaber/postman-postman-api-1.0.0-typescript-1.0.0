@@ -2,6 +2,9 @@
 
 import { z } from 'zod';
 
-export const getApiInclude = z.enum(['collections', 'versions', 'schemas', 'gitInfo']);
-
-export type GetApiInclude = z.infer<typeof getApiInclude>;
+export enum GetApiInclude {
+  COLLECTIONS = 'collections',
+  VERSIONS = 'versions',
+  SCHEMAS = 'schemas',
+  GITINFO = 'gitInfo',
+}

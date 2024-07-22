@@ -11,9 +11,11 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getMockCallLogs = z.object({
-  callLogs: z.array(callLogs).optional(),
-  meta: getMockCallLogsMeta.optional(),
+export const getMockCallLogs: any = z.lazy(() => {
+  return z.object({
+    callLogs: z.array(callLogs).optional(),
+    meta: getMockCallLogsMeta.optional(),
+  });
 });
 
 /**
@@ -28,23 +30,27 @@ export type GetMockCallLogs = z.infer<typeof getMockCallLogs>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMockCallLogsResponse = z
-  .object({
-    'call-logs': z.array(callLogsResponse).optional(),
-    meta: getMockCallLogsMetaResponse.optional(),
-  })
-  .transform((data) => ({
-    callLogs: data['call-logs'],
-    meta: data['meta'],
-  }));
+export const getMockCallLogsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      'call-logs': z.array(callLogsResponse).optional(),
+      meta: getMockCallLogsMetaResponse.optional(),
+    })
+    .transform((data) => ({
+      callLogs: data['call-logs'],
+      meta: data['meta'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMockCallLogsRequest = z
-  .object({ callLogs: z.array(callLogsRequest).nullish(), meta: getMockCallLogsMetaRequest.nullish() })
-  .transform((data) => ({
-    'call-logs': data['callLogs'],
-    meta: data['meta'],
-  }));
+export const getMockCallLogsRequest: any = z.lazy(() => {
+  return z
+    .object({ callLogs: z.array(callLogsRequest).nullish(), meta: getMockCallLogsMetaRequest.nullish() })
+    .transform((data) => ({
+      'call-logs': data['callLogs'],
+      meta: data['meta'],
+    }));
+});

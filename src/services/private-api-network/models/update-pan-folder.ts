@@ -10,8 +10,10 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updatePanFolder = z.object({
-  folder: updatePanFolderFolder.optional(),
+export const updatePanFolder: any = z.lazy(() => {
+  return z.object({
+    folder: updatePanFolderFolder.optional(),
+  });
 });
 
 /**
@@ -25,20 +27,22 @@ export type UpdatePanFolder = z.infer<typeof updatePanFolder>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanFolderResponse = z
-  .object({
-    folder: updatePanFolderFolderResponse.optional(),
-  })
-  .transform((data) => ({
-    folder: data['folder'],
-  }));
+export const updatePanFolderResponse: any = z.lazy(() => {
+  return z
+    .object({
+      folder: updatePanFolderFolderResponse.optional(),
+    })
+    .transform((data) => ({
+      folder: data['folder'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanFolderRequest = z
-  .object({ folder: updatePanFolderFolderRequest.nullish() })
-  .transform((data) => ({
+export const updatePanFolderRequest: any = z.lazy(() => {
+  return z.object({ folder: updatePanFolderFolderRequest.nullish() }).transform((data) => ({
     folder: data['folder'],
   }));
+});

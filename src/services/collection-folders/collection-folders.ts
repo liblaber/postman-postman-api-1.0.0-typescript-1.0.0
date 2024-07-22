@@ -4,14 +4,10 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
-import {
-  CommentCreateUpdate,
-  CommentCreatedUpdated,
-  CommentResponse,
-  commentCreateUpdateRequest,
-  commentCreatedUpdatedResponse,
-  commentResponseResponse,
-} from '../common';
+import { Request } from '../../http/transport/request';
+import { CommentResponse, commentResponseResponse } from '../common/comment-response';
+import { CommentCreateUpdate, commentCreateUpdateRequest } from '../common/comment-create-update';
+import { CommentCreatedUpdated, commentCreatedUpdatedResponse } from '../common/comment-created-updated';
 
 export class CollectionFoldersService extends BaseService {
   /**
@@ -25,20 +21,19 @@ export class CollectionFoldersService extends BaseService {
     folderId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CommentResponse>> {
-    const path = this.client.buildPath('/collections/{collectionId}/folders/{folderId}/comments', {
-      collectionId: collectionId,
-      folderId: folderId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/collections/{collectionId}/folders/{folderId}/comments',
+      config: this.config,
       responseSchema: commentResponseResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addPathParam('folderId', folderId);
+    return this.client.call<CommentResponse>(request);
   }
 
   /**
@@ -57,23 +52,21 @@ This endpoint accepts a max of 10,000 characters.
     body: CommentCreateUpdate,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CommentCreatedUpdated>> {
-    const path = this.client.buildPath('/collections/{collectionId}/folders/{folderId}/comments', {
-      collectionId: collectionId,
-      folderId: folderId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/collections/{collectionId}/folders/{folderId}/comments',
+      config: this.config,
       responseSchema: commentCreatedUpdatedResponse,
       requestSchema: commentCreateUpdateRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addPathParam('folderId', folderId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CommentCreatedUpdated>(request);
   }
 
   /**
@@ -94,24 +87,22 @@ This endpoint accepts a max of 10,000 characters.
     body: CommentCreateUpdate,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CommentCreatedUpdated>> {
-    const path = this.client.buildPath('/collections/{collectionId}/folders/{folderId}/comments/{commentId}', {
-      collectionId: collectionId,
-      folderId: folderId,
-      commentId: commentId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/collections/{collectionId}/folders/{folderId}/comments/{commentId}',
+      config: this.config,
       responseSchema: commentCreatedUpdatedResponse,
       requestSchema: commentCreateUpdateRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addPathParam('folderId', folderId);
+    request.addPathParam('commentId', commentId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CommentCreatedUpdated>(request);
   }
 
   /**
@@ -131,20 +122,19 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     commentId: number,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<undefined>> {
-    const path = this.client.buildPath('/collections/{collectionId}/folders/{folderId}/comments/{commentId}', {
-      collectionId: collectionId,
-      folderId: folderId,
-      commentId: commentId,
-    });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/collections/{collectionId}/folders/{folderId}/comments/{commentId}',
+      config: this.config,
       responseSchema: z.undefined(),
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('collectionId', collectionId);
+    request.addPathParam('folderId', folderId);
+    request.addPathParam('commentId', commentId);
+    return this.client.call<undefined>(request);
   }
 }

@@ -2,6 +2,9 @@
 
 import { z } from 'zod';
 
-export const dataResolution = z.enum(['FALSE_POSITIVE', 'ACCEPTED_RISK', 'REVOKED', 'ACTIVE']);
-
-export type DataResolution = z.infer<typeof dataResolution>;
+export enum DataResolution {
+  FALSEPOSITIVE = 'FALSE_POSITIVE',
+  ACCEPTEDRISK = 'ACCEPTED_RISK',
+  REVOKED = 'REVOKED',
+  ACTIVE = 'ACTIVE',
+}

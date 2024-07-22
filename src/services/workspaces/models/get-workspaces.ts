@@ -6,8 +6,10 @@ import { workspaces, workspacesRequest, workspacesResponse } from './workspaces'
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getWorkspaces = z.object({
-  workspaces: z.array(workspaces).optional(),
+export const getWorkspaces: any = z.lazy(() => {
+  return z.object({
+    workspaces: z.array(workspaces).optional(),
+  });
 });
 
 /**
@@ -21,20 +23,22 @@ export type GetWorkspaces = z.infer<typeof getWorkspaces>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspacesResponse = z
-  .object({
-    workspaces: z.array(workspacesResponse).optional(),
-  })
-  .transform((data) => ({
-    workspaces: data['workspaces'],
-  }));
+export const getWorkspacesResponse: any = z.lazy(() => {
+  return z
+    .object({
+      workspaces: z.array(workspacesResponse).optional(),
+    })
+    .transform((data) => ({
+      workspaces: data['workspaces'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspacesRequest = z
-  .object({ workspaces: z.array(workspacesRequest).nullish() })
-  .transform((data) => ({
+export const getWorkspacesRequest: any = z.lazy(() => {
+  return z.object({ workspaces: z.array(workspacesRequest).nullish() }).transform((data) => ({
     workspaces: data['workspaces'],
   }));
+});

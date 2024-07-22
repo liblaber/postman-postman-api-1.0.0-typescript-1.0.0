@@ -5,12 +5,14 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const tagUpdateTagsTags = z.object({
-  slug: z
-    .string()
-    .min(2)
-    .max(64)
-    .regex(/^[a-z][a-z0-9-]*[a-z0-9]+$/),
+export const tagUpdateTagsTags: any = z.lazy(() => {
+  return z.object({
+    slug: z
+      .string()
+      .min(2)
+      .max(64)
+      .regex(/^[a-z][a-z0-9-]*[a-z0-9]+$/),
+  });
 });
 
 /**
@@ -24,22 +26,26 @@ export type TagUpdateTagsTags = z.infer<typeof tagUpdateTagsTags>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const tagUpdateTagsTagsResponse = z
-  .object({
-    slug: z
-      .string()
-      .min(2)
-      .max(64)
-      .regex(/^[a-z][a-z0-9-]*[a-z0-9]+$/),
-  })
-  .transform((data) => ({
-    slug: data['slug'],
-  }));
+export const tagUpdateTagsTagsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      slug: z
+        .string()
+        .min(2)
+        .max(64)
+        .regex(/^[a-z][a-z0-9-]*[a-z0-9]+$/),
+    })
+    .transform((data) => ({
+      slug: data['slug'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const tagUpdateTagsTagsRequest = z.object({ slug: z.string().nullish() }).transform((data) => ({
-  slug: data['slug'],
-}));
+export const tagUpdateTagsTagsRequest: any = z.lazy(() => {
+  return z.object({ slug: z.string().nullish() }).transform((data) => ({
+    slug: data['slug'],
+  }));
+});

@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const infoSchema = z.enum(['https://schema.getpostman.com/json/collection/v2.1.0/collection.json']);
-
-export type InfoSchema = z.infer<typeof infoSchema>;
+export enum InfoSchema {
+  HTTPSSCHEMAGETPOSTMANCOMJSONCOLLECTIONV2_1_0COLLECTIONJSON = 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json',
+}

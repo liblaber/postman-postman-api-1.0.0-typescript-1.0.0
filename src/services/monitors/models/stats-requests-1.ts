@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const statsRequests1 = z.object({
-  total: z.number().optional(),
+export const statsRequests1: any = z.lazy(() => {
+  return z.object({
+    total: z.number().optional(),
+  });
 });
 
 /**
@@ -20,18 +22,22 @@ export type StatsRequests1 = z.infer<typeof statsRequests1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const statsRequests1Response = z
-  .object({
-    total: z.number().optional(),
-  })
-  .transform((data) => ({
-    total: data['total'],
-  }));
+export const statsRequests1Response: any = z.lazy(() => {
+  return z
+    .object({
+      total: z.number().optional(),
+    })
+    .transform((data) => ({
+      total: data['total'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const statsRequests1Request = z.object({ total: z.number().nullish() }).transform((data) => ({
-  total: data['total'],
-}));
+export const statsRequests1Request: any = z.lazy(() => {
+  return z.object({ total: z.number().nullish() }).transform((data) => ({
+    total: data['total'],
+  }));
+});

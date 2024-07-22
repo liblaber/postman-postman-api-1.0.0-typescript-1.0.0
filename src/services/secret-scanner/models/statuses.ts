@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
-export const statuses = z.enum(['FALSE_POSITIVE', 'ACCEPTED_RISK', 'REVOKED']);
-
-export type Statuses = z.infer<typeof statuses>;
+export enum Statuses {
+  FALSEPOSITIVE = 'FALSE_POSITIVE',
+  ACCEPTEDRISK = 'ACCEPTED_RISK',
+  REVOKED = 'REVOKED',
+}

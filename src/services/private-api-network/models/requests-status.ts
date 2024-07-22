@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const requestsStatus = z.enum(['pending', 'denied']);
-
-export type RequestsStatus = z.infer<typeof requestsStatus>;
+export enum RequestsStatus {
+  PENDING = 'pending',
+  DENIED = 'denied',
+}

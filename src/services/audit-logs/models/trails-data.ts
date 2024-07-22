@@ -8,11 +8,13 @@ import { dataTeam, dataTeamRequest, dataTeamResponse } from './data-team';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const trailsData = z.object({
-  actor: actor.optional(),
-  user: dataUser.optional(),
-  team: dataTeam.optional(),
-  variables: z.any().optional(),
+export const trailsData: any = z.lazy(() => {
+  return z.object({
+    actor: actor.optional(),
+    user: dataUser.optional(),
+    team: dataTeam.optional(),
+    variables: z.any().optional(),
+  });
 });
 
 /**
@@ -29,34 +31,38 @@ export type TrailsData = z.infer<typeof trailsData>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const trailsDataResponse = z
-  .object({
-    actor: actorResponse.optional(),
-    user: dataUserResponse.optional(),
-    team: dataTeamResponse.optional(),
-    variables: z.any().optional(),
-  })
-  .transform((data) => ({
-    actor: data['actor'],
-    user: data['user'],
-    team: data['team'],
-    variables: data['variables'],
-  }));
+export const trailsDataResponse: any = z.lazy(() => {
+  return z
+    .object({
+      actor: actorResponse.optional(),
+      user: dataUserResponse.optional(),
+      team: dataTeamResponse.optional(),
+      variables: z.any().optional(),
+    })
+    .transform((data) => ({
+      actor: data['actor'],
+      user: data['user'],
+      team: data['team'],
+      variables: data['variables'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const trailsDataRequest = z
-  .object({
-    actor: actorRequest.nullish(),
-    user: dataUserRequest.nullish(),
-    team: dataTeamRequest.nullish(),
-    variables: z.any().nullish(),
-  })
-  .transform((data) => ({
-    actor: data['actor'],
-    user: data['user'],
-    team: data['team'],
-    variables: data['variables'],
-  }));
+export const trailsDataRequest: any = z.lazy(() => {
+  return z
+    .object({
+      actor: actorRequest.nullish(),
+      user: dataUserRequest.nullish(),
+      team: dataTeamRequest.nullish(),
+      variables: z.any().nullish(),
+    })
+    .transform((data) => ({
+      actor: data['actor'],
+      user: data['user'],
+      team: data['team'],
+      variables: data['variables'],
+    }));
+});

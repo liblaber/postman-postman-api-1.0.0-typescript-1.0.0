@@ -7,9 +7,11 @@ import { collectionItem, collectionItemRequest, collectionItemResponse } from '.
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createCollectionCollection1 = z.object({
-  info: collectionInfo1,
-  item: z.array(collectionItem).optional(),
+export const createCollectionCollection1: any = z.lazy(() => {
+  return z.object({
+    info: collectionInfo1,
+    item: z.array(collectionItem).optional(),
+  });
 });
 
 /**
@@ -24,23 +26,27 @@ export type CreateCollectionCollection1 = z.infer<typeof createCollectionCollect
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createCollectionCollection1Response = z
-  .object({
-    info: collectionInfo1Response,
-    item: z.array(collectionItemResponse).optional(),
-  })
-  .transform((data) => ({
-    info: data['info'],
-    item: data['item'],
-  }));
+export const createCollectionCollection1Response: any = z.lazy(() => {
+  return z
+    .object({
+      info: collectionInfo1Response,
+      item: z.array(collectionItemResponse).optional(),
+    })
+    .transform((data) => ({
+      info: data['info'],
+      item: data['item'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createCollectionCollection1Request = z
-  .object({ info: collectionInfo1Request.nullish(), item: z.array(collectionItemRequest).nullish() })
-  .transform((data) => ({
-    info: data['info'],
-    item: data['item'],
-  }));
+export const createCollectionCollection1Request: any = z.lazy(() => {
+  return z
+    .object({ info: collectionInfo1Request.nullish(), item: z.array(collectionItemRequest).nullish() })
+    .transform((data) => ({
+      info: data['info'],
+      item: data['item'],
+    }));
+});

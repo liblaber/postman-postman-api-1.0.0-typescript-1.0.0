@@ -2,6 +2,6 @@
 
 import { z } from 'zod';
 
-export const getCollectionModel = z.enum(['minimal']);
-
-export type GetCollectionModel = z.infer<typeof getCollectionModel>;
+export enum GetCollectionModel {
+  MINIMAL = 'minimal',
+}

@@ -7,12 +7,14 @@ import { callLogsResponse1, callLogsResponse1Request, callLogsResponse1Response 
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const callLogs = z.object({
-  id: z.string().optional(),
-  responseName: z.string().optional(),
-  servedAt: z.string().optional(),
-  request: callLogsRequest1.optional(),
-  response: callLogsResponse1.optional(),
+export const callLogs: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    responseName: z.string().optional(),
+    servedAt: z.string().optional(),
+    request: callLogsRequest1.optional(),
+    response: callLogsResponse1.optional(),
+  });
 });
 
 /**
@@ -30,38 +32,42 @@ export type CallLogs = z.infer<typeof callLogs>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const callLogsResponse = z
-  .object({
-    id: z.string().optional(),
-    responseName: z.string().optional(),
-    servedAt: z.string().optional(),
-    request: callLogsRequest1Response.optional(),
-    response: callLogsResponse1Response.optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    responseName: data['responseName'],
-    servedAt: data['servedAt'],
-    request: data['request'],
-    response: data['response'],
-  }));
+export const callLogsResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      responseName: z.string().optional(),
+      servedAt: z.string().optional(),
+      request: callLogsRequest1Response.optional(),
+      response: callLogsResponse1Response.optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      responseName: data['responseName'],
+      servedAt: data['servedAt'],
+      request: data['request'],
+      response: data['response'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const callLogsRequest = z
-  .object({
-    id: z.string().nullish(),
-    responseName: z.string().nullish(),
-    servedAt: z.string().nullish(),
-    request: callLogsRequest1Request.nullish(),
-    response: callLogsResponse1Request.nullish(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    responseName: data['responseName'],
-    servedAt: data['servedAt'],
-    request: data['request'],
-    response: data['response'],
-  }));
+export const callLogsRequest: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().nullish(),
+      responseName: z.string().nullish(),
+      servedAt: z.string().nullish(),
+      request: callLogsRequest1Request.nullish(),
+      response: callLogsResponse1Request.nullish(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      responseName: data['responseName'],
+      servedAt: data['servedAt'],
+      request: data['request'],
+      response: data['response'],
+    }));
+});

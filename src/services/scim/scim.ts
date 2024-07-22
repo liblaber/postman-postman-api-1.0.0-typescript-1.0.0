@@ -4,36 +4,34 @@ import { z } from 'zod';
 import { BaseService } from '../base-service';
 import { ContentType, HttpResponse } from '../../http';
 import { RequestConfig } from '../../http/types';
+import { Request } from '../../http/transport/request';
+import { GetScimGroupResources, getScimGroupResourcesResponse } from './models/get-scim-group-resources';
+import { GetScimGroupResourcesParams, GetScimUserResourcesParams } from './request-params';
+import { CreateScimGroupRequest, createScimGroupRequestRequest } from './models/create-scim-group-request';
 import {
   CreateScimGroupCreatedResponse,
-  CreateScimGroupRequest,
-  CreateScimUserCreatedResponse,
-  CreateScimUserRequest,
-  GetScimGroupResource,
-  GetScimGroupResources,
-  GetScimResourceTypes,
-  GetScimServiceProviderConfig,
-  GetScimUserResources,
-  ScimUpdateGroupOkResponse,
-  ScimUpdateGroupRequest,
-  UpdateScimUser,
-  UpdateScimUserState,
   createScimGroupCreatedResponseResponse,
-  createScimGroupRequestRequest,
-  createScimUserCreatedResponseResponse,
-  createScimUserRequestRequest,
-  getScimGroupResourceResponse,
-  getScimGroupResourcesResponse,
-  getScimResourceTypesResponse,
+} from './models/create-scim-group-created-response';
+import { GetScimGroupResource, getScimGroupResourceResponse } from './models/get-scim-group-resource';
+import { ScimUpdateGroupRequest, scimUpdateGroupRequestRequest } from './models/scim-update-group-request';
+import { ScimUpdateGroupOkResponse, scimUpdateGroupOkResponseResponse } from './models/scim-update-group-ok-response';
+import { GetScimResourceTypes, getScimResourceTypesResponse } from './models/get-scim-resource-types';
+import {
+  GetScimServiceProviderConfig,
   getScimServiceProviderConfigResponse,
-  getScimUserResourcesResponse,
-  scimUpdateGroupOkResponseResponse,
-  scimUpdateGroupRequestRequest,
-  updateScimUserRequest,
-  updateScimUserStateRequest,
-} from './models';
-import { GetScimGroupResourcesParams, GetScimUserResourcesParams } from './request-params';
-import { GetScimUserResourceOkResponse, getScimUserResourceOkResponseResponse } from '../common';
+} from './models/get-scim-service-provider-config';
+import { GetScimUserResources, getScimUserResourcesResponse } from './models/get-scim-user-resources';
+import { CreateScimUserRequest, createScimUserRequestRequest } from './models/create-scim-user-request';
+import {
+  CreateScimUserCreatedResponse,
+  createScimUserCreatedResponseResponse,
+} from './models/create-scim-user-created-response';
+import {
+  GetScimUserResourceOkResponse,
+  getScimUserResourceOkResponseResponse,
+} from './models/get-scim-user-resource-ok-response';
+import { UpdateScimUser, updateScimUserRequest } from './models/update-scim-user';
+import { UpdateScimUserState, updateScimUserStateRequest } from './models/update-scim-user-state';
 
 export class ScimService extends BaseService {
   /**
@@ -50,27 +48,20 @@ export class ScimService extends BaseService {
     params?: GetScimGroupResourcesParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetScimGroupResources>> {
-    const path = '/scim/v2/Groups';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/scim/v2/Groups',
+      config: this.config,
       responseSchema: getScimGroupResourcesResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.startIndex) {
-      options.queryParams['startIndex'] = params?.startIndex;
-    }
-    if (params?.count) {
-      options.queryParams['count'] = params?.count;
-    }
-    if (params?.filter) {
-      options.queryParams['filter'] = params?.filter;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('startIndex', params?.startIndex);
+    request.addQueryParam('count', params?.count);
+    request.addQueryParam('filter', params?.filter);
+    return this.client.call<GetScimGroupResources>(request);
   }
 
   /**
@@ -85,20 +76,19 @@ By default, the system assigns new users the developer role. You can [update use
     body: CreateScimGroupRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateScimGroupCreatedResponse>> {
-    const path = '/scim/v2/Groups';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/scim/v2/Groups',
+      config: this.config,
       responseSchema: createScimGroupCreatedResponseResponse,
       requestSchema: createScimGroupRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateScimGroupCreatedResponse>(request);
   }
 
   /**
@@ -110,17 +100,18 @@ By default, the system assigns new users the developer role. You can [update use
     groupId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetScimGroupResource>> {
-    const path = this.client.buildPath('/scim/v2/Groups/{groupId}', { groupId: groupId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/scim/v2/Groups/{groupId}',
+      config: this.config,
       responseSchema: getScimGroupResourceResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('groupId', groupId);
+    return this.client.call<GetScimGroupResource>(request);
   }
 
   /**
@@ -136,20 +127,20 @@ By default, the system assigns new users the developer role. You can [update use
     body: ScimUpdateGroupRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<ScimUpdateGroupOkResponse>> {
-    const path = this.client.buildPath('/scim/v2/Groups/{groupId}', { groupId: groupId });
-    const options: any = {
+    const request = new Request({
+      method: 'PATCH',
+      body,
+      path: '/scim/v2/Groups/{groupId}',
+      config: this.config,
       responseSchema: scimUpdateGroupOkResponseResponse,
       requestSchema: scimUpdateGroupRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.patch(path, options);
+      requestConfig,
+    });
+    request.addPathParam('groupId', groupId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<ScimUpdateGroupOkResponse>(request);
   }
 
   /**
@@ -162,17 +153,18 @@ User accounts and the data corresponding to them are not deleted. To permanently
  * @returns {Promise<HttpResponse<any>>} Group Deleted
  */
   async deleteScimGroup(groupId: string, requestConfig?: RequestConfig): Promise<HttpResponse<undefined>> {
-    const path = this.client.buildPath('/scim/v2/Groups/{groupId}', { groupId: groupId });
-    const options: any = {
+    const request = new Request({
+      method: 'DELETE',
+      path: '/scim/v2/Groups/{groupId}',
+      config: this.config,
       responseSchema: z.undefined(),
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.delete(path, options);
+      requestConfig,
+    });
+    request.addPathParam('groupId', groupId);
+    return this.client.call<undefined>(request);
   }
 
   /**
@@ -180,17 +172,17 @@ User accounts and the data corresponding to them are not deleted. To permanently
    * @returns {Promise<HttpResponse<GetScimResourceTypes[]>>} Successful Response
    */
   async getScimResourceTypes(requestConfig?: RequestConfig): Promise<HttpResponse<GetScimResourceTypes[]>> {
-    const path = '/scim/v2/ResourceTypes';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/scim/v2/ResourceTypes',
+      config: this.config,
       responseSchema: z.array(getScimResourceTypesResponse),
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    return this.client.call<GetScimResourceTypes[]>(request);
   }
 
   /**
@@ -200,17 +192,17 @@ User accounts and the data corresponding to them are not deleted. To permanently
   async getScimServiceProviderConfig(
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetScimServiceProviderConfig>> {
-    const path = '/scim/v2/ServiceProviderConfig';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/scim/v2/ServiceProviderConfig',
+      config: this.config,
       responseSchema: getScimServiceProviderConfigResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    return this.client.call<GetScimServiceProviderConfig>(request);
   }
 
   /**
@@ -227,27 +219,20 @@ User accounts and the data corresponding to them are not deleted. To permanently
     params?: GetScimUserResourcesParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetScimUserResources>> {
-    const path = '/scim/v2/Users';
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/scim/v2/Users',
+      config: this.config,
       responseSchema: getScimUserResourcesResponse,
       requestSchema: z.any(),
-      queryParams: {},
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    if (params?.startIndex) {
-      options.queryParams['startIndex'] = params?.startIndex;
-    }
-    if (params?.count) {
-      options.queryParams['count'] = params?.count;
-    }
-    if (params?.filter) {
-      options.queryParams['filter'] = params?.filter;
-    }
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addQueryParam('startIndex', params?.startIndex);
+    request.addQueryParam('count', params?.count);
+    request.addQueryParam('filter', params?.filter);
+    return this.client.call<GetScimUserResources>(request);
   }
 
   /**
@@ -262,20 +247,19 @@ By default, the system assigns new users the developer role. You can [update use
     body: CreateScimUserRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateScimUserCreatedResponse>> {
-    const path = '/scim/v2/Users';
-    const options: any = {
+    const request = new Request({
+      method: 'POST',
+      body,
+      path: '/scim/v2/Users',
+      config: this.config,
       responseSchema: createScimUserCreatedResponseResponse,
       requestSchema: createScimUserRequestRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.post(path, options);
+      requestConfig,
+    });
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<CreateScimUserCreatedResponse>(request);
   }
 
   /**
@@ -287,17 +271,18 @@ By default, the system assigns new users the developer role. You can [update use
     userId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetScimUserResourceOkResponse>> {
-    const path = this.client.buildPath('/scim/v2/Users/{userId}', { userId: userId });
-    const options: any = {
+    const request = new Request({
+      method: 'GET',
+      path: '/scim/v2/Users/{userId}',
+      config: this.config,
       responseSchema: getScimUserResourceOkResponseResponse,
       requestSchema: z.any(),
-      headers: {},
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.get(path, options);
+      requestConfig,
+    });
+    request.addPathParam('userId', userId);
+    return this.client.call<GetScimUserResourceOkResponse>(request);
   }
 
   /**
@@ -314,20 +299,20 @@ You can only use the SCIM API to update a user's first and last name. You cannot
     body: UpdateScimUser,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetScimUserResourceOkResponse>> {
-    const path = this.client.buildPath('/scim/v2/Users/{userId}', { userId: userId });
-    const options: any = {
+    const request = new Request({
+      method: 'PUT',
+      body,
+      path: '/scim/v2/Users/{userId}',
+      config: this.config,
       responseSchema: getScimUserResourceOkResponseResponse,
       requestSchema: updateScimUserRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.put(path, options);
+      requestConfig,
+    });
+    request.addPathParam('userId', userId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<GetScimUserResourceOkResponse>(request);
   }
 
   /**
@@ -344,19 +329,19 @@ By setting the `active` property from `false` to `true`, this reactivates an acc
     body: UpdateScimUserState,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetScimUserResourceOkResponse>> {
-    const path = this.client.buildPath('/scim/v2/Users/{userId}', { userId: userId });
-    const options: any = {
+    const request = new Request({
+      method: 'PATCH',
+      body,
+      path: '/scim/v2/Users/{userId}',
+      config: this.config,
       responseSchema: getScimUserResourceOkResponseResponse,
       requestSchema: updateScimUserStateRequest,
-      body: body as any,
-      headers: {
-        'Content-Type': 'application/json',
-      },
       requestContentType: ContentType.Json,
       responseContentType: ContentType.Json,
-      retry: requestConfig?.retry,
-      config: this.config,
-    };
-    return this.client.patch(path, options);
+      requestConfig,
+    });
+    request.addPathParam('userId', userId);
+    request.addHeaderParam('Content-Type', 'application/json');
+    return this.client.call<GetScimUserResourceOkResponse>(request);
   }
 }

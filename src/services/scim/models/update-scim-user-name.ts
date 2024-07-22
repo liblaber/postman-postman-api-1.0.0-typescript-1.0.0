@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateScimUserName = z.object({
-  givenName: z.string().optional(),
-  familyName: z.string().optional(),
+export const updateScimUserName: any = z.lazy(() => {
+  return z.object({
+    givenName: z.string().optional(),
+    familyName: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type UpdateScimUserName = z.infer<typeof updateScimUserName>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateScimUserNameResponse = z
-  .object({
-    givenName: z.string().optional(),
-    familyName: z.string().optional(),
-  })
-  .transform((data) => ({
-    givenName: data['givenName'],
-    familyName: data['familyName'],
-  }));
+export const updateScimUserNameResponse: any = z.lazy(() => {
+  return z
+    .object({
+      givenName: z.string().optional(),
+      familyName: z.string().optional(),
+    })
+    .transform((data) => ({
+      givenName: data['givenName'],
+      familyName: data['familyName'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateScimUserNameRequest = z
-  .object({ givenName: z.string().nullish(), familyName: z.string().nullish() })
-  .transform((data) => ({
+export const updateScimUserNameRequest: any = z.lazy(() => {
+  return z.object({ givenName: z.string().nullish(), familyName: z.string().nullish() }).transform((data) => ({
     givenName: data['givenName'],
     familyName: data['familyName'],
   }));
+});

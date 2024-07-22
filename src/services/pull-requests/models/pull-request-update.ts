@@ -5,10 +5,12 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const pullRequestUpdate = z.object({
-  title: z.string(),
-  description: z.string().optional(),
-  reviewers: z.array(z.string()),
+export const pullRequestUpdate: any = z.lazy(() => {
+  return z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    reviewers: z.array(z.string()),
+  });
 });
 
 /**
@@ -24,26 +26,34 @@ export type PullRequestUpdate = z.infer<typeof pullRequestUpdate>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullRequestUpdateResponse = z
-  .object({
-    title: z.string(),
-    description: z.string().optional(),
-    reviewers: z.array(z.string()),
-  })
-  .transform((data) => ({
-    title: data['title'],
-    description: data['description'],
-    reviewers: data['reviewers'],
-  }));
+export const pullRequestUpdateResponse: any = z.lazy(() => {
+  return z
+    .object({
+      title: z.string(),
+      description: z.string().optional(),
+      reviewers: z.array(z.string()),
+    })
+    .transform((data) => ({
+      title: data['title'],
+      description: data['description'],
+      reviewers: data['reviewers'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullRequestUpdateRequest = z
-  .object({ title: z.string().nullish(), description: z.string().nullish(), reviewers: z.array(z.string()).nullish() })
-  .transform((data) => ({
-    title: data['title'],
-    description: data['description'],
-    reviewers: data['reviewers'],
-  }));
+export const pullRequestUpdateRequest: any = z.lazy(() => {
+  return z
+    .object({
+      title: z.string().nullish(),
+      description: z.string().nullish(),
+      reviewers: z.array(z.string()).nullish(),
+    })
+    .transform((data) => ({
+      title: data['title'],
+      description: data['description'],
+      reviewers: data['reviewers'],
+    }));
+});

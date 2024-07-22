@@ -10,8 +10,10 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const deleteEnvironment = z.object({
-  environment: deleteEnvironmentEnvironment.optional(),
+export const deleteEnvironment: any = z.lazy(() => {
+  return z.object({
+    environment: deleteEnvironmentEnvironment.optional(),
+  });
 });
 
 /**
@@ -25,20 +27,22 @@ export type DeleteEnvironment = z.infer<typeof deleteEnvironment>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteEnvironmentResponse = z
-  .object({
-    environment: deleteEnvironmentEnvironmentResponse.optional(),
-  })
-  .transform((data) => ({
-    environment: data['environment'],
-  }));
+export const deleteEnvironmentResponse: any = z.lazy(() => {
+  return z
+    .object({
+      environment: deleteEnvironmentEnvironmentResponse.optional(),
+    })
+    .transform((data) => ({
+      environment: data['environment'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteEnvironmentRequest = z
-  .object({ environment: deleteEnvironmentEnvironmentRequest.nullish() })
-  .transform((data) => ({
+export const deleteEnvironmentRequest: any = z.lazy(() => {
+  return z.object({ environment: deleteEnvironmentEnvironmentRequest.nullish() }).transform((data) => ({
     environment: data['environment'],
   }));
+});

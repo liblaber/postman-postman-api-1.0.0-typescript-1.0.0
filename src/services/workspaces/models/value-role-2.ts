@@ -2,6 +2,8 @@
 
 import { z } from 'zod';
 
-export const valueRole2 = z.enum(['1', '2', '3']);
-
-export type ValueRole2 = z.infer<typeof valueRole2>;
+export enum ValueRole2 {
+  _1 = '1',
+  _2 = '2',
+  _3 = '3',
+}

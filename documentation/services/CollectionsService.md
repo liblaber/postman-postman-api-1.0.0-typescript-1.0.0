@@ -188,7 +188,7 @@ import { MergeCollectionForkRequest, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const strategy = Strategy.deleteSource;
+  const strategy = Strategy.DELETESOURCE;
 
   const input: MergeCollectionForkRequest = {
     destination: '12345678-12ece9e1-2abf-4edc-8e34-de66e74114d2',
@@ -231,7 +231,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const model = GetCollectionModel.minimal;
+  const model = GetCollectionModel.MINIMAL;
 
   const { data } = await postmanClient.collections.getCollection('12ece9e1-2abf-4edc-8e34-de66e74114d2', {
     accessKey: 'PMAT-XXXXXXXXXXXXXXXXXXXXXXXXXX',
@@ -399,7 +399,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const direction = AscDesc.asc;
+  const direction = AscDesc.ASC;
 
   const { data } = await postmanClient.collections.getCollectionsForkedByUser('12ece9e1-2abf-4edc-8e34-de66e74114d2', {
     cursor: 'RnJpIEZlYiAyNCAyMDIzIDEzOjI0OjA5IEdNVCswMDAwIChDb29yZGluYXRlZCBVbml2ZXJzYWwgVGltZSk=',
@@ -474,10 +474,10 @@ import { CommentCreateUpdate, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const userNameType = UserNameType.user;
+  const userNameType = UserNameType.USER;
 
   const userName: UserName = {
-    type_: userNameType,
+    type: userNameType,
     id: 87654321,
   };
 
@@ -528,10 +528,10 @@ import { CommentCreateUpdate, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const userNameType = UserNameType.user;
+  const userNameType = UserNameType.USER;
 
   const userName: UserName = {
-    type_: userNameType,
+    type: userNameType,
     id: 87654321,
   };
 
@@ -617,7 +617,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const direction = AscDesc.asc;
+  const direction = AscDesc.ASC;
 
   const { data } = await postmanClient.collections.getCollectionForks('12ece9e1-2abf-4edc-8e34-de66e74114d2', {
     cursor: 'RnJpIEZlYiAyNCAyMDIzIDEzOjI0OjA5IEdNVCswMDAwIChDb29yZGluYXRlZCBVbml2ZXJzYWwgVGltZSk=',
@@ -795,33 +795,31 @@ import { PostmanClient, UpdateCollectionRoles } from 'postman_client';
 
 (async () => {
   const postmanClient = new PostmanClient({
-	apiKey: 'YOUR_API_KEY'});
+    apiKey: 'YOUR_API_KEY',
+  });
 
-  const rolesOp = RolesOp.update;
+  const rolesOp = RolesOp.UPDATE;
 
-const rolesPath1 = RolesPath1./user;
+  const rolesPath1 = RolesPath1._USER;
 
-const valueRole1 = ValueRole1.VIEWER;
+  const valueRole1 = ValueRole1.VIEWER;
 
-const rolesValue1: RolesValue1 = {
-  id: 12345678,
-  role: valueRole1
-};
+  const rolesValue1: RolesValue1 = {
+    id: 12345678,
+    role: valueRole1,
+  };
 
-const updateCollectionRolesRoles: UpdateCollectionRolesRoles = {
-  op: rolesOp,
-  path: rolesPath1,
-  value: [rolesValue1]
-};
+  const updateCollectionRolesRoles: UpdateCollectionRolesRoles = {
+    op: rolesOp,
+    path: rolesPath1,
+    value: [rolesValue1],
+  };
 
-const input: UpdateCollectionRoles = {
-  roles: [updateCollectionRolesRoles]
-};
+  const input: UpdateCollectionRoles = {
+    roles: [updateCollectionRolesRoles],
+  };
 
-  const { data } = await postmanClient.collections.updateCollectionRoles(
-  "12ece9e1-2abf-4edc-8e34-de66e74114d2",
-  input
-);
+  const { data } = await postmanClient.collections.updateCollectionRoles('12ece9e1-2abf-4edc-8e34-de66e74114d2', input);
 
   console.log(data);
 })();
@@ -888,7 +886,7 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const format = Format.json;
+  const format = Format.JSON;
 
   const { data } = await postmanClient.collections.transformCollectionToOpenApi(
     '12ece9e1-2abf-4edc-8e34-de66e74114d2',
@@ -928,16 +926,16 @@ import { PostmanClient, TransferCollectionItems } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const mode = Mode.copy;
+  const mode = Mode.COPY;
 
-  const targetModel = TargetModel.collection;
+  const targetModel = TargetModel.COLLECTION;
 
   const target: Target = {
     id: '12345678-b91270fa-048d-4f5f-a033-8b5523bf053f',
     model: targetModel,
   };
 
-  const position = Position.start;
+  const position = Position.START;
 
   const location: Location = {
     id: '12345678-80812b16-ac27-45b3-b3eb-793f78530d32',
@@ -985,16 +983,16 @@ import { PostmanClient, TransferCollectionItems } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const mode = Mode.copy;
+  const mode = Mode.COPY;
 
-  const targetModel = TargetModel.collection;
+  const targetModel = TargetModel.COLLECTION;
 
   const target: Target = {
     id: '12345678-b91270fa-048d-4f5f-a033-8b5523bf053f',
     model: targetModel,
   };
 
-  const position = Position.start;
+  const position = Position.START;
 
   const location: Location = {
     id: '12345678-80812b16-ac27-45b3-b3eb-793f78530d32',
@@ -1042,16 +1040,16 @@ import { PostmanClient, TransferCollectionItems } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const mode = Mode.copy;
+  const mode = Mode.COPY;
 
-  const targetModel = TargetModel.collection;
+  const targetModel = TargetModel.COLLECTION;
 
   const target: Target = {
     id: '12345678-b91270fa-048d-4f5f-a033-8b5523bf053f',
     model: targetModel,
   };
 
-  const position = Position.start;
+  const position = Position.START;
 
   const location: Location = {
     id: '12345678-80812b16-ac27-45b3-b3eb-793f78530d32',

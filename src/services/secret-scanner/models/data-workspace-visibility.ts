@@ -2,6 +2,9 @@
 
 import { z } from 'zod';
 
-export const dataWorkspaceVisibility = z.enum(['personal', 'private', 'team', 'public']);
-
-export type DataWorkspaceVisibility = z.infer<typeof dataWorkspaceVisibility>;
+export enum DataWorkspaceVisibility {
+  PERSONAL = 'personal',
+  PRIVATE_ = 'private',
+  TEAM = 'team',
+  PUBLIC_ = 'public',
+}

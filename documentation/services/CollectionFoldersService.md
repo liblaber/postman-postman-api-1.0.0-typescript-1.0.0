@@ -75,10 +75,10 @@ import { CommentCreateUpdate, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const userNameType = UserNameType.user;
+  const userNameType = UserNameType.USER;
 
   const userName: UserName = {
-    type_: userNameType,
+    type: userNameType,
     id: 87654321,
   };
 
@@ -131,10 +131,10 @@ import { CommentCreateUpdate, PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const userNameType = UserNameType.user;
+  const userNameType = UserNameType.USER;
 
   const userName: UserName = {
-    type_: userNameType,
+    type: userNameType,
     id: 87654321,
   };
 

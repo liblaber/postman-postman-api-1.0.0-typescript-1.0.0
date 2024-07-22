@@ -9,12 +9,9 @@ import { updatePanFolder, updatePanFolderRequest, updatePanFolderResponse } from
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updatePanElementOrFolderRequest = z.union([
-  updatePanApi,
-  updatePanCollection,
-  updatePanWorkspace,
-  updatePanFolder,
-]);
+export const updatePanElementOrFolderRequest: any = z.lazy(() => {
+  return z.union([updatePanApi, updatePanCollection, updatePanWorkspace, updatePanFolder]);
+});
 
 /**
  *
@@ -30,20 +27,19 @@ export type UpdatePanElementOrFolderRequest = z.infer<typeof updatePanElementOrF
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanElementOrFolderRequestResponse = z.union([
-  updatePanApiResponse,
-  updatePanCollectionResponse,
-  updatePanWorkspaceResponse,
-  updatePanFolderResponse,
-]);
+export const updatePanElementOrFolderRequestResponse: any = z.lazy(() => {
+  return z.union([
+    updatePanApiResponse,
+    updatePanCollectionResponse,
+    updatePanWorkspaceResponse,
+    updatePanFolderResponse,
+  ]);
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanElementOrFolderRequestRequest = z.union([
-  updatePanApiRequest,
-  updatePanCollectionRequest,
-  updatePanWorkspaceRequest,
-  updatePanFolderRequest,
-]);
+export const updatePanElementOrFolderRequestRequest: any = z.lazy(() => {
+  return z.union([updatePanApiRequest, updatePanCollectionRequest, updatePanWorkspaceRequest, updatePanFolderRequest]);
+});

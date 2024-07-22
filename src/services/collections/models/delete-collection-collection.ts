@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const deleteCollectionCollection = z.object({
-  id: z.string().optional(),
-  uid: z.string().optional(),
+export const deleteCollectionCollection: any = z.lazy(() => {
+  return z.object({
+    id: z.string().optional(),
+    uid: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type DeleteCollectionCollection = z.infer<typeof deleteCollectionCollecti
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteCollectionCollectionResponse = z
-  .object({
-    id: z.string().optional(),
-    uid: z.string().optional(),
-  })
-  .transform((data) => ({
-    id: data['id'],
-    uid: data['uid'],
-  }));
+export const deleteCollectionCollectionResponse: any = z.lazy(() => {
+  return z
+    .object({
+      id: z.string().optional(),
+      uid: z.string().optional(),
+    })
+    .transform((data) => ({
+      id: data['id'],
+      uid: data['uid'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteCollectionCollectionRequest = z
-  .object({ id: z.string().nullish(), uid: z.string().nullish() })
-  .transform((data) => ({
+export const deleteCollectionCollectionRequest: any = z.lazy(() => {
+  return z.object({ id: z.string().nullish(), uid: z.string().nullish() }).transform((data) => ({
     id: data['id'],
     uid: data['uid'],
   }));
+});

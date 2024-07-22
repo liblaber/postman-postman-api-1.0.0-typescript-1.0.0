@@ -9,12 +9,9 @@ import { panCreateFolder, panCreateFolderRequest, panCreateFolderResponse } from
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const postPanElementOrFolderRequest = z.union([
-  panCreateApi,
-  panCreateCollection,
-  panCreateWorkspace,
-  panCreateFolder,
-]);
+export const postPanElementOrFolderRequest: any = z.lazy(() => {
+  return z.union([panCreateApi, panCreateCollection, panCreateWorkspace, panCreateFolder]);
+});
 
 /**
  *
@@ -30,20 +27,19 @@ export type PostPanElementOrFolderRequest = z.infer<typeof postPanElementOrFolde
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const postPanElementOrFolderRequestResponse = z.union([
-  panCreateApiResponse,
-  panCreateCollectionResponse,
-  panCreateWorkspaceResponse,
-  panCreateFolderResponse,
-]);
+export const postPanElementOrFolderRequestResponse: any = z.lazy(() => {
+  return z.union([
+    panCreateApiResponse,
+    panCreateCollectionResponse,
+    panCreateWorkspaceResponse,
+    panCreateFolderResponse,
+  ]);
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const postPanElementOrFolderRequestRequest = z.union([
-  panCreateApiRequest,
-  panCreateCollectionRequest,
-  panCreateWorkspaceRequest,
-  panCreateFolderRequest,
-]);
+export const postPanElementOrFolderRequestRequest: any = z.lazy(() => {
+  return z.union([panCreateApiRequest, panCreateCollectionRequest, panCreateWorkspaceRequest, panCreateFolderRequest]);
+});

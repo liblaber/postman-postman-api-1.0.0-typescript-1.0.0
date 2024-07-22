@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getCollection = z.object({
-  collection: z.any().optional(),
+export const getCollection: any = z.lazy(() => {
+  return z.object({
+    collection: z.any().optional(),
+  });
 });
 
 /**
@@ -20,18 +22,22 @@ export type GetCollection = z.infer<typeof getCollection>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionResponse = z
-  .object({
-    collection: z.any().optional(),
-  })
-  .transform((data) => ({
-    collection: data['collection'],
-  }));
+export const getCollectionResponse: any = z.lazy(() => {
+  return z
+    .object({
+      collection: z.any().optional(),
+    })
+    .transform((data) => ({
+      collection: data['collection'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionRequest = z.object({ collection: z.any().nullish() }).transform((data) => ({
-  collection: data['collection'],
-}));
+export const getCollectionRequest: any = z.lazy(() => {
+  return z.object({ collection: z.any().nullish() }).transform((data) => ({
+    collection: data['collection'],
+  }));
+});

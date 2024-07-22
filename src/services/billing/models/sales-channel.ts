@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const salesChannel = z.enum(['SELF_SERVE', 'SALES_SERVE']);
-
-export type SalesChannel = z.infer<typeof salesChannel>;
+export enum SalesChannel {
+  SELFSERVE = 'SELF_SERVE',
+  SALESSERVE = 'SALES_SERVE',
+}

@@ -6,11 +6,13 @@ import { collectionInfo2, collectionInfo2Request, collectionInfo2Response } from
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const patchCollectionCollection1 = z.object({
-  info: collectionInfo2.optional(),
-  variables: z.any().optional(),
-  auth: z.any().optional(),
-  events: z.any().optional(),
+export const patchCollectionCollection1: any = z.lazy(() => {
+  return z.object({
+    info: collectionInfo2.optional(),
+    variables: z.any().optional(),
+    auth: z.any().optional(),
+    events: z.any().optional(),
+  });
 });
 
 /**
@@ -27,34 +29,38 @@ export type PatchCollectionCollection1 = z.infer<typeof patchCollectionCollectio
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const patchCollectionCollection1Response = z
-  .object({
-    info: collectionInfo2Response.optional(),
-    variables: z.any().optional(),
-    auth: z.any().optional(),
-    events: z.any().optional(),
-  })
-  .transform((data) => ({
-    info: data['info'],
-    variables: data['variables'],
-    auth: data['auth'],
-    events: data['events'],
-  }));
+export const patchCollectionCollection1Response: any = z.lazy(() => {
+  return z
+    .object({
+      info: collectionInfo2Response.optional(),
+      variables: z.any().optional(),
+      auth: z.any().optional(),
+      events: z.any().optional(),
+    })
+    .transform((data) => ({
+      info: data['info'],
+      variables: data['variables'],
+      auth: data['auth'],
+      events: data['events'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const patchCollectionCollection1Request = z
-  .object({
-    info: collectionInfo2Request.nullish(),
-    variables: z.any().nullish(),
-    auth: z.any().nullish(),
-    events: z.any().nullish(),
-  })
-  .transform((data) => ({
-    info: data['info'],
-    variables: data['variables'],
-    auth: data['auth'],
-    events: data['events'],
-  }));
+export const patchCollectionCollection1Request: any = z.lazy(() => {
+  return z
+    .object({
+      info: collectionInfo2Request.nullish(),
+      variables: z.any().nullish(),
+      auth: z.any().nullish(),
+      events: z.any().nullish(),
+    })
+    .transform((data) => ({
+      info: data['info'],
+      variables: data['variables'],
+      auth: data['auth'],
+      events: data['events'],
+    }));
+});

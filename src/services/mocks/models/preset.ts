@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 
-export const preset = z.enum(['1', '2']);
-
-export type Preset = z.infer<typeof preset>;
+export enum Preset {
+  _1 = '1',
+  _2 = '2',
+}

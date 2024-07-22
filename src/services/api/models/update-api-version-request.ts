@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateApiVersionRequest = z.object({
-  name: z.string(),
-  releaseNotes: z.string().optional(),
+export const updateApiVersionRequest: any = z.lazy(() => {
+  return z.object({
+    name: z.string(),
+    releaseNotes: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type UpdateApiVersionRequest = z.infer<typeof updateApiVersionRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateApiVersionRequestResponse = z
-  .object({
-    name: z.string(),
-    releaseNotes: z.string().optional(),
-  })
-  .transform((data) => ({
-    name: data['name'],
-    releaseNotes: data['releaseNotes'],
-  }));
+export const updateApiVersionRequestResponse: any = z.lazy(() => {
+  return z
+    .object({
+      name: z.string(),
+      releaseNotes: z.string().optional(),
+    })
+    .transform((data) => ({
+      name: data['name'],
+      releaseNotes: data['releaseNotes'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateApiVersionRequestRequest = z
-  .object({ name: z.string().nullish(), releaseNotes: z.string().nullish() })
-  .transform((data) => ({
+export const updateApiVersionRequestRequest: any = z.lazy(() => {
+  return z.object({ name: z.string().nullish(), releaseNotes: z.string().nullish() }).transform((data) => ({
     name: data['name'],
     releaseNotes: data['releaseNotes'],
   }));
+});

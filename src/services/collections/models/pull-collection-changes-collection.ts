@@ -5,9 +5,11 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const pullCollectionChangesCollection = z.object({
-  destinationId: z.string().optional(),
-  sourceId: z.string().optional(),
+export const pullCollectionChangesCollection: any = z.lazy(() => {
+  return z.object({
+    destinationId: z.string().optional(),
+    sourceId: z.string().optional(),
+  });
 });
 
 /**
@@ -22,23 +24,25 @@ export type PullCollectionChangesCollection = z.infer<typeof pullCollectionChang
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullCollectionChangesCollectionResponse = z
-  .object({
-    destinationId: z.string().optional(),
-    sourceId: z.string().optional(),
-  })
-  .transform((data) => ({
-    destinationId: data['destinationId'],
-    sourceId: data['sourceId'],
-  }));
+export const pullCollectionChangesCollectionResponse: any = z.lazy(() => {
+  return z
+    .object({
+      destinationId: z.string().optional(),
+      sourceId: z.string().optional(),
+    })
+    .transform((data) => ({
+      destinationId: data['destinationId'],
+      sourceId: data['sourceId'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullCollectionChangesCollectionRequest = z
-  .object({ destinationId: z.string().nullish(), sourceId: z.string().nullish() })
-  .transform((data) => ({
+export const pullCollectionChangesCollectionRequest: any = z.lazy(() => {
+  return z.object({ destinationId: z.string().nullish(), sourceId: z.string().nullish() }).transform((data) => ({
     destinationId: data['destinationId'],
     sourceId: data['sourceId'],
   }));
+});

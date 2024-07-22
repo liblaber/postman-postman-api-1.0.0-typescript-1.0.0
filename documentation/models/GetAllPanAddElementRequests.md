@@ -29,8 +29,8 @@ The request's status.
 
 | Name    | Type   | Required | Description |
 | :------ | :----- | :------- | :---------- |
-| pending | string | ✅       | "pending"   |
-| denied  | string | ✅       | "denied"    |
+| PENDING | string | ✅       | "pending"   |
+| DENIED  | string | ✅       | "denied"    |
 
 # RequestsElement
 
@@ -41,7 +41,7 @@ Information about the requested element.
 | Name    | Type         | Required | Description                                 |
 | :------ | :----------- | :------- | :------------------------------------------ |
 | id      | string       | ❌       | The element's ID.                           |
-| type\_  | ElementType1 | ❌       | The element type.                           |
+| type    | ElementType1 | ❌       | The element type.                           |
 | name    | string       | ❌       | The element's name.                         |
 | summary | string       | ❌       | If applicable, the element's short summary. |
 
@@ -53,9 +53,9 @@ The element type.
 
 | Name       | Type   | Required | Description  |
 | :--------- | :----- | :------- | :----------- |
-| api        | string | ✅       | "api"        |
-| workspace  | string | ✅       | "workspace"  |
-| collection | string | ✅       | "collection" |
+| API        | string | ✅       | "api"        |
+| WORKSPACE  | string | ✅       | "workspace"  |
+| COLLECTION | string | ✅       | "collection" |
 
 # RequestsResponse
 

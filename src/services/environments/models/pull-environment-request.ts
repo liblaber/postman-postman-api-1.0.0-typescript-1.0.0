@@ -5,8 +5,10 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const pullEnvironmentRequest = z.object({
-  source: z.string().optional(),
+export const pullEnvironmentRequest: any = z.lazy(() => {
+  return z.object({
+    source: z.string().optional(),
+  });
 });
 
 /**
@@ -20,18 +22,22 @@ export type PullEnvironmentRequest = z.infer<typeof pullEnvironmentRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullEnvironmentRequestResponse = z
-  .object({
-    source: z.string().optional(),
-  })
-  .transform((data) => ({
-    source: data['source'],
-  }));
+export const pullEnvironmentRequestResponse: any = z.lazy(() => {
+  return z
+    .object({
+      source: z.string().optional(),
+    })
+    .transform((data) => ({
+      source: data['source'],
+    }));
+});
 
 /**
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullEnvironmentRequestRequest = z.object({ source: z.string().nullish() }).transform((data) => ({
-  source: data['source'],
-}));
+export const pullEnvironmentRequestRequest: any = z.lazy(() => {
+  return z.object({ source: z.string().nullish() }).transform((data) => ({
+    source: data['source'],
+  }));
+});

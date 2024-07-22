@@ -162,7 +162,7 @@ import { PostmanClient, ScimUpdateGroupRequest } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const operationsOp1 = OperationsOp1.replace;
+  const operationsOp1 = OperationsOp1.REPLACE;
 
   const operationsValue1: OperationsValue1 = {
     id: '561631fq14ed41872a8eea4c8aa2b38cda9749812cc55c00',
@@ -461,7 +461,7 @@ import { PostmanClient, UpdateScimUserState } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
-  const operationsOp2 = OperationsOp2.replace;
+  const operationsOp2 = OperationsOp2.REPLACE;
 
   const operationsValue2: OperationsValue2 = {
     active: true,
