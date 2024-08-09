@@ -6,7 +6,7 @@ import { getMocksMocks, getMocksMocksRequest, getMocksMocksResponse } from './ge
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getMocks: any = z.lazy(() => {
+export const getMocks = z.lazy(() => {
   return z.object({
     mocks: z.array(getMocksMocks).optional(),
   });
@@ -23,7 +23,7 @@ export type GetMocks = z.infer<typeof getMocks>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMocksResponse: any = z.lazy(() => {
+export const getMocksResponse = z.lazy(() => {
   return z
     .object({
       mocks: z.array(getMocksMocksResponse).optional(),
@@ -37,7 +37,7 @@ export const getMocksResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMocksRequest: any = z.lazy(() => {
+export const getMocksRequest = z.lazy(() => {
   return z.object({ mocks: z.array(getMocksMocksRequest).nullish() }).transform((data) => ({
     mocks: data['mocks'],
   }));

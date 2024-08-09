@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const collectionFork: any = z.lazy(() => {
+export const collectionFork = z.lazy(() => {
   return z.object({
     label: z.string().optional(),
     createdAt: z.string().optional(),
@@ -26,7 +26,7 @@ export type CollectionFork = z.infer<typeof collectionFork>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const collectionForkResponse: any = z.lazy(() => {
+export const collectionForkResponse = z.lazy(() => {
   return z
     .object({
       label: z.string().optional(),
@@ -44,7 +44,7 @@ export const collectionForkResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const collectionForkRequest: any = z.lazy(() => {
+export const collectionForkRequest = z.lazy(() => {
   return z
     .object({ label: z.string().nullish(), createdAt: z.string().nullish(), from: z.string().nullish() })
     .transform((data) => ({

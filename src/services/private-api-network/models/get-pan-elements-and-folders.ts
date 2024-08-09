@@ -12,7 +12,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getPanElementsAndFolders: any = z.lazy(() => {
+export const getPanElementsAndFolders = z.lazy(() => {
   return z.object({
     elements: z.array(elements).optional(),
     folders: z.array(folders).optional(),
@@ -33,7 +33,7 @@ export type GetPanElementsAndFolders = z.infer<typeof getPanElementsAndFolders>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getPanElementsAndFoldersResponse: any = z.lazy(() => {
+export const getPanElementsAndFoldersResponse = z.lazy(() => {
   return z
     .object({
       elements: z.array(elementsResponse).optional(),
@@ -51,7 +51,7 @@ export const getPanElementsAndFoldersResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getPanElementsAndFoldersRequest: any = z.lazy(() => {
+export const getPanElementsAndFoldersRequest = z.lazy(() => {
   return z
     .object({
       elements: z.array(elementsRequest).nullish(),

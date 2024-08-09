@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createWorkspaceWorkspace2: any = z.lazy(() => {
+export const createWorkspaceWorkspace2 = z.lazy(() => {
   return z.object({
     id: z.string().optional(),
     name: z.string().optional(),
@@ -24,7 +24,7 @@ export type CreateWorkspaceWorkspace2 = z.infer<typeof createWorkspaceWorkspace2
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createWorkspaceWorkspace2Response: any = z.lazy(() => {
+export const createWorkspaceWorkspace2Response = z.lazy(() => {
   return z
     .object({
       id: z.string().optional(),
@@ -40,7 +40,7 @@ export const createWorkspaceWorkspace2Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createWorkspaceWorkspace2Request: any = z.lazy(() => {
+export const createWorkspaceWorkspace2Request = z.lazy(() => {
   return z.object({ id: z.string().nullish(), name: z.string().nullish() }).transform((data) => ({
     id: data['id'],
     name: data['name'],

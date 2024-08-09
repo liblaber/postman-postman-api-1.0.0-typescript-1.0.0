@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const commentCreatedUpdated: any = z.lazy(() => {
+export const commentCreatedUpdated = z.lazy(() => {
   return z.object({
     data: commentCreatedUpdatedData.optional(),
   });
@@ -27,7 +27,7 @@ export type CommentCreatedUpdated = z.infer<typeof commentCreatedUpdated>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const commentCreatedUpdatedResponse: any = z.lazy(() => {
+export const commentCreatedUpdatedResponse = z.lazy(() => {
   return z
     .object({
       data: commentCreatedUpdatedDataResponse.optional(),
@@ -41,7 +41,7 @@ export const commentCreatedUpdatedResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const commentCreatedUpdatedRequest: any = z.lazy(() => {
+export const commentCreatedUpdatedRequest = z.lazy(() => {
   return z.object({ data: commentCreatedUpdatedDataRequest.nullish() }).transform((data) => ({
     data: data['data'],
   }));

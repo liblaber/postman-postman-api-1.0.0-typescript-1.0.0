@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { BaseService } from '../base-service';
-import { ContentType, HttpResponse } from '../../http';
-import { RequestConfig } from '../../http/types';
-import { Request } from '../../http/transport/request';
+import { ContentType, HttpResponse, RequestConfig } from '../../http/types';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import { SerializationStyle } from '../../http/serialization/base-serializer';
 import { TagGetPut, tagGetPutResponse } from './models/tag-get-put';
 import { GetApiTagsParams, GetTaggedEntitiesParams, UpdateApiTagsParams } from './request-params';
 import { TagUpdateTags, tagUpdateTagsRequest } from './models/tag-update-tags';
@@ -22,18 +22,27 @@ export class TagsService extends BaseService {
     params: GetApiTagsParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<TagGetPut>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/apis/{apiId}/tags',
-      config: this.config,
-      responseSchema: tagGetPutResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('apiId', apiId);
-    request.addHeaderParam('Accept', params?.accept);
+    const request = new RequestBuilder<TagGetPut>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/apis/{apiId}/tags')
+      .setRequestSchema(z.any())
+      .setResponseSchema(tagGetPutResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'apiId',
+        value: apiId,
+      })
+      .addHeaderParam({
+        key: 'Accept',
+        value: params?.accept,
+      })
+      .build();
     return this.client.call<TagGetPut>(request);
   }
 
@@ -49,20 +58,29 @@ export class TagsService extends BaseService {
     params: UpdateApiTagsParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<TagGetPut>> {
-    const request = new Request({
-      method: 'PUT',
-      body,
-      path: '/apis/{apiId}/tags',
-      config: this.config,
-      responseSchema: tagGetPutResponse,
-      requestSchema: tagUpdateTagsRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('apiId', apiId);
-    request.addHeaderParam('Accept', params?.accept);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<TagGetPut>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PUT')
+      .setPath('/apis/{apiId}/tags')
+      .setRequestSchema(tagUpdateTagsRequest)
+      .setResponseSchema(tagGetPutResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'apiId',
+        value: apiId,
+      })
+      .addHeaderParam({
+        key: 'Accept',
+        value: params?.accept,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<TagGetPut>(request);
   }
 
@@ -72,17 +90,23 @@ export class TagsService extends BaseService {
    * @returns {Promise<HttpResponse<TagGetPut>>} Success Response
    */
   async getCollectionTags(collectionId: string, requestConfig?: RequestConfig): Promise<HttpResponse<TagGetPut>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/collections/{collectionId}/tags',
-      config: this.config,
-      responseSchema: tagGetPutResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
+    const request = new RequestBuilder<TagGetPut>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/collections/{collectionId}/tags')
+      .setRequestSchema(z.any())
+      .setResponseSchema(tagGetPutResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .build();
     return this.client.call<TagGetPut>(request);
   }
 
@@ -96,19 +120,25 @@ export class TagsService extends BaseService {
     body: TagUpdateTags,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<TagGetPut>> {
-    const request = new Request({
-      method: 'PUT',
-      body,
-      path: '/collections/{collectionId}/tags',
-      config: this.config,
-      responseSchema: tagGetPutResponse,
-      requestSchema: tagUpdateTagsRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<TagGetPut>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PUT')
+      .setPath('/collections/{collectionId}/tags')
+      .setRequestSchema(tagUpdateTagsRequest)
+      .setResponseSchema(tagGetPutResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<TagGetPut>(request);
   }
 
@@ -130,21 +160,39 @@ Tagging is available on Postman [**Enterprise** plans](https://www.postman.com/p
     params?: GetTaggedEntitiesParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetTaggedEntities>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/tags/{slug}/entities',
-      config: this.config,
-      responseSchema: getTaggedEntitiesResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('slug', slug);
-    request.addQueryParam('limit', params?.limit);
-    request.addQueryParam('direction', params?.direction);
-    request.addQueryParam('cursor', params?.cursor);
-    request.addQueryParam('entityType', params?.entityType);
+    const request = new RequestBuilder<GetTaggedEntities>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/tags/{slug}/entities')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getTaggedEntitiesResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'slug',
+        value: slug,
+      })
+      .addQueryParam({
+        key: 'limit',
+        value: params?.limit,
+      })
+      .addQueryParam({
+        key: 'direction',
+        value: params?.direction,
+      })
+      .addQueryParam({
+        key: 'cursor',
+        value: params?.cursor,
+      })
+      .addQueryParam({
+        key: 'entityType',
+        value: params?.entityType,
+      })
+      .build();
     return this.client.call<GetTaggedEntities>(request);
   }
 
@@ -154,17 +202,23 @@ Tagging is available on Postman [**Enterprise** plans](https://www.postman.com/p
    * @returns {Promise<HttpResponse<TagGetPut>>} Success Response
    */
   async getWorkspaceTags(workspaceId: string, requestConfig?: RequestConfig): Promise<HttpResponse<TagGetPut>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/workspaces/{workspaceId}/tags',
-      config: this.config,
-      responseSchema: tagGetPutResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('workspaceId', workspaceId);
+    const request = new RequestBuilder<TagGetPut>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/workspaces/{workspaceId}/tags')
+      .setRequestSchema(z.any())
+      .setResponseSchema(tagGetPutResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'workspaceId',
+        value: workspaceId,
+      })
+      .build();
     return this.client.call<TagGetPut>(request);
   }
 
@@ -178,19 +232,25 @@ Tagging is available on Postman [**Enterprise** plans](https://www.postman.com/p
     body: TagUpdateTags,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<TagGetPut>> {
-    const request = new Request({
-      method: 'PUT',
-      body,
-      path: '/workspaces/{workspaceId}/tags',
-      config: this.config,
-      responseSchema: tagGetPutResponse,
-      requestSchema: tagUpdateTagsRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('workspaceId', workspaceId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<TagGetPut>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PUT')
+      .setPath('/workspaces/{workspaceId}/tags')
+      .setRequestSchema(tagUpdateTagsRequest)
+      .setResponseSchema(tagGetPutResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'workspaceId',
+        value: workspaceId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<TagGetPut>(request);
   }
 }

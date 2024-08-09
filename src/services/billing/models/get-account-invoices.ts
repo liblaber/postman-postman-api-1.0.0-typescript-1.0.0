@@ -6,7 +6,7 @@ import { invoiceData, invoiceDataRequest, invoiceDataResponse } from './invoice-
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getAccountInvoices: any = z.lazy(() => {
+export const getAccountInvoices = z.lazy(() => {
   return z.object({
     data: z.array(invoiceData),
   });
@@ -23,7 +23,7 @@ export type GetAccountInvoices = z.infer<typeof getAccountInvoices>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAccountInvoicesResponse: any = z.lazy(() => {
+export const getAccountInvoicesResponse = z.lazy(() => {
   return z
     .object({
       data: z.array(invoiceDataResponse),
@@ -37,7 +37,7 @@ export const getAccountInvoicesResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAccountInvoicesRequest: any = z.lazy(() => {
+export const getAccountInvoicesRequest = z.lazy(() => {
   return z.object({ data: z.array(invoiceDataRequest).nullish() }).transform((data) => ({
     data: data['data'],
   }));

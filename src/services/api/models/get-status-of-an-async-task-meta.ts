@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getStatusOfAnAsyncTaskMeta: any = z.lazy(() => {
+export const getStatusOfAnAsyncTaskMeta = z.lazy(() => {
   return z.object({
     url: z.string().optional(),
     model: z.string().optional(),
@@ -26,7 +26,7 @@ export type GetStatusOfAnAsyncTaskMeta = z.infer<typeof getStatusOfAnAsyncTaskMe
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getStatusOfAnAsyncTaskMetaResponse: any = z.lazy(() => {
+export const getStatusOfAnAsyncTaskMetaResponse = z.lazy(() => {
   return z
     .object({
       url: z.string().optional(),
@@ -44,7 +44,7 @@ export const getStatusOfAnAsyncTaskMetaResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getStatusOfAnAsyncTaskMetaRequest: any = z.lazy(() => {
+export const getStatusOfAnAsyncTaskMetaRequest = z.lazy(() => {
   return z
     .object({ url: z.string().nullish(), model: z.string().nullish(), action: z.string().nullish() })
     .transform((data) => ({

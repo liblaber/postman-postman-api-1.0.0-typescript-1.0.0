@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const changePassword: any = z.lazy(() => {
+export const changePassword = z.lazy(() => {
   return z.object({
     supported: z.boolean().optional(),
   });
@@ -22,7 +22,7 @@ export type ChangePassword = z.infer<typeof changePassword>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const changePasswordResponse: any = z.lazy(() => {
+export const changePasswordResponse = z.lazy(() => {
   return z
     .object({
       supported: z.boolean().optional(),
@@ -36,7 +36,7 @@ export const changePasswordResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const changePasswordRequest: any = z.lazy(() => {
+export const changePasswordRequest = z.lazy(() => {
   return z.object({ supported: z.boolean().nullish() }).transform((data) => ({
     supported: data['supported'],
   }));

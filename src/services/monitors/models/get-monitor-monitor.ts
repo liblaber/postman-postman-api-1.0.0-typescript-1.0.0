@@ -9,7 +9,7 @@ import { monitorSchedule2, monitorSchedule2Request, monitorSchedule2Response } f
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getMonitorMonitor: any = z.lazy(() => {
+export const getMonitorMonitor = z.lazy(() => {
   return z.object({
     id: z.string().optional(),
     name: z.string().optional(),
@@ -46,7 +46,7 @@ export type GetMonitorMonitor = z.infer<typeof getMonitorMonitor>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMonitorMonitorResponse: any = z.lazy(() => {
+export const getMonitorMonitorResponse = z.lazy(() => {
   return z
     .object({
       id: z.string().optional(),
@@ -80,7 +80,7 @@ export const getMonitorMonitorResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMonitorMonitorRequest: any = z.lazy(() => {
+export const getMonitorMonitorRequest = z.lazy(() => {
   return z
     .object({
       id: z.string().nullish(),

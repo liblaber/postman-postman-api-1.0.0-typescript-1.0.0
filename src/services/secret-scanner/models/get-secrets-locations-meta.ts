@@ -6,7 +6,7 @@ import { activityFeed, activityFeedRequest, activityFeedResponse } from './activ
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getSecretsLocationsMeta: any = z.lazy(() => {
+export const getSecretsLocationsMeta = z.lazy(() => {
   return z.object({
     activityFeed: z.array(activityFeed).optional(),
     cursor: z.string().optional(),
@@ -37,7 +37,7 @@ export type GetSecretsLocationsMeta = z.infer<typeof getSecretsLocationsMeta>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSecretsLocationsMetaResponse: any = z.lazy(() => {
+export const getSecretsLocationsMetaResponse = z.lazy(() => {
   return z
     .object({
       activityFeed: z.array(activityFeedResponse).optional(),
@@ -65,7 +65,7 @@ export const getSecretsLocationsMetaResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSecretsLocationsMetaRequest: any = z.lazy(() => {
+export const getSecretsLocationsMetaRequest = z.lazy(() => {
   return z
     .object({
       activityFeed: z.array(activityFeedRequest).nullish(),

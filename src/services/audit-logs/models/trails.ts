@@ -6,7 +6,7 @@ import { trailsData, trailsDataRequest, trailsDataResponse } from './trails-data
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const trails: any = z.lazy(() => {
+export const trails = z.lazy(() => {
   return z.object({
     id: z.number().optional(),
     ip: z.string().optional(),
@@ -35,7 +35,7 @@ export type Trails = z.infer<typeof trails>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const trailsResponse: any = z.lazy(() => {
+export const trailsResponse = z.lazy(() => {
   return z
     .object({
       id: z.number().optional(),
@@ -61,7 +61,7 @@ export const trailsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const trailsRequest: any = z.lazy(() => {
+export const trailsRequest = z.lazy(() => {
   return z
     .object({
       id: z.number().nullish(),

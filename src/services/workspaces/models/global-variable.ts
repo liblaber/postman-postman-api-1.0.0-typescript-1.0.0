@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const globalVariable: any = z.lazy(() => {
+export const globalVariable = z.lazy(() => {
   return z.object({
     key: z.string().optional(),
     type: z.string().optional(),
@@ -28,7 +28,7 @@ export type GlobalVariable = z.infer<typeof globalVariable>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const globalVariableResponse: any = z.lazy(() => {
+export const globalVariableResponse = z.lazy(() => {
   return z
     .object({
       key: z.string().optional(),
@@ -48,7 +48,7 @@ export const globalVariableResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const globalVariableRequest: any = z.lazy(() => {
+export const globalVariableRequest = z.lazy(() => {
   return z
     .object({
       key: z.string().nullish(),

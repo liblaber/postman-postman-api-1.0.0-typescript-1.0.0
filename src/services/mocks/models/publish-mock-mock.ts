@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const publishMockMock: any = z.lazy(() => {
+export const publishMockMock = z.lazy(() => {
   return z.object({
     id: z.string().optional(),
   });
@@ -22,7 +22,7 @@ export type PublishMockMock = z.infer<typeof publishMockMock>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const publishMockMockResponse: any = z.lazy(() => {
+export const publishMockMockResponse = z.lazy(() => {
   return z
     .object({
       id: z.string().optional(),
@@ -36,7 +36,7 @@ export const publishMockMockResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const publishMockMockRequest: any = z.lazy(() => {
+export const publishMockMockRequest = z.lazy(() => {
   return z.object({ id: z.string().nullish() }).transform((data) => ({
     id: data['id'],
   }));

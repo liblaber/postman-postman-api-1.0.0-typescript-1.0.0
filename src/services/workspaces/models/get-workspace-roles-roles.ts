@@ -7,7 +7,7 @@ import { usergroup, usergroupRequest, usergroupResponse } from './usergroup';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getWorkspaceRolesRoles: any = z.lazy(() => {
+export const getWorkspaceRolesRoles = z.lazy(() => {
   return z.object({
     user: z.array(rolesUser).optional(),
     usergroup: z.array(usergroup).optional(),
@@ -26,7 +26,7 @@ export type GetWorkspaceRolesRoles = z.infer<typeof getWorkspaceRolesRoles>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspaceRolesRolesResponse: any = z.lazy(() => {
+export const getWorkspaceRolesRolesResponse = z.lazy(() => {
   return z
     .object({
       user: z.array(rolesUserResponse).optional(),
@@ -42,7 +42,7 @@ export const getWorkspaceRolesRolesResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspaceRolesRolesRequest: any = z.lazy(() => {
+export const getWorkspaceRolesRolesRequest = z.lazy(() => {
   return z
     .object({ user: z.array(rolesUserRequest).nullish(), usergroup: z.array(usergroupRequest).nullish() })
     .transform((data) => ({

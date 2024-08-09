@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getWorkspaceRoles: any = z.lazy(() => {
+export const getWorkspaceRoles = z.lazy(() => {
   return z.object({
     roles: getWorkspaceRolesRoles.optional(),
   });
@@ -27,7 +27,7 @@ export type GetWorkspaceRoles = z.infer<typeof getWorkspaceRoles>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspaceRolesResponse: any = z.lazy(() => {
+export const getWorkspaceRolesResponse = z.lazy(() => {
   return z
     .object({
       roles: getWorkspaceRolesRolesResponse.optional(),
@@ -41,7 +41,7 @@ export const getWorkspaceRolesResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspaceRolesRequest: any = z.lazy(() => {
+export const getWorkspaceRolesRequest = z.lazy(() => {
   return z.object({ roles: getWorkspaceRolesRolesRequest.nullish() }).transform((data) => ({
     roles: data['roles'],
   }));

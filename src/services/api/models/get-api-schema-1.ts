@@ -6,7 +6,7 @@ import { getApiSchema1Files, getApiSchema1FilesRequest, getApiSchema1FilesRespon
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApiSchema1: any = z.lazy(() => {
+export const getApiSchema1 = z.lazy(() => {
   return z.object({
     id: z.string().optional(),
     type: z.string().optional(),
@@ -35,7 +35,7 @@ export type GetApiSchema1 = z.infer<typeof getApiSchema1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiSchema1Response: any = z.lazy(() => {
+export const getApiSchema1Response = z.lazy(() => {
   return z
     .object({
       id: z.string().optional(),
@@ -61,7 +61,7 @@ export const getApiSchema1Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiSchema1Request: any = z.lazy(() => {
+export const getApiSchema1Request = z.lazy(() => {
   return z
     .object({
       id: z.string().nullish(),

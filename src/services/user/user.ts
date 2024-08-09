@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { BaseService } from '../base-service';
-import { ContentType, HttpResponse } from '../../http';
-import { RequestConfig } from '../../http/types';
-import { Request } from '../../http/transport/request';
+import { ContentType, HttpResponse, RequestConfig } from '../../http/types';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import { SerializationStyle } from '../../http/serialization/base-serializer';
 import { GetAuthenticatedUser, getAuthenticatedUserResponse } from './models/get-authenticated-user';
 
 export class UserService extends BaseService {
@@ -17,16 +17,19 @@ This API returns a different response for users with the [Guest role](https://le
  * @returns {Promise<HttpResponse<GetAuthenticatedUser>>} Successful Response
  */
   async getAuthenticatedUser(requestConfig?: RequestConfig): Promise<HttpResponse<GetAuthenticatedUser>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/me',
-      config: this.config,
-      responseSchema: getAuthenticatedUserResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
+    const request = new RequestBuilder<GetAuthenticatedUser>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/me')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getAuthenticatedUserResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .build();
     return this.client.call<GetAuthenticatedUser>(request);
   }
 }

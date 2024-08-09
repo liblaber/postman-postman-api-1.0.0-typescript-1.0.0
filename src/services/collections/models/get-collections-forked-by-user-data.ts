@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getCollectionsForkedByUserData: any = z.lazy(() => {
+export const getCollectionsForkedByUserData = z.lazy(() => {
   return z.object({
     forkName: z.string().optional(),
     forkId: z.string().optional(),
@@ -28,7 +28,7 @@ export type GetCollectionsForkedByUserData = z.infer<typeof getCollectionsForked
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionsForkedByUserDataResponse: any = z.lazy(() => {
+export const getCollectionsForkedByUserDataResponse = z.lazy(() => {
   return z
     .object({
       forkName: z.string().optional(),
@@ -48,7 +48,7 @@ export const getCollectionsForkedByUserDataResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionsForkedByUserDataRequest: any = z.lazy(() => {
+export const getCollectionsForkedByUserDataRequest = z.lazy(() => {
   return z
     .object({
       forkName: z.string().nullish(),

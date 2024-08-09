@@ -16,7 +16,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getCollectionRoles: any = z.lazy(() => {
+export const getCollectionRoles = z.lazy(() => {
   return z.object({
     group: z.array(group).optional(),
     team: z.array(getCollectionRolesTeam).optional(),
@@ -37,7 +37,7 @@ export type GetCollectionRoles = z.infer<typeof getCollectionRoles>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionRolesResponse: any = z.lazy(() => {
+export const getCollectionRolesResponse = z.lazy(() => {
   return z
     .object({
       group: z.array(groupResponse).optional(),
@@ -55,7 +55,7 @@ export const getCollectionRolesResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getCollectionRolesRequest: any = z.lazy(() => {
+export const getCollectionRolesRequest = z.lazy(() => {
   return z
     .object({
       group: z.array(groupRequest).nullish(),

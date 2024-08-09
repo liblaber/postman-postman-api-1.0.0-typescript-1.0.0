@@ -6,7 +6,7 @@ import { filesRoot, filesRootRequest, filesRootResponse } from './files-root';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createApiSchemaFiles1: any = z.lazy(() => {
+export const createApiSchemaFiles1 = z.lazy(() => {
   return z.object({
     path: z.string().optional(),
     root: filesRoot.optional(),
@@ -27,7 +27,7 @@ export type CreateApiSchemaFiles1 = z.infer<typeof createApiSchemaFiles1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiSchemaFiles1Response: any = z.lazy(() => {
+export const createApiSchemaFiles1Response = z.lazy(() => {
   return z
     .object({
       path: z.string().optional(),
@@ -45,7 +45,7 @@ export const createApiSchemaFiles1Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiSchemaFiles1Request: any = z.lazy(() => {
+export const createApiSchemaFiles1Request = z.lazy(() => {
   return z
     .object({ path: z.string().nullish(), root: filesRootRequest.nullish(), content: z.string().nullish() })
     .transform((data) => ({

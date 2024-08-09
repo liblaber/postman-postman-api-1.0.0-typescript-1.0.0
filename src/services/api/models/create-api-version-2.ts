@@ -15,7 +15,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createApiVersion2: any = z.lazy(() => {
+export const createApiVersion2 = z.lazy(() => {
   return z.object({
     name: z.string(),
     branch: z.string(),
@@ -40,7 +40,7 @@ export type CreateApiVersion2 = z.infer<typeof createApiVersion2>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiVersion2Response: any = z.lazy(() => {
+export const createApiVersion2Response = z.lazy(() => {
   return z
     .object({
       name: z.string(),
@@ -62,7 +62,7 @@ export const createApiVersion2Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiVersion2Request: any = z.lazy(() => {
+export const createApiVersion2Request = z.lazy(() => {
   return z
     .object({
       name: z.string().nullish(),

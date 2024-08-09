@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getScimServiceProviderConfigSort: any = z.lazy(() => {
+export const getScimServiceProviderConfigSort = z.lazy(() => {
   return z.object({
     supported: z.boolean().optional(),
   });
@@ -22,7 +22,7 @@ export type GetScimServiceProviderConfigSort = z.infer<typeof getScimServiceProv
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimServiceProviderConfigSortResponse: any = z.lazy(() => {
+export const getScimServiceProviderConfigSortResponse = z.lazy(() => {
   return z
     .object({
       supported: z.boolean().optional(),
@@ -36,7 +36,7 @@ export const getScimServiceProviderConfigSortResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimServiceProviderConfigSortRequest: any = z.lazy(() => {
+export const getScimServiceProviderConfigSortRequest = z.lazy(() => {
   return z.object({ supported: z.boolean().nullish() }).transform((data) => ({
     supported: data['supported'],
   }));

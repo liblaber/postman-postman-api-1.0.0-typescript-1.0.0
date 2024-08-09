@@ -6,7 +6,7 @@ import { delay, delayRequest, delayResponse } from './delay';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const mocksConfig: any = z.lazy(() => {
+export const mocksConfig = z.lazy(() => {
   return z.object({
     delay: delay.optional().nullable(),
     headers: z.array(z.string()).optional(),
@@ -33,7 +33,7 @@ export type MocksConfig = z.infer<typeof mocksConfig>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const mocksConfigResponse: any = z.lazy(() => {
+export const mocksConfigResponse = z.lazy(() => {
   return z
     .object({
       delay: delayResponse.optional().nullable(),
@@ -57,7 +57,7 @@ export const mocksConfigResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const mocksConfigRequest: any = z.lazy(() => {
+export const mocksConfigRequest = z.lazy(() => {
   return z
     .object({
       delay: delayRequest.nullish(),

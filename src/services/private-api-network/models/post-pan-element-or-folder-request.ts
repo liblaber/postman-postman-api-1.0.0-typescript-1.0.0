@@ -9,7 +9,7 @@ import { panCreateFolder, panCreateFolderRequest, panCreateFolderResponse } from
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const postPanElementOrFolderRequest: any = z.lazy(() => {
+export const postPanElementOrFolderRequest = z.lazy(() => {
   return z.union([panCreateApi, panCreateCollection, panCreateWorkspace, panCreateFolder]);
 });
 
@@ -27,7 +27,7 @@ export type PostPanElementOrFolderRequest = z.infer<typeof postPanElementOrFolde
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const postPanElementOrFolderRequestResponse: any = z.lazy(() => {
+export const postPanElementOrFolderRequestResponse = z.lazy(() => {
   return z.union([
     panCreateApiResponse,
     panCreateCollectionResponse,
@@ -40,6 +40,6 @@ export const postPanElementOrFolderRequestResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const postPanElementOrFolderRequestRequest: any = z.lazy(() => {
+export const postPanElementOrFolderRequestRequest = z.lazy(() => {
   return z.union([panCreateApiRequest, panCreateCollectionRequest, panCreateWorkspaceRequest, panCreateFolderRequest]);
 });

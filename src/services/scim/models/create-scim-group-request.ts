@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createScimGroupRequest: any = z.lazy(() => {
+export const createScimGroupRequest = z.lazy(() => {
   return z.object({
     schemas: z.array(z.string()).optional(),
     displayName: z.string().optional(),
@@ -31,7 +31,7 @@ export type CreateScimGroupRequest = z.infer<typeof createScimGroupRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createScimGroupRequestResponse: any = z.lazy(() => {
+export const createScimGroupRequestResponse = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).optional(),
@@ -49,7 +49,7 @@ export const createScimGroupRequestResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createScimGroupRequestRequest: any = z.lazy(() => {
+export const createScimGroupRequestRequest = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).nullish(),

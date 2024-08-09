@@ -6,7 +6,7 @@ import { getMonitorsMonitors, getMonitorsMonitorsRequest, getMonitorsMonitorsRes
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getMonitors: any = z.lazy(() => {
+export const getMonitors = z.lazy(() => {
   return z.object({
     monitors: z.array(getMonitorsMonitors).optional(),
   });
@@ -23,7 +23,7 @@ export type GetMonitors = z.infer<typeof getMonitors>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMonitorsResponse: any = z.lazy(() => {
+export const getMonitorsResponse = z.lazy(() => {
   return z
     .object({
       monitors: z.array(getMonitorsMonitorsResponse).optional(),
@@ -37,7 +37,7 @@ export const getMonitorsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMonitorsRequest: any = z.lazy(() => {
+export const getMonitorsRequest = z.lazy(() => {
   return z.object({ monitors: z.array(getMonitorsMonitorsRequest).nullish() }).transform((data) => ({
     monitors: data['monitors'],
   }));

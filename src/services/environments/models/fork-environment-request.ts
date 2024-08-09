@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const forkEnvironmentRequest: any = z.lazy(() => {
+export const forkEnvironmentRequest = z.lazy(() => {
   return z.object({
     forkName: z.string(),
   });
@@ -22,7 +22,7 @@ export type ForkEnvironmentRequest = z.infer<typeof forkEnvironmentRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const forkEnvironmentRequestResponse: any = z.lazy(() => {
+export const forkEnvironmentRequestResponse = z.lazy(() => {
   return z
     .object({
       forkName: z.string(),
@@ -36,7 +36,7 @@ export const forkEnvironmentRequestResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const forkEnvironmentRequestRequest: any = z.lazy(() => {
+export const forkEnvironmentRequestRequest = z.lazy(() => {
   return z.object({ forkName: z.string().nullish() }).transform((data) => ({
     forkName: data['forkName'],
   }));

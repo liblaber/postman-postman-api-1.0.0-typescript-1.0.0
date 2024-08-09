@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const options: any = z.lazy(() => {
+export const options = z.lazy(() => {
   return z.object({
     followRedirects: z.boolean().optional(),
     requestDelay: z.number().optional(),
@@ -28,7 +28,7 @@ export type Options = z.infer<typeof options>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const optionsResponse: any = z.lazy(() => {
+export const optionsResponse = z.lazy(() => {
   return z
     .object({
       followRedirects: z.boolean().optional(),
@@ -48,7 +48,7 @@ export const optionsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const optionsRequest: any = z.lazy(() => {
+export const optionsRequest = z.lazy(() => {
   return z
     .object({
       followRedirects: z.boolean().nullish(),

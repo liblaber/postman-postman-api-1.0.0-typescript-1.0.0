@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateCollectionRoles: any = z.lazy(() => {
+export const updateCollectionRoles = z.lazy(() => {
   return z.object({
     roles: z.array(updateCollectionRolesRoles),
   });
@@ -27,7 +27,7 @@ export type UpdateCollectionRoles = z.infer<typeof updateCollectionRoles>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateCollectionRolesResponse: any = z.lazy(() => {
+export const updateCollectionRolesResponse = z.lazy(() => {
   return z
     .object({
       roles: z.array(updateCollectionRolesRolesResponse),
@@ -41,7 +41,7 @@ export const updateCollectionRolesResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateCollectionRolesRequest: any = z.lazy(() => {
+export const updateCollectionRolesRequest = z.lazy(() => {
   return z.object({ roles: z.array(updateCollectionRolesRolesRequest).nullish() }).transform((data) => ({
     roles: data['roles'],
   }));

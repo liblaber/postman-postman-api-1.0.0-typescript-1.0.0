@@ -15,7 +15,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getAllPanAddElementRequests: any = z.lazy(() => {
+export const getAllPanAddElementRequests = z.lazy(() => {
   return z.object({
     requests: z.array(getAllPanAddElementRequestsRequests).optional(),
     meta: getAllPanAddElementRequestsMeta.optional(),
@@ -34,7 +34,7 @@ export type GetAllPanAddElementRequests = z.infer<typeof getAllPanAddElementRequ
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAllPanAddElementRequestsResponse: any = z.lazy(() => {
+export const getAllPanAddElementRequestsResponse = z.lazy(() => {
   return z
     .object({
       requests: z.array(getAllPanAddElementRequestsRequestsResponse).optional(),
@@ -50,7 +50,7 @@ export const getAllPanAddElementRequestsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAllPanAddElementRequestsRequest: any = z.lazy(() => {
+export const getAllPanAddElementRequestsRequest = z.lazy(() => {
   return z
     .object({
       requests: z.array(getAllPanAddElementRequestsRequestsRequest).nullish(),

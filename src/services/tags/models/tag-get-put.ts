@@ -6,7 +6,7 @@ import { tagGetPutTags, tagGetPutTagsRequest, tagGetPutTagsResponse } from './ta
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const tagGetPut: any = z.lazy(() => {
+export const tagGetPut = z.lazy(() => {
   return z.object({
     tags: z.array(tagGetPutTags).max(5).optional(),
   });
@@ -23,7 +23,7 @@ export type TagGetPut = z.infer<typeof tagGetPut>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const tagGetPutResponse: any = z.lazy(() => {
+export const tagGetPutResponse = z.lazy(() => {
   return z
     .object({
       tags: z.array(tagGetPutTagsResponse).max(5).optional(),
@@ -37,7 +37,7 @@ export const tagGetPutResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const tagGetPutRequest: any = z.lazy(() => {
+export const tagGetPutRequest = z.lazy(() => {
   return z.object({ tags: z.array(tagGetPutTagsRequest).nullish() }).transform((data) => ({
     tags: data['tags'],
   }));

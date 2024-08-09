@@ -18,7 +18,7 @@ import { workspaceApis, workspaceApisRequest, workspaceApisResponse } from './wo
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getWorkspaceWorkspace: any = z.lazy(() => {
+export const getWorkspaceWorkspace = z.lazy(() => {
   return z.object({
     id: z.string().optional(),
     name: z.string().optional(),
@@ -67,7 +67,7 @@ export type GetWorkspaceWorkspace = z.infer<typeof getWorkspaceWorkspace>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspaceWorkspaceResponse: any = z.lazy(() => {
+export const getWorkspaceWorkspaceResponse = z.lazy(() => {
   return z
     .object({
       id: z.string().optional(),
@@ -107,7 +107,7 @@ export const getWorkspaceWorkspaceResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspaceWorkspaceRequest: any = z.lazy(() => {
+export const getWorkspaceWorkspaceRequest = z.lazy(() => {
   return z
     .object({
       id: z.string().nullish(),

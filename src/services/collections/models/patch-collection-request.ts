@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const patchCollectionRequest: any = z.lazy(() => {
+export const patchCollectionRequest = z.lazy(() => {
   return z.object({
     collection: patchCollectionCollection1.optional(),
   });
@@ -27,7 +27,7 @@ export type PatchCollectionRequest = z.infer<typeof patchCollectionRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const patchCollectionRequestResponse: any = z.lazy(() => {
+export const patchCollectionRequestResponse = z.lazy(() => {
   return z
     .object({
       collection: patchCollectionCollection1Response.optional(),
@@ -41,7 +41,7 @@ export const patchCollectionRequestResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const patchCollectionRequestRequest: any = z.lazy(() => {
+export const patchCollectionRequestRequest = z.lazy(() => {
   return z.object({ collection: patchCollectionCollection1Request.nullish() }).transform((data) => ({
     collection: data['collection'],
   }));

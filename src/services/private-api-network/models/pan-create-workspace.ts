@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const panCreateWorkspace: any = z.lazy(() => {
+export const panCreateWorkspace = z.lazy(() => {
   return z.object({
     workspace: panCreateWorkspaceWorkspace.optional(),
   });
@@ -27,7 +27,7 @@ export type PanCreateWorkspace = z.infer<typeof panCreateWorkspace>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const panCreateWorkspaceResponse: any = z.lazy(() => {
+export const panCreateWorkspaceResponse = z.lazy(() => {
   return z
     .object({
       workspace: panCreateWorkspaceWorkspaceResponse.optional(),
@@ -41,7 +41,7 @@ export const panCreateWorkspaceResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const panCreateWorkspaceRequest: any = z.lazy(() => {
+export const panCreateWorkspaceRequest = z.lazy(() => {
   return z.object({ workspace: panCreateWorkspaceWorkspaceRequest.nullish() }).transform((data) => ({
     workspace: data['workspace'],
   }));

@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getSecretsLocationsData: any = z.lazy(() => {
+export const getSecretsLocationsData = z.lazy(() => {
   return z.object({
     isResourceDeleted: z.boolean().optional(),
     leakedBy: z.number().optional(),
@@ -38,7 +38,7 @@ export type GetSecretsLocationsData = z.infer<typeof getSecretsLocationsData>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSecretsLocationsDataResponse: any = z.lazy(() => {
+export const getSecretsLocationsDataResponse = z.lazy(() => {
   return z
     .object({
       isResourceDeleted: z.boolean().optional(),
@@ -68,7 +68,7 @@ export const getSecretsLocationsDataResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSecretsLocationsDataRequest: any = z.lazy(() => {
+export const getSecretsLocationsDataRequest = z.lazy(() => {
   return z
     .object({
       isResourceDeleted: z.boolean().nullish(),

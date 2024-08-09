@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createScimUserRequest: any = z.lazy(() => {
+export const createScimUserRequest = z.lazy(() => {
   return z.object({
     schemas: z.array(z.string()).optional(),
     userName: z.string().optional(),
@@ -39,7 +39,7 @@ export type CreateScimUserRequest = z.infer<typeof createScimUserRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createScimUserRequestResponse: any = z.lazy(() => {
+export const createScimUserRequestResponse = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).optional(),
@@ -65,7 +65,7 @@ export const createScimUserRequestResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createScimUserRequestRequest: any = z.lazy(() => {
+export const createScimUserRequestRequest = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).nullish(),

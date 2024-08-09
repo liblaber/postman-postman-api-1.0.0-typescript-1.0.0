@@ -6,7 +6,7 @@ import { slots, slotsRequest, slotsResponse } from './slots';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const invoicesAccountInfo: any = z.lazy(() => {
+export const invoicesAccountInfo = z.lazy(() => {
   return z.object({
     billingEmail: z.string().optional(),
     id: z.number().optional(),
@@ -44,7 +44,7 @@ export type InvoicesAccountInfo = z.infer<typeof invoicesAccountInfo>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const invoicesAccountInfoResponse: any = z.lazy(() => {
+export const invoicesAccountInfoResponse = z.lazy(() => {
   return z
     .object({
       billingEmail: z.string().optional(),
@@ -68,7 +68,7 @@ export const invoicesAccountInfoResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const invoicesAccountInfoRequest: any = z.lazy(() => {
+export const invoicesAccountInfoRequest = z.lazy(() => {
   return z
     .object({
       billingEmail: z.string().nullish(),

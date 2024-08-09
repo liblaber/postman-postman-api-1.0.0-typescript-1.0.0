@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { BaseService } from '../base-service';
-import { ContentType, HttpResponse } from '../../http';
-import { RequestConfig } from '../../http/types';
-import { Request } from '../../http/transport/request';
+import { ContentType, HttpResponse, RequestConfig } from '../../http/types';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import { SerializationStyle } from '../../http/serialization/base-serializer';
 import { CreateWebhookRequest, createWebhookRequestRequest } from './models/create-webhook-request';
 import { CreateWebhookOkResponse, createWebhookOkResponseResponse } from './models/create-webhook-ok-response';
 import { CreateWebhookParams } from './request-params';
@@ -20,19 +20,25 @@ export class WebhooksService extends BaseService {
     params?: CreateWebhookParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateWebhookOkResponse>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/webhooks',
-      config: this.config,
-      responseSchema: createWebhookOkResponseResponse,
-      requestSchema: createWebhookRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addQueryParam('workspace', params?.workspace);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<CreateWebhookOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/webhooks')
+      .setRequestSchema(createWebhookRequestRequest)
+      .setResponseSchema(createWebhookOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addQueryParam({
+        key: 'workspace',
+        value: params?.workspace,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<CreateWebhookOkResponse>(request);
   }
 }

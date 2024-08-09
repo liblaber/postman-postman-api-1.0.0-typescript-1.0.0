@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const filesRoot: any = z.lazy(() => {
+export const filesRoot = z.lazy(() => {
   return z.object({
     enabled: z.boolean().optional(),
   });
@@ -22,7 +22,7 @@ export type FilesRoot = z.infer<typeof filesRoot>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const filesRootResponse: any = z.lazy(() => {
+export const filesRootResponse = z.lazy(() => {
   return z
     .object({
       enabled: z.boolean().optional(),
@@ -36,7 +36,7 @@ export const filesRootResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const filesRootRequest: any = z.lazy(() => {
+export const filesRootRequest = z.lazy(() => {
   return z.object({ enabled: z.boolean().nullish() }).transform((data) => ({
     enabled: data['enabled'],
   }));

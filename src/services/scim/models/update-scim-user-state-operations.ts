@@ -6,7 +6,7 @@ import { operationsValue2, operationsValue2Request, operationsValue2Response } f
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateScimUserStateOperations: any = z.lazy(() => {
+export const updateScimUserStateOperations = z.lazy(() => {
   return z.object({
     op: z.string().optional(),
     value: operationsValue2.optional(),
@@ -25,7 +25,7 @@ export type UpdateScimUserStateOperations = z.infer<typeof updateScimUserStateOp
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateScimUserStateOperationsResponse: any = z.lazy(() => {
+export const updateScimUserStateOperationsResponse = z.lazy(() => {
   return z
     .object({
       op: z.string().optional(),
@@ -41,7 +41,7 @@ export const updateScimUserStateOperationsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateScimUserStateOperationsRequest: any = z.lazy(() => {
+export const updateScimUserStateOperationsRequest = z.lazy(() => {
   return z.object({ op: z.string().nullish(), value: operationsValue2Request.nullish() }).transform((data) => ({
     op: data['op'],
     value: data['value'],

@@ -11,7 +11,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApiVersions: any = z.lazy(() => {
+export const getApiVersions = z.lazy(() => {
   return z.object({
     meta: getApiVersionsMeta.optional(),
     versions: z.array(getApiVersionsVersions).optional(),
@@ -30,7 +30,7 @@ export type GetApiVersions = z.infer<typeof getApiVersions>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiVersionsResponse: any = z.lazy(() => {
+export const getApiVersionsResponse = z.lazy(() => {
   return z
     .object({
       meta: getApiVersionsMetaResponse.optional(),
@@ -46,7 +46,7 @@ export const getApiVersionsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiVersionsRequest: any = z.lazy(() => {
+export const getApiVersionsRequest = z.lazy(() => {
   return z
     .object({ meta: getApiVersionsMetaRequest.nullish(), versions: z.array(getApiVersionsVersionsRequest).nullish() })
     .transform((data) => ({

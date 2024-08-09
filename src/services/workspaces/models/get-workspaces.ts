@@ -6,7 +6,7 @@ import { workspaces, workspacesRequest, workspacesResponse } from './workspaces'
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getWorkspaces: any = z.lazy(() => {
+export const getWorkspaces = z.lazy(() => {
   return z.object({
     workspaces: z.array(workspaces).optional(),
   });
@@ -23,7 +23,7 @@ export type GetWorkspaces = z.infer<typeof getWorkspaces>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspacesResponse: any = z.lazy(() => {
+export const getWorkspacesResponse = z.lazy(() => {
   return z
     .object({
       workspaces: z.array(workspacesResponse).optional(),
@@ -37,7 +37,7 @@ export const getWorkspacesResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspacesRequest: any = z.lazy(() => {
+export const getWorkspacesRequest = z.lazy(() => {
   return z.object({ workspaces: z.array(workspacesRequest).nullish() }).transform((data) => ({
     workspaces: data['workspaces'],
   }));

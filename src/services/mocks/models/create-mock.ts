@@ -6,7 +6,7 @@ import { createMockMock, createMockMockRequest, createMockMockResponse } from '.
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createMock: any = z.lazy(() => {
+export const createMock = z.lazy(() => {
   return z.object({
     mock: createMockMock.optional(),
   });
@@ -23,7 +23,7 @@ export type CreateMock = z.infer<typeof createMock>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createMockResponse: any = z.lazy(() => {
+export const createMockResponse = z.lazy(() => {
   return z
     .object({
       mock: createMockMockResponse.optional(),
@@ -37,7 +37,7 @@ export const createMockResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createMockRequest: any = z.lazy(() => {
+export const createMockRequest = z.lazy(() => {
   return z.object({ mock: createMockMockRequest.nullish() }).transform((data) => ({
     mock: data['mock'],
   }));

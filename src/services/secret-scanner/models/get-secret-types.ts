@@ -7,7 +7,7 @@ import { getSecretTypesMeta, getSecretTypesMetaRequest, getSecretTypesMetaRespon
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getSecretTypes: any = z.lazy(() => {
+export const getSecretTypes = z.lazy(() => {
   return z.object({
     data: z.array(getSecretTypesData).optional(),
     meta: getSecretTypesMeta.optional(),
@@ -26,7 +26,7 @@ export type GetSecretTypes = z.infer<typeof getSecretTypes>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSecretTypesResponse: any = z.lazy(() => {
+export const getSecretTypesResponse = z.lazy(() => {
   return z
     .object({
       data: z.array(getSecretTypesDataResponse).optional(),
@@ -42,7 +42,7 @@ export const getSecretTypesResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSecretTypesRequest: any = z.lazy(() => {
+export const getSecretTypesRequest = z.lazy(() => {
   return z
     .object({ data: z.array(getSecretTypesDataRequest).nullish(), meta: getSecretTypesMetaRequest.nullish() })
     .transform((data) => ({

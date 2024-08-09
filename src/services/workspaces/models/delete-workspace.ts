@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const deleteWorkspace: any = z.lazy(() => {
+export const deleteWorkspace = z.lazy(() => {
   return z.object({
     workspace: deleteWorkspaceWorkspace.optional(),
   });
@@ -27,7 +27,7 @@ export type DeleteWorkspace = z.infer<typeof deleteWorkspace>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteWorkspaceResponse: any = z.lazy(() => {
+export const deleteWorkspaceResponse = z.lazy(() => {
   return z
     .object({
       workspace: deleteWorkspaceWorkspaceResponse.optional(),
@@ -41,7 +41,7 @@ export const deleteWorkspaceResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteWorkspaceRequest: any = z.lazy(() => {
+export const deleteWorkspaceRequest = z.lazy(() => {
   return z.object({ workspace: deleteWorkspaceWorkspaceRequest.nullish() }).transform((data) => ({
     workspace: data['workspace'],
   }));

@@ -6,7 +6,7 @@ import { publishMockMock, publishMockMockRequest, publishMockMockResponse } from
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const publishMock: any = z.lazy(() => {
+export const publishMock = z.lazy(() => {
   return z.object({
     mock: publishMockMock.optional(),
   });
@@ -23,7 +23,7 @@ export type PublishMock = z.infer<typeof publishMock>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const publishMockResponse: any = z.lazy(() => {
+export const publishMockResponse = z.lazy(() => {
   return z
     .object({
       mock: publishMockMockResponse.optional(),
@@ -37,7 +37,7 @@ export const publishMockResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const publishMockRequest: any = z.lazy(() => {
+export const publishMockRequest = z.lazy(() => {
   return z.object({ mock: publishMockMockRequest.nullish() }).transform((data) => ({
     mock: data['mock'],
   }));

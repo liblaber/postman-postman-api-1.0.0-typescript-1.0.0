@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const filesMeta: any = z.lazy(() => {
+export const filesMeta = z.lazy(() => {
   return z.object({
     nextPath: z.string().optional(),
   });
@@ -22,7 +22,7 @@ export type FilesMeta = z.infer<typeof filesMeta>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const filesMetaResponse: any = z.lazy(() => {
+export const filesMetaResponse = z.lazy(() => {
   return z
     .object({
       nextPath: z.string().optional(),
@@ -36,7 +36,7 @@ export const filesMetaResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const filesMetaRequest: any = z.lazy(() => {
+export const filesMetaRequest = z.lazy(() => {
   return z.object({ nextPath: z.string().nullish() }).transform((data) => ({
     nextPath: data['nextPath'],
   }));

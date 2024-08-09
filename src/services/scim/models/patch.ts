@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const patch: any = z.lazy(() => {
+export const patch = z.lazy(() => {
   return z.object({
     supported: z.boolean().optional(),
   });
@@ -22,7 +22,7 @@ export type Patch = z.infer<typeof patch>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const patchResponse: any = z.lazy(() => {
+export const patchResponse = z.lazy(() => {
   return z
     .object({
       supported: z.boolean().optional(),
@@ -36,7 +36,7 @@ export const patchResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const patchRequest: any = z.lazy(() => {
+export const patchRequest = z.lazy(() => {
   return z.object({ supported: z.boolean().nullish() }).transform((data) => ({
     supported: data['supported'],
   }));

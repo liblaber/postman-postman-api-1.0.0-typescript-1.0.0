@@ -7,7 +7,7 @@ import { versionCollections, versionCollectionsRequest, versionCollectionsRespon
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const version: any = z.lazy(() => {
+export const version = z.lazy(() => {
   return z.object({
     id: z.string().optional(),
     name: z.string().optional(),
@@ -36,7 +36,7 @@ export type Version = z.infer<typeof version>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const versionResponse: any = z.lazy(() => {
+export const versionResponse = z.lazy(() => {
   return z
     .object({
       id: z.string().optional(),
@@ -62,7 +62,7 @@ export const versionResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const versionRequest: any = z.lazy(() => {
+export const versionRequest = z.lazy(() => {
   return z
     .object({
       id: z.string().nullish(),

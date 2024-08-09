@@ -8,7 +8,7 @@ import { dataTeam, dataTeamRequest, dataTeamResponse } from './data-team';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const trailsData: any = z.lazy(() => {
+export const trailsData = z.lazy(() => {
   return z.object({
     actor: actor.optional(),
     user: dataUser.optional(),
@@ -31,7 +31,7 @@ export type TrailsData = z.infer<typeof trailsData>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const trailsDataResponse: any = z.lazy(() => {
+export const trailsDataResponse = z.lazy(() => {
   return z
     .object({
       actor: actorResponse.optional(),
@@ -51,7 +51,7 @@ export const trailsDataResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const trailsDataRequest: any = z.lazy(() => {
+export const trailsDataRequest = z.lazy(() => {
   return z
     .object({
       actor: actorRequest.nullish(),

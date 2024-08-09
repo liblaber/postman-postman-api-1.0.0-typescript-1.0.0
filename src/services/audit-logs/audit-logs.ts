@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { BaseService } from '../base-service';
-import { ContentType, HttpResponse } from '../../http';
-import { RequestConfig } from '../../http/types';
-import { Request } from '../../http/transport/request';
+import { ContentType, HttpResponse, RequestConfig } from '../../http/types';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import { SerializationStyle } from '../../http/serialization/base-serializer';
 import { GetAuditLogs, getAuditLogsResponse } from './models/get-audit-logs';
 import { GetAuditLogsParams } from './request-params';
 
@@ -19,21 +19,39 @@ export class AuditLogsService extends BaseService {
    * @returns {Promise<HttpResponse<GetAuditLogs>>} Successful Response
    */
   async getAuditLogs(params?: GetAuditLogsParams, requestConfig?: RequestConfig): Promise<HttpResponse<GetAuditLogs>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/audit/logs',
-      config: this.config,
-      responseSchema: getAuditLogsResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addQueryParam('since', params?.since);
-    request.addQueryParam('until', params?.until);
-    request.addQueryParam('limit', params?.limit);
-    request.addQueryParam('cursor', params?.cursor);
-    request.addQueryParam('order_by', params?.orderBy);
+    const request = new RequestBuilder<GetAuditLogs>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/audit/logs')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getAuditLogsResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addQueryParam({
+        key: 'since',
+        value: params?.since,
+      })
+      .addQueryParam({
+        key: 'until',
+        value: params?.until,
+      })
+      .addQueryParam({
+        key: 'limit',
+        value: params?.limit,
+      })
+      .addQueryParam({
+        key: 'cursor',
+        value: params?.cursor,
+      })
+      .addQueryParam({
+        key: 'order_by',
+        value: params?.orderBy,
+      })
+      .build();
     return this.client.call<GetAuditLogs>(request);
   }
 }

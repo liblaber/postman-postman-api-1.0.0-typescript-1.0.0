@@ -2,10 +2,19 @@
   "name": "postman_client",
   "version": "1.0.0",
   "description": "The Postman API enables you to programmatically access data stored in your Postman account. For more information on the API, rate limiting, authentication, and policies click visit [Postman's Documentation](https://learning.postman.com/docs/introduction/overview/)",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "source": "./src/index.ts",
+  "main": "./dist/commonjs/index.js",
+  "module": "./dist/esm/index.js",
+  "browser": "./dist/index.umd.js",
+  "unpkg": "./dist/index.umd.js",
+  "types": "./dist/commonjs/index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "npm run build:all",
+    "build:cjs": "tsc --module commonjs --outDir dist/commonjs",
+    "build:esm": "tsc --module esnext --outDir dist/esm",
+    "build:umd": "tsc --module umd --outDir dist/umd",
+    "build:all": "npm run build:cjs && npm run build:esm && npm run build:umd",
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "typescript",
@@ -13,12 +22,23 @@
     "api",
     "client"
   ],
-  "author": "LibLab",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "author": "Postman Support",
   "license": "MIT",
   "devDependencies": {
     "typescript": "5.3.3"
   },
   "dependencies": {
     "zod": "3.22.0"
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
   }
 }

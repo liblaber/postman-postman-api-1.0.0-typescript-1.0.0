@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createScimUserMeta: any = z.lazy(() => {
+export const createScimUserMeta = z.lazy(() => {
   return z.object({
     created: z.string().optional(),
     lastModified: z.string().optional(),
@@ -26,7 +26,7 @@ export type CreateScimUserMeta = z.infer<typeof createScimUserMeta>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createScimUserMetaResponse: any = z.lazy(() => {
+export const createScimUserMetaResponse = z.lazy(() => {
   return z
     .object({
       created: z.string().optional(),
@@ -44,7 +44,7 @@ export const createScimUserMetaResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createScimUserMetaRequest: any = z.lazy(() => {
+export const createScimUserMetaRequest = z.lazy(() => {
   return z
     .object({ created: z.string().nullish(), lastModified: z.string().nullish(), resourceType: z.string().nullish() })
     .transform((data) => ({

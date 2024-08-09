@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const gitInfo: any = z.lazy(() => {
+export const gitInfo = z.lazy(() => {
   return z.object({
     domain: z.string().optional().nullable(),
     repository: z.string().optional(),
@@ -30,7 +30,7 @@ export type GitInfo = z.infer<typeof gitInfo>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const gitInfoResponse: any = z.lazy(() => {
+export const gitInfoResponse = z.lazy(() => {
   return z
     .object({
       domain: z.string().optional().nullable(),
@@ -52,7 +52,7 @@ export const gitInfoResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const gitInfoRequest: any = z.lazy(() => {
+export const gitInfoRequest = z.lazy(() => {
   return z
     .object({
       domain: z.string().nullish(),

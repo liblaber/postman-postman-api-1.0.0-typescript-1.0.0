@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const merge: any = z.lazy(() => {
+export const merge = z.lazy(() => {
   return z.object({
     status: z.string().optional(),
   });
@@ -26,7 +26,7 @@ export type Merge = z.infer<typeof merge>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const mergeResponse: any = z.lazy(() => {
+export const mergeResponse = z.lazy(() => {
   return z
     .object({
       status: z.string().optional(),
@@ -40,7 +40,7 @@ export const mergeResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const mergeRequest: any = z.lazy(() => {
+export const mergeRequest = z.lazy(() => {
   return z.object({ status: z.string().nullish() }).transform((data) => ({
     status: data['status'],
   }));

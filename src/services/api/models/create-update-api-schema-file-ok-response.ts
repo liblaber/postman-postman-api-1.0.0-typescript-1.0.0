@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createUpdateApiSchemaFileOkResponse: any = z.lazy(() => {
+export const createUpdateApiSchemaFileOkResponse = z.lazy(() => {
   return z.object({
     id: z.string().optional(),
     name: z.string().optional(),
@@ -34,7 +34,7 @@ export type CreateUpdateApiSchemaFileOkResponse = z.infer<typeof createUpdateApi
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createUpdateApiSchemaFileOkResponseResponse: any = z.lazy(() => {
+export const createUpdateApiSchemaFileOkResponseResponse = z.lazy(() => {
   return z
     .object({
       id: z.string().optional(),
@@ -60,7 +60,7 @@ export const createUpdateApiSchemaFileOkResponseResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createUpdateApiSchemaFileOkResponseRequest: any = z.lazy(() => {
+export const createUpdateApiSchemaFileOkResponseRequest = z.lazy(() => {
   return z
     .object({
       id: z.string().nullish(),

@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const forkEnvironmentOkResponse: any = z.lazy(() => {
+export const forkEnvironmentOkResponse = z.lazy(() => {
   return z.object({
     environment: forkEnvironmentEnvironment.optional(),
   });
@@ -27,7 +27,7 @@ export type ForkEnvironmentOkResponse = z.infer<typeof forkEnvironmentOkResponse
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const forkEnvironmentOkResponseResponse: any = z.lazy(() => {
+export const forkEnvironmentOkResponseResponse = z.lazy(() => {
   return z
     .object({
       environment: forkEnvironmentEnvironmentResponse.optional(),
@@ -41,7 +41,7 @@ export const forkEnvironmentOkResponseResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const forkEnvironmentOkResponseRequest: any = z.lazy(() => {
+export const forkEnvironmentOkResponseRequest = z.lazy(() => {
   return z.object({ environment: forkEnvironmentEnvironmentRequest.nullish() }).transform((data) => ({
     environment: data['environment'],
   }));

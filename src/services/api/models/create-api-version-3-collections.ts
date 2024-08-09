@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createApiVersion3Collections: any = z.lazy(() => {
+export const createApiVersion3Collections = z.lazy(() => {
   return z.object({
     filePath: z.string().optional(),
   });
@@ -22,7 +22,7 @@ export type CreateApiVersion3Collections = z.infer<typeof createApiVersion3Colle
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiVersion3CollectionsResponse: any = z.lazy(() => {
+export const createApiVersion3CollectionsResponse = z.lazy(() => {
   return z
     .object({
       filePath: z.string().optional(),
@@ -36,7 +36,7 @@ export const createApiVersion3CollectionsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiVersion3CollectionsRequest: any = z.lazy(() => {
+export const createApiVersion3CollectionsRequest = z.lazy(() => {
   return z.object({ filePath: z.string().nullish() }).transform((data) => ({
     filePath: data['filePath'],
   }));

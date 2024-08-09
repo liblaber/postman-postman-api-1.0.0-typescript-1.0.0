@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createMonitorRequest: any = z.lazy(() => {
+export const createMonitorRequest = z.lazy(() => {
   return z.object({
     monitor: createMonitorMonitor1.optional(),
   });
@@ -27,7 +27,7 @@ export type CreateMonitorRequest = z.infer<typeof createMonitorRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createMonitorRequestResponse: any = z.lazy(() => {
+export const createMonitorRequestResponse = z.lazy(() => {
   return z
     .object({
       monitor: createMonitorMonitor1Response.optional(),
@@ -41,7 +41,7 @@ export const createMonitorRequestResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createMonitorRequestRequest: any = z.lazy(() => {
+export const createMonitorRequestRequest = z.lazy(() => {
   return z.object({ monitor: createMonitorMonitor1Request.nullish() }).transform((data) => ({
     monitor: data['monitor'],
   }));

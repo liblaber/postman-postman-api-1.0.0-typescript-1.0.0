@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const rolesValue1: any = z.lazy(() => {
+export const rolesValue1 = z.lazy(() => {
   return z.object({
     id: z.number(),
     role: z.string(),
@@ -26,7 +26,7 @@ export type RolesValue1 = z.infer<typeof rolesValue1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const rolesValue1Response: any = z.lazy(() => {
+export const rolesValue1Response = z.lazy(() => {
   return z
     .object({
       id: z.number(),
@@ -42,7 +42,7 @@ export const rolesValue1Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const rolesValue1Request: any = z.lazy(() => {
+export const rolesValue1Request = z.lazy(() => {
   return z.object({ id: z.number().nullish(), role: z.string().nullish() }).transform((data) => ({
     id: data['id'],
     role: data['role'],

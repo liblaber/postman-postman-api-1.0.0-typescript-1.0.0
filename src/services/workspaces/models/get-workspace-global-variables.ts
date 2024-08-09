@@ -6,7 +6,7 @@ import { globalVariable, globalVariableRequest, globalVariableResponse } from '.
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getWorkspaceGlobalVariables: any = z.lazy(() => {
+export const getWorkspaceGlobalVariables = z.lazy(() => {
   return z.object({
     values: z.array(globalVariable).optional(),
   });
@@ -23,7 +23,7 @@ export type GetWorkspaceGlobalVariables = z.infer<typeof getWorkspaceGlobalVaria
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspaceGlobalVariablesResponse: any = z.lazy(() => {
+export const getWorkspaceGlobalVariablesResponse = z.lazy(() => {
   return z
     .object({
       values: z.array(globalVariableResponse).optional(),
@@ -37,7 +37,7 @@ export const getWorkspaceGlobalVariablesResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getWorkspaceGlobalVariablesRequest: any = z.lazy(() => {
+export const getWorkspaceGlobalVariablesRequest = z.lazy(() => {
   return z.object({ values: z.array(globalVariableRequest).nullish() }).transform((data) => ({
     values: data['values'],
   }));

@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const schemaSecurityValidationOkResponse: any = z.lazy(() => {
+export const schemaSecurityValidationOkResponse = z.lazy(() => {
   return z.object({
     warnings: z.array(z.any()).optional(),
   });
@@ -25,7 +25,7 @@ export type SchemaSecurityValidationOkResponse = z.infer<typeof schemaSecurityVa
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const schemaSecurityValidationOkResponseResponse: any = z.lazy(() => {
+export const schemaSecurityValidationOkResponseResponse = z.lazy(() => {
   return z
     .object({
       warnings: z.array(z.any()).optional(),
@@ -39,7 +39,7 @@ export const schemaSecurityValidationOkResponseResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const schemaSecurityValidationOkResponseRequest: any = z.lazy(() => {
+export const schemaSecurityValidationOkResponseRequest = z.lazy(() => {
   return z.object({ warnings: z.array(z.any()).nullish() }).transform((data) => ({
     warnings: data['warnings'],
   }));

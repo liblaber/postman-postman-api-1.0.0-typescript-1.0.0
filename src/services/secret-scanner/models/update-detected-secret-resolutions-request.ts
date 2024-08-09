@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateDetectedSecretResolutionsRequest: any = z.lazy(() => {
+export const updateDetectedSecretResolutionsRequest = z.lazy(() => {
   return z.object({
     resolution: z.string(),
     workspaceId: z.string(),
@@ -28,7 +28,7 @@ export type UpdateDetectedSecretResolutionsRequest = z.infer<typeof updateDetect
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateDetectedSecretResolutionsRequestResponse: any = z.lazy(() => {
+export const updateDetectedSecretResolutionsRequestResponse = z.lazy(() => {
   return z
     .object({
       resolution: z.string(),
@@ -44,7 +44,7 @@ export const updateDetectedSecretResolutionsRequestResponse: any = z.lazy(() => 
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateDetectedSecretResolutionsRequestRequest: any = z.lazy(() => {
+export const updateDetectedSecretResolutionsRequestRequest = z.lazy(() => {
   return z.object({ resolution: z.string().nullish(), workspaceId: z.string().nullish() }).transform((data) => ({
     resolution: data['resolution'],
     workspaceId: data['workspaceId'],

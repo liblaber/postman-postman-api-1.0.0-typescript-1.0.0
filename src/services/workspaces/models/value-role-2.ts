@@ -3,7 +3,7 @@
 import { z } from 'zod';
 
 export enum ValueRole2 {
-  _1 = '1',
-  _2 = '2',
-  _3 = '3',
+  _1 = 1,
+  _2 = 2,
+  _3 = 3,
 }

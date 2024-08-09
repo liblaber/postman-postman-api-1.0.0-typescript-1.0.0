@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { BaseService } from '../base-service';
-import { ContentType, HttpResponse } from '../../http';
-import { RequestConfig } from '../../http/types';
-import { Request } from '../../http/transport/request';
+import { ContentType, HttpResponse, RequestConfig } from '../../http/types';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import { SerializationStyle } from '../../http/serialization/base-serializer';
 import {
   SchemaSecurityValidationRequest,
   schemaSecurityValidationRequestRequest,
@@ -30,18 +30,21 @@ For more information, see our [Rule violations in the API definition](https://le
     body: SchemaSecurityValidationRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<SchemaSecurityValidationOkResponse>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/security/api-validation',
-      config: this.config,
-      responseSchema: schemaSecurityValidationOkResponseResponse,
-      requestSchema: schemaSecurityValidationRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<SchemaSecurityValidationOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/security/api-validation')
+      .setRequestSchema(schemaSecurityValidationRequestRequest)
+      .setResponseSchema(schemaSecurityValidationOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<SchemaSecurityValidationOkResponse>(request);
   }
 }

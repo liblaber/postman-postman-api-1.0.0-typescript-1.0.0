@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const statsAssertions1: any = z.lazy(() => {
+export const statsAssertions1 = z.lazy(() => {
   return z.object({
     failed: z.number().optional(),
     total: z.number().optional(),
@@ -24,7 +24,7 @@ export type StatsAssertions1 = z.infer<typeof statsAssertions1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const statsAssertions1Response: any = z.lazy(() => {
+export const statsAssertions1Response = z.lazy(() => {
   return z
     .object({
       failed: z.number().optional(),
@@ -40,7 +40,7 @@ export const statsAssertions1Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const statsAssertions1Request: any = z.lazy(() => {
+export const statsAssertions1Request = z.lazy(() => {
   return z.object({ failed: z.number().nullish(), total: z.number().nullish() }).transform((data) => ({
     failed: data['failed'],
     total: data['total'],

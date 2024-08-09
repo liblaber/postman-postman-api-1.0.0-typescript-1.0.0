@@ -6,7 +6,7 @@ import { environmentValues1, environmentValues1Request, environmentValues1Respon
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createEnvironmentEnvironment1: any = z.lazy(() => {
+export const createEnvironmentEnvironment1 = z.lazy(() => {
   return z.object({
     name: z.string(),
     values: z.array(environmentValues1).optional(),
@@ -25,7 +25,7 @@ export type CreateEnvironmentEnvironment1 = z.infer<typeof createEnvironmentEnvi
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createEnvironmentEnvironment1Response: any = z.lazy(() => {
+export const createEnvironmentEnvironment1Response = z.lazy(() => {
   return z
     .object({
       name: z.string(),
@@ -41,7 +41,7 @@ export const createEnvironmentEnvironment1Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createEnvironmentEnvironment1Request: any = z.lazy(() => {
+export const createEnvironmentEnvironment1Request = z.lazy(() => {
   return z
     .object({ name: z.string().nullish(), values: z.array(environmentValues1Request).nullish() })
     .transform((data) => ({

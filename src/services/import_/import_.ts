@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { BaseService } from '../base-service';
-import { ContentType, HttpResponse } from '../../http';
-import { RequestConfig } from '../../http/types';
-import { Request } from '../../http/transport/request';
+import { ContentType, HttpResponse, RequestConfig } from '../../http/types';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import { SerializationStyle } from '../../http/serialization/base-serializer';
 import {
   ImportOpenApiDefinitionRequest,
   importOpenApiDefinitionRequestRequest,
@@ -26,19 +26,25 @@ export class Import_Service extends BaseService {
     params?: ImportOpenApiDefinitionParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<ImportOpenApiDefinitionOkResponse>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/import/openapi',
-      config: this.config,
-      responseSchema: importOpenApiDefinitionOkResponseResponse,
-      requestSchema: importOpenApiDefinitionRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addQueryParam('workspace', params?.workspace);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<ImportOpenApiDefinitionOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/import/openapi')
+      .setRequestSchema(importOpenApiDefinitionRequestRequest)
+      .setResponseSchema(importOpenApiDefinitionOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addQueryParam({
+        key: 'workspace',
+        value: params?.workspace,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<ImportOpenApiDefinitionOkResponse>(request);
   }
 }
