@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { BaseService } from '../base-service';
-import { ContentType, HttpResponse } from '../../http';
-import { RequestConfig } from '../../http/types';
-import { Request } from '../../http/transport/request';
+import { ContentType, HttpResponse, RequestConfig } from '../../http/types';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import { SerializationStyle } from '../../http/serialization/base-serializer';
 import { GetMocks, getMocksResponse } from './models/get-mocks';
 import { CreateMockParams, GetMockCallLogsParams, GetMocksParams } from './request-params';
 import { CreateMock, createMockRequest } from './models/create-mock';
@@ -32,18 +32,27 @@ If you pass both the `teamId` and `workspace` query parameters, this endpoint on
  * @returns {Promise<HttpResponse<GetMocks>>} Successful Response
  */
   async getMocks(params?: GetMocksParams, requestConfig?: RequestConfig): Promise<HttpResponse<GetMocks>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/mocks',
-      config: this.config,
-      responseSchema: getMocksResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addQueryParam('teamId', params?.teamId);
-    request.addQueryParam('workspace', params?.workspace);
+    const request = new RequestBuilder<GetMocks>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/mocks')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getMocksResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addQueryParam({
+        key: 'teamId',
+        value: params?.teamId,
+      })
+      .addQueryParam({
+        key: 'workspace',
+        value: params?.workspace,
+      })
+      .build();
     return this.client.call<GetMocks>(request);
   }
 
@@ -63,19 +72,25 @@ workspace](https://learning.postman.com/docs/collaborating-in-postman/using-work
     params?: CreateMockParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<MockCreateUpdate>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/mocks',
-      config: this.config,
-      responseSchema: mockCreateUpdateResponse,
-      requestSchema: createMockRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addQueryParam('workspaceId', params?.workspaceId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<MockCreateUpdate>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/mocks')
+      .setRequestSchema(createMockRequest)
+      .setResponseSchema(mockCreateUpdateResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addQueryParam({
+        key: 'workspaceId',
+        value: params?.workspaceId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<MockCreateUpdate>(request);
   }
 
@@ -85,17 +100,23 @@ workspace](https://learning.postman.com/docs/collaborating-in-postman/using-work
    * @returns {Promise<HttpResponse<GetMock>>} Successful Response
    */
   async getMock(mockId: string, requestConfig?: RequestConfig): Promise<HttpResponse<GetMock>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/mocks/{mockId}',
-      config: this.config,
-      responseSchema: getMockResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('mockId', mockId);
+    const request = new RequestBuilder<GetMock>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/mocks/{mockId}')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getMockResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'mockId',
+        value: mockId,
+      })
+      .build();
     return this.client.call<GetMock>(request);
   }
 
@@ -109,19 +130,25 @@ workspace](https://learning.postman.com/docs/collaborating-in-postman/using-work
     body: UpdateMock,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<MockCreateUpdate>> {
-    const request = new Request({
-      method: 'PUT',
-      body,
-      path: '/mocks/{mockId}',
-      config: this.config,
-      responseSchema: mockCreateUpdateResponse,
-      requestSchema: updateMockRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('mockId', mockId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<MockCreateUpdate>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PUT')
+      .setPath('/mocks/{mockId}')
+      .setRequestSchema(updateMockRequest)
+      .setResponseSchema(mockCreateUpdateResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'mockId',
+        value: mockId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<MockCreateUpdate>(request);
   }
 
@@ -131,17 +158,23 @@ workspace](https://learning.postman.com/docs/collaborating-in-postman/using-work
    * @returns {Promise<HttpResponse<DeleteMock>>} Successful Response
    */
   async deleteMock(mockId: string, requestConfig?: RequestConfig): Promise<HttpResponse<DeleteMock>> {
-    const request = new Request({
-      method: 'DELETE',
-      path: '/mocks/{mockId}',
-      config: this.config,
-      responseSchema: deleteMockResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('mockId', mockId);
+    const request = new RequestBuilder<DeleteMock>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('DELETE')
+      .setPath('/mocks/{mockId}')
+      .setRequestSchema(z.any())
+      .setResponseSchema(deleteMockResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'mockId',
+        value: mockId,
+      })
+      .build();
     return this.client.call<DeleteMock>(request);
   }
 
@@ -168,28 +201,67 @@ Call logs contain exchanged request and response data made to mock servers. The 
     params?: GetMockCallLogsParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetMockCallLogs>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/mocks/{mockId}/call-logs',
-      config: this.config,
-      responseSchema: getMockCallLogsResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('mockId', mockId);
-    request.addQueryParam('limit', params?.limit);
-    request.addQueryParam('cursor', params?.cursor);
-    request.addQueryParam('until', params?.until);
-    request.addQueryParam('since', params?.since);
-    request.addQueryParam('responseStatusCode', params?.responseStatusCode);
-    request.addQueryParam('responseType', params?.responseType);
-    request.addQueryParam('requestMethod', params?.requestMethod);
-    request.addQueryParam('requestPath', params?.requestPath);
-    request.addQueryParam('sort', params?.sort);
-    request.addQueryParam('direction', params?.direction);
-    request.addQueryParam('include', params?.include);
+    const request = new RequestBuilder<GetMockCallLogs>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/mocks/{mockId}/call-logs')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getMockCallLogsResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'mockId',
+        value: mockId,
+      })
+      .addQueryParam({
+        key: 'limit',
+        value: params?.limit,
+      })
+      .addQueryParam({
+        key: 'cursor',
+        value: params?.cursor,
+      })
+      .addQueryParam({
+        key: 'until',
+        value: params?.until,
+      })
+      .addQueryParam({
+        key: 'since',
+        value: params?.since,
+      })
+      .addQueryParam({
+        key: 'responseStatusCode',
+        value: params?.responseStatusCode,
+      })
+      .addQueryParam({
+        key: 'responseType',
+        value: params?.responseType,
+      })
+      .addQueryParam({
+        key: 'requestMethod',
+        value: params?.requestMethod,
+      })
+      .addQueryParam({
+        key: 'requestPath',
+        value: params?.requestPath,
+      })
+      .addQueryParam({
+        key: 'sort',
+        value: params?.sort,
+      })
+      .addQueryParam({
+        key: 'direction',
+        value: params?.direction,
+      })
+      .addQueryParam({
+        key: 'include',
+        value: params?.include,
+      })
+      .build();
     return this.client.call<GetMockCallLogs>(request);
   }
 
@@ -199,17 +271,23 @@ Call logs contain exchanged request and response data made to mock servers. The 
    * @returns {Promise<HttpResponse<PublishMock>>} Successful Response
    */
   async publishMock(mockId: string, requestConfig?: RequestConfig): Promise<HttpResponse<PublishMock>> {
-    const request = new Request({
-      method: 'POST',
-      path: '/mocks/{mockId}/publish',
-      config: this.config,
-      responseSchema: publishMockResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('mockId', mockId);
+    const request = new RequestBuilder<PublishMock>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/mocks/{mockId}/publish')
+      .setRequestSchema(z.any())
+      .setResponseSchema(publishMockResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'mockId',
+        value: mockId,
+      })
+      .build();
     return this.client.call<PublishMock>(request);
   }
 
@@ -219,17 +297,23 @@ Call logs contain exchanged request and response data made to mock servers. The 
    * @returns {Promise<HttpResponse<UnpublishMock>>} Successful Response
    */
   async unpublishMock(mockId: string, requestConfig?: RequestConfig): Promise<HttpResponse<UnpublishMock>> {
-    const request = new Request({
-      method: 'DELETE',
-      path: '/mocks/{mockId}/unpublish',
-      config: this.config,
-      responseSchema: unpublishMockResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('mockId', mockId);
+    const request = new RequestBuilder<UnpublishMock>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('DELETE')
+      .setPath('/mocks/{mockId}/unpublish')
+      .setRequestSchema(z.any())
+      .setResponseSchema(unpublishMockResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'mockId',
+        value: mockId,
+      })
+      .build();
     return this.client.call<UnpublishMock>(request);
   }
 
@@ -242,17 +326,23 @@ Call logs contain exchanged request and response data made to mock servers. The 
     mockId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetMockServerResponses[]>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/mocks/{mockId}/server-responses',
-      config: this.config,
-      responseSchema: z.array(getMockServerResponsesResponse),
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('mockId', mockId);
+    const request = new RequestBuilder<GetMockServerResponses[]>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/mocks/{mockId}/server-responses')
+      .setRequestSchema(z.any())
+      .setResponseSchema(z.array(getMockServerResponsesResponse))
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'mockId',
+        value: mockId,
+      })
+      .build();
     return this.client.call<GetMockServerResponses[]>(request);
   }
 
@@ -274,19 +364,25 @@ You can create multiple server responses for a mock server, but only one mock se
     body: CreateMockServerResponse,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<any>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/mocks/{mockId}/server-responses',
-      config: this.config,
-      responseSchema: z.any(),
-      requestSchema: createMockServerResponseRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('mockId', mockId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<any>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/mocks/{mockId}/server-responses')
+      .setRequestSchema(createMockServerResponseRequest)
+      .setResponseSchema(z.any())
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'mockId',
+        value: mockId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<any>(request);
   }
 
@@ -301,18 +397,27 @@ You can create multiple server responses for a mock server, but only one mock se
     serverResponseId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<any>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/mocks/{mockId}/server-responses/{serverResponseId}',
-      config: this.config,
-      responseSchema: z.any(),
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('mockId', mockId);
-    request.addPathParam('serverResponseId', serverResponseId);
+    const request = new RequestBuilder<any>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/mocks/{mockId}/server-responses/{serverResponseId}')
+      .setRequestSchema(z.any())
+      .setResponseSchema(z.any())
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'mockId',
+        value: mockId,
+      })
+      .addPathParam({
+        key: 'serverResponseId',
+        value: serverResponseId,
+      })
+      .build();
     return this.client.call<any>(request);
   }
 
@@ -328,20 +433,29 @@ You can create multiple server responses for a mock server, but only one mock se
     body: UpdateMockServerResponse,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<any>> {
-    const request = new Request({
-      method: 'PUT',
-      body,
-      path: '/mocks/{mockId}/server-responses/{serverResponseId}',
-      config: this.config,
-      responseSchema: z.any(),
-      requestSchema: updateMockServerResponseRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('mockId', mockId);
-    request.addPathParam('serverResponseId', serverResponseId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<any>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PUT')
+      .setPath('/mocks/{mockId}/server-responses/{serverResponseId}')
+      .setRequestSchema(updateMockServerResponseRequest)
+      .setResponseSchema(z.any())
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'mockId',
+        value: mockId,
+      })
+      .addPathParam({
+        key: 'serverResponseId',
+        value: serverResponseId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<any>(request);
   }
 
@@ -356,18 +470,27 @@ You can create multiple server responses for a mock server, but only one mock se
     serverResponseId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<DeleteMockServerResponse>> {
-    const request = new Request({
-      method: 'DELETE',
-      path: '/mocks/{mockId}/server-responses/{serverResponseId}',
-      config: this.config,
-      responseSchema: deleteMockServerResponseResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('mockId', mockId);
-    request.addPathParam('serverResponseId', serverResponseId);
+    const request = new RequestBuilder<DeleteMockServerResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('DELETE')
+      .setPath('/mocks/{mockId}/server-responses/{serverResponseId}')
+      .setRequestSchema(z.any())
+      .setResponseSchema(deleteMockServerResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'mockId',
+        value: mockId,
+      })
+      .addPathParam({
+        key: 'serverResponseId',
+        value: serverResponseId,
+      })
+      .build();
     return this.client.call<DeleteMockServerResponse>(request);
   }
 }

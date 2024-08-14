@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { BaseService } from '../base-service';
-import { ContentType, HttpResponse } from '../../http';
-import { RequestConfig } from '../../http/types';
-import { Request } from '../../http/transport/request';
+import { ContentType, HttpResponse, RequestConfig } from '../../http/types';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import { SerializationStyle } from '../../http/serialization/base-serializer';
 import { GetPanElementsAndFolders, getPanElementsAndFoldersResponse } from './models/get-pan-elements-and-folders';
 import { GetAllElementsAndFoldersParams, GetAllPanAddElementRequestsParams } from './request-params';
 import {
@@ -23,7 +23,7 @@ import {
   UpdatePanElementOrFolderOkResponse,
   updatePanElementOrFolderOkResponseResponse,
 } from './models/update-pan-element-or-folder-ok-response';
-import { UpdatePanElementOrFolderElementType } from './models';
+import { UpdatePanElementOrFolderElementType } from './models/update-pan-element-or-folder-element-type';
 import { DeletePanElementOrFolder, deletePanElementOrFolderResponse } from './models/delete-pan-element-or-folder';
 import {
   GetAllPanAddElementRequests,
@@ -64,29 +64,71 @@ The `limit` and `offset` parameters are separately applied to elements and folde
     params?: GetAllElementsAndFoldersParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetPanElementsAndFolders>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/network/private',
-      config: this.config,
-      responseSchema: getPanElementsAndFoldersResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addQueryParam('since', params?.since);
-    request.addQueryParam('until', params?.until);
-    request.addQueryParam('addedBy', params?.addedBy);
-    request.addQueryParam('name', params?.name);
-    request.addQueryParam('summary', params?.summary);
-    request.addQueryParam('description', params?.description);
-    request.addQueryParam('sort', params?.sort);
-    request.addQueryParam('direction', params?.direction);
-    request.addQueryParam('createdBy', params?.createdBy);
-    request.addQueryParam('offset', params?.offset);
-    request.addQueryParam('limit', params?.limit);
-    request.addQueryParam('parentFolderId', params?.parentFolderId);
-    request.addQueryParam('type', params?.type);
+    const request = new RequestBuilder<GetPanElementsAndFolders>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/network/private')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getPanElementsAndFoldersResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addQueryParam({
+        key: 'since',
+        value: params?.since,
+      })
+      .addQueryParam({
+        key: 'until',
+        value: params?.until,
+      })
+      .addQueryParam({
+        key: 'addedBy',
+        value: params?.addedBy,
+      })
+      .addQueryParam({
+        key: 'name',
+        value: params?.name,
+      })
+      .addQueryParam({
+        key: 'summary',
+        value: params?.summary,
+      })
+      .addQueryParam({
+        key: 'description',
+        value: params?.description,
+      })
+      .addQueryParam({
+        key: 'sort',
+        value: params?.sort,
+      })
+      .addQueryParam({
+        key: 'direction',
+        value: params?.direction,
+      })
+      .addQueryParam({
+        key: 'createdBy',
+        value: params?.createdBy,
+      })
+      .addQueryParam({
+        key: 'offset',
+        value: params?.offset,
+      })
+      .addQueryParam({
+        key: 'limit',
+        value: params?.limit,
+      })
+      .addQueryParam({
+        key: 'parentFolderId',
+        value: params?.parentFolderId,
+      })
+      .addQueryParam({
+        key: 'type',
+        value: params?.type,
+      })
+      .build();
     return this.client.call<GetPanElementsAndFolders>(request);
   }
 
@@ -102,18 +144,21 @@ You can only pass one element object type per call. For example, you cannot pass
     body: PostPanElementOrFolderRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PostPanElementOrFolderCreatedResponse>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/network/private',
-      config: this.config,
-      responseSchema: postPanElementOrFolderCreatedResponseResponse,
-      requestSchema: postPanElementOrFolderRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<PostPanElementOrFolderCreatedResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/network/private')
+      .setRequestSchema(postPanElementOrFolderRequestRequest)
+      .setResponseSchema(postPanElementOrFolderCreatedResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<PostPanElementOrFolderCreatedResponse>(request);
   }
 
@@ -133,20 +178,29 @@ You can only pass one element object type per call. For example, you cannot pass
     body: UpdatePanElementOrFolderRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdatePanElementOrFolderOkResponse>> {
-    const request = new Request({
-      method: 'PUT',
-      body,
-      path: '/network/private/{elementType}/{elementId}',
-      config: this.config,
-      responseSchema: updatePanElementOrFolderOkResponseResponse,
-      requestSchema: updatePanElementOrFolderRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('elementId', elementId);
-    request.addPathParam('elementType', elementType);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<UpdatePanElementOrFolderOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PUT')
+      .setPath('/network/private/{elementType}/{elementId}')
+      .setRequestSchema(updatePanElementOrFolderRequestRequest)
+      .setResponseSchema(updatePanElementOrFolderOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'elementId',
+        value: elementId,
+      })
+      .addPathParam({
+        key: 'elementType',
+        value: elementType,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<UpdatePanElementOrFolderOkResponse>(request);
   }
 
@@ -163,18 +217,27 @@ Removing an API, collection, or workspace element does not delete it. It only re
     elementType: UpdatePanElementOrFolderElementType,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<DeletePanElementOrFolder>> {
-    const request = new Request({
-      method: 'DELETE',
-      path: '/network/private/{elementType}/{elementId}',
-      config: this.config,
-      responseSchema: deletePanElementOrFolderResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('elementId', elementId);
-    request.addPathParam('elementType', elementType);
+    const request = new RequestBuilder<DeletePanElementOrFolder>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('DELETE')
+      .setPath('/network/private/{elementType}/{elementId}')
+      .setRequestSchema(z.any())
+      .setResponseSchema(deletePanElementOrFolderResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'elementId',
+        value: elementId,
+      })
+      .addPathParam({
+        key: 'elementType',
+        value: elementType,
+      })
+      .build();
     return this.client.call<DeletePanElementOrFolder>(request);
   }
 
@@ -196,26 +259,59 @@ Removing an API, collection, or workspace element does not delete it. It only re
     params?: GetAllPanAddElementRequestsParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetAllPanAddElementRequests>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/network/private/network-entity/request/all',
-      config: this.config,
-      responseSchema: getAllPanAddElementRequestsResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addQueryParam('since', params?.since);
-    request.addQueryParam('until', params?.until);
-    request.addQueryParam('requestedBy', params?.requestedBy);
-    request.addQueryParam('type', params?.type);
-    request.addQueryParam('status', params?.status);
-    request.addQueryParam('name', params?.name);
-    request.addQueryParam('sort', params?.sort);
-    request.addQueryParam('direction', params?.direction);
-    request.addQueryParam('offset', params?.offset);
-    request.addQueryParam('limit', params?.limit);
+    const request = new RequestBuilder<GetAllPanAddElementRequests>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/network/private/network-entity/request/all')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getAllPanAddElementRequestsResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addQueryParam({
+        key: 'since',
+        value: params?.since,
+      })
+      .addQueryParam({
+        key: 'until',
+        value: params?.until,
+      })
+      .addQueryParam({
+        key: 'requestedBy',
+        value: params?.requestedBy,
+      })
+      .addQueryParam({
+        key: 'type',
+        value: params?.type,
+      })
+      .addQueryParam({
+        key: 'status',
+        value: params?.status,
+      })
+      .addQueryParam({
+        key: 'name',
+        value: params?.name,
+      })
+      .addQueryParam({
+        key: 'sort',
+        value: params?.sort,
+      })
+      .addQueryParam({
+        key: 'direction',
+        value: params?.direction,
+      })
+      .addQueryParam({
+        key: 'offset',
+        value: params?.offset,
+      })
+      .addQueryParam({
+        key: 'limit',
+        value: params?.limit,
+      })
+      .build();
     return this.client.call<GetAllPanAddElementRequests>(request);
   }
 
@@ -229,19 +325,25 @@ Removing an API, collection, or workspace element does not delete it. It only re
     body: PrivateApiNetworkRespondPanElementAddRequestRequest1,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<RespondPanElementAddRequestOkResponse>> {
-    const request = new Request({
-      method: 'PUT',
-      body,
-      path: '/network/private/network-entity/request/{requestId}',
-      config: this.config,
-      responseSchema: respondPanElementAddRequestOkResponseResponse,
-      requestSchema: privateApiNetworkRespondPanElementAddRequestRequest1Request,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('requestId', requestId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<RespondPanElementAddRequestOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PUT')
+      .setPath('/network/private/network-entity/request/{requestId}')
+      .setRequestSchema(privateApiNetworkRespondPanElementAddRequestRequest1Request)
+      .setResponseSchema(respondPanElementAddRequestOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'requestId',
+        value: requestId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<RespondPanElementAddRequestOkResponse>(request);
   }
 }

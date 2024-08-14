@@ -7,7 +7,7 @@ import { jsonStringified, jsonStringifiedRequest, jsonStringifiedResponse } from
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const importOpenApiDefinitionRequest: any = z.lazy(() => {
+export const importOpenApiDefinitionRequest = z.lazy(() => {
   return z.union([jsonSchema, jsonStringified]);
 });
 
@@ -23,7 +23,7 @@ export type ImportOpenApiDefinitionRequest = z.infer<typeof importOpenApiDefinit
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const importOpenApiDefinitionRequestResponse: any = z.lazy(() => {
+export const importOpenApiDefinitionRequestResponse = z.lazy(() => {
   return z.union([jsonSchemaResponse, jsonStringifiedResponse]);
 });
 
@@ -31,6 +31,6 @@ export const importOpenApiDefinitionRequestResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const importOpenApiDefinitionRequestRequest: any = z.lazy(() => {
+export const importOpenApiDefinitionRequestRequest = z.lazy(() => {
   return z.union([jsonSchemaRequest, jsonStringifiedRequest]);
 });

@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createWebhookWebhook2: any = z.lazy(() => {
+export const createWebhookWebhook2 = z.lazy(() => {
   return z.object({
     id: z.string().optional(),
     name: z.string().optional(),
@@ -30,7 +30,7 @@ export type CreateWebhookWebhook2 = z.infer<typeof createWebhookWebhook2>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createWebhookWebhook2Response: any = z.lazy(() => {
+export const createWebhookWebhook2Response = z.lazy(() => {
   return z
     .object({
       id: z.string().optional(),
@@ -52,7 +52,7 @@ export const createWebhookWebhook2Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createWebhookWebhook2Request: any = z.lazy(() => {
+export const createWebhookWebhook2Request = z.lazy(() => {
   return z
     .object({
       id: z.string().nullish(),

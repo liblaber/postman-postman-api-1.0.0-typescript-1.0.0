@@ -15,7 +15,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getSecretsLocations: any = z.lazy(() => {
+export const getSecretsLocations = z.lazy(() => {
   return z.object({
     data: z.array(getSecretsLocationsData).optional(),
     meta: getSecretsLocationsMeta.optional(),
@@ -34,7 +34,7 @@ export type GetSecretsLocations = z.infer<typeof getSecretsLocations>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSecretsLocationsResponse: any = z.lazy(() => {
+export const getSecretsLocationsResponse = z.lazy(() => {
   return z
     .object({
       data: z.array(getSecretsLocationsDataResponse).optional(),
@@ -50,7 +50,7 @@ export const getSecretsLocationsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSecretsLocationsRequest: any = z.lazy(() => {
+export const getSecretsLocationsRequest = z.lazy(() => {
   return z
     .object({ data: z.array(getSecretsLocationsDataRequest).nullish(), meta: getSecretsLocationsMetaRequest.nullish() })
     .transform((data) => ({

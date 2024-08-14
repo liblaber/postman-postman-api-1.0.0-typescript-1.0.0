@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createUpdateApiSchemaFileRequest: any = z.lazy(() => {
+export const createUpdateApiSchemaFileRequest = z.lazy(() => {
   return z.object({
     name: z.string().optional(),
     root: createUpdateApiSchemaFileRoot.optional(),
@@ -31,7 +31,7 @@ export type CreateUpdateApiSchemaFileRequest = z.infer<typeof createUpdateApiSch
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createUpdateApiSchemaFileRequestResponse: any = z.lazy(() => {
+export const createUpdateApiSchemaFileRequestResponse = z.lazy(() => {
   return z
     .object({
       name: z.string().optional(),
@@ -49,7 +49,7 @@ export const createUpdateApiSchemaFileRequestResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createUpdateApiSchemaFileRequestRequest: any = z.lazy(() => {
+export const createUpdateApiSchemaFileRequestRequest = z.lazy(() => {
   return z
     .object({
       name: z.string().nullish(),

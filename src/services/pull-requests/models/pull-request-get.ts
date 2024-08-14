@@ -9,7 +9,7 @@ import { reviewers, reviewersRequest, reviewersResponse } from './reviewers';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const pullRequestGet: any = z.lazy(() => {
+export const pullRequestGet = z.lazy(() => {
   return z.object({
     createdAt: z.string().optional(),
     updatedAt: z.string().optional(),
@@ -56,7 +56,7 @@ export type PullRequestGet = z.infer<typeof pullRequestGet>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullRequestGetResponse: any = z.lazy(() => {
+export const pullRequestGetResponse = z.lazy(() => {
   return z
     .object({
       createdAt: z.string().optional(),
@@ -96,7 +96,7 @@ export const pullRequestGetResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullRequestGetRequest: any = z.lazy(() => {
+export const pullRequestGetRequest = z.lazy(() => {
   return z
     .object({
       createdAt: z.string().nullish(),

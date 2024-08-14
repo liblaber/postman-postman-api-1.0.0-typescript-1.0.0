@@ -6,7 +6,7 @@ import { userName, userNameRequest, userNameResponse } from './user-name';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const commentCreateUpdateTags: any = z.lazy(() => {
+export const commentCreateUpdateTags = z.lazy(() => {
   return z.object({
     userName: userName.optional(),
   });
@@ -23,7 +23,7 @@ export type CommentCreateUpdateTags = z.infer<typeof commentCreateUpdateTags>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const commentCreateUpdateTagsResponse: any = z.lazy(() => {
+export const commentCreateUpdateTagsResponse = z.lazy(() => {
   return z
     .object({
       userName: userNameResponse.optional(),
@@ -37,7 +37,7 @@ export const commentCreateUpdateTagsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const commentCreateUpdateTagsRequest: any = z.lazy(() => {
+export const commentCreateUpdateTagsRequest = z.lazy(() => {
   return z.object({ userName: userNameRequest.nullish() }).transform((data) => ({
     userName: data['userName'],
   }));

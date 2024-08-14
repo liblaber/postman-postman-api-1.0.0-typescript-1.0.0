@@ -45,6 +45,8 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
+  const input = {};
+
   const { data } = await postmanClient.collectionItems.createCollectionFolder(
     '12ece9e1-2abf-4edc-8e34-de66e74114d2',
     input,
@@ -82,6 +84,8 @@ import { PostmanClient } from 'postman_client';
   const postmanClient = new PostmanClient({
     apiKey: 'YOUR_API_KEY',
   });
+
+  const input = {};
 
   const { data } = await postmanClient.collectionItems.createCollectionRequest(
     '12ece9e1-2abf-4edc-8e34-de66e74114d2',
@@ -123,6 +127,8 @@ import { PostmanClient } from 'postman_client';
   const postmanClient = new PostmanClient({
     apiKey: 'YOUR_API_KEY',
   });
+
+  const input = {};
 
   const { data } = await postmanClient.collectionItems.createCollectionResponse(
     '12ece9e1-2abf-4edc-8e34-de66e74114d2',
@@ -209,6 +215,8 @@ import { PostmanClient } from 'postman_client';
   const postmanClient = new PostmanClient({
     apiKey: 'YOUR_API_KEY',
   });
+
+  const input = {};
 
   const { data } = await postmanClient.collectionItems.updateCollectionFolder(
     '65a99e60-8e0a-4b6e-b79c-7d8264cc5caa',
@@ -331,6 +339,8 @@ import { PostmanClient } from 'postman_client';
     apiKey: 'YOUR_API_KEY',
   });
 
+  const input = {};
+
   const { data } = await postmanClient.collectionItems.updateCollectionRequest(
     'c82dd02c-4870-4907-8fcb-593a876cf05b',
     '12ece9e1-2abf-4edc-8e34-de66e74114d2',
@@ -451,6 +461,8 @@ import { PostmanClient } from 'postman_client';
   const postmanClient = new PostmanClient({
     apiKey: 'YOUR_API_KEY',
   });
+
+  const input = {};
 
   const { data } = await postmanClient.collectionItems.updateCollectionResponse(
     'cc364734-7dfd-4bfc-897d-be763dcdbb07',

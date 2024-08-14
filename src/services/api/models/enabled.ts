@@ -3,5 +3,5 @@
 import { z } from 'zod';
 
 export enum Enabled {
-  TRUE_ = 'true',
+  TRUE_ = true,
 }

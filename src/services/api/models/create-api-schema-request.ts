@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createApiSchemaRequest: any = z.lazy(() => {
+export const createApiSchemaRequest = z.lazy(() => {
   return z.object({
     type: z.string(),
     files: z.array(createApiSchemaFiles1),
@@ -29,7 +29,7 @@ export type CreateApiSchemaRequest = z.infer<typeof createApiSchemaRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiSchemaRequestResponse: any = z.lazy(() => {
+export const createApiSchemaRequestResponse = z.lazy(() => {
   return z
     .object({
       type: z.string(),
@@ -45,7 +45,7 @@ export const createApiSchemaRequestResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiSchemaRequestRequest: any = z.lazy(() => {
+export const createApiSchemaRequestRequest = z.lazy(() => {
   return z
     .object({ type: z.string().nullish(), files: z.array(createApiSchemaFiles1Request).nullish() })
     .transform((data) => ({

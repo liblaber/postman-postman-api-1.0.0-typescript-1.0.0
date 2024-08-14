@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const panElementCreated: any = z.lazy(() => {
+export const panElementCreated = z.lazy(() => {
   return z.object({
     addedAt: z.string().optional(),
     addedBy: z.number().optional(),
@@ -48,7 +48,7 @@ export type PanElementCreated = z.infer<typeof panElementCreated>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const panElementCreatedResponse: any = z.lazy(() => {
+export const panElementCreatedResponse = z.lazy(() => {
   return z
     .object({
       addedAt: z.string().optional(),
@@ -88,7 +88,7 @@ export const panElementCreatedResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const panElementCreatedRequest: any = z.lazy(() => {
+export const panElementCreatedRequest = z.lazy(() => {
   return z
     .object({
       addedAt: z.string().nullish(),

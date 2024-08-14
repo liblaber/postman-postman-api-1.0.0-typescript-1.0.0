@@ -6,7 +6,7 @@ import { dataInfo, dataInfoRequest, dataInfoResponse } from './data-info';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const addApiCollection3Data: any = z.lazy(() => {
+export const addApiCollection3Data = z.lazy(() => {
   return z.object({
     info: dataInfo.optional(),
     item: z.array(z.any()).optional(),
@@ -25,7 +25,7 @@ export type AddApiCollection3Data = z.infer<typeof addApiCollection3Data>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const addApiCollection3DataResponse: any = z.lazy(() => {
+export const addApiCollection3DataResponse = z.lazy(() => {
   return z
     .object({
       info: dataInfoResponse.optional(),
@@ -41,7 +41,7 @@ export const addApiCollection3DataResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const addApiCollection3DataRequest: any = z.lazy(() => {
+export const addApiCollection3DataRequest = z.lazy(() => {
   return z.object({ info: dataInfoRequest.nullish(), item: z.array(z.any()).nullish() }).transform((data) => ({
     info: data['info'],
     item: data['item'],

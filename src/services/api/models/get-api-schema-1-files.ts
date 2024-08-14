@@ -7,7 +7,7 @@ import { filesMeta, filesMetaRequest, filesMetaResponse } from './files-meta';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApiSchema1Files: any = z.lazy(() => {
+export const getApiSchema1Files = z.lazy(() => {
   return z.object({
     data: z.array(filesData).optional(),
     meta: filesMeta.optional(),
@@ -26,7 +26,7 @@ export type GetApiSchema1Files = z.infer<typeof getApiSchema1Files>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiSchema1FilesResponse: any = z.lazy(() => {
+export const getApiSchema1FilesResponse = z.lazy(() => {
   return z
     .object({
       data: z.array(filesDataResponse).optional(),
@@ -42,7 +42,7 @@ export const getApiSchema1FilesResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiSchema1FilesRequest: any = z.lazy(() => {
+export const getApiSchema1FilesRequest = z.lazy(() => {
   return z
     .object({ data: z.array(filesDataRequest).nullish(), meta: filesMetaRequest.nullish() })
     .transform((data) => ({

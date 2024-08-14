@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { BaseService } from '../base-service';
-import { ContentType, HttpResponse } from '../../http';
-import { RequestConfig } from '../../http/types';
-import { Request } from '../../http/transport/request';
+import { ContentType, HttpResponse, RequestConfig } from '../../http/types';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import { SerializationStyle } from '../../http/serialization/base-serializer';
 import { InvoicesAccountInfo, invoicesAccountInfoResponse } from './models/invoices-account-info';
 import { GetAccountInvoices, getAccountInvoicesResponse } from './models/get-account-invoices';
 import { GetAccountInvoicesParams } from './request-params';
@@ -15,16 +15,19 @@ export class BillingService extends BaseService {
    * @returns {Promise<HttpResponse<InvoicesAccountInfo>>} Successful Response
    */
   async getAccounts(requestConfig?: RequestConfig): Promise<HttpResponse<InvoicesAccountInfo>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/accounts',
-      config: this.config,
-      responseSchema: invoicesAccountInfoResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
+    const request = new RequestBuilder<InvoicesAccountInfo>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/accounts')
+      .setRequestSchema(z.any())
+      .setResponseSchema(invoicesAccountInfoResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .build();
     return this.client.call<InvoicesAccountInfo>(request);
   }
 
@@ -39,18 +42,27 @@ export class BillingService extends BaseService {
     params: GetAccountInvoicesParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetAccountInvoices>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/accounts/{accountId}/invoices',
-      config: this.config,
-      responseSchema: getAccountInvoicesResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('accountId', accountId);
-    request.addQueryParam('status', params?.status);
+    const request = new RequestBuilder<GetAccountInvoices>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/accounts/{accountId}/invoices')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getAccountInvoicesResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'accountId',
+        value: accountId,
+      })
+      .addQueryParam({
+        key: 'status',
+        value: params?.status,
+      })
+      .build();
     return this.client.call<GetAccountInvoices>(request);
   }
 }

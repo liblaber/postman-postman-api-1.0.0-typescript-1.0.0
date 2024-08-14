@@ -6,7 +6,7 @@ import { history, historyRequest, historyResponse } from './history';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateDetectedSecretResolutionsOkResponse: any = z.lazy(() => {
+export const updateDetectedSecretResolutionsOkResponse = z.lazy(() => {
   return z.object({
     history: z.array(history).optional(),
     resolution: z.string().optional(),
@@ -34,7 +34,7 @@ export type UpdateDetectedSecretResolutionsOkResponse = z.infer<typeof updateDet
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateDetectedSecretResolutionsOkResponseResponse: any = z.lazy(() => {
+export const updateDetectedSecretResolutionsOkResponseResponse = z.lazy(() => {
   return z
     .object({
       history: z.array(historyResponse).optional(),
@@ -54,7 +54,7 @@ export const updateDetectedSecretResolutionsOkResponseResponse: any = z.lazy(() 
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateDetectedSecretResolutionsOkResponseRequest: any = z.lazy(() => {
+export const updateDetectedSecretResolutionsOkResponseRequest = z.lazy(() => {
   return z
     .object({
       history: z.array(historyRequest).nullish(),

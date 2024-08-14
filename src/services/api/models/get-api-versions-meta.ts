@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getApiVersionsMeta: any = z.lazy(() => {
+export const getApiVersionsMeta = z.lazy(() => {
   return z.object({
     limit: z.number().optional(),
     total: z.number().optional(),
@@ -26,7 +26,7 @@ export type GetApiVersionsMeta = z.infer<typeof getApiVersionsMeta>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiVersionsMetaResponse: any = z.lazy(() => {
+export const getApiVersionsMetaResponse = z.lazy(() => {
   return z
     .object({
       limit: z.number().optional(),
@@ -44,7 +44,7 @@ export const getApiVersionsMetaResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getApiVersionsMetaRequest: any = z.lazy(() => {
+export const getApiVersionsMetaRequest = z.lazy(() => {
   return z
     .object({ limit: z.number().nullish(), total: z.number().nullish(), nextCursor: z.string().nullish() })
     .transform((data) => ({

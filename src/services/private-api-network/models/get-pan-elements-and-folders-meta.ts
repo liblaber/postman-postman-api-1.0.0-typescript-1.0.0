@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getPanElementsAndFoldersMeta: any = z.lazy(() => {
+export const getPanElementsAndFoldersMeta = z.lazy(() => {
   return z.object({
     limit: z.number().optional(),
     offset: z.number().optional(),
@@ -26,7 +26,7 @@ export type GetPanElementsAndFoldersMeta = z.infer<typeof getPanElementsAndFolde
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getPanElementsAndFoldersMetaResponse: any = z.lazy(() => {
+export const getPanElementsAndFoldersMetaResponse = z.lazy(() => {
   return z
     .object({
       limit: z.number().optional(),
@@ -44,7 +44,7 @@ export const getPanElementsAndFoldersMetaResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getPanElementsAndFoldersMetaRequest: any = z.lazy(() => {
+export const getPanElementsAndFoldersMetaRequest = z.lazy(() => {
   return z
     .object({ limit: z.number().nullish(), offset: z.number().nullish(), totalCount: z.number().nullish() })
     .transform((data) => ({

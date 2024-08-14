@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const pullEnvironmentRequest: any = z.lazy(() => {
+export const pullEnvironmentRequest = z.lazy(() => {
   return z.object({
     source: z.string().optional(),
   });
@@ -22,7 +22,7 @@ export type PullEnvironmentRequest = z.infer<typeof pullEnvironmentRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullEnvironmentRequestResponse: any = z.lazy(() => {
+export const pullEnvironmentRequestResponse = z.lazy(() => {
   return z
     .object({
       source: z.string().optional(),
@@ -36,7 +36,7 @@ export const pullEnvironmentRequestResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullEnvironmentRequestRequest: any = z.lazy(() => {
+export const pullEnvironmentRequestRequest = z.lazy(() => {
   return z.object({ source: z.string().nullish() }).transform((data) => ({
     source: data['source'],
   }));

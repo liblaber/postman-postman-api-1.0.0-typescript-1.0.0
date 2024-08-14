@@ -6,7 +6,7 @@ import { updateScimUserName, updateScimUserNameRequest, updateScimUserNameRespon
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateScimUser: any = z.lazy(() => {
+export const updateScimUser = z.lazy(() => {
   return z.object({
     schemas: z.array(z.string()).optional(),
     name: updateScimUserName.optional(),
@@ -25,7 +25,7 @@ export type UpdateScimUser = z.infer<typeof updateScimUser>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateScimUserResponse: any = z.lazy(() => {
+export const updateScimUserResponse = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).optional(),
@@ -41,7 +41,7 @@ export const updateScimUserResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateScimUserRequest: any = z.lazy(() => {
+export const updateScimUserRequest = z.lazy(() => {
   return z
     .object({ schemas: z.array(z.string()).nullish(), name: updateScimUserNameRequest.nullish() })
     .transform((data) => ({

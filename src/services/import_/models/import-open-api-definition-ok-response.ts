@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const importOpenApiDefinitionOkResponse: any = z.lazy(() => {
+export const importOpenApiDefinitionOkResponse = z.lazy(() => {
   return z.object({
     collections: z.array(importOpenApiDefinitionCollections).optional(),
   });
@@ -27,7 +27,7 @@ export type ImportOpenApiDefinitionOkResponse = z.infer<typeof importOpenApiDefi
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const importOpenApiDefinitionOkResponseResponse: any = z.lazy(() => {
+export const importOpenApiDefinitionOkResponseResponse = z.lazy(() => {
   return z
     .object({
       collections: z.array(importOpenApiDefinitionCollectionsResponse).optional(),
@@ -41,7 +41,7 @@ export const importOpenApiDefinitionOkResponseResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const importOpenApiDefinitionOkResponseRequest: any = z.lazy(() => {
+export const importOpenApiDefinitionOkResponseRequest = z.lazy(() => {
   return z.object({ collections: z.array(importOpenApiDefinitionCollectionsRequest).nullish() }).transform((data) => ({
     collections: data['collections'],
   }));

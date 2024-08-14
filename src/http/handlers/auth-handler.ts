@@ -2,6 +2,7 @@
 
 import { Request } from '../transport/request';
 import { HttpResponse, RequestHandler } from '../types';
+import { SerializationStyle } from '../serialization/base-serializer';
 
 export class AuthHandler implements RequestHandler {
   next?: RequestHandler;
@@ -18,12 +19,18 @@ export class AuthHandler implements RequestHandler {
 
   private addApiKeyHeader<T>(request: Request<T>): Request<T> {
     const apiKey = request.config?.apiKey;
-    const apiKeyHeader = request.config?.apiKeyHeader ?? 'my-api-key-header';
+    const apiKeyHeader = request.config?.apiKeyHeader ?? 'X-Api-Key';
     if (!apiKey) {
       return request;
     }
 
-    request.addHeaderParam(apiKeyHeader, apiKey);
+    request.addHeaderParam(apiKeyHeader, {
+      key: apiKeyHeader,
+      value: apiKey,
+      explode: false,
+      encode: false,
+      style: SerializationStyle.SIMPLE,
+    });
 
     return request;
   }

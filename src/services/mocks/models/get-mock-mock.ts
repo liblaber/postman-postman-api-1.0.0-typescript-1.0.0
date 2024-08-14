@@ -6,7 +6,7 @@ import { mockConfig1, mockConfig1Request, mockConfig1Response } from './mock-con
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getMockMock: any = z.lazy(() => {
+export const getMockMock = z.lazy(() => {
   return z.object({
     id: z.string().optional(),
     owner: z.string().optional(),
@@ -45,7 +45,7 @@ export type GetMockMock = z.infer<typeof getMockMock>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMockMockResponse: any = z.lazy(() => {
+export const getMockMockResponse = z.lazy(() => {
   return z
     .object({
       id: z.string().optional(),
@@ -81,7 +81,7 @@ export const getMockMockResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMockMockRequest: any = z.lazy(() => {
+export const getMockMockRequest = z.lazy(() => {
   return z
     .object({
       id: z.string().nullish(),

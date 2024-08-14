@@ -6,7 +6,7 @@ import { run, runRequest, runResponse } from './run';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const runMonitor: any = z.lazy(() => {
+export const runMonitor = z.lazy(() => {
   return z.object({
     run: run.optional(),
   });
@@ -23,7 +23,7 @@ export type RunMonitor = z.infer<typeof runMonitor>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const runMonitorResponse: any = z.lazy(() => {
+export const runMonitorResponse = z.lazy(() => {
   return z
     .object({
       run: runResponse.optional(),
@@ -37,7 +37,7 @@ export const runMonitorResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const runMonitorRequest: any = z.lazy(() => {
+export const runMonitorRequest = z.lazy(() => {
   return z.object({ run: runRequest.nullish() }).transform((data) => ({
     run: data['run'],
   }));

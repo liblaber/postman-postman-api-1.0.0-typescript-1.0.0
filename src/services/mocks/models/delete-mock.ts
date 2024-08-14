@@ -6,7 +6,7 @@ import { deleteMockMock, deleteMockMockRequest, deleteMockMockResponse } from '.
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const deleteMock: any = z.lazy(() => {
+export const deleteMock = z.lazy(() => {
   return z.object({
     mock: deleteMockMock.optional(),
   });
@@ -23,7 +23,7 @@ export type DeleteMock = z.infer<typeof deleteMock>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteMockResponse: any = z.lazy(() => {
+export const deleteMockResponse = z.lazy(() => {
   return z
     .object({
       mock: deleteMockMockResponse.optional(),
@@ -37,7 +37,7 @@ export const deleteMockResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteMockRequest: any = z.lazy(() => {
+export const deleteMockRequest = z.lazy(() => {
   return z.object({ mock: deleteMockMockRequest.nullish() }).transform((data) => ({
     mock: data['mock'],
   }));

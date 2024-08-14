@@ -6,7 +6,7 @@ import { rolesValue1, rolesValue1Request, rolesValue1Response } from './roles-va
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updateCollectionRolesRoles: any = z.lazy(() => {
+export const updateCollectionRolesRoles = z.lazy(() => {
   return z.object({
     op: z.string(),
     path: z.string(),
@@ -27,7 +27,7 @@ export type UpdateCollectionRolesRoles = z.infer<typeof updateCollectionRolesRol
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateCollectionRolesRolesResponse: any = z.lazy(() => {
+export const updateCollectionRolesRolesResponse = z.lazy(() => {
   return z
     .object({
       op: z.string(),
@@ -45,7 +45,7 @@ export const updateCollectionRolesRolesResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updateCollectionRolesRolesRequest: any = z.lazy(() => {
+export const updateCollectionRolesRolesRequest = z.lazy(() => {
   return z
     .object({ op: z.string().nullish(), path: z.string().nullish(), value: z.array(rolesValue1Request).nullish() })
     .transform((data) => ({

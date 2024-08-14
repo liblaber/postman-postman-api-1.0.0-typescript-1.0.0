@@ -6,7 +6,7 @@ import { lastRunStats, lastRunStatsRequest, lastRunStatsResponse } from './last-
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const lastRun: any = z.lazy(() => {
+export const lastRun = z.lazy(() => {
   return z.object({
     finishedAt: z.string().optional(),
     startedAt: z.string().optional(),
@@ -29,7 +29,7 @@ export type LastRun = z.infer<typeof lastRun>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const lastRunResponse: any = z.lazy(() => {
+export const lastRunResponse = z.lazy(() => {
   return z
     .object({
       finishedAt: z.string().optional(),
@@ -49,7 +49,7 @@ export const lastRunResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const lastRunRequest: any = z.lazy(() => {
+export const lastRunRequest = z.lazy(() => {
   return z
     .object({
       finishedAt: z.string().nullish(),

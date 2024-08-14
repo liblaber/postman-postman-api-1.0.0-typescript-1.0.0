@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const slots: any = z.lazy(() => {
+export const slots = z.lazy(() => {
   return z.object({
     available: z.number().optional(),
     consumed: z.number().optional(),
@@ -28,7 +28,7 @@ export type Slots = z.infer<typeof slots>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const slotsResponse: any = z.lazy(() => {
+export const slotsResponse = z.lazy(() => {
   return z
     .object({
       available: z.number().optional(),
@@ -48,7 +48,7 @@ export const slotsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const slotsRequest: any = z.lazy(() => {
+export const slotsRequest = z.lazy(() => {
   return z
     .object({
       available: z.number().nullish(),

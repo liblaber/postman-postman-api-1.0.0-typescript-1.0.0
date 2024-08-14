@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const syncCollectionWithSchema: any = z.lazy(() => {
+export const syncCollectionWithSchema = z.lazy(() => {
   return z.object({
     taskId: z.string().optional(),
   });
@@ -22,7 +22,7 @@ export type SyncCollectionWithSchema = z.infer<typeof syncCollectionWithSchema>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const syncCollectionWithSchemaResponse: any = z.lazy(() => {
+export const syncCollectionWithSchemaResponse = z.lazy(() => {
   return z
     .object({
       taskId: z.string().optional(),
@@ -36,7 +36,7 @@ export const syncCollectionWithSchemaResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const syncCollectionWithSchemaRequest: any = z.lazy(() => {
+export const syncCollectionWithSchemaRequest = z.lazy(() => {
   return z.object({ taskId: z.string().nullish() }).transform((data) => ({
     taskId: data['taskId'],
   }));

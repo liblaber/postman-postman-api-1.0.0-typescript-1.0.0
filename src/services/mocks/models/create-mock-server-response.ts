@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createMockServerResponse: any = z.lazy(() => {
+export const createMockServerResponse = z.lazy(() => {
   return z.object({
     serverResponse: createMockServerResponseServerResponse.optional(),
   });
@@ -27,7 +27,7 @@ export type CreateMockServerResponse = z.infer<typeof createMockServerResponse>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createMockServerResponseResponse: any = z.lazy(() => {
+export const createMockServerResponseResponse = z.lazy(() => {
   return z
     .object({
       serverResponse: createMockServerResponseServerResponseResponse.optional(),
@@ -41,7 +41,7 @@ export const createMockServerResponseResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createMockServerResponseRequest: any = z.lazy(() => {
+export const createMockServerResponseRequest = z.lazy(() => {
   return z.object({ serverResponse: createMockServerResponseServerResponseRequest.nullish() }).transform((data) => ({
     serverResponse: data['serverResponse'],
   }));

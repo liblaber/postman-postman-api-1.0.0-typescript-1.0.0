@@ -6,7 +6,7 @@ import { error, errorRequest, errorResponse } from './error';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const details2: any = z.lazy(() => {
+export const details2 = z.lazy(() => {
   return z.object({
     error: error.optional(),
   });
@@ -23,7 +23,7 @@ export type Details2 = z.infer<typeof details2>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const details2Response: any = z.lazy(() => {
+export const details2Response = z.lazy(() => {
   return z
     .object({
       error: errorResponse.optional(),
@@ -37,7 +37,7 @@ export const details2Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const details2Request: any = z.lazy(() => {
+export const details2Request = z.lazy(() => {
   return z.object({ error: errorRequest.nullish() }).transform((data) => ({
     error: data['error'],
   }));

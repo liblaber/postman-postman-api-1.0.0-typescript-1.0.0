@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getAuthenticatedUserOperations: any = z.lazy(() => {
+export const getAuthenticatedUserOperations = z.lazy(() => {
   return z.object({
     limit: z.number().optional(),
     name: z.string().optional(),
@@ -28,7 +28,7 @@ export type GetAuthenticatedUserOperations = z.infer<typeof getAuthenticatedUser
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAuthenticatedUserOperationsResponse: any = z.lazy(() => {
+export const getAuthenticatedUserOperationsResponse = z.lazy(() => {
   return z
     .object({
       limit: z.number().optional(),
@@ -48,7 +48,7 @@ export const getAuthenticatedUserOperationsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAuthenticatedUserOperationsRequest: any = z.lazy(() => {
+export const getAuthenticatedUserOperationsRequest = z.lazy(() => {
   return z
     .object({
       limit: z.number().nullish(),

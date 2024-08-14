@@ -7,7 +7,7 @@ import { statsRequests2, statsRequests2Request, statsRequests2Response } from '.
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const runStats: any = z.lazy(() => {
+export const runStats = z.lazy(() => {
   return z.object({
     assertions: statsAssertions2.optional(),
     requests: statsRequests2.optional(),
@@ -26,7 +26,7 @@ export type RunStats = z.infer<typeof runStats>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const runStatsResponse: any = z.lazy(() => {
+export const runStatsResponse = z.lazy(() => {
   return z
     .object({
       assertions: statsAssertions2Response.optional(),
@@ -42,7 +42,7 @@ export const runStatsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const runStatsRequest: any = z.lazy(() => {
+export const runStatsRequest = z.lazy(() => {
   return z
     .object({ assertions: statsAssertions2Request.nullish(), requests: statsRequests2Request.nullish() })
     .transform((data) => ({

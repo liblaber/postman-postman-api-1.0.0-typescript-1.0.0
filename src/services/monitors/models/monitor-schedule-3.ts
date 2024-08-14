@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const monitorSchedule3: any = z.lazy(() => {
+export const monitorSchedule3 = z.lazy(() => {
   return z.object({
     cron: z.string().optional(),
     timezone: z.string().optional(),
@@ -37,7 +37,7 @@ export type MonitorSchedule3 = z.infer<typeof monitorSchedule3>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const monitorSchedule3Response: any = z.lazy(() => {
+export const monitorSchedule3Response = z.lazy(() => {
   return z
     .object({
       cron: z.string().optional(),
@@ -53,7 +53,7 @@ export const monitorSchedule3Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const monitorSchedule3Request: any = z.lazy(() => {
+export const monitorSchedule3Request = z.lazy(() => {
   return z.object({ cron: z.string().nullish(), timezone: z.string().nullish() }).transform((data) => ({
     cron: data['cron'],
     timezone: data['timezone'],

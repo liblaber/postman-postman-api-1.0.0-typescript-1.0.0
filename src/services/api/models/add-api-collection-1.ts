@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const addApiCollection1: any = z.lazy(() => {
+export const addApiCollection1 = z.lazy(() => {
   return z.object({
     data: addApiCollection1Data.optional(),
     operationType: z.string().optional(),
@@ -29,7 +29,7 @@ export type AddApiCollection1 = z.infer<typeof addApiCollection1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const addApiCollection1Response: any = z.lazy(() => {
+export const addApiCollection1Response = z.lazy(() => {
   return z
     .object({
       data: addApiCollection1DataResponse.optional(),
@@ -45,7 +45,7 @@ export const addApiCollection1Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const addApiCollection1Request: any = z.lazy(() => {
+export const addApiCollection1Request = z.lazy(() => {
   return z
     .object({ data: addApiCollection1DataRequest.nullish(), operationType: z.string().nullish() })
     .transform((data) => ({

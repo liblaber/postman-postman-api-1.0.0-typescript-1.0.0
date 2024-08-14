@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updatePanCollectionCollection: any = z.lazy(() => {
+export const updatePanCollectionCollection = z.lazy(() => {
   return z.object({
     parentFolderId: z.number().optional(),
     environments: collectionEnvironments.optional(),
@@ -29,7 +29,7 @@ export type UpdatePanCollectionCollection = z.infer<typeof updatePanCollectionCo
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanCollectionCollectionResponse: any = z.lazy(() => {
+export const updatePanCollectionCollectionResponse = z.lazy(() => {
   return z
     .object({
       parentFolderId: z.number().optional(),
@@ -45,7 +45,7 @@ export const updatePanCollectionCollectionResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanCollectionCollectionRequest: any = z.lazy(() => {
+export const updatePanCollectionCollectionRequest = z.lazy(() => {
   return z
     .object({ parentFolderId: z.number().nullish(), environments: collectionEnvironmentsRequest.nullish() })
     .transform((data) => ({

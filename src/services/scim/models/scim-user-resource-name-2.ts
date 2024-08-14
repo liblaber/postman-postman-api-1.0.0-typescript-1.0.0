@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const scimUserResourceName2: any = z.lazy(() => {
+export const scimUserResourceName2 = z.lazy(() => {
   return z.object({
     givenName: z.string().optional(),
     familyName: z.string().optional(),
@@ -24,7 +24,7 @@ export type ScimUserResourceName2 = z.infer<typeof scimUserResourceName2>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUserResourceName2Response: any = z.lazy(() => {
+export const scimUserResourceName2Response = z.lazy(() => {
   return z
     .object({
       givenName: z.string().optional(),
@@ -40,7 +40,7 @@ export const scimUserResourceName2Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUserResourceName2Request: any = z.lazy(() => {
+export const scimUserResourceName2Request = z.lazy(() => {
   return z.object({ givenName: z.string().nullish(), familyName: z.string().nullish() }).transform((data) => ({
     givenName: data['givenName'],
     familyName: data['familyName'],

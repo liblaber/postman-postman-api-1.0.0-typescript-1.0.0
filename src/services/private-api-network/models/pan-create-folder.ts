@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const panCreateFolder: any = z.lazy(() => {
+export const panCreateFolder = z.lazy(() => {
   return z.object({
     folder: panCreateFolderFolder.optional(),
   });
@@ -27,7 +27,7 @@ export type PanCreateFolder = z.infer<typeof panCreateFolder>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const panCreateFolderResponse: any = z.lazy(() => {
+export const panCreateFolderResponse = z.lazy(() => {
   return z
     .object({
       folder: panCreateFolderFolderResponse.optional(),
@@ -41,7 +41,7 @@ export const panCreateFolderResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const panCreateFolderRequest: any = z.lazy(() => {
+export const panCreateFolderRequest = z.lazy(() => {
   return z.object({ folder: panCreateFolderFolderRequest.nullish() }).transform((data) => ({
     folder: data['folder'],
   }));

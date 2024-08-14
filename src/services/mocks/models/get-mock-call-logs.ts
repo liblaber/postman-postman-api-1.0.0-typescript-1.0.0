@@ -11,7 +11,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getMockCallLogs: any = z.lazy(() => {
+export const getMockCallLogs = z.lazy(() => {
   return z.object({
     callLogs: z.array(callLogs).optional(),
     meta: getMockCallLogsMeta.optional(),
@@ -30,7 +30,7 @@ export type GetMockCallLogs = z.infer<typeof getMockCallLogs>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMockCallLogsResponse: any = z.lazy(() => {
+export const getMockCallLogsResponse = z.lazy(() => {
   return z
     .object({
       'call-logs': z.array(callLogsResponse).optional(),
@@ -46,7 +46,7 @@ export const getMockCallLogsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getMockCallLogsRequest: any = z.lazy(() => {
+export const getMockCallLogsRequest = z.lazy(() => {
   return z
     .object({ callLogs: z.array(callLogsRequest).nullish(), meta: getMockCallLogsMetaRequest.nullish() })
     .transform((data) => ({

@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const deletePanElementOrFolder: any = z.lazy(() => {
+export const deletePanElementOrFolder = z.lazy(() => {
   return z.object({
     elementType: deletePanElementOrFolderElementType.optional(),
   });
@@ -27,7 +27,7 @@ export type DeletePanElementOrFolder = z.infer<typeof deletePanElementOrFolder>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const deletePanElementOrFolderResponse: any = z.lazy(() => {
+export const deletePanElementOrFolderResponse = z.lazy(() => {
   return z
     .object({
       elementType: deletePanElementOrFolderElementTypeResponse.optional(),
@@ -41,7 +41,7 @@ export const deletePanElementOrFolderResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const deletePanElementOrFolderRequest: any = z.lazy(() => {
+export const deletePanElementOrFolderRequest = z.lazy(() => {
   return z.object({ elementType: deletePanElementOrFolderElementTypeRequest.nullish() }).transform((data) => ({
     elementType: data['elementType'],
   }));

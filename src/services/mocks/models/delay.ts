@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const delay: any = z.lazy(() => {
+export const delay = z.lazy(() => {
   return z.object({
     type: z.string().optional(),
     preset: z.string().optional(),
@@ -32,7 +32,7 @@ export type Delay = z.infer<typeof delay>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const delayResponse: any = z.lazy(() => {
+export const delayResponse = z.lazy(() => {
   return z
     .object({
       type: z.string().optional(),
@@ -50,7 +50,7 @@ export const delayResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const delayRequest: any = z.lazy(() => {
+export const delayRequest = z.lazy(() => {
   return z
     .object({ type: z.string().nullish(), preset: z.string().nullish(), duration: z.number().nullish() })
     .transform((data) => ({

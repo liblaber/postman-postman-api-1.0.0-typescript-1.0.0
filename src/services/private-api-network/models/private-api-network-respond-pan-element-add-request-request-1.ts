@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const privateApiNetworkRespondPanElementAddRequestRequest1: any = z.lazy(() => {
+export const privateApiNetworkRespondPanElementAddRequestRequest1 = z.lazy(() => {
   return z.object({
     response: respondPanElementAddRequestResponse.optional(),
     status: z.string(),
@@ -31,7 +31,7 @@ export type PrivateApiNetworkRespondPanElementAddRequestRequest1 = z.infer<
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const privateApiNetworkRespondPanElementAddRequestRequest1Response: any = z.lazy(() => {
+export const privateApiNetworkRespondPanElementAddRequestRequest1Response = z.lazy(() => {
   return z
     .object({
       response: respondPanElementAddRequestResponseResponse.optional(),
@@ -47,7 +47,7 @@ export const privateApiNetworkRespondPanElementAddRequestRequest1Response: any =
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const privateApiNetworkRespondPanElementAddRequestRequest1Request: any = z.lazy(() => {
+export const privateApiNetworkRespondPanElementAddRequestRequest1Request = z.lazy(() => {
   return z
     .object({ response: respondPanElementAddRequestResponseRequest.nullish(), status: z.string().nullish() })
     .transform((data) => ({

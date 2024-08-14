@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const scimUpdateGroupMeta: any = z.lazy(() => {
+export const scimUpdateGroupMeta = z.lazy(() => {
   return z.object({
     resourceType: z.string().optional(),
     created: z.string().optional(),
@@ -26,7 +26,7 @@ export type ScimUpdateGroupMeta = z.infer<typeof scimUpdateGroupMeta>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUpdateGroupMetaResponse: any = z.lazy(() => {
+export const scimUpdateGroupMetaResponse = z.lazy(() => {
   return z
     .object({
       resourceType: z.string().optional(),
@@ -44,7 +44,7 @@ export const scimUpdateGroupMetaResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUpdateGroupMetaRequest: any = z.lazy(() => {
+export const scimUpdateGroupMetaRequest = z.lazy(() => {
   return z
     .object({ resourceType: z.string().nullish(), created: z.string().nullish(), lastModified: z.string().nullish() })
     .transform((data) => ({

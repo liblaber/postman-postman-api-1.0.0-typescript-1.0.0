@@ -6,7 +6,7 @@ import { scimUpdateGroupMeta, scimUpdateGroupMetaRequest, scimUpdateGroupMetaRes
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const scimUpdateGroupOkResponse: any = z.lazy(() => {
+export const scimUpdateGroupOkResponse = z.lazy(() => {
   return z.object({
     schemas: z.array(z.string()).optional(),
     id: z.string().optional(),
@@ -31,7 +31,7 @@ export type ScimUpdateGroupOkResponse = z.infer<typeof scimUpdateGroupOkResponse
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUpdateGroupOkResponseResponse: any = z.lazy(() => {
+export const scimUpdateGroupOkResponseResponse = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).optional(),
@@ -53,7 +53,7 @@ export const scimUpdateGroupOkResponseResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUpdateGroupOkResponseRequest: any = z.lazy(() => {
+export const scimUpdateGroupOkResponseRequest = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).nullish(),

@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getEnvironmentForksMeta: any = z.lazy(() => {
+export const getEnvironmentForksMeta = z.lazy(() => {
   return z.object({
     total: z.number().optional(),
     nextCursor: z.string().optional().nullable(),
@@ -24,7 +24,7 @@ export type GetEnvironmentForksMeta = z.infer<typeof getEnvironmentForksMeta>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getEnvironmentForksMetaResponse: any = z.lazy(() => {
+export const getEnvironmentForksMetaResponse = z.lazy(() => {
   return z
     .object({
       total: z.number().optional(),
@@ -40,7 +40,7 @@ export const getEnvironmentForksMetaResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getEnvironmentForksMetaRequest: any = z.lazy(() => {
+export const getEnvironmentForksMetaRequest = z.lazy(() => {
   return z.object({ total: z.number().nullish(), nextCursor: z.string().nullish() }).transform((data) => ({
     total: data['total'],
     nextCursor: data['nextCursor'],

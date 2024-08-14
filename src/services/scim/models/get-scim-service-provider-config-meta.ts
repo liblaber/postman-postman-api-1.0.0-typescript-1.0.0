@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getScimServiceProviderConfigMeta: any = z.lazy(() => {
+export const getScimServiceProviderConfigMeta = z.lazy(() => {
   return z.object({
     resourceType: z.string().optional(),
     location: z.string().optional(),
@@ -24,7 +24,7 @@ export type GetScimServiceProviderConfigMeta = z.infer<typeof getScimServiceProv
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimServiceProviderConfigMetaResponse: any = z.lazy(() => {
+export const getScimServiceProviderConfigMetaResponse = z.lazy(() => {
   return z
     .object({
       resourceType: z.string().optional(),
@@ -40,7 +40,7 @@ export const getScimServiceProviderConfigMetaResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimServiceProviderConfigMetaRequest: any = z.lazy(() => {
+export const getScimServiceProviderConfigMetaRequest = z.lazy(() => {
   return z.object({ resourceType: z.string().nullish(), location: z.string().nullish() }).transform((data) => ({
     resourceType: data['resourceType'],
     location: data['location'],

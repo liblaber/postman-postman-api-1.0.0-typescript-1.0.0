@@ -7,7 +7,7 @@ import { location, locationRequest, locationResponse } from './location';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const transferCollectionItems: any = z.lazy(() => {
+export const transferCollectionItems = z.lazy(() => {
   return z.object({
     ids: z.array(z.string()),
     mode: z.string(),
@@ -33,7 +33,7 @@ export type TransferCollectionItems = z.infer<typeof transferCollectionItems>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const transferCollectionItemsResponse: any = z.lazy(() => {
+export const transferCollectionItemsResponse = z.lazy(() => {
   return z
     .object({
       ids: z.array(z.string()),
@@ -53,7 +53,7 @@ export const transferCollectionItemsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const transferCollectionItemsRequest: any = z.lazy(() => {
+export const transferCollectionItemsRequest = z.lazy(() => {
   return z
     .object({
       ids: z.array(z.string()).nullish(),

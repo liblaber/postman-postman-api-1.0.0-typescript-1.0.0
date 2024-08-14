@@ -7,7 +7,7 @@ import { onFailure, onFailureRequest, onFailureResponse } from './on-failure';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const notifications: any = z.lazy(() => {
+export const notifications = z.lazy(() => {
   return z.object({
     onError: z.array(onError).optional(),
     onFailure: z.array(onFailure).optional(),
@@ -26,7 +26,7 @@ export type Notifications = z.infer<typeof notifications>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const notificationsResponse: any = z.lazy(() => {
+export const notificationsResponse = z.lazy(() => {
   return z
     .object({
       onError: z.array(onErrorResponse).optional(),
@@ -42,7 +42,7 @@ export const notificationsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const notificationsRequest: any = z.lazy(() => {
+export const notificationsRequest = z.lazy(() => {
   return z
     .object({ onError: z.array(onErrorRequest).nullish(), onFailure: z.array(onFailureRequest).nullish() })
     .transform((data) => ({

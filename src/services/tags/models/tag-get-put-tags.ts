@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const tagGetPutTags: any = z.lazy(() => {
+export const tagGetPutTags = z.lazy(() => {
   return z.object({
     slug: z
       .string()
@@ -27,7 +27,7 @@ export type TagGetPutTags = z.infer<typeof tagGetPutTags>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const tagGetPutTagsResponse: any = z.lazy(() => {
+export const tagGetPutTagsResponse = z.lazy(() => {
   return z
     .object({
       slug: z
@@ -46,7 +46,7 @@ export const tagGetPutTagsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const tagGetPutTagsRequest: any = z.lazy(() => {
+export const tagGetPutTagsRequest = z.lazy(() => {
   return z.object({ slug: z.string().nullish() }).transform((data) => ({
     slug: data['slug'],
   }));

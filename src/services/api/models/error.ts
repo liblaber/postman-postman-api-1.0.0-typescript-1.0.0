@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const error: any = z.lazy(() => {
+export const error = z.lazy(() => {
   return z.object({
     message: z.string().optional(),
   });
@@ -22,7 +22,7 @@ export type Error = z.infer<typeof error>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const errorResponse: any = z.lazy(() => {
+export const errorResponse = z.lazy(() => {
   return z
     .object({
       message: z.string().optional(),
@@ -36,7 +36,7 @@ export const errorResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const errorRequest: any = z.lazy(() => {
+export const errorRequest = z.lazy(() => {
   return z.object({ message: z.string().nullish() }).transform((data) => ({
     message: data['message'],
   }));

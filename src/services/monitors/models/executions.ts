@@ -8,7 +8,7 @@ import { executionsResponse1, executionsResponse1Request, executionsResponse1Res
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const executions: any = z.lazy(() => {
+export const executions = z.lazy(() => {
   return z.object({
     id: z.number().optional(),
     item: executionsItem.optional(),
@@ -31,7 +31,7 @@ export type Executions = z.infer<typeof executions>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const executionsResponse: any = z.lazy(() => {
+export const executionsResponse = z.lazy(() => {
   return z
     .object({
       id: z.number().optional(),
@@ -51,7 +51,7 @@ export const executionsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const executionsRequest: any = z.lazy(() => {
+export const executionsRequest = z.lazy(() => {
   return z
     .object({
       id: z.number().nullish(),

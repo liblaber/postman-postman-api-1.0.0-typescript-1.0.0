@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { BaseService } from '../base-service';
-import { ContentType, HttpResponse } from '../../http';
-import { RequestConfig } from '../../http/types';
-import { Request } from '../../http/transport/request';
+import { ContentType, HttpResponse, RequestConfig } from '../../http/types';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import { SerializationStyle } from '../../http/serialization/base-serializer';
 import { GetCollections, getCollectionsResponse } from './models/get-collections';
 import {
   CreateCollectionForkParams,
@@ -75,18 +75,27 @@ export class CollectionsService extends BaseService {
     params?: GetCollectionsParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollections>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/collections',
-      config: this.config,
-      responseSchema: getCollectionsResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addQueryParam('workspace', params?.workspace);
-    request.addQueryParam('name', params?.name);
+    const request = new RequestBuilder<GetCollections>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/collections')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getCollectionsResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addQueryParam({
+        key: 'workspace',
+        value: params?.workspace,
+      })
+      .addQueryParam({
+        key: 'name',
+        value: params?.name,
+      })
+      .build();
     return this.client.call<GetCollections>(request);
   }
 
@@ -109,19 +118,25 @@ For more information about the Collection Format, see the [Postman Collection Fo
     params?: CreateCollectionParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateCollectionOkResponse>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/collections',
-      config: this.config,
-      responseSchema: createCollectionOkResponseResponse,
-      requestSchema: collectionsCreateCollectionRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addQueryParam('workspace', params?.workspace);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<CreateCollectionOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/collections')
+      .setRequestSchema(collectionsCreateCollectionRequestRequest)
+      .setResponseSchema(createCollectionOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addQueryParam({
+        key: 'workspace',
+        value: params?.workspace,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<CreateCollectionOkResponse>(request);
   }
 
@@ -137,20 +152,29 @@ For more information about the Collection Format, see the [Postman Collection Fo
     params: CreateCollectionForkParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateCollectionForkOkResponse>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/collections/fork/{collectionId}',
-      config: this.config,
-      responseSchema: createCollectionForkOkResponseResponse,
-      requestSchema: createCollectionForkRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addQueryParam('workspace', params?.workspace);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<CreateCollectionForkOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/collections/fork/{collectionId}')
+      .setRequestSchema(createCollectionForkRequestRequest)
+      .setResponseSchema(createCollectionForkOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addQueryParam({
+        key: 'workspace',
+        value: params?.workspace,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<CreateCollectionForkOkResponse>(request);
   }
 
@@ -162,18 +186,21 @@ For more information about the Collection Format, see the [Postman Collection Fo
     body: MergeCollectionForkRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<MergeCollectionForkOkResponse>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/collections/merge',
-      config: this.config,
-      responseSchema: mergeCollectionForkOkResponseResponse,
-      requestSchema: mergeCollectionForkRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<MergeCollectionForkOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/collections/merge')
+      .setRequestSchema(mergeCollectionForkRequestRequest)
+      .setResponseSchema(mergeCollectionForkOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<MergeCollectionForkOkResponse>(request);
   }
 
@@ -189,19 +216,31 @@ For more information about the Collection Format, see the [Postman Collection Fo
     params?: GetCollectionParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollection>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/collections/{collectionId}',
-      config: this.config,
-      responseSchema: getCollectionResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addQueryParam('access_key', params?.accessKey);
-    request.addQueryParam('model', params?.model);
+    const request = new RequestBuilder<GetCollection>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/collections/{collectionId}')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getCollectionResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addQueryParam({
+        key: 'access_key',
+        value: params?.accessKey,
+      })
+      .addQueryParam({
+        key: 'model',
+        value: params?.model,
+      })
+      .build();
     return this.client.call<GetCollection>(request);
   }
 
@@ -227,19 +266,25 @@ To copy another collection's contents to the given collection, remove all ID val
     body: PutCollectionRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PutCollectionOkResponse>> {
-    const request = new Request({
-      method: 'PUT',
-      body,
-      path: '/collections/{collectionId}',
-      config: this.config,
-      responseSchema: putCollectionOkResponseResponse,
-      requestSchema: putCollectionRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<PutCollectionOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PUT')
+      .setPath('/collections/{collectionId}')
+      .setRequestSchema(putCollectionRequestRequest)
+      .setResponseSchema(putCollectionOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<PutCollectionOkResponse>(request);
   }
 
@@ -258,19 +303,25 @@ For more information about the Collection Format, see the [Postman Collection Fo
     body: PatchCollectionRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PatchCollectionOkResponse>> {
-    const request = new Request({
-      method: 'PATCH',
-      body,
-      path: '/collections/{collectionId}',
-      config: this.config,
-      responseSchema: patchCollectionOkResponseResponse,
-      requestSchema: patchCollectionRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<PatchCollectionOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PATCH')
+      .setPath('/collections/{collectionId}')
+      .setRequestSchema(patchCollectionRequestRequest)
+      .setResponseSchema(patchCollectionOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<PatchCollectionOkResponse>(request);
   }
 
@@ -280,17 +331,23 @@ For more information about the Collection Format, see the [Postman Collection Fo
    * @returns {Promise<HttpResponse<DeleteCollection>>} Successful Response
    */
   async deleteCollection(collectionId: string, requestConfig?: RequestConfig): Promise<HttpResponse<DeleteCollection>> {
-    const request = new Request({
-      method: 'DELETE',
-      path: '/collections/{collectionId}',
-      config: this.config,
-      responseSchema: deleteCollectionResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
+    const request = new RequestBuilder<DeleteCollection>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('DELETE')
+      .setPath('/collections/{collectionId}')
+      .setRequestSchema(z.any())
+      .setResponseSchema(deleteCollectionResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .build();
     return this.client.call<DeleteCollection>(request);
   }
 
@@ -307,20 +364,35 @@ For more information about the Collection Format, see the [Postman Collection Fo
     params?: GetCollectionsForkedByUserParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollectionsForkedByUser>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/collections/{collectionId}/collection-forks',
-      config: this.config,
-      responseSchema: getCollectionsForkedByUserResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addQueryParam('cursor', params?.cursor);
-    request.addQueryParam('limit', params?.limit);
-    request.addQueryParam('direction', params?.direction);
+    const request = new RequestBuilder<GetCollectionsForkedByUser>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/collections/{collectionId}/collection-forks')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getCollectionsForkedByUserResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addQueryParam({
+        key: 'cursor',
+        value: params?.cursor,
+      })
+      .addQueryParam({
+        key: 'limit',
+        value: params?.limit,
+      })
+      .addQueryParam({
+        key: 'direction',
+        value: params?.direction,
+      })
+      .build();
     return this.client.call<GetCollectionsForkedByUser>(request);
   }
 
@@ -333,17 +405,23 @@ For more information about the Collection Format, see the [Postman Collection Fo
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CommentResponse>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/collections/{collectionId}/comments',
-      config: this.config,
-      responseSchema: commentResponseResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
+    const request = new RequestBuilder<CommentResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/collections/{collectionId}/comments')
+      .setRequestSchema(z.any())
+      .setResponseSchema(commentResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .build();
     return this.client.call<CommentResponse>(request);
   }
 
@@ -361,19 +439,25 @@ This endpoint accepts a max of 10,000 characters.
     body: CommentCreateUpdate,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CommentCreatedUpdated>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/collections/{collectionId}/comments',
-      config: this.config,
-      responseSchema: commentCreatedUpdatedResponse,
-      requestSchema: commentCreateUpdateRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<CommentCreatedUpdated>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/collections/{collectionId}/comments')
+      .setRequestSchema(commentCreateUpdateRequest)
+      .setResponseSchema(commentCreatedUpdatedResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<CommentCreatedUpdated>(request);
   }
 
@@ -393,20 +477,29 @@ This endpoint accepts a max of 10,000 characters.
     body: CommentCreateUpdate,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CommentCreatedUpdated>> {
-    const request = new Request({
-      method: 'PUT',
-      body,
-      path: '/collections/{collectionId}/comments/{commentId}',
-      config: this.config,
-      responseSchema: commentCreatedUpdatedResponse,
-      requestSchema: commentCreateUpdateRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addPathParam('commentId', commentId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<CommentCreatedUpdated>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PUT')
+      .setPath('/collections/{collectionId}/comments/{commentId}')
+      .setRequestSchema(commentCreateUpdateRequest)
+      .setResponseSchema(commentCreatedUpdatedResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addPathParam({
+        key: 'commentId',
+        value: commentId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<CommentCreatedUpdated>(request);
   }
 
@@ -425,18 +518,27 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     commentId: number,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<undefined>> {
-    const request = new Request({
-      method: 'DELETE',
-      path: '/collections/{collectionId}/comments/{commentId}',
-      config: this.config,
-      responseSchema: z.undefined(),
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addPathParam('commentId', commentId);
+    const request = new RequestBuilder<undefined>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('DELETE')
+      .setPath('/collections/{collectionId}/comments/{commentId}')
+      .setRequestSchema(z.any())
+      .setResponseSchema(z.undefined())
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addPathParam({
+        key: 'commentId',
+        value: commentId,
+      })
+      .build();
     return this.client.call<undefined>(request);
   }
 
@@ -453,20 +555,35 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     params?: GetCollectionForksParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollectionForks>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/collections/{collectionId}/forks',
-      config: this.config,
-      responseSchema: getCollectionForksResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addQueryParam('cursor', params?.cursor);
-    request.addQueryParam('limit', params?.limit);
-    request.addQueryParam('direction', params?.direction);
+    const request = new RequestBuilder<GetCollectionForks>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/collections/{collectionId}/forks')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getCollectionForksResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addQueryParam({
+        key: 'cursor',
+        value: params?.cursor,
+      })
+      .addQueryParam({
+        key: 'limit',
+        value: params?.limit,
+      })
+      .addQueryParam({
+        key: 'direction',
+        value: params?.direction,
+      })
+      .build();
     return this.client.call<GetCollectionForks>(request);
   }
 
@@ -482,17 +599,23 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PullCollectionChanges>> {
-    const request = new Request({
-      method: 'PUT',
-      path: '/collections/{collectionId}/pulls',
-      config: this.config,
-      responseSchema: pullCollectionChangesResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
+    const request = new RequestBuilder<PullCollectionChanges>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PUT')
+      .setPath('/collections/{collectionId}/pulls')
+      .setRequestSchema(z.any())
+      .setResponseSchema(pullCollectionChangesResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .build();
     return this.client.call<PullCollectionChanges>(request);
   }
 
@@ -505,17 +628,23 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollectionPullRequests>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/collections/{collectionId}/pull-requests',
-      config: this.config,
-      responseSchema: getCollectionPullRequestsResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
+    const request = new RequestBuilder<GetCollectionPullRequests>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/collections/{collectionId}/pull-requests')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getCollectionPullRequestsResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .build();
     return this.client.call<GetCollectionPullRequests>(request);
   }
 
@@ -529,19 +658,25 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     body: PullRequestCreate,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PullRequestCreated>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/collections/{collectionId}/pull-requests',
-      config: this.config,
-      responseSchema: pullRequestCreatedResponse,
-      requestSchema: pullRequestCreateRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<PullRequestCreated>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/collections/{collectionId}/pull-requests')
+      .setRequestSchema(pullRequestCreateRequest)
+      .setResponseSchema(pullRequestCreatedResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<PullRequestCreated>(request);
   }
 
@@ -554,17 +689,23 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetCollectionRoles>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/collections/{collectionId}/roles',
-      config: this.config,
-      responseSchema: getCollectionRolesResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
+    const request = new RequestBuilder<GetCollectionRoles>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/collections/{collectionId}/roles')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getCollectionRolesResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .build();
     return this.client.call<GetCollectionRoles>(request);
   }
 
@@ -583,19 +724,25 @@ Deleting the first comment of a thread deletes all the comments in the thread.
     body: UpdateCollectionRoles,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<undefined>> {
-    const request = new Request({
-      method: 'PATCH',
-      body,
-      path: '/collections/{collectionId}/roles',
-      config: this.config,
-      responseSchema: z.undefined(),
-      requestSchema: updateCollectionRolesRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<undefined>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PATCH')
+      .setPath('/collections/{collectionId}/roles')
+      .setRequestSchema(updateCollectionRolesRequest)
+      .setResponseSchema(z.undefined())
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<undefined>(request);
   }
 
@@ -614,17 +761,23 @@ This endpoint may take a few minutes to return an updated `isSourceAhead` status
     collectionId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetSourceCollectionStatus>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/collections/{collectionId}/source-status',
-      config: this.config,
-      responseSchema: getSourceCollectionStatusResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
+    const request = new RequestBuilder<GetSourceCollectionStatus>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/collections/{collectionId}/source-status')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getSourceCollectionStatusResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .build();
     return this.client.call<GetSourceCollectionStatus>(request);
   }
 
@@ -643,18 +796,27 @@ This does not create an API.
     params?: TransformCollectionToOpenApiParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<TransformCollectionToOpenApi>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/collections/{collectionId}/transformations',
-      config: this.config,
-      responseSchema: transformCollectionToOpenApiResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('collectionId', collectionId);
-    request.addQueryParam('format', params?.format);
+    const request = new RequestBuilder<TransformCollectionToOpenApi>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/collections/{collectionId}/transformations')
+      .setRequestSchema(z.any())
+      .setResponseSchema(transformCollectionToOpenApiResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'collectionId',
+        value: collectionId,
+      })
+      .addQueryParam({
+        key: 'format',
+        value: params?.format,
+      })
+      .build();
     return this.client.call<TransformCollectionToOpenApi>(request);
   }
 
@@ -666,18 +828,21 @@ This does not create an API.
     body: TransferCollectionItems,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<TransferCollectionItems200Error>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/collection-folders-transfers',
-      config: this.config,
-      responseSchema: transferCollectionItems200ErrorResponse,
-      requestSchema: transferCollectionItemsRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<TransferCollectionItems200Error>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/collection-folders-transfers')
+      .setRequestSchema(transferCollectionItemsRequest)
+      .setResponseSchema(transferCollectionItems200ErrorResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<TransferCollectionItems200Error>(request);
   }
 
@@ -689,18 +854,21 @@ This does not create an API.
     body: TransferCollectionItems,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<TransferCollectionItems200Error>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/collection-requests-transfers',
-      config: this.config,
-      responseSchema: transferCollectionItems200ErrorResponse,
-      requestSchema: transferCollectionItemsRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<TransferCollectionItems200Error>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/collection-requests-transfers')
+      .setRequestSchema(transferCollectionItemsRequest)
+      .setResponseSchema(transferCollectionItems200ErrorResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<TransferCollectionItems200Error>(request);
   }
 
@@ -712,18 +880,21 @@ This does not create an API.
     body: TransferCollectionItems,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<TransferCollectionItems200Error>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/collection-responses-transfers',
-      config: this.config,
-      responseSchema: transferCollectionItems200ErrorResponse,
-      requestSchema: transferCollectionItemsRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<TransferCollectionItems200Error>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/collection-responses-transfers')
+      .setRequestSchema(transferCollectionItemsRequest)
+      .setResponseSchema(transferCollectionItems200ErrorResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<TransferCollectionItems200Error>(request);
   }
 }

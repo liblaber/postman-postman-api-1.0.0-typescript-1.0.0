@@ -7,7 +7,7 @@ import { requestBody, requestBodyRequest, requestBodyResponse } from './request-
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const callLogsRequest1: any = z.lazy(() => {
+export const callLogsRequest1 = z.lazy(() => {
   return z.object({
     method: z.string().optional(),
     path: z.string().optional(),
@@ -30,7 +30,7 @@ export type CallLogsRequest1 = z.infer<typeof callLogsRequest1>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const callLogsRequest1Response: any = z.lazy(() => {
+export const callLogsRequest1Response = z.lazy(() => {
   return z
     .object({
       method: z.string().optional(),
@@ -50,7 +50,7 @@ export const callLogsRequest1Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const callLogsRequest1Request: any = z.lazy(() => {
+export const callLogsRequest1Request = z.lazy(() => {
   return z
     .object({
       method: z.string().nullish(),

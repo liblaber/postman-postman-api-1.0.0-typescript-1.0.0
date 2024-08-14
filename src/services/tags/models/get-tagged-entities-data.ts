@@ -6,7 +6,7 @@ import { entities, entitiesRequest, entitiesResponse } from './entities';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getTaggedEntitiesData: any = z.lazy(() => {
+export const getTaggedEntitiesData = z.lazy(() => {
   return z.object({
     entities: z.array(entities),
   });
@@ -23,7 +23,7 @@ export type GetTaggedEntitiesData = z.infer<typeof getTaggedEntitiesData>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getTaggedEntitiesDataResponse: any = z.lazy(() => {
+export const getTaggedEntitiesDataResponse = z.lazy(() => {
   return z
     .object({
       entities: z.array(entitiesResponse),
@@ -37,7 +37,7 @@ export const getTaggedEntitiesDataResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getTaggedEntitiesDataRequest: any = z.lazy(() => {
+export const getTaggedEntitiesDataRequest = z.lazy(() => {
   return z.object({ entities: z.array(entitiesRequest).nullish() }).transform((data) => ({
     entities: data['entities'],
   }));

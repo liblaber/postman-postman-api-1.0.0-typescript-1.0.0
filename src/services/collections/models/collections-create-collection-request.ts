@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const collectionsCreateCollectionRequest: any = z.lazy(() => {
+export const collectionsCreateCollectionRequest = z.lazy(() => {
   return z.object({
     collection: createCollectionCollection1.optional(),
   });
@@ -27,7 +27,7 @@ export type CollectionsCreateCollectionRequest = z.infer<typeof collectionsCreat
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const collectionsCreateCollectionRequestResponse: any = z.lazy(() => {
+export const collectionsCreateCollectionRequestResponse = z.lazy(() => {
   return z
     .object({
       collection: createCollectionCollection1Response.optional(),
@@ -41,7 +41,7 @@ export const collectionsCreateCollectionRequestResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const collectionsCreateCollectionRequestRequest: any = z.lazy(() => {
+export const collectionsCreateCollectionRequestRequest = z.lazy(() => {
   return z.object({ collection: createCollectionCollection1Request.nullish() }).transform((data) => ({
     collection: data['collection'],
   }));

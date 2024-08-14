@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const bulk: any = z.lazy(() => {
+export const bulk = z.lazy(() => {
   return z.object({
     maxOperations: z.number().optional(),
     maxPayloadSize: z.number().optional(),
@@ -26,7 +26,7 @@ export type Bulk = z.infer<typeof bulk>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const bulkResponse: any = z.lazy(() => {
+export const bulkResponse = z.lazy(() => {
   return z
     .object({
       maxOperations: z.number().optional(),
@@ -44,7 +44,7 @@ export const bulkResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const bulkRequest: any = z.lazy(() => {
+export const bulkRequest = z.lazy(() => {
   return z
     .object({
       maxOperations: z.number().nullish(),

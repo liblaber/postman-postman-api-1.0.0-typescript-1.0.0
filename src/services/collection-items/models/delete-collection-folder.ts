@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const deleteCollectionFolder: any = z.lazy(() => {
+export const deleteCollectionFolder = z.lazy(() => {
   return z.object({
     data: deleteCollectionFolderData.optional(),
     meta: z.any().optional(),
@@ -33,7 +33,7 @@ export type DeleteCollectionFolder = z.infer<typeof deleteCollectionFolder>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteCollectionFolderResponse: any = z.lazy(() => {
+export const deleteCollectionFolderResponse = z.lazy(() => {
   return z
     .object({
       data: deleteCollectionFolderDataResponse.optional(),
@@ -53,7 +53,7 @@ export const deleteCollectionFolderResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const deleteCollectionFolderRequest: any = z.lazy(() => {
+export const deleteCollectionFolderRequest = z.lazy(() => {
   return z
     .object({
       data: deleteCollectionFolderDataRequest.nullish(),

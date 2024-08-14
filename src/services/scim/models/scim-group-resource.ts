@@ -15,7 +15,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const scimGroupResource: any = z.lazy(() => {
+export const scimGroupResource = z.lazy(() => {
   return z.object({
     schemas: z.array(z.string()).optional(),
     id: z.string().optional(),
@@ -42,7 +42,7 @@ export type ScimGroupResource = z.infer<typeof scimGroupResource>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimGroupResourceResponse: any = z.lazy(() => {
+export const scimGroupResourceResponse = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).optional(),
@@ -66,7 +66,7 @@ export const scimGroupResourceResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimGroupResourceRequest: any = z.lazy(() => {
+export const scimGroupResourceRequest = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).nullish(),

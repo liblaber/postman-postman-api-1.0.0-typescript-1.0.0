@@ -15,7 +15,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getScimUserResourceOkResponse: any = z.lazy(() => {
+export const getScimUserResourceOkResponse = z.lazy(() => {
   return z.object({
     schemas: z.array(z.string()).optional(),
     id: z.string().optional(),
@@ -44,7 +44,7 @@ export type GetScimUserResourceOkResponse = z.infer<typeof getScimUserResourceOk
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimUserResourceOkResponseResponse: any = z.lazy(() => {
+export const getScimUserResourceOkResponseResponse = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).optional(),
@@ -70,7 +70,7 @@ export const getScimUserResourceOkResponseResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimUserResourceOkResponseRequest: any = z.lazy(() => {
+export const getScimUserResourceOkResponseRequest = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).nullish(),

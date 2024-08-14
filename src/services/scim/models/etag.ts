@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const etag: any = z.lazy(() => {
+export const etag = z.lazy(() => {
   return z.object({
     supported: z.boolean().optional(),
   });
@@ -22,7 +22,7 @@ export type Etag = z.infer<typeof etag>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const etagResponse: any = z.lazy(() => {
+export const etagResponse = z.lazy(() => {
   return z
     .object({
       supported: z.boolean().optional(),
@@ -36,7 +36,7 @@ export const etagResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const etagRequest: any = z.lazy(() => {
+export const etagRequest = z.lazy(() => {
   return z.object({ supported: z.boolean().nullish() }).transform((data) => ({
     supported: data['supported'],
   }));

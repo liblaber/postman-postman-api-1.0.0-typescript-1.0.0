@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { BaseService } from '../base-service';
-import { ContentType, HttpResponse } from '../../http';
-import { RequestConfig } from '../../http/types';
-import { Request } from '../../http/transport/request';
+import { ContentType, HttpResponse, RequestConfig } from '../../http/types';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import { SerializationStyle } from '../../http/serialization/base-serializer';
 import { PullRequestGet, pullRequestGetResponse } from './models/pull-request-get';
 import { PullRequestUpdate, pullRequestUpdateRequest } from './models/pull-request-update';
 import { PullRequestUpdated, pullRequestUpdatedResponse } from './models/pull-request-updated';
@@ -16,17 +16,23 @@ export class PullRequestsService extends BaseService {
    * @returns {Promise<HttpResponse<PullRequestGet>>} Successful Response
    */
   async getPullRequest(pullRequestId: string, requestConfig?: RequestConfig): Promise<HttpResponse<PullRequestGet>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/pull-requests/{pullRequestId}',
-      config: this.config,
-      responseSchema: pullRequestGetResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('pullRequestId', pullRequestId);
+    const request = new RequestBuilder<PullRequestGet>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/pull-requests/{pullRequestId}')
+      .setRequestSchema(z.any())
+      .setResponseSchema(pullRequestGetResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'pullRequestId',
+        value: pullRequestId,
+      })
+      .build();
     return this.client.call<PullRequestGet>(request);
   }
 
@@ -40,19 +46,25 @@ export class PullRequestsService extends BaseService {
     body: PullRequestUpdate,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PullRequestUpdated>> {
-    const request = new Request({
-      method: 'PUT',
-      body,
-      path: '/pull-requests/{pullRequestId}',
-      config: this.config,
-      responseSchema: pullRequestUpdatedResponse,
-      requestSchema: pullRequestUpdateRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('pullRequestId', pullRequestId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<PullRequestUpdated>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PUT')
+      .setPath('/pull-requests/{pullRequestId}')
+      .setRequestSchema(pullRequestUpdateRequest)
+      .setResponseSchema(pullRequestUpdatedResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'pullRequestId',
+        value: pullRequestId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<PullRequestUpdated>(request);
   }
 }

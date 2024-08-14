@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getSourceCollectionStatus: any = z.lazy(() => {
+export const getSourceCollectionStatus = z.lazy(() => {
   return z.object({
     collection: getSourceCollectionStatusCollection.optional(),
   });
@@ -27,7 +27,7 @@ export type GetSourceCollectionStatus = z.infer<typeof getSourceCollectionStatus
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSourceCollectionStatusResponse: any = z.lazy(() => {
+export const getSourceCollectionStatusResponse = z.lazy(() => {
   return z
     .object({
       collection: getSourceCollectionStatusCollectionResponse.optional(),
@@ -41,7 +41,7 @@ export const getSourceCollectionStatusResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getSourceCollectionStatusRequest: any = z.lazy(() => {
+export const getSourceCollectionStatusRequest = z.lazy(() => {
   return z.object({ collection: getSourceCollectionStatusCollectionRequest.nullish() }).transform((data) => ({
     collection: data['collection'],
   }));

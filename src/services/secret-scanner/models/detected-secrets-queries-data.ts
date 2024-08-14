@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const detectedSecretsQueriesData: any = z.lazy(() => {
+export const detectedSecretsQueriesData = z.lazy(() => {
   return z.object({
     obfuscatedSecret: z.string().optional(),
     occurrences: z.number().optional(),
@@ -43,7 +43,7 @@ export type DetectedSecretsQueriesData = z.infer<typeof detectedSecretsQueriesDa
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const detectedSecretsQueriesDataResponse: any = z.lazy(() => {
+export const detectedSecretsQueriesDataResponse = z.lazy(() => {
   return z
     .object({
       obfuscatedSecret: z.string().optional(),
@@ -73,7 +73,7 @@ export const detectedSecretsQueriesDataResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const detectedSecretsQueriesDataRequest: any = z.lazy(() => {
+export const detectedSecretsQueriesDataRequest = z.lazy(() => {
   return z
     .object({
       obfuscatedSecret: z.string().nullish(),

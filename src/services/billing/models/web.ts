@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const web: any = z.lazy(() => {
+export const web = z.lazy(() => {
   return z.object({
     href: z.string().optional(),
   });
@@ -22,7 +22,7 @@ export type Web = z.infer<typeof web>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const webResponse: any = z.lazy(() => {
+export const webResponse = z.lazy(() => {
   return z
     .object({
       href: z.string().optional(),
@@ -36,7 +36,7 @@ export const webResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const webRequest: any = z.lazy(() => {
+export const webRequest = z.lazy(() => {
   return z.object({ href: z.string().nullish() }).transform((data) => ({
     href: data['href'],
   }));

@@ -2,9 +2,9 @@
 
 import { z } from 'zod';
 import { BaseService } from '../base-service';
-import { ContentType, HttpResponse } from '../../http';
-import { RequestConfig } from '../../http/types';
-import { Request } from '../../http/transport/request';
+import { ContentType, HttpResponse, RequestConfig } from '../../http/types';
+import { RequestBuilder } from '../../http/transport/request-builder';
+import { SerializationStyle } from '../../http/serialization/base-serializer';
 import { GetEnvironments, getEnvironmentsResponse } from './models/get-environments';
 import {
   CreateEnvironmentParams,
@@ -48,17 +48,23 @@ export class EnvironmentsService extends BaseService {
     params?: GetEnvironmentsParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetEnvironments>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/environments',
-      config: this.config,
-      responseSchema: getEnvironmentsResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addQueryParam('workspace', params?.workspace);
+    const request = new RequestBuilder<GetEnvironments>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/environments')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getEnvironmentsResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addQueryParam({
+        key: 'workspace',
+        value: params?.workspace,
+      })
+      .build();
     return this.client.call<GetEnvironments>(request);
   }
 
@@ -72,19 +78,25 @@ export class EnvironmentsService extends BaseService {
     params?: CreateEnvironmentParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<CreateEnvironmentOkResponse>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/environments',
-      config: this.config,
-      responseSchema: createEnvironmentOkResponseResponse,
-      requestSchema: createEnvironmentRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addQueryParam('workspace', params?.workspace);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<CreateEnvironmentOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/environments')
+      .setRequestSchema(createEnvironmentRequestRequest)
+      .setResponseSchema(createEnvironmentOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addQueryParam({
+        key: 'workspace',
+        value: params?.workspace,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<CreateEnvironmentOkResponse>(request);
   }
 
@@ -94,17 +106,23 @@ export class EnvironmentsService extends BaseService {
    * @returns {Promise<HttpResponse<GetEnvironment>>} Successful Response
    */
   async getEnvironment(environmentId: string, requestConfig?: RequestConfig): Promise<HttpResponse<GetEnvironment>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/environments/{environmentId}',
-      config: this.config,
-      responseSchema: getEnvironmentResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('environmentId', environmentId);
+    const request = new RequestBuilder<GetEnvironment>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/environments/{environmentId}')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getEnvironmentResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'environmentId',
+        value: environmentId,
+      })
+      .build();
     return this.client.call<GetEnvironment>(request);
   }
 
@@ -118,19 +136,25 @@ export class EnvironmentsService extends BaseService {
     body: UpdateEnvironmentRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<UpdateEnvironmentOkResponse>> {
-    const request = new Request({
-      method: 'PUT',
-      body,
-      path: '/environments/{environmentId}',
-      config: this.config,
-      responseSchema: updateEnvironmentOkResponseResponse,
-      requestSchema: updateEnvironmentRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('environmentId', environmentId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<UpdateEnvironmentOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('PUT')
+      .setPath('/environments/{environmentId}')
+      .setRequestSchema(updateEnvironmentRequestRequest)
+      .setResponseSchema(updateEnvironmentOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'environmentId',
+        value: environmentId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<UpdateEnvironmentOkResponse>(request);
   }
 
@@ -143,17 +167,23 @@ export class EnvironmentsService extends BaseService {
     environmentId: string,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<DeleteEnvironment>> {
-    const request = new Request({
-      method: 'DELETE',
-      path: '/environments/{environmentId}',
-      config: this.config,
-      responseSchema: deleteEnvironmentResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('environmentId', environmentId);
+    const request = new RequestBuilder<DeleteEnvironment>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('DELETE')
+      .setPath('/environments/{environmentId}')
+      .setRequestSchema(z.any())
+      .setResponseSchema(deleteEnvironmentResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'environmentId',
+        value: environmentId,
+      })
+      .build();
     return this.client.call<DeleteEnvironment>(request);
   }
 
@@ -171,21 +201,39 @@ export class EnvironmentsService extends BaseService {
     params?: GetEnvironmentForksParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<GetEnvironmentForks>> {
-    const request = new Request({
-      method: 'GET',
-      path: '/environments/{environmentId}/forks',
-      config: this.config,
-      responseSchema: getEnvironmentForksResponse,
-      requestSchema: z.any(),
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('environmentId', environmentId);
-    request.addQueryParam('cursor', params?.cursor);
-    request.addQueryParam('direction', params?.direction);
-    request.addQueryParam('limit', params?.limit);
-    request.addQueryParam('sort', params?.sort);
+    const request = new RequestBuilder<GetEnvironmentForks>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('GET')
+      .setPath('/environments/{environmentId}/forks')
+      .setRequestSchema(z.any())
+      .setResponseSchema(getEnvironmentForksResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'environmentId',
+        value: environmentId,
+      })
+      .addQueryParam({
+        key: 'cursor',
+        value: params?.cursor,
+      })
+      .addQueryParam({
+        key: 'direction',
+        value: params?.direction,
+      })
+      .addQueryParam({
+        key: 'limit',
+        value: params?.limit,
+      })
+      .addQueryParam({
+        key: 'sort',
+        value: params?.sort,
+      })
+      .build();
     return this.client.call<GetEnvironmentForks>(request);
   }
 
@@ -201,20 +249,29 @@ export class EnvironmentsService extends BaseService {
     params: ForkEnvironmentParams,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<ForkEnvironmentOkResponse>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/environments/{environmentId}/forks',
-      config: this.config,
-      responseSchema: forkEnvironmentOkResponseResponse,
-      requestSchema: forkEnvironmentRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('environmentId', environmentId);
-    request.addQueryParam('workspaceId', params?.workspaceId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<ForkEnvironmentOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/environments/{environmentId}/forks')
+      .setRequestSchema(forkEnvironmentRequestRequest)
+      .setResponseSchema(forkEnvironmentOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'environmentId',
+        value: environmentId,
+      })
+      .addQueryParam({
+        key: 'workspaceId',
+        value: params?.workspaceId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<ForkEnvironmentOkResponse>(request);
   }
 
@@ -228,19 +285,25 @@ export class EnvironmentsService extends BaseService {
     body: MergeEnvironmentForkRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<MergeEnvironmentForkOkResponse>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/environments/{environmentId}/merges',
-      config: this.config,
-      responseSchema: mergeEnvironmentForkOkResponseResponse,
-      requestSchema: mergeEnvironmentForkRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('environmentId', environmentId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<MergeEnvironmentForkOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/environments/{environmentId}/merges')
+      .setRequestSchema(mergeEnvironmentForkRequestRequest)
+      .setResponseSchema(mergeEnvironmentForkOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'environmentId',
+        value: environmentId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<MergeEnvironmentForkOkResponse>(request);
   }
 
@@ -254,19 +317,25 @@ export class EnvironmentsService extends BaseService {
     body: PullEnvironmentRequest,
     requestConfig?: RequestConfig,
   ): Promise<HttpResponse<PullEnvironmentOkResponse>> {
-    const request = new Request({
-      method: 'POST',
-      body,
-      path: '/environments/{environmentId}/pulls',
-      config: this.config,
-      responseSchema: pullEnvironmentOkResponseResponse,
-      requestSchema: pullEnvironmentRequestRequest,
-      requestContentType: ContentType.Json,
-      responseContentType: ContentType.Json,
-      requestConfig,
-    });
-    request.addPathParam('environmentId', environmentId);
-    request.addHeaderParam('Content-Type', 'application/json');
+    const request = new RequestBuilder<PullEnvironmentOkResponse>()
+      .setConfig(this.config)
+      .setBaseUrl(this.config)
+      .setMethod('POST')
+      .setPath('/environments/{environmentId}/pulls')
+      .setRequestSchema(pullEnvironmentRequestRequest)
+      .setResponseSchema(pullEnvironmentOkResponseResponse)
+      .setRequestContentType(ContentType.Json)
+      .setResponseContentType(ContentType.Json)
+      .setRetryAttempts(this.config, requestConfig)
+      .setRetryDelayMs(this.config, requestConfig)
+      .setResponseValidation(this.config, requestConfig)
+      .addPathParam({
+        key: 'environmentId',
+        value: environmentId,
+      })
+      .addHeaderParam({ key: 'Content-Type', value: 'application/json' })
+      .addBody(body)
+      .build();
     return this.client.call<PullEnvironmentOkResponse>(request);
   }
 }

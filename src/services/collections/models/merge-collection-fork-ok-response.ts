@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const mergeCollectionForkOkResponse: any = z.lazy(() => {
+export const mergeCollectionForkOkResponse = z.lazy(() => {
   return z.object({
     collection: mergeCollectionForkCollection.optional(),
   });
@@ -27,7 +27,7 @@ export type MergeCollectionForkOkResponse = z.infer<typeof mergeCollectionForkOk
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const mergeCollectionForkOkResponseResponse: any = z.lazy(() => {
+export const mergeCollectionForkOkResponseResponse = z.lazy(() => {
   return z
     .object({
       collection: mergeCollectionForkCollectionResponse.optional(),
@@ -41,7 +41,7 @@ export const mergeCollectionForkOkResponseResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const mergeCollectionForkOkResponseRequest: any = z.lazy(() => {
+export const mergeCollectionForkOkResponseRequest = z.lazy(() => {
   return z.object({ collection: mergeCollectionForkCollectionRequest.nullish() }).transform((data) => ({
     collection: data['collection'],
   }));

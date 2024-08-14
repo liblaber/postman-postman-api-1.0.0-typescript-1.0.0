@@ -10,7 +10,7 @@ import {
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getEnvironments: any = z.lazy(() => {
+export const getEnvironments = z.lazy(() => {
   return z.object({
     environments: z.array(getEnvironmentsEnvironments).optional(),
   });
@@ -27,7 +27,7 @@ export type GetEnvironments = z.infer<typeof getEnvironments>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getEnvironmentsResponse: any = z.lazy(() => {
+export const getEnvironmentsResponse = z.lazy(() => {
   return z
     .object({
       environments: z.array(getEnvironmentsEnvironmentsResponse).optional(),
@@ -41,7 +41,7 @@ export const getEnvironmentsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getEnvironmentsRequest: any = z.lazy(() => {
+export const getEnvironmentsRequest = z.lazy(() => {
   return z.object({ environments: z.array(getEnvironmentsEnvironmentsRequest).nullish() }).transform((data) => ({
     environments: data['environments'],
   }));

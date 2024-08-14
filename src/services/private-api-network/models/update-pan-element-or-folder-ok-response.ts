@@ -7,7 +7,7 @@ import { panFolderCreated, panFolderCreatedRequest, panFolderCreatedResponse } f
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const updatePanElementOrFolderOkResponse: any = z.lazy(() => {
+export const updatePanElementOrFolderOkResponse = z.lazy(() => {
   return z.union([panElementCreated, panFolderCreated]);
 });
 
@@ -23,7 +23,7 @@ export type UpdatePanElementOrFolderOkResponse = z.infer<typeof updatePanElement
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanElementOrFolderOkResponseResponse: any = z.lazy(() => {
+export const updatePanElementOrFolderOkResponseResponse = z.lazy(() => {
   return z.union([panElementCreatedResponse, panFolderCreatedResponse]);
 });
 
@@ -31,6 +31,6 @@ export const updatePanElementOrFolderOkResponseResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const updatePanElementOrFolderOkResponseRequest: any = z.lazy(() => {
+export const updatePanElementOrFolderOkResponseRequest = z.lazy(() => {
   return z.union([panElementCreatedRequest, panFolderCreatedRequest]);
 });

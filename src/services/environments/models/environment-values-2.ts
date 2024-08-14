@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const environmentValues2: any = z.lazy(() => {
+export const environmentValues2 = z.lazy(() => {
   return z.object({
     enabled: z.boolean().optional(),
     key: z.string().optional(),
@@ -28,7 +28,7 @@ export type EnvironmentValues2 = z.infer<typeof environmentValues2>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const environmentValues2Response: any = z.lazy(() => {
+export const environmentValues2Response = z.lazy(() => {
   return z
     .object({
       enabled: z.boolean().optional(),
@@ -48,7 +48,7 @@ export const environmentValues2Response: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const environmentValues2Request: any = z.lazy(() => {
+export const environmentValues2Request = z.lazy(() => {
   return z
     .object({
       enabled: z.boolean().nullish(),

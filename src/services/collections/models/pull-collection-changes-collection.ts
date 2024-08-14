@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const pullCollectionChangesCollection: any = z.lazy(() => {
+export const pullCollectionChangesCollection = z.lazy(() => {
   return z.object({
     destinationId: z.string().optional(),
     sourceId: z.string().optional(),
@@ -24,7 +24,7 @@ export type PullCollectionChangesCollection = z.infer<typeof pullCollectionChang
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullCollectionChangesCollectionResponse: any = z.lazy(() => {
+export const pullCollectionChangesCollectionResponse = z.lazy(() => {
   return z
     .object({
       destinationId: z.string().optional(),
@@ -40,7 +40,7 @@ export const pullCollectionChangesCollectionResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const pullCollectionChangesCollectionRequest: any = z.lazy(() => {
+export const pullCollectionChangesCollectionRequest = z.lazy(() => {
   return z.object({ destinationId: z.string().nullish(), sourceId: z.string().nullish() }).transform((data) => ({
     destinationId: data['destinationId'],
     sourceId: data['sourceId'],

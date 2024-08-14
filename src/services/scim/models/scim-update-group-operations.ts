@@ -6,7 +6,7 @@ import { operationsValue1, operationsValue1Request, operationsValue1Response } f
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const scimUpdateGroupOperations: any = z.lazy(() => {
+export const scimUpdateGroupOperations = z.lazy(() => {
   return z.object({
     op: z.string().optional(),
     path: z.string().optional(),
@@ -27,7 +27,7 @@ export type ScimUpdateGroupOperations = z.infer<typeof scimUpdateGroupOperations
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUpdateGroupOperationsResponse: any = z.lazy(() => {
+export const scimUpdateGroupOperationsResponse = z.lazy(() => {
   return z
     .object({
       op: z.string().optional(),
@@ -45,7 +45,7 @@ export const scimUpdateGroupOperationsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const scimUpdateGroupOperationsRequest: any = z.lazy(() => {
+export const scimUpdateGroupOperationsRequest = z.lazy(() => {
   return z
     .object({ op: z.string().nullish(), path: z.string().nullish(), value: operationsValue1Request.nullish() })
     .transform((data) => ({

@@ -6,7 +6,7 @@ import { schemaExtensions, schemaExtensionsRequest, schemaExtensionsResponse } f
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getScimResourceTypes: any = z.lazy(() => {
+export const getScimResourceTypes = z.lazy(() => {
   return z.object({
     schemas: z.array(z.string()).optional(),
     id: z.string().optional(),
@@ -35,7 +35,7 @@ export type GetScimResourceTypes = z.infer<typeof getScimResourceTypes>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimResourceTypesResponse: any = z.lazy(() => {
+export const getScimResourceTypesResponse = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).optional(),
@@ -61,7 +61,7 @@ export const getScimResourceTypesResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getScimResourceTypesRequest: any = z.lazy(() => {
+export const getScimResourceTypesRequest = z.lazy(() => {
   return z
     .object({
       schemas: z.array(z.string()).nullish(),

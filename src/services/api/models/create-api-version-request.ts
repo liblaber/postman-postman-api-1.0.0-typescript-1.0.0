@@ -8,7 +8,7 @@ import { createApiVersion3, createApiVersion3Request, createApiVersion3Response 
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createApiVersionRequest: any = z.lazy(() => {
+export const createApiVersionRequest = z.lazy(() => {
   return z.union([createApiVersion1, createApiVersion2, createApiVersion3]);
 });
 
@@ -25,7 +25,7 @@ export type CreateApiVersionRequest = z.infer<typeof createApiVersionRequest>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiVersionRequestResponse: any = z.lazy(() => {
+export const createApiVersionRequestResponse = z.lazy(() => {
   return z.union([createApiVersion1Response, createApiVersion2Response, createApiVersion3Response]);
 });
 
@@ -33,6 +33,6 @@ export const createApiVersionRequestResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createApiVersionRequestRequest: any = z.lazy(() => {
+export const createApiVersionRequestRequest = z.lazy(() => {
   return z.union([createApiVersion1Request, createApiVersion2Request, createApiVersion3Request]);
 });

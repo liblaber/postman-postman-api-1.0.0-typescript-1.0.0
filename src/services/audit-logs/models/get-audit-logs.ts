@@ -6,7 +6,7 @@ import { trails, trailsRequest, trailsResponse } from './trails';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const getAuditLogs: any = z.lazy(() => {
+export const getAuditLogs = z.lazy(() => {
   return z.object({
     trails: z.array(trails).optional(),
   });
@@ -23,7 +23,7 @@ export type GetAuditLogs = z.infer<typeof getAuditLogs>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAuditLogsResponse: any = z.lazy(() => {
+export const getAuditLogsResponse = z.lazy(() => {
   return z
     .object({
       trails: z.array(trailsResponse).optional(),
@@ -37,7 +37,7 @@ export const getAuditLogsResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const getAuditLogsRequest: any = z.lazy(() => {
+export const getAuditLogsRequest = z.lazy(() => {
   return z.object({ trails: z.array(trailsRequest).nullish() }).transform((data) => ({
     trails: data['trails'],
   }));

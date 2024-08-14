@@ -5,7 +5,7 @@ import { z } from 'zod';
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const panCreateWorkspaceWorkspace: any = z.lazy(() => {
+export const panCreateWorkspaceWorkspace = z.lazy(() => {
   return z.object({
     id: z.string(),
     parentFolderId: z.number(),
@@ -24,7 +24,7 @@ export type PanCreateWorkspaceWorkspace = z.infer<typeof panCreateWorkspaceWorks
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const panCreateWorkspaceWorkspaceResponse: any = z.lazy(() => {
+export const panCreateWorkspaceWorkspaceResponse = z.lazy(() => {
   return z
     .object({
       id: z.string(),
@@ -40,7 +40,7 @@ export const panCreateWorkspaceWorkspaceResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const panCreateWorkspaceWorkspaceRequest: any = z.lazy(() => {
+export const panCreateWorkspaceWorkspaceRequest = z.lazy(() => {
   return z.object({ id: z.string().nullish(), parentFolderId: z.number().nullish() }).transform((data) => ({
     id: data['id'],
     parentFolderId: data['parentFolderId'],

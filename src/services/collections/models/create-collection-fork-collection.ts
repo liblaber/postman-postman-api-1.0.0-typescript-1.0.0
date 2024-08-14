@@ -6,7 +6,7 @@ import { collectionFork, collectionForkRequest, collectionForkResponse } from '.
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const createCollectionForkCollection: any = z.lazy(() => {
+export const createCollectionForkCollection = z.lazy(() => {
   return z.object({
     id: z.string().optional(),
     name: z.string().optional(),
@@ -29,7 +29,7 @@ export type CreateCollectionForkCollection = z.infer<typeof createCollectionFork
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const createCollectionForkCollectionResponse: any = z.lazy(() => {
+export const createCollectionForkCollectionResponse = z.lazy(() => {
   return z
     .object({
       id: z.string().optional(),
@@ -49,7 +49,7 @@ export const createCollectionForkCollectionResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const createCollectionForkCollectionRequest: any = z.lazy(() => {
+export const createCollectionForkCollectionRequest = z.lazy(() => {
   return z
     .object({
       id: z.string().nullish(),

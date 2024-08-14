@@ -24,6 +24,30 @@ import { ScimService } from './services/scim';
 import { WebhooksService } from './services/webhooks';
 import { WorkspacesService } from './services/workspaces';
 
+export * from './services/billing';
+export * from './services/api';
+export * from './services/tags';
+export * from './services/audit-logs';
+export * from './services/collections';
+export * from './services/collection-items';
+export * from './services/collection-folders';
+export * from './services/collection-requests';
+export * from './services/collection-responses';
+export * from './services/secret-scanner';
+export * from './services/environments';
+export * from './services/import_';
+export * from './services/user';
+export * from './services/mocks';
+export * from './services/monitors';
+export * from './services/private-api-network';
+export * from './services/pull-requests';
+export * from './services/api-security';
+export * from './services/scim';
+export * from './services/webhooks';
+export * from './services/workspaces';
+
+export type * from './http';
+
 export class PostmanClient {
   public readonly billing: BillingService;
 

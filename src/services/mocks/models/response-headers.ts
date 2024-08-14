@@ -6,7 +6,7 @@ import { description, descriptionRequest, descriptionResponse } from './descript
 /**
  * The shape of the model inside the application code - what the users use
  */
-export const responseHeaders: any = z.lazy(() => {
+export const responseHeaders = z.lazy(() => {
   return z.object({
     description: description.optional(),
     key: z.string().optional(),
@@ -27,7 +27,7 @@ export type ResponseHeaders = z.infer<typeof responseHeaders>;
  * The shape of the model mapping from the api schema into the application shape.
  * Is equal to application shape if all property names match the api schema
  */
-export const responseHeadersResponse: any = z.lazy(() => {
+export const responseHeadersResponse = z.lazy(() => {
   return z
     .object({
       description: descriptionResponse.optional(),
@@ -45,7 +45,7 @@ export const responseHeadersResponse: any = z.lazy(() => {
  * The shape of the model mapping from the application shape into the api schema.
  * Is equal to application shape if all property names match the api schema
  */
-export const responseHeadersRequest: any = z.lazy(() => {
+export const responseHeadersRequest = z.lazy(() => {
   return z
     .object({ description: descriptionRequest.nullish(), key: z.string().nullish(), value: z.string().nullish() })
     .transform((data) => ({
